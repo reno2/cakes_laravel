@@ -1,0 +1,50 @@
+
+$fa-font-path:        "../webfonts";
+@import "variables";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+
+.info {
+  &.info_admin {
+    position: absolute;
+    right: 3%;
+    top: 10%;
+    background: #61c2cc;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 900ms;
+  }
+  &.hide{
+    transition: all 900ms;
+    right: -100%;
+  }
+}
+
+
+
+.admin{
+  .marea{
+    .marea-top{
+      flex-grow: 0;
+    }
+    .marea-middle{
+      flex-grow: 1;
+    }
+    .marea__item{
+
+    }
+  }
+}
+
+//admin cdud
+#aform{
+  padding: 3rem;
+  background: #fff;
+  .slug{
+    .slug__el{
+      flex-basis: 50%;
+    }
+  }
+}
