@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Article;
 use App\Tag;
-use MetaTag;
+
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
@@ -25,11 +25,9 @@ class BlogController extends Controller
 
 
 				$category = Category::where('slug', $slug)->first();
+                if(!$category)  abort(404);
 
-            SeometaFacade::setTags('category', $category->toArray());
-
-				//MetaTag::setTags(['title'=> $category->title]);
-				//dd($category->articles()->where('published', 0)->paginate(12));
+                SeometaFacade::setTags('category', $category->toArray());
 				return view('blog.category', [
 						'category' => $category,
 						'articles' => $category->articles()->where('published', 1)->paginate(12)

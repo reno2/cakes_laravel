@@ -112,7 +112,7 @@ class CategoryController extends Controller
         ]);
 
 
-        $category->update($request->all());
+        $res = $category->update($request->all());
         session()->flash('message', "Категория  изменена");
         return redirect()->route('admin.category.index');
     }
