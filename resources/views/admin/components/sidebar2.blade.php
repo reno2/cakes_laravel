@@ -42,7 +42,7 @@
                 <a href="#" class="nav-link" id="dmenu" >Настройки</a>
 
                 <div class="dmenu">
-                    <a class="dropdown-item" href="{{route('admin.seo.index')}}">Категории</a>
+                    <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
                     <a class="dropdown-item" href="{{route('admin.article.index')}}">Материалы</a>
                     <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
                 </div>

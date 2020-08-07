@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Seo\SeometaFacade;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Article;
@@ -24,6 +25,9 @@ class BlogController extends Controller
 
 
 				$category = Category::where('slug', $slug)->first();
+
+            SeometaFacade::setTags('category', $category->toArray());
+
 				//MetaTag::setTags(['title'=> $category->title]);
 				//dd($category->articles()->where('published', 0)->paginate(12));
 				return view('blog.category', [

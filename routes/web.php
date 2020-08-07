@@ -26,7 +26,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
         Route::resource('/tags', 'TagController', ['as'=> 'admin']);
 
-        Route::resource('/seo', 'SeoController', ['as'=> 'admin']);
+        //Route::resource('/seo', 'SeoController', ['as'=> 'admin']);
+
+        Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {
+            Route::group(['prefix' => '/category'], function () {
+                Route::get('/', 'SeoCategoryController@get')->name('seo.category.index');
+               // Route::get('/add', 'SeoController@categoryAdd')->name('seo.category.add');
+                Route::post('/update', 'SeoCategoryController@updateCategory')->name('seo.category.update');
+            });
+
+        });
 //
 //
 //        Route::group(['prefix' => 'user_managment', 'namespace' => 'UserManagment'], function(){

@@ -1,11 +1,11 @@
 @extends('layouts.app')
+{{--{{SeometaFacade::render()}}--}}
+{{--@section('title')--}}
 
-@section('title')
 
 
-        {{$category->title ?? ''}}
 
-@endsection
+{{--@endsection--}}
 
 
 

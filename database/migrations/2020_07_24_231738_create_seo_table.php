@@ -17,6 +17,7 @@ class CreateSeoTable extends Migration
             $table->id();
             $table->timestamps();
             // url path - without domain
+            $table->string('type')->nullable();
             $table->string('path')->nullable();
 
             // metatagable: node, term,...
