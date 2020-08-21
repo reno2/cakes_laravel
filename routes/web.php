@@ -50,11 +50,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 //
 
 //
-//        Route::get('/search', "ArticleController@search")->name('admin_search');
-//        Route::get('/autocomplete', "ArticleController@autocomplete")->name('admin_autocomplete');
+       //Route::get('/search', "ArticleController@search")->name('admin_search');
+
 
     });
-
+Route::get('/autocomplete', "SearchController@autocomplete")->name('admin_autocomplete');
 
 
 

@@ -18,8 +18,8 @@ class SeoCategoryController extends SeoAbstractController{
     {
         if($request->has('id') && !empty($request->input('id')))
             return parent::update($request);
-         else
-             return parent::create($request);
+        else
+            return parent::create($request);
     }
 
     public function get(){

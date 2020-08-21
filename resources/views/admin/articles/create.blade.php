@@ -39,9 +39,26 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            var $select2 = $('#tags').select2({
-
-            })
+            var $select2 = $('#tags').select2({})
+            //     placeholder: "Search for an Item",
+            //     minimumInputLength: 2,
+            //     ajax: {
+            //         url: '/autocomplete',
+            //         dataType: 'json',
+            //         type: "GET",
+            //         data: function (term) {
+            //             return {
+            //                 term: term
+            //             };
+            //         },
+            //         processResults: function (data, page) {
+            //             var response = JSON.parse(data);
+            //             return {
+            //                 results: response
+            //             };
+            //         }
+            //     }
+            // })
             //$select2.data('select2').$container.find('input').addClass("form-control")
 
         });

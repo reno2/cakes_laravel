@@ -18,7 +18,7 @@ class CreateArticleTagTable extends Migration
             $table->integer('article_id')->unsigned();
             $table->foreign('article_id')->references('id')->on('articles');
             $table->integer('tag_id')->unsigned();
-		        $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('tag_id')->references('id')->on('tags');
         });
     }
 

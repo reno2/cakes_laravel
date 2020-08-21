@@ -21,7 +21,6 @@ class Seometa{
         // Сделать Вызываем нужный контроллер
         // Пока метод
         $this->getTplValues($data);
-
         $this->setCategoryTags();
 
 
