@@ -58,3 +58,16 @@ $fa-font-path:        "../webfonts";
         }
     }
 }
+//adminfiltersGrop - группы фильтров в админке
+.filters-group{
+    .filters-group__content{
+        padding: 16px;
+        .filters-group__item {
+            margin-bottom: 8px;
+            .filters-group__label {
+                margin-right: 16px;
+            }
+        }
+    }
+}
+

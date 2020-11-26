@@ -65,6 +65,14 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            //'slug' => Rule::unique('articles'),
+            'title' => 'required',
+            'description' => 'required',
+            'categories' => 'required',
+        ]);
+
         $r = $request->all();
         $r['on_front'] =$request->input('on_front') ? true : false;
         //	dd($r );
@@ -72,6 +80,17 @@ class ArticleController extends Controller
 
 
         $article = Article::create($r);
+
+        // FilterGroups
+        if($request->input('attrs')):
+            // Если есть фильтры, то удаляем все связи и обновляем новые
+            $article->filterGroups()->delete();
+            $article->filterValues()->delete();
+            // Создаём новые связи
+            $article->filterGroups()->attach(array_keys($request->input('attrs')));
+            $article->filterValues()->attach($request->input('attrs'));
+        endif;
+
         // Categories
         if($request->input('categories')):
             $article->categories()->attach($request->input('categories'));
@@ -98,7 +117,8 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Article $article)
     {
@@ -108,10 +128,13 @@ class ArticleController extends Controller
             $tags2[$tag->id] = $tag->name;
         }
 
+        $filters = $article->filterValues()->pluck('value_id')->all();
+
         return view('admin.articles.edit', [
             'article' => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags' => $tags,
+            'filter' => $filters,
             'delimiter' => ''
         ]);
     }
@@ -121,7 +144,8 @@ class ArticleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update(Request $request, Article $article)
     {
@@ -139,6 +163,12 @@ class ArticleController extends Controller
         {
             $update = $article->update($r);
 
+
+            // FilterGroups
+            if($request->input('attrs')):
+                $article->filterGroups()->attach(array_keys($request->input('attrs')));
+                $article->filterValues()->attach($request->input('attrs'));
+            endif;
 
             //Tags
             $article->tags()->detach();

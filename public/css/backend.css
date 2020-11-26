@@ -6119,3 +6119,15 @@ readers do not read off random characters that represent icons */
   list-style-type: none;
 }
 
+.filters-group .filters-group__content {
+  padding: 16px;
+}
+
+.filters-group .filters-group__content .filters-group__item {
+  margin-bottom: 8px;
+}
+
+.filters-group .filters-group__content .filters-group__item .filters-group__label {
+  margin-right: 16px;
+}
+

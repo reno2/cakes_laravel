@@ -34,4 +34,14 @@ class Article extends Model
     public function tags(){
         return $this->belongsToMany('\App\Tag');
     }
+
+    //plymorphe
+    public function filterGroups(){
+        // Первым парметром передаём модель, с которой связь, вторым приставку полей
+        return $this->morphToMany('App\Property', 'groupefiltersable');
+    }
+    //plymorphe
+    public function filterValues(){
+        return $this->morphToMany('App\Value', 'valuefiltersable');
+    }
 }

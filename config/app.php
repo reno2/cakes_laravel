@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SeometaServiceProvider::class,
-
+        App\Providers\WidgetServiceProvider::class,
     ],
 
     /*

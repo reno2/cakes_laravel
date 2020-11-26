@@ -29,6 +29,7 @@
                         <a class="dropdown-item" href="{{route('admin.category.index')}}">Категории</a>
                         <a class="dropdown-item" href="{{route('admin.article.index')}}">Материалы</a>
                         <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
+                        <a class="dropdown-item" href="{{route('admin.features.index')}}">Характеристики</a>
                     </div>
                 </li>
             </ul>
@@ -43,7 +44,7 @@
 
                 <div class="dmenu">
                     <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
-                    <a class="dropdown-item" href="{{route('admin.article.index')}}">Материалы</a>
+                    <a class="dropdown-item" href="{{route('seo.post.index')}}">Материалы</a>
                     <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
                 </div>
             </li>

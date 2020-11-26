@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 {{--    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>--}}
 {{--    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">--}}
-{{--    <title>{!!  MetaTag::tag('title') !!}</title>--}}
+{{--    <title>{!!  MetaTag::setTitle('title') !!}</title>--}}
 
 
 
@@ -44,10 +44,12 @@
 </div>
 
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/forms.js')}}"></script>
 @yield('page-script')
 
 <!-- Scripts -->
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('js/backend.js')}}"></script>
 <link href="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css') }}" rel="stylesheet">
 <script src="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') }}"></script>
 

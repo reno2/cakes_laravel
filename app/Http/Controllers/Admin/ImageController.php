@@ -31,24 +31,26 @@ class ImageController extends Controller
 		 */
     public function add(Request $request)
     {
+        $r = $request->all();
+      dd($r);
 
-		    $filename = time().$request->file('image')->getClientOriginalName();
-		    $path = 'public/categories/' .  $filename;
-		   
-            // $image = Image::make($request->file('image'))->fit(300, 300);
-            $image= Image::make($request->file('image'))->fit(300, 300, function ($constraint) {
-                 $constraint->upsize();
-            }, 'center');
-
-		    $bb =  Storage::put($path, (string) $image->encode());
-
-		    if($bb)
-				{
-						$url = Storage::url($path);
-				    return response()->json([
-						    'image' => 	 $url
-				    ]);
-				}
+//		    $filename = time().$request->file('image')->getClientOriginalName();
+//		    $path = 'public/categories/' .  $filename;
+//
+//            // $image = Image::make($request->file('image'))->fit(300, 300);
+//            $image= Image::make($request->file('image'))->fit(300, 300, function ($constraint) {
+//                 $constraint->upsize();
+//            }, 'center');
+//
+//		    $bb =  Storage::put($path, (string) $image->encode());
+//
+//		    if($bb)
+//				{
+//						$url = Storage::url($path);
+//				    return response()->json([
+//						    'image' => 	 $url
+//				    ]);
+//				}
     }
 
 		public function upload(Request $request){

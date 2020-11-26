@@ -4,7 +4,7 @@
     <img src="{{$article->categories->pluck('image')->first()}}">
     <div class="card-body">
         @include('chunks.check_admin')
-        <h5 class="card-title"><a href="{{route('article', $article->slug)}}">{{$article->title}}</a></h5>
+        <h5 class="card-title"><a href="{{route('post', $article->slug)}}">{{$article->title}}</a></h5>
         <div class="cart-category">
 
             <a  class="cart-category__el" href="/blog/category/{{$article->categories->pluck('slug')->first()}}">

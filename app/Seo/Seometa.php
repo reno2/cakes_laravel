@@ -20,20 +20,25 @@ class Seometa{
     public function setTags($type, $data) : void {
         // Сделать Вызываем нужный контроллер
         // Пока метод
+        $this->type = $type;
         $this->getTplValues($data);
         $this->setCategoryTags();
 
 
-        $this->type = $type;
+
 
     }
 
     public function getTplValues($post){
         $result = [];
-        foreach ($post as $key => $val){
-            //$newKey = str_replace( "meta_", "", $key);
-            if(in_array($key, $this->categoryTplValues))
-                $result[$key] = $val;
+        if(is_array($post))
+            foreach ($post as $key => $val){
+                //$newKey = str_replace( "meta_", "", $key);
+                if(in_array($key, $this->categoryTplValues))
+                    $result[$key] = $val;
+            }
+        else{
+            $result[$this->type] = $post;
         }
         $this->post =  $result;
     }
@@ -76,6 +81,11 @@ class Seometa{
     }
 
     public function setTitle($key, $seoTpl, $needleName, $toValue){
+        $value = str_replace( "#".$needleName."#", $toValue, $seoTpl);
+        $this->renderArray[$key] = $value;
+    }
+
+    public function setH1($key, $seoTpl, $needleName, $toValue){
         $value = str_replace( "#".$needleName."#", $toValue, $seoTpl);
         $this->renderArray[$key] = $value;
     }

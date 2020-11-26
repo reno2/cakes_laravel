@@ -26,7 +26,6 @@ class BlogController extends Controller
 
 				$category = Category::where('slug', $slug)->first();
                 if(!$category)  abort(404);
-
                 SeometaFacade::setTags('category', $category->toArray());
 				return view('blog.category', [
 						'category' => $category,
@@ -34,12 +33,14 @@ class BlogController extends Controller
 				]);
 		}
 
-		public function article($slug){
+		public function post($slug){
 
 				$article = Article::where('slug', $slug)->first();
-				MetaTag::setTags(['title'=> $article->title]);
+                SeometaFacade::setTags('article', $article->toArray());
+
+				//MetaTag::setTags(['title'=> $article->title]);
 				//dd($category->articles()->where('published', 0)->paginate(12));
-				return view('blog.article', [
+				return view('blog.post', [
 						'article' => $article,
 						//'articles' => $category->articles()->where('published', 1)->paginate(12)
 				]);

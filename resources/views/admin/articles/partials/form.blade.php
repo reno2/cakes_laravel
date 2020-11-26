@@ -22,7 +22,14 @@
 
 <div class="form-group">
 <label for="title">Заголовок</label>
-<input type="text" name="title" class="form-control" id="name" value="{{$article->title ?? ''}}">
+<input type="text" name="title" class="form-control" id="name" value="
+@if(isset($article->title))
+{{$article->title}}
+@elseif(old('title'))
+{{old('title')}}
+@else
+@endif
+">
 </div>
 
 
@@ -90,6 +97,19 @@
 </div>
 
 
+<div class="form-group">
+    <div id="product-filters">Фильтры продукта</div>
+    {{--Widgets::filter tpl--}}
+    @if(isset($filter))
+
+        @widget('articleCreate', ['tpl'=>'Widgets::adminFiltersGroup', 'filter' => $filter])
+        @else
+
+        @widget('articleCreate', ['tpl'=>'Widgets::adminFiltersGroup', 'filter' => null])
+        @endif
+
+</div>
+
 <div class="form-check form-reload">
 
     <input  type="checkbox" value="" name="reload" class="form-check-input" id="reload">
@@ -97,4 +117,3 @@
 </div>
 <hr>
 <input type="submit" class="btn btn-block btn-primary" value="Сохранить">
-

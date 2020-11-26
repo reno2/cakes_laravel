@@ -1,18 +1,20 @@
 @extends('layouts.app')
 
 @section('title')
-
-    @if(MetaTag::tag('title'))
-        {!! MetaTag::tag('title') !!}
-    @endif
+    {!! SeometaFacade::renderTag('title') !!}
+    {!! SeometaFacade::renderTag('keywords') !!}
+    {!! SeometaFacade::renderTag('description') !!}
+{{--    @if(MetaTag::tag('title'))--}}
+{{--        {!! MetaTag::tag('title') !!}--}}
+{{--    @endif--}}
 @endsection
 
 @section('content')
 
 
-    @component('chunks.page_title')
-        @slot('title') {!! MetaTag::tag('title') !!}@endslot
-    @endcomponent
+{{--    @component('chunks.page_title')--}}
+{{--        @slot('title') {!! MetaTag::tag('title') !!}@endslot--}}
+{{--    @endcomponent--}}
 
     <div class="article">
         <div class="container pb-4">
@@ -22,7 +24,7 @@
         </div>
 
         <div class="container">
-
+            {!! SeometaFacade::renderTag('h1') !!}
 
             <div class="row ">
 {{--                <div class="col">--}}
