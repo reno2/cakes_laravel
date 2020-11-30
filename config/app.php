@@ -162,6 +162,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
+
+
         /*
          * Package Service Providers...
          */
@@ -176,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SeometaServiceProvider::class,
         App\Providers\WidgetServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -228,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'SeometaFacade' => App\Seo\SeometaFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

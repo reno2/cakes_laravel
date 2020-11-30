@@ -14,7 +14,7 @@ const formsFile = {
     files: [],
     input: null,
     sendFiles: [],
-      // Инициализация 
+      // Инициализация
     init(input, formId, multiple) {
         formsFile.multiple = multiple
         formsFile.input = input
@@ -116,8 +116,8 @@ const formsFile = {
     // Правили валидации
     validateRule: {
         limit: (file, el) => {
-            let msg = 'Максимальное количество файлов 2';
-            if (Object.keys(formsFile.sendFiles).length + 1 > 2 || formsFile.input.files.length > 2) {
+            let msg = 'Максимальное количество файлов 5';
+            if (Object.keys(formsFile.sendFiles).length + 1 > 5 || formsFile.input.files.length > 5) {
                 formsFile.showNotice(el, msg)
                 return false
             }

@@ -31,9 +31,9 @@
 
             <div class="marea-middle marea__item">
                 @include('chunks.messeges')
-
+                <div class="col-md-9">
                 @include('chunks.errors')
-
+                </div>
                 <div class="container-fluid pt-5 pl-5 pr-5">
                  @yield('content')
                 </div>

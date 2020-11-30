@@ -44,4 +44,10 @@ class Article extends Model
     public function filterValues(){
         return $this->morphToMany('App\Value', 'valuefiltersable');
     }
+
+    // Связь с картинками
+    public function images()
+    {
+        return $this->hasMany('App\PostImage');
+    }
 }

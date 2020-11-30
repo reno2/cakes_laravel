@@ -30,6 +30,9 @@
 @else
 @endif
 ">
+    @if($errors->has('title'))
+        <span class="help-block text-danger">{{ $errors->first('title') }}</span>
+    @endif
 </div>
 
 
