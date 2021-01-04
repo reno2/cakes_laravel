@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Seo\SeometaFacade;
 use Illuminate\Http\Request;
-use App\Category;
-use App\Article;
-use App\Tag;
+use App\Models\Category;
+use App\Models\Article;
+use App\Models\Tag;
 
 use Illuminate\Support\Facades\Storage;
 

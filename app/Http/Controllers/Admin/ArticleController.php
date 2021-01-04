@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Article;
-use App\Category;
+use App\Models\Article;
+use App\Models\Category;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Mockery\Exception;
 use App\Http\Requests\FileValidate;
-use App\PostImage;
+use App\Models\PostImage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,8 +28,10 @@ class ArticleController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
+    private $count = 5;
+
     public function index(Request $request)
     {
 
@@ -51,7 +56,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $tags = \App\Tag::all();
+        $tags = \App\Models\Tag::all();
 
         //dd(Category::with('children')->where('parent_id', 0)->get());
         return view('admin.articles.create', [
@@ -75,7 +80,6 @@ class ArticleController extends Controller
         $validated = $request->validated();
 
 
-
         $inputs             = $request->all();
         $inputs['on_front'] = $request->input('on_front') ? true : false;
 
@@ -86,25 +90,23 @@ class ArticleController extends Controller
         $article = Article::create($inputs);
 
 
-        if($request->hasfile('image'))
-        {
-            foreach($request->file('image') as $image)
-            {
+        if ($request->hasfile('image')) {
+            foreach ($request->file('image') as $image) {
                 $postImage = new PostImage;
-                $name = $image->getClientOriginalName();
-               // $path = $image->move(public_path().'/images/', $name);
-                $path = 'public/images/'. $name;
+                $name      = $image->getClientOriginalName();
+                // $path = $image->move(public_path().'/images/', $name);
+                $path = 'public/images/' . $name;
 
-                $image= Image::make($image)->fit(450, 750, function ($constraint) {
+                $image = Image::make($image)->fit(450, 750, function ($constraint) {
                     $constraint->upsize();
                 }, 'center');
-                $bb =  Storage::put($path, (string) $image->encode());
-                try{
-                    $url = Storage::url($path);
-                    $postImage->post_id    = $article->id;
-                    $postImage->image_path = $path;
+                $bb    = Storage::put($path, (string)$image->encode());
+                try {
+                    $url                   = Storage::url($path);
+                    $postImage->article_id = $article->id;
+                    $postImage->image_path = $url;
                     $postImage->save();
-                }catch(\Exception $e){
+                } catch (\Exception $e) {
                     echo $e->getMessage();
                 }
             }
@@ -149,25 +151,23 @@ class ArticleController extends Controller
      *
      * @param \App\Article $article
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function edit(Article $article)
     {
-        $tags  = \App\Tag::all();
-        $tags2 = [];
-        foreach ($tags as $tag) {
-            $tags2[$tag->id] = $tag->name;
-        }
-
-        $filters = $article->filterValues()->pluck('value_id')->all();
-
+        $tags = \App\Models\Tag::all();
+        $r = Carbon::create($article->up_post);
         return view('admin.articles.edit', [
             'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
-            'filter'     => $filters,
-            'delimiter'  => ''
+            //'filter'     => $filters,
+            'delimiter'  => '',
+            'carbone' => Carbon::now(),
+            'carbone2' => $r,
         ]);
+
     }
 
     /**
@@ -176,7 +176,8 @@ class ArticleController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Article             $article
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Article $article)
     {
@@ -185,15 +186,99 @@ class ArticleController extends Controller
             'title' => 'required'
         ]);
 
-        $r             = $request->all();
-        $t             = $request->input('on_front');
-        $r['on_front'] = ($request->input('on_front')) ? true : false;
+        $inputsArray             = $request->all();
+        $inputsArray['on_front'] = ($request->input('on_front')) ? true : false;
+
+        $postImageAll = \App\Models\PostImage::where('article_id', $article->id)->get();
+        $postImage  =  $postImageAll->pluck('image_path')->toArray();
+        $articleImagesCnt        = count($postImage) ?? 0;
+        $mainImageMd5 = ($inputsArray['main_image']) ?? false;
+        $mainImage = false;
+        // Обрабатываем редактирование файлов
+        if (isset($postImage)) {
+            foreach ($postImage as $image) {
+                // Если есть старые файлы
+                if (isset($inputsArray['old_files'])) {
+                    // Если в массиве старых айлов нет текущего из базы данные
+                    // И файл существует удаляем его
+                    if (!in_array($image, $inputsArray['old_files'])) {
+                        if (\File::exists(public_path($image))) {
+                            \File::delete(public_path($image));
+                            \App\Models\PostImage::where('image_path', $image)->delete();
+                            $articleImagesCnt--;
+                        }
+                    }else{
+//                        if( $mainImageMd5 && $image['name'] == $mainImageMd5){
+//                            $mainImage = $image;
+//                        }
+                    }
+                } else {
+                    // Если массив старых файлов пуст, значит на фронте все файлы были удалены,
+                    // Удаляем файлы из базы и сами файлы
+                    if (\File::exists(public_path($image))) {
+                        \File::delete(public_path($image));
+                        \App\Models\PostImage::where('image_path', $image)->delete();
+                        $articleImagesCnt--;
+                    }
+                }
+            }
+        }
+
+
+        // Добавляем новый файл
+        if ($request->hasfile('image')) {
+            foreach ($request->file('image') as $image) {
+                $name    = $image->getClientOriginalName();
+                $fileUrl = Storage::url('images/' . $name);
+                // Проверяем если количество файлов после редактирования
+                // больше допустимого, то пропускаем
+                if ($articleImagesCnt++ > $this->count) continue;
+                // Если файл с таким имененм уже есть у поста то пропускаем
+                if($postImage) {
+                    if (in_array($fileUrl, $postImage)) continue;
+                }
+                $path      = 'public/images/' . $name;
+                $postImageModel = new PostImage;
+                // Проверяем существует ли файл с таким именем,
+                // если да, то не создаём, а используем существующий
+                if (!Storage::disk('public')->exists('images/'.$name)) {
+                    $image     = Image::make($image)->fit(450, 750, function ($constraint) {
+                        $constraint->upsize();
+                    }, 'center');
+                    Storage::put($path, (string)$image->encode());
+                    $url = Storage::url($path);
+                }else{
+                    $url = $fileUrl;
+                }
+                // Создаём запись в модели PostImage
+                try {
+                    $postImageModel->article_id = $article->id;
+                    $postImageModel->name = md5($name);
+                    $postImageModel->image_path = $url;
+                    if($postImageModel->save()){
+
+                        $postImageAll[] = $postImageModel;
+                    }
+                } catch (\Exception $e) {
+                    echo $e->getMessage();
+                }
+            }
+        }
+
+        // Временное
+        if($mainImageMd5) {
+            foreach ($postImageAll as $row){
+                if($mainImageMd5 == $row->name)
+                    PostImage::where('id', $row->id)->update(['main' => true]);
+                else
+                    PostImage::where('id', $row->id)->update(['main' => false]);
+
+            }
+        }
 
         //dd($r);
         try {
-            $update = $article->update($r);
-
-
+            $update = $article->update($inputsArray);
             // FilterGroups
             if ($request->input('attrs')):
                 $article->filterGroups()->attach(array_keys($request->input('attrs')));
@@ -206,35 +291,34 @@ class ArticleController extends Controller
                 $article->tags()->attach($request->input('tags'));
             endif;
 
-
             //Categories
             $article->categories()->detach();
             if ($request->input('categories')):
                 $article->categories()->attach($request->input('categories'));
             endif;
 
-            session()->flash('message', "Категория  изменена " . $article->title);
-
-
-            if (array_key_exists('reload', $r)) {
-                $tags  = \App\Tag::all();
+            if (array_key_exists('reload', $inputsArray)) {
+                session()->flash('message', "Материал  изменен " . $article->title);
+                $tags  = \App\Models\Tag::all();
                 $tags2 = [];
                 foreach ($tags as $tag) {
                     $tags2[$tag->id] = $tag->name;
                 }
 
-                return view('admin.articles.edit', [
+                return redirect()->route('admin.article.edit', [
                     'article'    => $article,
                     'categories' => Category::with('children')->where('parent_id', 0)->get(),
                     'tags'       => $tags,
+                    //'main_image' => $mainImage,
                     'delimiter'  => ''
                 ]);
             } else {
+                session()->flash('message', "Материал  изменен " . $article->title);
+
                 return redirect()->route('admin.article.index');
             }
 
         } catch (Exception $exception) {
-
             session()->flash('message', $exception->getMessage());
 
             return redirect()->route('admin.article.index');
@@ -250,8 +334,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
-    {
+    public function destroy( Article $article) {
         $article->categories()->detach();
         $article->delete();
 
@@ -259,8 +342,7 @@ class ArticleController extends Controller
     }
 
 
-    public function search(Request $request)
-    {
+    public function search( Request $request ) {
         $search   = trim(strip_tags($request->get('q')));
         $articles = Article::where('title', 'LIKE', '%' . $search . '%')
             ->paginate(10);
@@ -274,8 +356,7 @@ class ArticleController extends Controller
         );
     }
 
-    public function autocomplete(Request $request)
-    {
+    public   function autocomplete( Request $request ) {
         $search = trim(strip_tags($request->get('q')));
 
         //return response()->json($request->all());
@@ -287,4 +368,33 @@ class ArticleController extends Controller
 
     }
 
+    public function postUp(Request $request){
+        $articleId =trim(strip_tags($request->get('id')));
+        $article = DB::table('articles')
+            ->where('id', $articleId)
+            ->first();
+
+
+//        $response = DB::table('articles')
+//            ->where('id', $articleId)
+//            ->update(['up_post' => Carbon::now()->addHours(24)]);
+
+//        $response = array(
+//            'from_article' => Carbon::parse($article->up_post),
+//            'now' => Carbon::now(),
+//            'between' => Carbon::parse($article->up_post)->diff(Carbon::now())->format('%h часов %i минут %s секунд')
+//        );
+
+        if(Carbon::parse($article->up_post)->lt(Carbon::now())){
+            DB::table('articles')
+            ->where('id', $articleId)
+            ->update(['up_post' => Carbon::now()->addMinutes(10)]);
+            $response = 'Ваше объявление поднято';
+        }else{
+            $response = 'Поднять можно через ' .
+                Carbon::parse($article->up_post)->diff(Carbon::now())->format('%h часов %i минут %s секунд');
+        }
+
+        return response()->json($response);
+    }
 }

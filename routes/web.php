@@ -17,16 +17,21 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified']],
     function(){
 
        Route::get('/', 'DashboardController@dashboard')->name('admin.index');
         Route::resource('/category', 'CategoryController', ['as'=> 'admin']);
-        Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
         Route::resource('/tags', 'TagController', ['as'=> 'admin']);
         Route::resource('/features', 'Features\FeaturesTypeController', ['as'=> 'admin']);
 
+
+        // Пост
+        Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
+        Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
         //Route::resource('/seo', 'SeoController', ['as'=> 'admin']);
 
         Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {

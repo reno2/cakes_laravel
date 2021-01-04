@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin\Seo;
 
-use App\Seo;
+use App\Models\Seo;
 use Illuminate\Http\Request;
 
 abstract class SeoAbstractController

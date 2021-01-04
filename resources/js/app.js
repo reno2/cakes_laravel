@@ -4,8 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 
+require('./bootstrap');
+import 'jquery-ui/ui/widgets/sortable'
+import 'jquery-ui/themes/base/all.css'
+window.md5 = require('md5');
 window.Vue = require('vue');
 
 /**
@@ -20,6 +23,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
+//Vue.component('features-component', require('./components/FeaturesComponent.vue'));
 Vue.component('features-component', require('./components/FeaturesComponent.vue').default);
 
 /**

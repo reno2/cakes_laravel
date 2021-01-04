@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Features;
 
-use App\Feature_values;
-use App\Feature_types;
+use App\Models\Feature_values;
+use App\Models\Feature_types;
 use App\Http\Controllers\Admin\Features\FeaturesAbstractController;
-use App\Tag;
-use App\Property;
-use App\Value;
+use App\Models\Tag;
+use App\Models\Property;
+use App\Models\Value;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 
@@ -56,7 +56,7 @@ class FeaturesTypeController extends FeaturesAbstractController
                             'key' =>  $feature->key,
                             'value' =>  $feature->value,
                         ]);
-                        $property->values()->save($featureValue);
+                        $property->prop_values()->save($featureValue);
                     }
                 }
             }

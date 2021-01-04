@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Property;
+use App\Models\Property;
 class Value extends Model
 {
     protected $guarded =[];
 
     public function property() {
-        return $this->belongsTo('App\Property', 'property_id', 'id');
+        return $this->belongsTo('App\Models\Property', 'property_id', 'id');
     }
 }

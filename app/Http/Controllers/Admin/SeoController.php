@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Facades\Seometa;
-use App\Seo;
+use App\Models\Seo;
 use App\Seo\SeometaFacade;
 
 use App\Http\Controllers\Controller;

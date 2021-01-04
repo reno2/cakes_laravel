@@ -32,9 +32,9 @@
 @section('page-script')
 
     <script>
-        $(document).ready(function() {
-
-        });
+        // $(document).ready(function() {
+        //
+        // });
     </script>
     <style>
         .select2{

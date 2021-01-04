@@ -46,11 +46,12 @@ class AdminFiltersWidget implements ContractWidget
 
     public function execute()
     {
-        //if($this->getAttrs() && $this->getGroups())
-        return view($this->tpl, [
-            'attrs'  => $this->getAttrs(),
-            'groups' => $this->getGroups(),
-            'filter' => $this->getFilter()
-        ]);
+        if($this->getAttrs() && $this->getGroups() ) {
+            return view($this->tpl, [
+                'attrs'  => $this->getAttrs(),
+                'groups' => $this->getGroups(),
+                'filter' => $this->getFilter()
+            ]);
+        }
     }
 }

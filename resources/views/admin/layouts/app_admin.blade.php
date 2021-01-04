@@ -43,17 +43,17 @@
     </div>
 </div>
 
+@yield('page-script')
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/forms.js')}}"></script>
-@yield('page-script')
-
 <!-- Scripts -->
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
-<script src="{{asset('js/backend.js')}}"></script>
 <link href="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css') }}" rel="stylesheet">
 <script src="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') }}"></script>
-
+<script src="{{asset('js/backend.js')}}"></script>
 <script>
+
+
     {{--setTimeout(function(){--}}
     {{--    var konten = document.getElementById("description");--}}
     {{--    CKEDITOR.replace(konten,{--}}

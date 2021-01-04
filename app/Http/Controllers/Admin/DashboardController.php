@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Article;
-use App\Category;
+use App\Models\Article;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Seo\SeometaFacade;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Tag;
 class DashboardController extends Controller

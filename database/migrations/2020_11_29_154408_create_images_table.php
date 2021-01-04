@@ -15,8 +15,10 @@ class CreateImagesTable extends Migration
     {
         Schema::create('post_images', function (Blueprint $table) {
             $table->id();
-            $table->integer('post_id');
+            $table->integer('article_id');
             $table->string('image_path');
+            $table->string('name');
+            $table->boolean('main');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('post_images');
     }
 }

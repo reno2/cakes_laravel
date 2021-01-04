@@ -1,23 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector('.single-img__input').addEventListener('change', function (e) {
-        formsFile.init(this, 'post-image', true);
-    })
-    document.querySelector('.create-form__form').addEventListener('submit', function (e) {
+//window.onload=function(){
+    let imgInput = document.querySelector('.single-img__input')
+    if (imgInput) {
+        imgInput.addEventListener('change', function (e) {
+            formsFile.init(this, 'post-image', true);
+
+        })
+    }
+    let form = document.querySelector('.create-form__form')
+    if (form) form.addEventListener('submit', function (e) {
         formsFile.formSubmit(this.getAttribute('action'), e)
     })
 
+    let postUpBtn = document.querySelector('.js_postUp')
+    postUpBtn.addEventListener('click', postUp)
 })
 
 const formsFile = {
     submit: null,
+    count: null,
     multiple: false,
     files: [],
     input: null,
     sendFiles: [],
-      // Инициализация
+    // Инициализация
+    j(el){
+        console.log(el)
+    },
     init(input, formId, multiple) {
+        let newFiles = document.querySelectorAll('.js_newImgItem').forEach(formsFile.j);
+
+        //formsFile.removeFile().
+
         formsFile.multiple = multiple
         formsFile.input = input
+        formsFile.count = Number(input.getAttribute('data-count'));
         let form = document.getElementById(formId)
         formsFile.submit = form.querySelector('button[type="submit"]')
         if (multiple) {
@@ -51,8 +68,9 @@ const formsFile = {
     // Вывод превьюшек
     showUploadedItem(source, file) {
         let previewList = document.querySelector(".image-preview"),
+            hash = md5(file.name),
             previewItem = `
-                <div class="image-preview__item">
+                <div class="js_newImgItem image-preview__item" onclick="setAsMain(this, '${hash}')">
                     <img src="${source}" alt="">
                     <span class="image-preview__name">${file.name}</span>
                     <svg onclick="formsFile.removeFile(this)" data-name="${file.name}" class="image-preview__del">
@@ -65,9 +83,7 @@ const formsFile = {
     },
     // Вополняем после загрузки файла
     fileLoad(input) {
-        console.log(Object.keys(formsFile.sendFiles).length)
         if (formsFile.files.length) {
-
             formsFile.removeNotice(input);
             let valid = true
             // Перебераем загруженные файлы
@@ -75,7 +91,6 @@ const formsFile = {
                 let currentFile = el;
                 // Применяем правила валидации в файлу
                 for (let code in formsFile.validateRule) {
-                    console.log(formsFile.validateRule[code].call(el, el, input))
                     if (!formsFile.validateRule[code].call(el, el, input)) {
                         valid = false;
                         input.value = ""
@@ -84,6 +99,9 @@ const formsFile = {
                 }
                 // Если файл прошёл валидацию
                 if (valid) {
+                    formsFile.count += 1
+                    formsFile.input.setAttribute('data-count', formsFile.count);
+                    //console.log(formsFile.count)
                     let reader = new FileReader();
                     reader.onload = (el) => {
                         // Добавляем в дом загруженный файл, проверяем на дубли
@@ -100,13 +118,21 @@ const formsFile = {
     },
     // Удаление файлов
     removeFile(el) {
+        if (!formsFile.input) {
+            formsFile.input = document.querySelector('.single-img__input');
+        }
+        formsFile.count = formsFile.count || Number(formsFile.input.getAttribute('data-count'));
+
         // Получаем значения индекс
         let inx = el.getAttribute('data-name')
         // Удаляем из массива для передачи на бэкенд
         delete formsFile.sendFiles[inx]
         // Удаляем дом элемент
         el.parentElement.remove()
-        formsFile.removeNotice(formsFile.input);
+        formsFile.count -= 1
+        //formsFile.removeNotice(formsFile.input);
+        formsFile.input.setAttribute('data-count', formsFile.count);
+        formsFile.removeNotice(el);
     },
     // Запрещаем или разрешаем отправку формы
     formStatus(status) {
@@ -117,7 +143,10 @@ const formsFile = {
     validateRule: {
         limit: (file, el) => {
             let msg = 'Максимальное количество файлов 5';
-            if (Object.keys(formsFile.sendFiles).length + 1 > 5 || formsFile.input.files.length > 5) {
+            if (Object.keys(formsFile.sendFiles).length + 1 > 5 ||
+                formsFile.input.files.length > 5 ||
+                formsFile.count + 1 > 5
+            ) {
                 formsFile.showNotice(el, msg)
                 return false
             }
@@ -145,12 +174,48 @@ const formsFile = {
     },
     // Убераем сообщения об ошибках
     removeNotice(el) {
-        el.nextElementSibling.classList.remove('show')
+        if (el.nextSibling)
+            el.nextElementSibling.classList.remove('show')
     },
     // Выводим сообщение об ошибках
     showNotice(el, msg) {
         let errorElement = el.nextElementSibling
         errorElement.classList.add("show")
         errorElement.innerHTML = msg
-    },
+    }
+};
+
+
+// Отмечаем файл как главный
+function setAsMain(el, name = null) {
+
+    el.parentElement.querySelectorAll('.image-preview__item').forEach(item => {
+        item.classList.remove('image_main')
+    })
+    el.classList.add('image_main')
+    document.querySelector('input#main_image').value = name
 }
+
+
+function postUp(e) {
+    let postId = this.getAttribute('data-id'),
+        postUpMsg = this.previousElementSibling
+    if (postId) {
+        axios.post(
+            '/admin/article/update',
+            {id: postId},
+            {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }
+        ).then(function (response) {
+            console.log(postUpMsg)
+            postUpMsg.innerHTML = response.data
+        })
+    }
+    //this.setAttribute('disabled', !this.getAttribute('disabled'))
+    e.preventDefault()
+}
+
+

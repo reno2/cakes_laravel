@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Value;
+use App\Models\Value;
 
 class Property extends Model
 {
@@ -11,6 +11,6 @@ class Property extends Model
     //protected $guarded =[];
 
     public function values(){
-        return $this->hasMany('App\Value');
+        return $this->hasMany('App\Models\Value');
     }
 }

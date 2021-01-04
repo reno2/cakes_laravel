@@ -14,7 +14,7 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->increments('id');
+                $table->bigIncrements('id');
 		        $table->string('title');
 		        $table->string('slug')->unique();
 		        $table->text('description_short')->nullable();
@@ -24,12 +24,15 @@ class CreateArticlesTable extends Migration
 		        $table->string('meta_title')->nullable();
 		        $table->string('meta_description')->nullable();
 		        $table->boolean('published');
-		        $table->integer('viewed')->nullable();
 		        $table->integer('created_by')->nullable();
 		        $table->integer('modified_by')->nullable();
                 $table->integer('sort')->nullable();
-            $table->boolean('on_front');
-            $table->timestamps();
+                $table->boolean('on_front');
+                $table->string('up_post')->nullable();
+                $table->double('price')->default(0);
+                $table->double('weight')->default(0);
+                $table->unsignedMediumInteger('views')->default(0);
+                $table->timestamps();
         });
     }
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Article;
-use App\Category;
+use App\Models\Article;
+use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

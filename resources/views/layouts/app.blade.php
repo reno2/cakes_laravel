@@ -61,6 +61,6 @@
 
         </main>
     </div>
-    <script src="public/js/forms.js"></script>
+{{--    <script src="public/js/forms.js"></script>--}}
 </body>
 </html>

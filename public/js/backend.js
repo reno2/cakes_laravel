@@ -1,7 +1,8 @@
 window.onload = function () {
 
     // Сброс фильтров в админке
-    document.getElementById('reset-filter').addEventListener('click', function (e) {
+   let filterReset = document.getElementById('reset-filter')
+   if(filterReset) filterReset.addEventListener('click', function (e) {
         e.preventDefault()
         let filters = document.getElementById('filters');
         let filtersInputs = filters.querySelectorAll('input[type=radio]')
@@ -10,4 +11,7 @@ window.onload = function () {
         })
     })
     // Конец сброса фильтров
+
+
+    //$( "#image-list" ).sortable();
 };

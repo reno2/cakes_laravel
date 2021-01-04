@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -19,6 +19,6 @@ class Tag extends Model
         }
     }
     public function articles(){
-        return $this->belongsToMany('\App\Article');
+        return $this->belongsToMany('\App\Models\Article');
     }
 }

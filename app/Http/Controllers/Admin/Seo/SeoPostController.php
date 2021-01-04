@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Seo;
 
 use \App\Http\Controllers\Admin\Seo\SeoAbstractController;
 use App\Http\Requests\SeoCategoryRequest;
-use App\Seo as MSeo;
+use App\Models\Seo as MSeo;
 use Illuminate\Http\Request;
 
 class SeoPostController extends SeoAbstractController{

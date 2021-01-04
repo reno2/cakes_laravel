@@ -53,24 +53,26 @@ class Seometa{
         $category = $this->post;
         $tags = DB::table('seo')->where('type', 'category')->first();
         $r = [];
-        foreach ($tags as $key=>$seoTpl){
+        if($tags) {
+            foreach ($tags as $key => $seoTpl) {
 
-            if(!in_array($key, $this->needle) || !$seoTpl) continue;
-           $this::$tpl = $seoTpl;
-            $method = 'set'.$key;
-            if (method_exists($this, $method)) {
-            // прогоняем шаблон сео поля через доступные переменные поста
-                foreach ($this->post as $varName=>$varVal)
-                {
-                    $seoTpl =  preg_replace ( '/#'.$varName.'#/', $varVal, $seoTpl);
-                    //$this->_setKeywords($key, $seoTpl, $varName, $varVal);
+                if (!in_array($key, $this->needle) || !$seoTpl) {
+                    continue;
                 }
-                $this->renderArray[$key] = $seoTpl;
-                $t= '';
-                   // $mainTpl = $this->$method($key, $mainTpl, $varName, $varVal);
+                $this::$tpl = $seoTpl;
+                $method     = 'set' . $key;
+                if (method_exists($this, $method)) {
+                    // прогоняем шаблон сео поля через доступные переменные поста
+                    foreach ($this->post as $varName => $varVal) {
+                        $seoTpl = preg_replace('/#' . $varName . '#/', $varVal, $seoTpl);
+                        //$this->_setKeywords($key, $seoTpl, $varName, $varVal);
+                    }
+                    $this->renderArray[$key] = $seoTpl;
+                    $t                       = '';
+                    // $mainTpl = $this->$method($key, $mainTpl, $varName, $varVal);
+                }
             }
         }
-
     }
     static $tpl;
     public function setKeywords($key, $seoTpl, $needleName, $toValue){
