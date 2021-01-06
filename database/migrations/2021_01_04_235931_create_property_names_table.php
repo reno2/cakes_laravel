@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateValuesTable extends Migration
+class CreatePropertyNamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('values', function (Blueprint $table) {
-            $table->id();
-            $table->string('key');
-            $table->string('value');
+        Schema::create('property_names', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
+            $table->string('title');
+            $table->string('type')->nullable();
+            $table->boolean('require');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('values');
+        Schema::dropIfExists('property_names');
     }
 }

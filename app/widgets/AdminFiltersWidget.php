@@ -18,25 +18,31 @@ class AdminFiltersWidget implements ContractWidget
 
     protected function getAttrs()
     {
-        $data  = \DB::table('values')->get();
-        $attrs = [];
-        foreach ($data as $key => $value) {
-            $attrs[$value->property_id][$value->id] = $value->key;
+        $data  = \DB::table('property_values')->get();
+        if($data ) {
+            $attrs = [];
+            foreach ($data as $key => $value) {
+                $attrs[$value->property_name_id][$value->id] = $value->key;
+            }
+
+            return $attrs;
         }
-
-        return $attrs;
-
+        else
+            return false;
     }
 
     protected function getGroups()
     {
-        $data   = \DB::table('properties')->get();
-        $groups = [];
-        foreach ($data as $key => $value) {
-            $groups[$value->id] = $value->title;
-        }
+        $data   = \DB::table('property_names')->get();
+        if($data ) {
+            $groups = [];
+            foreach ($data as $key => $value) {
+                $groups[$value->id] = $value->title;
+            }
 
-        return $groups;
+            return $groups;
+        }else
+            return false;
     }
 
     public function getFilter()
@@ -46,6 +52,7 @@ class AdminFiltersWidget implements ContractWidget
 
     public function execute()
     {
+        //dd($this->getGroups());
         if($this->getAttrs() && $this->getGroups() ) {
             return view($this->tpl, [
                 'attrs'  => $this->getAttrs(),

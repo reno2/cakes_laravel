@@ -6104,7 +6104,45 @@ readers do not read off random characters that represent icons */
   display: block;
 }
 
-.image-preview {
+.create-form .single-img__input {
+  display: none;
+}
+
+.create-form .fake-upload {
+  border: 4px solid #f8fafc;
+  padding: 8px;
+  box-shadow: 0 1px 8px -7px #000;
+  width: 100px;
+  max-height: 106px;
+  display: flex;
+  cursor: pointer;
+}
+
+.create-form .fake-upload .fake-upload__img {
+  width: 100%;
+}
+
+.create-form .single-img__handle {
+  display: flex;
+  align-items: center;
+}
+
+.create-form .single-img__handle .single-img__upload {
+  width: 56px;
+}
+
+.create-form .single-img__handle .single-img__load {
+  margin-left: 16px;
+  font-weight: 900;
+  line-height: 100%;
+}
+
+.create-form .single-img__handle .single-img__load span {
+  font-size: 12px;
+  color: #656565;
+}
+
+.create-form .image-preview {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -6112,7 +6150,7 @@ readers do not read off random characters that represent icons */
   padding: 5px;
 }
 
-.image-preview .image-preview__item {
+.create-form .image-preview .image-preview__item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6124,13 +6162,14 @@ readers do not read off random characters that represent icons */
   margin-right: 4px;
   width: 100px;
   overflow: hidden;
+  max-height: 127px;
 }
 
-.image-preview .image-preview__item img {
-  height: 80px;
+.create-form .image-preview .image-preview__item img {
+  height: 60px;
 }
 
-.image-preview .image-preview__item .image-preview__name {
+.create-form .image-preview .image-preview__item .image-preview__name {
   font-size: 10px;
   text-overflow: ellipsis;
   max-width: 100%;
@@ -6138,18 +6177,33 @@ readers do not read off random characters that represent icons */
   white-space: nowrap;
 }
 
-.image-preview .image-preview__item .image-preview__del {
+.create-form .image-preview .image-preview__item .image-preview__del {
   width: 24px;
   fill: #ff2828;
   height: 24px;
 }
 
-.image-preview .image-preview__item.ui-sortable-helper {
+.create-form .image-preview .image-preview__item .image-preview__process {
+  height: 5px;
+  width: 100%;
+}
+
+.create-form .image-preview .image-preview__item .image-preview__process .image-preview__bar {
+  width: 0;
+  background: #000;
+}
+
+.create-form .image-preview .image-preview__item.ui-sortable-helper {
   background: #fff;
 }
 
-.image-preview .image-preview__item.image_main {
+.create-form .image-preview .image-preview__item.image_main {
   border: 4px solid #4271ae;
+}
+
+.select2 {
+  display: block;
+  width: 100% !important;
 }
 
 .info.info_admin {

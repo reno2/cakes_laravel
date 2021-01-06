@@ -13,7 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     let postUpBtn = document.querySelector('.js_postUp')
-    postUpBtn.addEventListener('click', postUp)
+   if(postUpBtn) postUpBtn.addEventListener('click', postUp)
+
+    // fake click
+    let fakeUpload = document.querySelector('.fake-upload')
+        if(fakeUpload) fakeUpload.addEventListener('click', ()=>{
+        imgInput.click()
+    })
 })
 
 const formsFile = {
@@ -24,13 +30,16 @@ const formsFile = {
     input: null,
     sendFiles: [],
     // Инициализация
-    j(el){
+    j(el) {
         console.log(el)
     },
     init(input, formId, multiple) {
-        let newFiles = document.querySelectorAll('.js_newImgItem').forEach(formsFile.j);
 
-        //formsFile.removeFile().
+        let newFiles = document.querySelectorAll('.js_newImgItem')
+            .forEach((ele) => {
+                if (ele) formsFile.removeFile(ele.querySelector('.image-preview__del'))
+            });
+
 
         formsFile.multiple = multiple
         formsFile.input = input
@@ -68,6 +77,7 @@ const formsFile = {
     // Вывод превьюшек
     showUploadedItem(source, file) {
         let previewList = document.querySelector(".image-preview"),
+           fakeUpload = document.querySelector(".fake-upload"),
             hash = md5(file.name),
             previewItem = `
                 <div class="js_newImgItem image-preview__item" onclick="setAsMain(this, '${hash}')">
@@ -76,9 +86,13 @@ const formsFile = {
                     <svg onclick="formsFile.removeFile(this)" data-name="${file.name}" class="image-preview__del">
                         <use xlink:href="/images/icons.svg#icon-close"></use>
                     </svg>
+                    <div class="image-preview__process">
+                        <div class="image-preview__bar"></div>
+                    </div>
                 </div>
             `;
-        if (formsFile.multiple) previewList.innerHTML += previewItem;
+        //if (formsFile.multiple) previewList.innerHTML += previewItem;
+        if (formsFile.multiple) fakeUpload.insertAdjacentHTML('beforebegin', previewItem);
         else previewList.innerHTML = previewItem;
     },
     // Вополняем после загрузки файла
@@ -101,21 +115,43 @@ const formsFile = {
                 if (valid) {
                     formsFile.count += 1
                     formsFile.input.setAttribute('data-count', formsFile.count);
-                    //console.log(formsFile.count)
+
+
                     let reader = new FileReader();
+
+                    // ToDo: сделать сататус заугрузки
+                    // reader.onloadstart = formsFile.updateProgress;
+                    // reader.onprogress = formsFile.updateProgress;
+                    // reader.onloadend = formsFile.updateProgress;
+
                     reader.onload = (el) => {
                         // Добавляем в дом загруженный файл, проверяем на дубли
                         if (!formsFile.sendFiles[currentFile.name])
                             formsFile.showUploadedItem(reader.result, currentFile);
                         // Добавляем в финальный массив файл
                         formsFile.sendFiles[currentFile.name] = currentFile;
-
                     }
                     reader.readAsDataURL(el);
                 }
             })
         }
     },
+    updateProgress(evt) {
+        //имитируем процесс загрузки файла
+        if (evt.lengthComputable) {
+            if(evt.loaded == evt.total)
+            //let progress =  (evt.loaded / evt.total) * 100;
+            console.log(evt.loaded);
+            //console.log(evt.total);
+            // let i = 0;
+            // let progressId = setInterval(function() {
+            //     i++;
+            //     barFile.value = i * 10;
+            //     if (i > 10) clearInterval(progressId);
+            // }, evt.total / 300000);
+        }
+    },
+
     // Удаление файлов
     removeFile(el) {
         if (!formsFile.input) {
@@ -127,12 +163,13 @@ const formsFile = {
         let inx = el.getAttribute('data-name')
         // Удаляем из массива для передачи на бэкенд
         delete formsFile.sendFiles[inx]
+
         // Удаляем дом элемент
         el.parentElement.remove()
         formsFile.count -= 1
         //formsFile.removeNotice(formsFile.input);
         formsFile.input.setAttribute('data-count', formsFile.count);
-        formsFile.removeNotice(el);
+        formsFile.removeNotice(formsFile.input);
     },
     // Запрещаем или разрешаем отправку формы
     formStatus(status) {

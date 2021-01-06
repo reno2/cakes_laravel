@@ -38,11 +38,11 @@ class Article extends Model
     //plymorphe
     public function filterGroups(){
         // Первым парметром передаём модель, с которой связь, вторым приставку полей
-        return $this->morphToMany('App\Models\Property', 'groupefiltersable');
+        return $this->morphToMany('App\Models\PropertyName', 'groupefiltersable');
     }
     //plymorphe
     public function filterValues(){
-        return $this->morphToMany('App\Models\Value', 'valuefiltersable');
+        return $this->morphToMany('App\Models\PropertyValue', 'valuefiltersable');
     }
 
     // Связь с картинками

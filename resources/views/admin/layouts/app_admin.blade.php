@@ -43,8 +43,9 @@
     </div>
 </div>
 
-@yield('page-script')
 <script src="{{ asset('js/app.js') }}"></script>
+@yield('page-script')
+
 <script src="{{ asset('js/forms.js')}}"></script>
 <!-- Scripts -->
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>

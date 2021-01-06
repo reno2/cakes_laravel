@@ -18,7 +18,7 @@ class CreateImagesTable extends Migration
             $table->integer('article_id');
             $table->string('image_path');
             $table->string('name');
-            $table->boolean('main');
+            $table->boolean('main')->default(0)->change();
             $table->timestamps();
         });
     }

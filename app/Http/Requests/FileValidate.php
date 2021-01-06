@@ -25,8 +25,9 @@ class FileValidate extends FormRequest
     {
 
         return [
-            'title'   => "required",
-            'image'   => "required|max:5",
+            'title'   => "unique:articles|required",
+            'image'   => "max:5",
+           // 'image'   => "required|max:5",
             'image.*' => "mimes:png,jpg,jpeg|max:20000",
         ];
     }
@@ -36,6 +37,7 @@ class FileValidate extends FormRequest
     {
         return [
             'title.required' => 'Название объязательно',
+            'title.unique' => 'Название уже существует',
             'image.max'      => 'Не более 5 файлов',
             'image.required' => 'Загрузка файла объязательна',
             'image.*.mimes'  => 'Только разрешённые форматы'

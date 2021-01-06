@@ -15,9 +15,19 @@
     <div class="row">
         <div class="col-md-6" id="aform">
             <form сlass="form-horizontal" action="{{route('admin.features.store')}}" method="post">
+                <features-component
+                    method="@if(isset($feature->id)) PUT @else POST @endif"
+                    url=" @if(isset($feature->id))
+                    {{route('admin.features.update', $feature)}}
+                    @else
+                    {{route('admin.features.store')}}
+                    @endif"
+                    values="{{$feature->values ?? ''}}"
+                    feature="{{$feature ?? ''}}"
+                ></features-component>
 
                 {{-- Form include--}}
-                @include('admin.features.partials.form')
+{{--                @include('admin.features.partials.form')--}}
                 <input type="hidden" name="created_by" value="{{Auth::id()}}">
 
             </form>

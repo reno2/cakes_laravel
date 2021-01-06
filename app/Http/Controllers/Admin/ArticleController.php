@@ -59,7 +59,7 @@ class ArticleController extends Controller
         $tags = \App\Models\Tag::all();
 
         //dd(Category::with('children')->where('parent_id', 0)->get());
-        return view('admin.articles.create', [
+        return view('admin.articles.switch_article', [
             'tags'       => $tags,
             'article'    => [],
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
@@ -83,36 +83,50 @@ class ArticleController extends Controller
         $inputs             = $request->all();
         $inputs['on_front'] = $request->input('on_front') ? true : false;
 
+        // Удаяем из реквеста картинки для сохранения поста,
+        // и последующей обработки
+
+
         if (isset($inputs['image'])) {
+            $articleImagesCnt  = count($inputs['image']);
             unset($inputs['image']);
-        }
+        } else $articleImagesCnt = 0;
 
         $article = Article::create($inputs);
-
-
+        // Добавляем новый файл
         if ($request->hasfile('image')) {
             foreach ($request->file('image') as $image) {
-                $postImage = new PostImage;
-                $name      = $image->getClientOriginalName();
-                // $path = $image->move(public_path().'/images/', $name);
-                $path = 'public/images/' . $name;
-
-                $image = Image::make($image)->fit(450, 750, function ($constraint) {
-                    $constraint->upsize();
-                }, 'center');
-                $bb    = Storage::put($path, (string)$image->encode());
+                $name    = $image->getClientOriginalName();
+                $fileUrl = Storage::url('images/' . $name);
+                // Проверяем если количество файлов после редактирования
+                // больше допустимого, то пропускаем
+                if ($articleImagesCnt++ > $this->count) continue;
+                // ToDo: написать проверку на дубли файла
+                $path      = 'public/images/' . $name;
+                $postImageModel = new PostImage;
+                // Проверяем существует ли файл с таким именем,
+                // если да, то не создаём, а используем существующий
+                if (!Storage::disk('public')->exists('images/'.$name)) {
+                    $image     = Image::make($image)->fit(450, 750, function ($constraint) {
+                        $constraint->upsize();
+                    }, 'center');
+                    Storage::put($path, (string)$image->encode());
+                    $url = Storage::url($path);
+                }else{
+                    $url = $fileUrl;
+                }
+                // Создаём запись в модели PostImage
                 try {
-                    $url                   = Storage::url($path);
-                    $postImage->article_id = $article->id;
-                    $postImage->image_path = $url;
-                    $postImage->save();
+                    $postImageModel->article_id = $article->id;
+                    $postImageModel->name = md5($name);
+                    $postImageModel->image_path = $url;
+                    $postImageModel->save();
+
                 } catch (\Exception $e) {
                     echo $e->getMessage();
                 }
             }
         }
-
-
         // FilterGroups
         if ($request->input('attrs')):
             // Если есть фильтры, то удаляем все связи и обновляем новые
@@ -156,16 +170,19 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+
+//        $r = Carbon::create($article->up_post);
         $tags = \App\Models\Tag::all();
-        $r = Carbon::create($article->up_post);
-        return view('admin.articles.edit', [
+        $tags2 = [];
+        foreach($tags as $tag){
+            $tags2[$tag->id] = $tag->name;
+        }
+        return view('admin.articles.switch_article', [
             'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
             //'filter'     => $filters,
             'delimiter'  => '',
-            'carbone' => Carbon::now(),
-            'carbone2' => $r,
         ]);
 
     }
@@ -207,10 +224,6 @@ class ArticleController extends Controller
                             \App\Models\PostImage::where('image_path', $image)->delete();
                             $articleImagesCnt--;
                         }
-                    }else{
-//                        if( $mainImageMd5 && $image['name'] == $mainImageMd5){
-//                            $mainImage = $image;
-//                        }
                     }
                 } else {
                     // Если массив старых файлов пуст, значит на фронте все файлы были удалены,
@@ -279,6 +292,7 @@ class ArticleController extends Controller
         //dd($r);
         try {
             $update = $article->update($inputsArray);
+
             // FilterGroups
             if ($request->input('attrs')):
                 $article->filterGroups()->attach(array_keys($request->input('attrs')));
@@ -314,13 +328,11 @@ class ArticleController extends Controller
                 ]);
             } else {
                 session()->flash('message', "Материал  изменен " . $article->title);
-
                 return redirect()->route('admin.article.index');
             }
 
         } catch (Exception $exception) {
             session()->flash('message', $exception->getMessage());
-
             return redirect()->route('admin.article.index');
         }
 

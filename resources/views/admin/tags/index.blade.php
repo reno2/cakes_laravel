@@ -16,11 +16,10 @@
                 <div class="form-group mx-sm-3 mb-2">
                     <input class="form-control" type="text" name="name">
                 </div>
-
-{{--                <button type="submit" class="btn btn-primary mb-2">Создать тег</button>--}}
+                <button type="submit" class="btn btn-primary mb-2">Создать тег</button>
                 {{csrf_field()}}
             </form>
-        <a href="{{route('admin.tags.create')}}">Создать тег</a>
+{{--        <a href="{{route('admin.tags.create')}}">Создать тег</a>--}}
         <table class="table table-striped">
             <thead>
             <th>Наименование</th>

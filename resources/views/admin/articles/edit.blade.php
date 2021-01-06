@@ -1,6 +1,3 @@
-@extends('admin.layouts.app_admin')
-
-
 @section('content')
 
     @php $parents = [];
@@ -13,18 +10,12 @@
         @slot('active') редактирование @endslot
     @endcomponent
     <div class="create-form">
-        {{$carbone}}<br>
-        @if($carbone2->lt($carbone))
-            1
-            @else
-            2
-            @endif
-            <br>
-        {{Date::parse($article->upPost)->format('j F Y r.')}}<br>
 
-        <form data-action="{{route('img_add')}}" сlass="form-horizontal create-form__form single-img__form"
+        <form data-action="{{route('img_add')}}"
+              сlass="form-horizontal create-form__form single-img__form"
               action="{{route('admin.article.update', $article)}}" method="POST" id="post-image"
               enctype="multipart/form-data">
+
             <input type="hidden" name="_method" value="put">
             {!!csrf_field()!!}
             <div class="row">
@@ -60,6 +51,17 @@
                                    value="{{$article->sort ?? ''}}">
                         </div>
 
+                        <div class="form-group">
+                            <label for="title">Стоимость Руб.</label>
+                            <input type="text" name="price" class="form-control" id="price"
+                                   value="{{$article->price ?? ''}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Вес. г</label>
+                            <input type="text" name="weight" class="form-control" id="weight"
+                                   value="{{$article->weight ?? ''}}">
+                        </div>
+
 
                         <div class="slug d-flex align-items-center">
                             <div class="form-group slug__el" id="slug__toggle">
@@ -76,12 +78,11 @@
 
 
                         <div class="form-group">
+                            <label for="">Теги</label>
                             <select multiple="" name="tags[]" id="tags">
                                 @foreach($tags as $tag)
                                     <option value="{{$tag->id}}">{{$tag->name}}</option>
                                 @endforeach
-
-
                             </select>
                         </div>
 
@@ -142,8 +143,18 @@
                         Поднять
                     </button>
                     <div class="p-3 create-form__item single-img">
-                        <div class="create-form__title">Основная картинка</div>
+                        <div class="create-form__title">Основная картинка<br>
+                            Загрузите свои изображения<br>
+                            не более 5 файлов. (jpeg, png)
+                        </div>
                         <div class="form-group single-img__group">
+{{--                            <div class="single-img__handle">--}}
+{{--                                <img class="single-img__upload" src="{{ asset('images/file-upload.svg') }}" alt="">--}}
+{{--                                <div class="single-img__load">Загрузите свои изображения<br>--}}
+{{--                                    <span>не более 5 файлов. (jpeg, png)</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
                             <input multiple name="image[]" type="file" id="file_" value=""
                                    data-count="{{(count($article->images)) ?? 0}}" class="single-img__input">
                             <div class="create-form__error"></div>
@@ -152,8 +163,6 @@
                     <input type="hidden" name="main_image" id="main_image">
                     <div id="image-list" class="create-form__preview image-preview">
                         {{--                        <img style="display: none;" id="post_img" class="img-fluid single-img__image" alt="">--}}
-
-
                         @if(isset($article->images))
                             @foreach($article->images->sortByDesc('main') as $image)
                                 <div class="image-preview__item @if ($image->main) image_main @endif"
@@ -167,34 +176,16 @@
                                 </div>
                             @endforeach
                         @endif
+                        <div class="fake-upload">
+                            <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
+                        </div>
                     </div>
+
                 </div>
+
             </div>
         </form>
 
     </div>
-@endsection
-@section('page-script')
-    {{--            <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>--}}
-    {{--            <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>--}}
-    {{--            <script>--}}
-    {{--                $(document).ready(function () {--}}
-    {{--                    var $select2 = $('#tags').select2({})--}}
-    {{--                    $('#tags').select2().val({!! json_encode($article->tags()->allRelatedIds()) !!}).trigger('change');--}}
-    {{--                    //$select2.data('select2').$container.find('input').addClass("form-control")--}}
-
-    {{--                });--}}
-    {{--            </script>--}}
-
-    <style>
-        .select2 {
-            display: block;
-            width: 100% !important;
-        }
-
-        li.select2-search {
-            width: 100%;
-        }
-    </style>
 @endsection
 

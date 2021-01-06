@@ -6,8 +6,8 @@
 
 
 require('./bootstrap');
-import 'jquery-ui/ui/widgets/sortable'
-import 'jquery-ui/themes/base/all.css'
+// import 'jquery-ui/ui/widgets/sortable'
+// import 'jquery-ui/themes/base/all.css'
 window.md5 = require('md5');
 window.Vue = require('vue');
 

@@ -4,6 +4,7 @@
 <div class="nav-tabs-custom filters-group" id="filters">
     <ul class="nav nav-tabs" role="tablist">
         @php $i =1; @endphp
+
         @foreach($groups as $group_id => $group_item)
             <li class="nav-item">
                 <a href="#tab_@php echo $group_id @endphp" data-toggle="tab" aria-expanded="true"
@@ -46,5 +47,6 @@
             @endforeach
         @endif
     </div>
+
 </div>
 

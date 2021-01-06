@@ -54,34 +54,16 @@ class TagController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
+
     {
-//        $this->validate($request, [
-//            'name' => 'required|max:255'
-//        ]);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:6'
+        $this->validate($request, [
+            'name' => 'required|max:255'
         ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-        $res = $request->except('tags');
-        $res['important'] =$request->input('important') ? true : false;
-
-        try
-        {
-            $tag= Tag::create($res);
-            if($request->input('tags')):
-               $tag->articles()->attach($request->input('tags'));
-            endif;
-
-            //Session::flash('success', 'тег создан');
-            return redirect()->route('admin.tags.index');
-
-        }catch(Exception $exception){
-            session()->flash('message', $exception->getMessage());
-            return redirect()->route('admin.tag.index');
-        }
+        $tag = new Tag;
+        $tag->name = $request->name;
+        $tag->save();
+        Session::flash('success', 'тег создан');
+        return redirect()->route('admin.tags.index');
     }
 
     /**

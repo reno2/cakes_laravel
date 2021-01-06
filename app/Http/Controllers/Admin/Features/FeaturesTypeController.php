@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Features;
 use App\Models\Feature_values;
 use App\Models\Feature_types;
 use App\Http\Controllers\Admin\Features\FeaturesAbstractController;
+use App\Models\PropertyName;
+use App\Models\PropertyValue;
 use App\Models\Tag;
 use App\Models\Property;
 use App\Models\Value;
@@ -45,18 +47,38 @@ class FeaturesTypeController extends FeaturesAbstractController
      */
     public function store(Request $request)
     {
+//        $r = $request->all();
+//        try {
+//            $property = Property::create($r);
+//            if( $r['value']){
+//                $values = json_decode($r['value']);
+//                if($values){
+//                    foreach ($values as $feature){
+//                        $featureValue = Value::create([
+//                            'key' =>  $feature->key,
+//                            'value' =>  $feature->value,
+//                        ]);
+//                        $property->prop_values()->save($featureValue);
+//                    }
+//                }
+//            }
+//            return response($property->title, 200);
+//        }catch (\Exception $e){
+//            return response($e->getMessage(), 500);
+//        }
+
         $r = $request->all();
         try {
-            $property = Property::create($r);
+            $property = PropertyName::create($r);
             if( $r['value']){
                 $values = json_decode($r['value']);
                 if($values){
                     foreach ($values as $feature){
-                        $featureValue = Value::create([
+                        $featureValue = PropertyValue::create([
                             'key' =>  $feature->key,
                             'value' =>  $feature->value,
                         ]);
-                        $property->prop_values()->save($featureValue);
+                        $property->propertyValues()->save($featureValue);
                     }
                 }
             }
