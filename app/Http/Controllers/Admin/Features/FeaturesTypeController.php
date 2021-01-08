@@ -22,7 +22,7 @@ class FeaturesTypeController extends FeaturesAbstractController
      */
     public function index()
     {
-        $features = Property::paginate(20);
+        $features = PropertyName::paginate(20);
 
         return view('admin.features.index', compact('features'));
     }
@@ -107,7 +107,7 @@ class FeaturesTypeController extends FeaturesAbstractController
      */
     public function edit($id)
     {
-        $property = Property::find($id);
+        $property = PropertyName::find($id);
         return view('admin.features.edit', [
             "feature" => $property
         ]);
@@ -123,7 +123,7 @@ class FeaturesTypeController extends FeaturesAbstractController
     public function update(Request $request, $id)
     {
         // Получаем свойство
-        $property = Property::find($id);
+        $property = PropertyName::find($id);
         $r = $request->all();
         try {
             // Обновляем свойство
@@ -162,7 +162,7 @@ class FeaturesTypeController extends FeaturesAbstractController
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Property $feature)
+    public function destroy(PropertyName $feature)
     {
         if($feature->values()) {
             try{

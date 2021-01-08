@@ -1,5 +1,5 @@
 @extends('admin.layouts.app_admin')
-@if($article->id)
+@if($article)
     @include('admin.articles.edit')
 @else
     @include('admin.articles.create')
