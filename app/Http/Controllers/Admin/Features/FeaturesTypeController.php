@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Features;
 
-use App\Models\Feature_values;
-use App\Models\Feature_types;
 use App\Http\Controllers\Admin\Features\FeaturesAbstractController;
 use App\Models\PropertyName;
 use App\Models\PropertyValue;
 use App\Models\Tag;
-use App\Models\Property;
-use App\Models\Value;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 

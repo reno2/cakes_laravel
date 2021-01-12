@@ -25,6 +25,8 @@ window.Vue = require('vue');
 
 //Vue.component('features-component', require('./components/FeaturesComponent.vue'));
 Vue.component('features-component', require('./components/FeaturesComponent.vue').default);
+Vue.component('fileinput-component', require('./components/FileInputComponent.vue').default);
+Vue.component('fileautocomplite-component', require('./components/FileautocompliteComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

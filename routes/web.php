@@ -60,9 +60,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
 //
        //Route::get('/search', "ArticleController@search")->name('admin_search');
-
-
     });
+
+
+Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => ['auth', 'verified']],
+    function(){
+        Route::get('/', 'ProfileController@index')->name('profile.index');
+        Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+        Route::get('/secure', 'ProfileController@secure')->name('profile.secure');
+        Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');
+        Route::put('/update/{profile}', 'ProfileController@update')->name('profile.update');
+        Route::get('/articles', 'ProfileController@edit')->name('profile.articles');
+});
+
 Route::get('/autocomplete', "SearchController@autocomplete")->name('admin_autocomplete');
 
 
