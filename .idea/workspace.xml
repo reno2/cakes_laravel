@@ -221,19 +221,19 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\articles" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\seo" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Seo" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\seo\post" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\features" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="S:\OperServer\domains\lara-auth.loc\app\Models" />
       <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Features" />
       <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\seo" />
       <recent name="S:\OperServer\domains\lara-auth.loc\resources\views" />
       <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Seo" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\articles" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\seo" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Seo" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\seo\post" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\features" />
     </key>
   </component>
   <component name="RunManager" selected="PHP Web Page.Unnamed">
