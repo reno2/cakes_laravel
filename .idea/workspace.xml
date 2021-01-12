@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="392b92fe-a624-44d2-9602-b00ac486d070" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Features/FeaturesTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Features/FeaturesTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Feature.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Feature_types.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Feature_values.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Property.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Tag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Value.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/cache/config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/2020_09_11_211957_create_features_types_features_values_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/2020_10_11_211003_create_filtergroups_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/2020_10_11_211359_create_filtervalues_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_01_135513_create_tags_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_01_135513_create_tags_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_11_213814_create_filtergroups_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_11_213830_create_filtervalues_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_08_101628_create_groupefiltersables.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_08_101924_create_valuefiltersables.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/articles/switch_article.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/articles/switch_article.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,19 +202,19 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="S:\OperServer\domains\lara-auth.loc\app\Models" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Features" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\seo" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views" />
-      <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Seo" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\articles" />
       <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\seo" />
       <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Seo" />
       <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\seo\post" />
       <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\features" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="S:\OperServer\domains\lara-auth.loc\app\Models" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Features" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views\admin\seo" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\resources\views" />
+      <recent name="S:\OperServer\domains\lara-auth.loc\app\Http\Controllers\Admin\Seo" />
     </key>
   </component>
   <component name="RunManager" selected="PHP Web Page.Unnamed">
