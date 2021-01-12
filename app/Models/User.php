@@ -6,9 +6,22 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomEmailNotification;
+use Illuminate\Support\Facades\Auth;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+
+    /**
+     * Users' roles
+     * @var array
+     */
+    public const ROLES = [
+        'admin'     => 1,
+        'author'    => 2
+    ];
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function profiles(){
+        return $this->hasMany('App\Models\Profile');
+    }
     public function sendEmailVerificationNotification()
     {
         $this->notify(new CustomEmailNotification);

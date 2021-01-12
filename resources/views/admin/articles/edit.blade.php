@@ -148,13 +148,6 @@
                             не более 5 файлов. (jpeg, png)
                         </div>
                         <div class="form-group single-img__group">
-{{--                            <div class="single-img__handle">--}}
-{{--                                <img class="single-img__upload" src="{{ asset('images/file-upload.svg') }}" alt="">--}}
-{{--                                <div class="single-img__load">Загрузите свои изображения<br>--}}
-{{--                                    <span>не более 5 файлов. (jpeg, png)</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
                             <input multiple name="image[]" type="file" id="file_" value=""
                                    data-count="{{(count($article->images)) ?? 0}}" class="single-img__input">
                             <div class="create-form__error"></div>
@@ -162,7 +155,6 @@
                     </div>
                     <input type="hidden" name="main_image" id="main_image">
                     <div id="image-list" class="create-form__preview image-preview">
-                        {{--                        <img style="display: none;" id="post_img" class="img-fluid single-img__image" alt="">--}}
                         @if(isset($article->images))
                             @foreach($article->images->sortByDesc('main') as $image)
                                 <div class="image-preview__item @if ($image->main) image_main @endif"

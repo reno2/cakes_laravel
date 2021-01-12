@@ -3,7 +3,7 @@
 
     @include('chunks.head')
 
-<body>
+<body class="front">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -33,11 +33,24 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a href="{{route('profile.index')}}">
+                                        <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
+                                            <use xlink:href="/images/icons.svg#icon-user"></use>
+                                        </svg>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('profile.index')}}">
+                                        <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
+                                            <use xlink:href="/images/icons.svg#icon-msg"></use>
+                                        </svg>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name ?? Auth::user()->email}} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -62,5 +75,6 @@
         </main>
     </div>
 {{--    <script src="public/js/forms.js"></script>--}}
+    @yield('page-script')
 </body>
 </html>
