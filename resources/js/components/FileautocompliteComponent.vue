@@ -3,7 +3,7 @@
     <div class="form-group row">
         <label for="address" class="col-md-4 col-form-label text-md-right">Город</label>
         <div class="col-md-6">
-            <input @blur="unblur" @keyup="fillAddress($event)" autocomplete="off" v-model="city" type="text" id="address"
+            <input required @blur="unblur" @keyup="fillAddress($event)" autocomplete="off" v-model="city" type="text" id="address"
                    name="address" :class="{'is-invalid' : message}" class="form-control">
             <span v-if="message" class="help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
@@ -101,8 +101,7 @@
     .slide-fade-leave-active {
         transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
-    .slide-fade-enter, .slide-fade-leave-to
-        /* .slide-fade-leave-active до версии 2.1.8 */ {
+    .slide-fade-enter, .slide-fade-leave-to{
         transform: translateY(10px);
         opacity: 0;
     }

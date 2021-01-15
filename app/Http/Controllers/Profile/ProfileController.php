@@ -45,6 +45,7 @@ class ProfileController extends Controller
 
 
         return view('profile.edit', [
+            'check' => $profileRepository->checkIfCanAddAds($user),
             'user'         => $user,
             'profile'      => $profile,
             'profileTypes' => $profileRepository->getTypes()

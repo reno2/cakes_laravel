@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-   // protected $fillable = ['published', 'type', 'image', 'favorites', 'name', 'created_by', 'modifierd_by', 'image', 'address', 'rating', 'user_id'];
-    protected $guarded = [];
+    protected $fillable = ['contact2', 'contact1', 'published', 'address', 'filled', 'type', 'image', 'favorites', 'name', 'created_by', 'modifierd_by', 'image', 'address', 'rating', 'user_id', 'filled'];
+    //protected $guarded = [];
     /*
      * @var array
      */

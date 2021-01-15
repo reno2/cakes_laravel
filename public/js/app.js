@@ -6974,7 +6974,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-fade-enter-active[data-v-8c2ff5cc] {\n    transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-8c2ff5cc] {\n    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-8c2ff5cc], .slide-fade-leave-to[data-v-8c2ff5cc]\n    /* .slide-fade-leave-active до версии 2.1.8 */ {\n    transform: translateY(10px);\n    opacity: 0;\n}\n.dropdown-menu[data-v-8c2ff5cc] {\n    position: absolute;\n    display: block;\n    width: calc( 100% - 30px);\n    margin-top: -2px;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    margin-left: 15px;\n    max-height: 203px;\n    overflow-y: scroll;\n}\n.dropdown-item[data-v-8c2ff5cc] {\n    white-space: pre-wrap;\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.slide-fade-enter-active[data-v-8c2ff5cc] {\n    transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-8c2ff5cc] {\n    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-8c2ff5cc], .slide-fade-leave-to[data-v-8c2ff5cc]{\n    transform: translateY(10px);\n    opacity: 0;\n}\n.dropdown-menu[data-v-8c2ff5cc] {\n    position: absolute;\n    display: block;\n    width: calc( 100% - 30px);\n    margin-top: -2px;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    margin-left: 15px;\n    max-height: 203px;\n    overflow-y: scroll;\n}\n.dropdown-item[data-v-8c2ff5cc] {\n    white-space: pre-wrap;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -39443,6 +39443,7 @@ var render = function() {
           staticClass: "form-control",
           class: { "is-invalid": _vm.message },
           attrs: {
+            required: "",
             autocomplete: "off",
             type: "text",
             id: "address",

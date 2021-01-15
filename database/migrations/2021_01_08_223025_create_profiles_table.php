@@ -14,9 +14,9 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('published')->default(0)->change();
-            $table->boolean('filled')->default(0)->change();
+            $table->increments('id');
+            $table->boolean('published')->default(0);
+            $table->boolean('filled')->default(0);
             $table->string('type')->nullable();
             $table->string('favorites')->nullable();
             $table->string('name')->nullable();
@@ -25,10 +25,12 @@ class CreateProfilesTable extends Migration
             $table->string('contact1')->nullable();
             $table->string('contact2')->nullable();
             $table->bigInteger('rating')->default(0);
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->timestamps();
+        });
+        Schema::table('profiles', function(Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

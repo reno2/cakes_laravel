@@ -6,6 +6,8 @@
             <div class="col-md-3">
                 @include('profile.sidebar')
             </div>
+
+{{--            {{dd($check)}}--}}
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Редактировать профиль</div>
@@ -13,6 +15,11 @@
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
+                            </div>
+                        @endif
+                        @if (session('danger'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('danger') }}
                             </div>
                         @endif
 
@@ -41,7 +48,7 @@
                                 <div class="col-md-6">
                                     <input id="contact1" type="text"
                                            class="form-control @error('contact1') is-invalid @enderror" name="contact1"
-                                           value="{{old('contact1', $profile->contact1)}}" required autofocus>
+                                           value="{{old('contact1', $profile->contact1)}}">
                                     @error('address')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -54,7 +61,7 @@
                                 <div class="col-md-6">
                                     <input id="contact2" type="text"
                                            class="form-control @error('contact2') is-invalid @enderror" name="contact2"
-                                           value="{{ old('contact2', $profile->contact2) }}" required autofocus>
+                                           value="{{ old('contact2', $profile->contact2) }}">
                                     @error('contact2')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

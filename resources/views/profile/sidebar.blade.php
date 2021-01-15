@@ -25,7 +25,7 @@
             </a>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a class="personal_a" href="{{route('profile.articles')}}">Объявления</a>
+            <a class="personal_a" href="{{route('profile.ads.index')}}">Объявления</a>
             <span class="badge badge-primary badge-pill">23</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">

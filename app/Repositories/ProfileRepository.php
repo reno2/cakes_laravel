@@ -72,18 +72,26 @@ class ProfileRepository extends CoreRepository{
         return $this->startCondition()->types;
     }
 
-
     /*
-     * @param mixed $user|$id
+     * @param model User
      * @return bool
-     * Проверяет заполнен ли профиль
-     * и доступен для простотра закрытых страниц
+     * Проверяем заполнение минимальных требований
+     * к профилю для допуска к странице объявлений
      */
+    public function checkIfCanAddAds($user){
+        $status =  $this->startCondition()->find($user->id)->filled;
+        $rr = '';
+//        if ($user instanceof \Illuminate\Database\Eloquent\Model) {
+//            $status =  $user->filled;
+//        }else {
+//            $status =  $this->startCondition()->find($user)->filled;
+//        }
 
-    public function checkIsFill($user){
-
-        return $this->startCondition()->types;
+       return $status;
     }
+
+
+
 
 //    /*
 //    * @return Model\Illuminate\Foundation\Application|mixed
