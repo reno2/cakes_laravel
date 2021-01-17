@@ -13,12 +13,12 @@
 
         <div v-for="(item, inx) in dynamicItems" :key="inx" class="row align-items-end item__add">
             <div class="form-group col-md-4">
-                <label for="inputEmail4">Название</label>
-                <input autocomplete="nope" v-model="item.key" type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                <label for="name">Название</label>
+                <input autocomplete="nope" v-model="item.key" type="text" class="form-control" id="name" placeholder="Название">
             </div>
             <div class="form-group col-md-4">
-                <label for="inputEmail4">Значение</label>
-                <input autocomplete="nope" v-model="item.value" type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                <label for="value">Значение</label>
+                <input autocomplete="nope" v-model="item.value" type="text" class="form-control" id="value" placeholder="Значение">
             </div>
             <div class="form-group col-md-2">
                 <button class="btn btn-danger" type="button" @click="removeItem(inx)">удалить</button>

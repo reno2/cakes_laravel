@@ -14,7 +14,7 @@
       $(document).ready(function () {
              let $select2 = $('#tags').select2({
                  language: "ru",
-                 maximumSelectionLength: 2
+                 maximumSelectionLength: 3
              })
       })
       @isset($article->id)

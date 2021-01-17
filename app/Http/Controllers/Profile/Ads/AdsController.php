@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Profile\Ads;
 
+use App\Http\Requests\ProfileValidate;
+use App\Http\Requests\StoreAdsRequest;
 use App\Http\Controllers\Controller;
+
+
 use App\Models\Category;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Article;
 
 class AdsController extends Controller
 {
@@ -46,12 +51,20 @@ class AdsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreAdsRequest  $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdsRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $inputs             = $request->all();
+        dd($inputs);
+       // dd($inputs);
+        // Валидируем поля
+       // $validated = $request->validated();
+
+        $rr = '';
     }
 
     /**
@@ -79,8 +92,9 @@ class AdsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param  int    $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

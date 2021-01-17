@@ -5,18 +5,6 @@
             <label for="title">Заголовок</label>
             <input type="text" v-model="title" class="form-control" id="title" value="">
         </div>
-
-<!--        <div class="form-group form-check">-->
-<!--            <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--            <label class="form-check-label" for="exampleCheck1">Объязательное</label>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label for="featuresType">Выбрать тип</label>-->
-<!--            <select name="type" v-model="type" class="form-control" id="featuresType">-->
-<!--                <option value="" selected disabled hidden>Выбрать здесь</option>-->
-<!--                <option v-for="type in types">{{type}}</option>-->
-<!--            </select>-->
-<!--        </div>-->
         <div class="container">
             <div class="row">
                 <component :data1="values" @getList="getList" ref="listBuilder" :is="stepForm"></component>
@@ -34,6 +22,7 @@
     export default {
         data() {
             return {
+                id: null,
                 title: null,
                 listItems: [],
                 jsonData: null,
@@ -74,7 +63,8 @@
                             title: this.title,
                             type: this.type,
                             value: this.jsonData,
-                            require: 1
+                            require: 1,
+                            id: this.id || false
                         }
                     }).then(function (response) {
                             alert(response.data)
@@ -99,6 +89,7 @@
                 let tmpFeature  = JSON.parse(this.feature)
                 this.title = tmpFeature.title
                 this.type = tmpFeature.type
+                this.id = tmpFeature.id
             }
         },
         computed: {

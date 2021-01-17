@@ -1,10 +1,12 @@
-@extends('admin.layouts.app_admin')
-@if($article)
-    @include('admin.articles.edit')
-@else
-    @include('admin.articles.create')
-@endif
+@extends('layouts.profile')
 
+@section('content')
+@if($article)
+    @include('profile.ads.edit')
+@else
+    @include('profile.ads.create')
+@endif
+@stop
 {{--Тут подключаем нужные стили и скрипты для шаблонов форм--}}
 @section('page-script')
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>
@@ -21,5 +23,5 @@
       $('#tags').select2().val({!! json_encode($article->tags()->allRelatedIds()) !!}).trigger('change');
       @endisset
     </script>
-
 @stop
+

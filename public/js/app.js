@@ -2016,24 +2016,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      id: null,
       title: null,
       listItems: [],
       jsonData: null,
@@ -2075,7 +2064,8 @@ __webpack_require__.r(__webpack_exports__);
             title: this.title,
             type: this.type,
             value: this.jsonData,
-            require: 1
+            require: 1,
+            id: this.id || false
           }
         }).then(function (response) {
           alert(response.data);
@@ -2100,6 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
       var tmpFeature = JSON.parse(this.feature);
       this.title = tmpFeature.title;
       this.type = tmpFeature.type;
+      this.id = tmpFeature.id;
     }
   },
   computed: {
@@ -39042,9 +39033,7 @@ var render = function() {
           { key: inx, staticClass: "row align-items-end item__add" },
           [
             _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "inputEmail4" } }, [
-                _vm._v("Название")
-              ]),
+              _c("label", { attrs: { for: "name" } }, [_vm._v("Название")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -39059,8 +39048,8 @@ var render = function() {
                 attrs: {
                   autocomplete: "nope",
                   type: "text",
-                  id: "inputEmail4",
-                  placeholder: "Email"
+                  id: "name",
+                  placeholder: "Название"
                 },
                 domProps: { value: item.key },
                 on: {
@@ -39075,9 +39064,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "inputEmail4" } }, [
-                _vm._v("Значение")
-              ]),
+              _c("label", { attrs: { for: "value" } }, [_vm._v("Значение")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -39092,8 +39079,8 @@ var render = function() {
                 attrs: {
                   autocomplete: "nope",
                   type: "text",
-                  id: "inputEmail4",
-                  placeholder: "Email"
+                  id: "value",
+                  placeholder: "Значение"
                 },
                 domProps: { value: item.value },
                 on: {

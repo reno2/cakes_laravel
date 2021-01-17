@@ -6,7 +6,7 @@
 
 .create-form .create-form__item .create-form__title {
   margin-bottom: 16px;
-  font-size: 18px;
+  font-size: 12px;
 }
 
 .create-form .create-form__item .create-form__error {
@@ -182,5 +182,37 @@
 .personal .personal_ul .personal_a {
   font-size: 16px;
   color: #252533;
+}
+
+.select2 {
+  display: block;
+  width: 100% !important;
+}
+
+.select2 .select2-selection__choice {
+  background-color: #25eba2 !important;
+  color: #fff;
+}
+
+.select2 .select2-selection__choice span {
+  color: #fff !important;
+}
+
+.tab-content .tab-pane.active {
+  background: #f8fafc;
+  border-left: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  padding: 16px 0 0 16px;
+}
+
+.filters-group__content .filters-group__item {
+  display: flex;
+  align-items: center;
+}
+
+.filters-group__content .filters-group__item .filters-group__label {
+  margin-bottom: 0;
+  margin-left: 8px;
 }
 

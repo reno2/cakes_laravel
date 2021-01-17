@@ -11,15 +11,7 @@
     @endcomponent
 
     <hr>
-    <form action="{{route('admin.features.store')}}" class="form-inline" method="post">
 
-        <div class="form-group mx-sm-3 mb-2">
-            <input class="form-control" type="text" name="name">
-        </div>
-
-        {{--                <button type="submit" class="btn btn-primary mb-2">Создать тег</button>--}}
-        {{csrf_field()}}
-    </form>
     <a href="{{route('admin.features.create')}}" class="mb-3 btn btn-primary float-md-left"><i
             class="far fa-plus-square"></i> Создать материал</a>
     <table class="table table-striped">
@@ -30,13 +22,14 @@
         <th class="text-right">Действия</th>
         </thead>
         <tbody>
-        @if(!$features->isNotEmpty())
+        @if($features->isNotEmpty())
             @forelse($features as $feature)
+
                 <tr>
                     <td>{{$feature->title}}</td>
                     <td>{{$feature->type}}</td>
                     <td>
-                        @forelse($feature->values as $fearureValue)
+                        @forelse($feature->propertyValues as $fearureValue)
                             <div>{{$fearureValue->value}}</div>
                         @empty
 
@@ -62,6 +55,7 @@
                     <td colspan="3" class="text-center"><h2>Данные отсутствуют</h2></td>
                 </tr>
             @endforelse
+
         @endif
         </tbody>
         <tfoot>

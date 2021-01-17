@@ -41,3 +41,41 @@
         }
     }
 }
+
+
+// Form tags
+.select2 {
+    display: block;
+    width: 100% !important;
+    .select2-selection__choice{
+        background-color: #25eba2 !important;
+        color:#fff;
+        span{
+            color:#fff !important;
+        }
+    }
+}
+
+
+//Product filters
+.tab-content{
+    .tab-pane{
+        &.active{
+            background: #f8fafc;
+            border-left: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+            border-right: 1px solid #dee2e6;
+            padding: 16px 0 0 16px;
+        }
+    }
+}
+.filters-group__content {
+    .filters-group__item {
+        .filters-group__label{
+            margin-bottom: 0;
+            margin-left: 8px;
+        }
+        display: flex;
+        align-items: center;
+    }
+}

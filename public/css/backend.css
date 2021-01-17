@@ -6090,7 +6090,7 @@ readers do not read off random characters that represent icons */
 
 .create-form .create-form__item .create-form__title {
   margin-bottom: 16px;
-  font-size: 18px;
+  font-size: 12px;
 }
 
 .create-form .create-form__item .create-form__error {

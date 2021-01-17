@@ -5,7 +5,7 @@
         @else
          {{route('admin.features.store')}}
         @endif"
-    values="{{$feature->values ?? ''}}"
+    values="{{$feature->propertyValues ?? ''}}"
     feature="{{$feature ?? ''}}"
 ></features-component>
 

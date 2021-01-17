@@ -151,7 +151,6 @@
                            <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
                        </div>
                    </div>
-
                </div>
            </div>
         </form>

@@ -14,13 +14,12 @@ class FeaturesTypeController extends FeaturesAbstractController
     /**
      *  Возвращаем все характеристики
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|\Illuminate\View\View
      */
     public function index()
     {
         $features = PropertyName::paginate(20);
-
-        return view('admin.features.index', compact('features'));
+        return view('admin.features.index', ['features'=>$features]);
     }
 
     /**
@@ -123,27 +122,27 @@ class FeaturesTypeController extends FeaturesAbstractController
         $r = $request->all();
         try {
             // Обновляем свойство
-            $propertyUpdate = $property->update($r);
+             $property->update($r);
             // Проверяем что свойство обновленно и есть значения
-            if( $r['value'] && $propertyUpdate){
+            if( $r['value'] && $property){
                 // получаем обновленное свойство
-                $newProp = $property->first();
+               // $newProp = $property->first();
                 $values = json_decode($r['value']);
                 if($values){
                     // Удаляем все значения
-                    $property->values()->delete();
+                    $property->propertyValues()->delete();
                     foreach ($values as $feature){
                         // Создаём новое знаение
-                        $featureValue = Value::create([
+                        $featureValue = PropertyValue::create([
                             'key' =>  $feature->key,
                             'value' =>  $feature->value,
                         ]);
                         // Связываем со своством
-                        $newProp->values()->save($featureValue);
+                        $property->propertyValues()->save($featureValue);
                     }
                 }
             }
-            return response($newProp->title . ' Обнавлена', 200);
+            return response($property->title . ' Обнавлена', 200);
         }catch (\Exception $e){
             return response($e->getMessage(), 500);
         }
