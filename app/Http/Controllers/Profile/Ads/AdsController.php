@@ -26,7 +26,7 @@ class AdsController extends Controller
     {
         $user = Auth::user();
         $userRepository = new UserRepository();
-        return view('profile.index', [
+        return view('profile.ads.index', [
             'user'    => $user,
             'profile' => $userRepository->getUserProfileEdit($user->id)
         ]);
