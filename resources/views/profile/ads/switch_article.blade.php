@@ -23,5 +23,6 @@
       $('#tags').select2().val({!! json_encode($article->tags()->allRelatedIds()) !!}).trigger('change');
       @endisset
     </script>
+  <script src="{{ asset('js/forms.js')}}"></script>
 @stop
 

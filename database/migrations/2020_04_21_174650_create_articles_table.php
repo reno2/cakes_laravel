@@ -29,7 +29,7 @@ class CreateArticlesTable extends Migration
                 $table->integer('sort')->nullable();
                 $table->boolean('on_front');
                 $table->string('up_post')->nullable();
-                $table->string('type')->nullable();
+                $table->string('product_type')->nullable();
                 $table->text('service')->nullable();
                 $table->double('price')->default(0);
                 $table->double('weight')->default(0);

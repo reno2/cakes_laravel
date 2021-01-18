@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile\Ads;
 
 use App\Http\Requests\ProfileValidate;
-use App\Http\Requests\StoreAdsRequest;
+use App\Http\Requests\AdsRequest;
 use App\Http\Controllers\Controller;
 
 
@@ -51,11 +51,11 @@ class AdsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreAdsRequest  $request
+     * @param  AdsRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAdsRequest $request)
+    public function store(AdsRequest $request)
     {
         $validated = $request->validated();
         $inputs             = $request->all();

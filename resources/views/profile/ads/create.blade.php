@@ -27,6 +27,22 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="product_type" class="col-md-4 col-form-label text-md-right">Тип</label>
+                <div class="col-md-7">
+                    <select name="product_type"
+                            class="form-control  @error('product_type') is-invalid @enderror" id="product_type">
+                        <option value="product">Готовое изделие</option>
+                        <option value="order">Продукт под заказ</option>
+                    </select>
+                    @error('product_type')
+                    <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="title" class="col-md-4 col-form-label text-md-right">Название</label>
                 <div class="col-md-7">
                     <input id="title" type="text"
@@ -107,7 +123,7 @@
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Фильтры продукта</label>
                 <div class="col-md-7">
-                    {{--Widgets::filter tpl--}}
+
                     @if(isset($filter))
                         @widget('articleCreate', ['tpl'=>'Widgets::frontFiltersGroup', 'filter' => $filter])
                     @else
@@ -118,7 +134,7 @@
 
                 <div class="form-group row">
                     <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
-                    <div class="col-md-3 p-0 create-form__right">
+                    <div class="col-md-7 p-0 create-form__right">
                         <div class="js_postUpMsg post-up__msg"></div>
                         <div class="p-3 create-form__item single-img">
                             <div class="create-form__title">Основная картинка<br>

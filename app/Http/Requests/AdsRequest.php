@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreAdsRequest extends FormRequest
+class AdsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class StoreAdsRequest extends FormRequest
     {
 
         return [
-            //'title'   => "unique:articles|required",
-            //'description'   => "required|max:400",
+            'title'   => "unique:articles|required",
+            'description'   => "required|max:400",
             'categories'=> "required|array|not_in:0",
 
           //  'description'   => "required",

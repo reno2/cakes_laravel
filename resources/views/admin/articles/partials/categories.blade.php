@@ -8,7 +8,6 @@
 			@endif
 		@endforeach
 	@endisset
-
 >
 	{!! $delimiter ?? '' !!}{{$category->title ?? ''}}
 </option>
