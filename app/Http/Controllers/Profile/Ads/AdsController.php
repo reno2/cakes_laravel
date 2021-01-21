@@ -9,12 +9,25 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Repositories\UserRepository;
+use App\Services\AdsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
+use App\Repositories\AdsRepository;
 
 class AdsController extends Controller
 {
+
+
+    protected $adsService;
+    protected $adsRepository;
+
+    public function __construct(AdsService $adsService, AdsRepository $adsRepository)
+    {
+        $this->adsService = $adsService;
+        $this->adsRepository = $adsRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,11 +37,12 @@ class AdsController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $user           = Auth::user();
         $userRepository = new UserRepository();
+
         return view('profile.ads.index', [
             'user'    => $user,
-            'profile' => $userRepository->getUserProfileEdit($user->id)
+            'ads' => $this->adsRepository->getAdsSortedDesc(),
         ]);
     }
 
@@ -51,26 +65,29 @@ class AdsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  AdsRequest $request
+     * @param AdsRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AdsRequest $request)
     {
         $validated = $request->validated();
-        $inputs             = $request->all();
-        dd($inputs);
-       // dd($inputs);
-        // Валидируем поля
-       // $validated = $request->validated();
+        $inputs = $request->all();
+        $article = Article::create($request->except('image'));
+        try{
+            $this->adsService->chain($inputs, $article);
+        }catch (\Exception $e){
+            return back()->withErrors( $e->getMessage())->withInput();
+        }
+        return redirect()->route('profile.ads.index');
 
-        $rr = '';
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,7 +98,8 @@ class AdsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -93,7 +111,7 @@ class AdsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int    $id
+     * @param int     $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -105,7 +123,8 @@ class AdsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

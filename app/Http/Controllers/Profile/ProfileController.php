@@ -131,8 +131,9 @@ class ProfileController extends Controller
             ]);
         } catch (Exception $exception) {
             session()->flash('message', $exception->getMessage());
-
-            return redirect()->route('profile.index');
+            //$response->header("Cache-Control", "no-store,no-cache, must-revalidate, post-check=0, pre-check=0");
+            return redirect()->route('profile.index')
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
         }
 
     }

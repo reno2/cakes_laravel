@@ -40,6 +40,7 @@
     36 => 'App\\Providers\\SeometaServiceProvider',
     37 => 'App\\Providers\\WidgetServiceProvider',
     38 => 'Intervention\\Image\\ImageServiceProvider',
+    39 => 'App\\Providers\\ProfileServiceProvider',
   ),
   'eager' => 
   array (
@@ -68,6 +69,7 @@
     22 => 'App\\Providers\\SeometaServiceProvider',
     23 => 'App\\Providers\\WidgetServiceProvider',
     24 => 'Intervention\\Image\\ImageServiceProvider',
+    25 => 'App\\Providers\\ProfileServiceProvider',
   ),
   'deferred' => 
   array (

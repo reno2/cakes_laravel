@@ -153,6 +153,10 @@
   color: #ffffff;
 }
 
+.ad .ad__img {
+  width: 100%;
+}
+
 .ava {
   position: relative;
   margin-bottom: 8px;

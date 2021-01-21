@@ -8,7 +8,7 @@
                 <div class="jumbotron dash-item dcat">
                     <p>
                         <span class="label label-primary">
-                            Категорий {{$count_categories}}
+                            Категорий {{$count_categories ?? 0}}
                         </span>
                     </p>
                     <div class="dash-item__icon">
@@ -21,7 +21,7 @@
                 <div class="jumbotron dash-item dpost">
                     <p>
                         <span class="label label-primary">
-                            Материалов {{$count_articles}}
+                            Материалов {{$count_articles ?? 0}}
                         </span>
                     </p>
                     <div class="dash-item__icon">
@@ -61,21 +61,27 @@
         <div class="row">
             <div class="col-sm-6">
                 <a href="{{route('admin.category.create')}}" class="btn btn-block btn-default">Создать категорию</a>
-                @foreach($categories as $category)
+                @if(isset($articles) && isset($categories))
+                @forelse($categories as $category)
                 <a href="{{route('admin.category.edit', $category)}}" class="list-group-item">
                     <h4 class="list-group-item-heading">{{$category->title}}</h4>
                     <p class="list-group-item-text">{{$category->articles->count()}}</p>
                 </a>
-                @endforeach
+                @empty
+                @endforelse
+                @endif
             </div>
             <div class="col-sm-6">
                 <a href="{{route('admin.article.create')}}" class="btn btn-block btn-default">Создать материал</a>
-                @foreach($articles as $article)
+                @if(isset($articles))
+                @forelse($articles as $article)
                 <a href="{{route('admin.article.edit', $article)}}" class="list-group-item">
                     <h4 class="list-group-item-heading">{{$article->title}}</h4>
                     <p class="list-group-item-text">{{$article->categories->pluck('title')->implode(',', '')}}</p>
                 </a>
-                @endforeach
+                @empty
+                @endforelse
+                    @endif
             </div>
         </div>
 

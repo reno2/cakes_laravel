@@ -28,7 +28,8 @@ class AdsRequest extends FormRequest
         return [
             'title'   => "unique:articles|required",
             'description'   => "required|max:400",
-            'categories'=> "required|array|not_in:0",
+            'price'   => "required|max:400",
+           // 'categories'=> "required|array|not_in:0",
 
           //  'description'   => "required",
 //            'image'   => "max:5",
@@ -46,6 +47,7 @@ class AdsRequest extends FormRequest
             'description.max' => 'Максимальное количество 400 символов',
             'categories.required|not_in' => 'Выбор категории объязателен',
             'categories.not_in' => 'Выбор категории объязателен',
+            'price'   => 'Поле цена объязательно'
 //            'title.unique' => 'Название уже существует',
 //            'image.max'      => 'Не более 5 файлов',
 //            'image.required' => 'Загрузка файла объязательна',

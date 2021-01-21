@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
 		        $table->boolean('image_show')->nullable();
 		        $table->string('meta_title')->nullable();
 		        $table->string('meta_description')->nullable();
-		        $table->boolean('published');
+		        $table->boolean('published')->nullable();
 		        $table->integer('created_by')->nullable();
 		        $table->integer('modified_by')->nullable();
                 $table->integer('sort')->nullable();
@@ -31,9 +31,9 @@ class CreateArticlesTable extends Migration
                 $table->string('up_post')->nullable();
                 $table->string('product_type')->nullable();
                 $table->text('service')->nullable();
-                $table->double('price')->default(0);
-                $table->double('weight')->default(0);
-                $table->unsignedMediumInteger('views')->default(0);
+                $table->double('price')->default(0)->nullable();
+                $table->double('weight')->default(0)->nullable();
+                $table->unsignedMediumInteger('views')->default(0)->nullable();
                 $table->timestamps();
         });
     }

@@ -179,7 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SeometaServiceProvider::class,
         App\Providers\WidgetServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        App\Providers\ProfileServiceProvider::class
     ],
 
     /*

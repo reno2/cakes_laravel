@@ -2,6 +2,7 @@
     <div class="card-header">
         Новое объявление
     </div>
+
     <div class="card-body">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
@@ -13,6 +14,11 @@
                 {{ session('danger') }}
             </div>
         @endif
+            @if($errors->any())
+                <div class="alert alert-danger" role="alert">
+               {{$errors->first()}}
+                </div>
+            @endif
 
         <form method="post" id="post-image" action="{{ route('profile.ads.store')}}" class="create-form"
               enctype="multipart/form-data">
@@ -47,7 +53,7 @@
                 <div class="col-md-7">
                     <input id="title" type="text"
                            class="form-control @error('title') is-invalid @enderror" name="title"
-                           value="{{old('name')}}">
+                           value="{{old('title')}}">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -84,7 +90,8 @@
             <div class="form-group row">
                 <label for="description" class="col-md-4 col-form-label text-md-right">Описание</label>
                 <div class="col-md-7">
-                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description">{{old('description')}}</textarea>
+                    <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                              id="description">{{old('description')}}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -95,7 +102,7 @@
 
             <div class="form-group row">
                 <label for="tags" class="col-md-4 col-form-label text-md-right">Теги
-                <span></span>
+                    <span></span>
                 </label>
                 <div class="col-md-7">
                     <select multiple="" name="tags[]" id="tags">
@@ -108,7 +115,8 @@
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Родительская категория</label>
                 <div class="col-md-7">
-                    <select name="categories[]" class="form-control @error('categories') is-invalid @enderror" id="categories">
+                    <select name="categories[]" class="form-control @error('categories') is-invalid @enderror"
+                            id="categories">
                         <option value="0">Выбрать категорию</option>
                         @include('admin.articles.partials.categories', ['categories' => $categories, ])
                     </select>
@@ -121,7 +129,9 @@
             </div>
 
             <div class="form-group row">
-                <label for="categories" class="col-md-4 col-form-label text-md-right">Фильтры продукта</label>
+                <label for="categories" class="col-md-4 col-form-label text-md-right">Фильтры продукта
+                    <br> объезятельно заполнить хоть один
+                </label>
                 <div class="col-md-7">
 
                     @if(isset($filter))
@@ -132,29 +142,29 @@
                 </div>
             </div>
 
-                <div class="form-group row">
-                    <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
-                    <div class="col-md-7 p-0 create-form__right">
-                        <div class="js_postUpMsg post-up__msg"></div>
-                        <div class="p-3 create-form__item single-img">
-                            <div class="create-form__title">Основная картинка<br>
-                                Загрузите свои изображения<br>
-                                не более 5 файлов. (jpeg, png)
-                            </div>
-                            <div class="form-group single-img__group">
-                                <input multiple name="image[]" type="file" id="file_" value=""
-                                       data-count="0" class="single-img__input">
-                                <div class="create-form__error"></div>
-                            </div>
+            <div class="form-group row">
+                <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
+                <div class="col-md-7 p-0 create-form__right">
+                    <div class="js_postUpMsg post-up__msg"></div>
+                    <div class="p-3 create-form__item single-img">
+                        <div class="create-form__title">Основная картинка<br>
+                            Загрузите свои изображения<br>
+                            не более 5 файлов. (jpeg, png)
                         </div>
-                        <input type="hidden" name="main_image" id="main_image">
-                        <div id="image-list" class="create-form__preview image-preview">
-                            <div class="fake-upload">
-                                <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
-                            </div>
+                        <div class="form-group single-img__group">
+                            <input multiple name="image[]" type="file" id="file_" value=""
+                                   data-count="0" class="single-img__input">
+                            <div class="create-form__error"></div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="main_image" id="main_image">
+                    <div id="image-list" class="create-form__preview image-preview">
+                        <div class="fake-upload">
+                            <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="form-group row">
                 <div class="offset-md-4 col-md-8">
                     <input type="submit" class="btn btn-block btn-primary" value="Создать запись">
