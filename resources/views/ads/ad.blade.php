@@ -17,5 +17,6 @@
         <p>Категории:
             {{$ad->categories->pluck('title')->first()}}
         </p>
+        <a href="{{route('profile.ads.edit', $ad)}}"><i class="fas fa-edit">изменить</i></a>
     </div>
 </div>

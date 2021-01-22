@@ -1,5 +1,5 @@
 
-
+{{--{{dd(in_array(39, $filter))}}--}}
 
 <div class="nav-tabs-custom filters-group" id="filters">
     <ul class="nav nav-tabs" role="tablist">
@@ -18,6 +18,7 @@
             <a href="#" id="reset-filter">Сброс</a>
         </li>
     </ul>
+
     <div class="tab-content filters-group__content">
         @if(!empty($attrs[$group_id]))
             @php $i =1; @endphp

@@ -11,6 +11,9 @@ class AdsRepository extends CoreRepository
 {
 
 
+    public function getForEdit($id){
+        return $this->startCondition()->find($id);
+    }
     /*
    * @return string
    */
@@ -34,7 +37,7 @@ class AdsRepository extends CoreRepository
     public function setRelationAttrs(array $values, $ads)
     {
          $ads->filterGroups()->attach(array_keys($values));
-         $ads->filterGroups()->attach($values);
+         $ads->filterValues()->attach($values);
         return true;
     }
 

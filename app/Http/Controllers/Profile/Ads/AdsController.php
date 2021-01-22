@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Repositories\UserRepository;
 use App\Services\AdsService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
@@ -102,9 +103,23 @@ class AdsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $id)
     {
-        //
+        $article = $this->adsRepository->getForEdit($id );
+        //$r = Carbon::create($article->up_post);
+        $tags = \App\Models\Tag::all();
+        $tags2 = [];
+       $rr =  $article->filterValues;
+        foreach($tags as $tag){
+            $tags2[$tag->id] = $tag->name;
+        }
+        return view('profile.ads.switch_article', [
+            'ads'    => $article,
+            'categories' => Category::with('children')->where('parent_id', 0)->get(),
+            'tags'       => $tags,
+            'filter'     => $article->filterValues->pluck('id')->toArray(),
+            'delimiter'  => '',
+        ]);
     }
 
     /**

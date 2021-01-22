@@ -13,7 +13,6 @@ class Article extends Model
     // Mutators
 //    public function setSlugAttribute($value)
 //    {
-//
 //        if(isset($_REQUEST['slug__change']) && !empty($value)){
 //            $this->attributes['slug'] = Str::slug($value);
 //        }else{
