@@ -4,28 +4,12 @@
     <list default="true" id="392b92fe-a624-44d2-9602-b00ac486d070" name="Default Changelist" comment="add ignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Profile/Ads/AdsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Profile/Ads/AdsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/AdsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/AdsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/backend.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/backend.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/frontend.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/frontend.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/frontend.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/frontend.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/widgets/AdminFiltersWidget.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Widgets/AdminFiltersWidget.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/widgets/Contract/ContractWidget.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Widgets/Contract/ContractWidget.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/widgets/MenuWidget.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Widgets/MenuWidget.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/widgets/Widget.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Widgets/Widget.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/ads/ad.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/ads/ad.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/profile/ads/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile/ads/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/profile/ads/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile/ads/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/profile/ads/switch_article.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile/ads/switch_article.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/widgets/frontFiltersGroup.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/widgets/frontFiltersGroup.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -598,10 +582,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2239" y="-8" width="1542" height="796" maximized="true" key="dock-window-2/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1607930156718" />
-    <state x="646" y="326" width="627" height="568" key="find.popup" timestamp="1611089784053">
+    <state x="646" y="326" width="627" height="568" key="find.popup" timestamp="1611341511685">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="326" width="627" height="568" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1611089784053" />
+    <state x="646" y="326" width="627" height="568" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1611341511685" />
     <state x="2566" y="326" width="627" height="568" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1610117294816" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1609640387537">
       <screen x="0" y="0" width="1920" height="1040" />

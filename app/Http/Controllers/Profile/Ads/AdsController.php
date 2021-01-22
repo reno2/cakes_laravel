@@ -114,7 +114,7 @@ class AdsController extends Controller
             $tags2[$tag->id] = $tag->name;
         }
         return view('profile.ads.switch_article', [
-            'ads'    => $article,
+            'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
             'filter'     => $article->filterValues->pluck('id')->toArray(),
