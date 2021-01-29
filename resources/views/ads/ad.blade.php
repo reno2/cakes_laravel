@@ -1,12 +1,12 @@
 <div class="card ad" style="width: 18rem;">
     <div class="card-image ad__img">
-        <a href="#">
+        <div class="item">
             @if($ad->getMedia('cover'))
                 @foreach($ad->getMedia('cover') as $item)
                         <img class="card-img-top" src="{{$item->getUrl('thumb')}}"
-                     alt="Card image cap"></a>
+                     alt="Card image cap">
                    @endforeach
-            @endif
+            @endif</div>
     </div>
 
     <div class="ad__body card-body">
