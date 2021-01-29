@@ -6293,6 +6293,7 @@ readers do not read off random characters that represent icons */
 }
 
 .ava .ava__block {
+  height: 250px;
   overflow: hidden;
   border-radius: 100%;
   border: 17px solid #eee;
