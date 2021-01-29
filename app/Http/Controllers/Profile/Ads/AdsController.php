@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Repositories\AdsRepository;
+use Spatie\MediaLibrary\Models\Media;
 
 class AdsController extends Controller
 {
@@ -40,7 +41,7 @@ class AdsController extends Controller
     {
         $user           = Auth::user();
         $userRepository = new UserRepository();
-
+$f = $this->adsRepository->getAdsSortedDesc();
         return view('profile.ads.index', [
             'user'    => $user,
             'ads' => $this->adsRepository->getAdsSortedDesc(),
@@ -57,7 +58,7 @@ class AdsController extends Controller
         $tags = \App\Models\Tag::all();
         return view('profile.ads.switch_article', [
             'tags'       => $tags,
-            'article'    => [],
+            'ads'    => null,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'delimiter'  => ''
         ]);
@@ -105,34 +106,63 @@ class AdsController extends Controller
      */
     public function edit( $id)
     {
-        $article = $this->adsRepository->getForEdit($id );
-        //$r = Carbon::create($article->up_post);
+        $ads = $this->adsRepository->getForEdit($id);
+
+
+       // $f = $ads->media()->delete();
+        //dd($f);
+        //$ads->deleteMedia($f->id);
+        $rrdd = '';
+//        $media = Media::find($id);
+
+//        $model_type = $media->model_type;
+//
+//        $model = $model_type::find($media->model_id);
+//        $model->deleteMedia($media->id);
+
+
+
         $tags = \App\Models\Tag::all();
         $tags2 = [];
-       $rr =  $article->filterValues;
+       $rr =  $ads->filterValues;
         foreach($tags as $tag){
             $tags2[$tag->id] = $tag->name;
         }
+        $mediaItem = $ads->addMedia('cover');
+
+
+
         return view('profile.ads.switch_article', [
-            'article'    => $article,
+
+            'ads'    => $ads,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
-            'filter'     => $article->filterValues->pluck('id')->toArray(),
+            'filter'     => $ads->filterValues->pluck('id')->toArray(),
             'delimiter'  => '',
-        ]);
+       ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int     $id
+     * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $ads = Article::find($id);
+        $inputs = $request->all();
+
+        try{
+            $this->adsService->uploadChain($inputs, $ads);
+        }catch (\Exception $e){
+            return back()->withErrors( $e->getMessage())->withInput();
+        }
+        return redirect()->route('profile.ads.index');
+
+
     }
 
     /**

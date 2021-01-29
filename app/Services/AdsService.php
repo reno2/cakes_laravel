@@ -15,49 +15,21 @@ class AdsService
     use UploadTrait;
     protected $article;
     protected $adsRepository;
-    function checkFile($file, $article)
-    {
-        $name           = $file->getClientOriginalName();
-        $fileUrl        = Storage::url('images/' . $name);
-        $path           = 'public/images/' . $name;
-        $postImageModel = new PostImage;
-        // Проверяем существует ли файл с таким именем,
-        // если да, то не создаём, а используем существующий
-        if (!Storage::disk('public')->exists('images/' . $name)) {
-            $image = Image::make($file)->fit(450, 750,
-                    function ($constraint) {
-                        $constraint->upsize();
-                    }, 'center');
-            $save = Storage::put($path, (string)$image->encode());
-            if(!$save) $this->fail('не удалось созранить файл');
-            $url = Storage::url($path);
-        } else {
-            $url = $fileUrl;
-        }
+    protected $request;
 
-        $postImageModel->article_id = $article->id;
-        $postImageModel->name       = md5($name);
-        $postImageModel->image_path = $url;
-        if( !$postImageModel->save())
-            $this->fail();
-
-
-    }
 
     function chain($request, $article)
     {
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
-        if (isset($request['image']) && !is_null($request['image'])) {
-            if (is_array($request['image'])) {
-                foreach ($request['image'] as $file) {
-                    //$this->checkFile($file, $article);
-                    $this->uploadOne($file, $article->id);
-                }
-            } else {
-                $this->uploadOne($request['image'], $article->id);
-            }
-        }
+        $this->request = $request;
+
+
+//        if ($request->isMethod('post')) {
+//
+//        }
+
+        $this->prepareImages();
 
         if (isset($request['attrs']) && !empty($request['attrs'])):
             $this->setNewRelations('Attrs', $request['attrs'], $article);
@@ -68,7 +40,7 @@ class AdsService
         endif;
 
         if (isset($request['tags']) && !empty($request['tags'])):
-            $this->setNewRelations('Tags', $request['categories'], $article);
+            $this->setNewRelations('Tags', $request['tags'], $article);
         endif;
 
 
@@ -76,7 +48,6 @@ class AdsService
     }
 
     function setNewRelations($name, $relation, $article = null){
-
         $method = 'setRelation' . $name;
             if(!$this->adsRepository->$method($relation, $article))
                 $this->fail('Ошибка при создании связи');
@@ -84,5 +55,17 @@ class AdsService
 
     function fail($msg = 'Ошибка сохранения файла'){
         throw new  \Exception($msg);
+    }
+
+
+    function uploadChain($request, $article){
+        $this->article = $article;
+        $this->adsRepository = new AdsRepository();
+        $this->request = $request;
+        // Удаляем картинки если они пришли
+        $this->prepareImages();
+//        if(!empty($inputs["remove"]))
+//            $this->deleteMediaItem(json_decode($inputs["remove"]),  $ads);
+        return true;
     }
 }

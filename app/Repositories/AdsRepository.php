@@ -49,7 +49,7 @@ class AdsRepository extends CoreRepository
 
     public function setRelationTags(array $values, $ads)
     {
-         $ads->tags()->attach($values);
+        $ads->tags()->attach($values);
         return true;
     }
 

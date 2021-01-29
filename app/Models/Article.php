@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\File;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+class Article extends Model implements HasMedia
 {
-
+    use HasMediaTrait;
 
     // Mutators
 //    public function setSlugAttribute($value)
@@ -86,4 +91,24 @@ class Article extends Model
     {
         return $this->hasMany('App\Models\PostImage');
     }
+    /**
+     * Get all of the user's images.
+     */
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
+    public function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('cover')
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('thumb')
+                    ->width(250)
+                    ->height(250)
+                    ->sharpen(10);
+            });
+    }
+
 }

@@ -74,7 +74,7 @@
             overflow: hidden;
             max-height: 127px;
             img {
-                height: 60px;
+                height: 100%;
             }
             .image-preview__name {
                 font-size: 10px;
@@ -87,6 +87,11 @@
                 width: 24px;
                 fill: #ff2828;
                 height: 24px;
+                position: absolute;
+                top: 0;
+                background: #fff;
+                left: 0;
+                cursor: pointer;
             }
             .image-preview__process{
                 height: 5px ;
@@ -113,9 +118,9 @@
         overflow: hidden;
         height: 300px;
         border: 2px dashed #cccccc;
-        img{
-            width: 100%;
-        }
+        position: relative;
+
+
     }
 
     .fake-upload.ava{

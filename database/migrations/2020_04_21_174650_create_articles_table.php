@@ -27,7 +27,7 @@ class CreateArticlesTable extends Migration
 		        $table->integer('created_by')->nullable();
 		        $table->integer('modified_by')->nullable();
                 $table->integer('sort')->nullable();
-                $table->boolean('on_front');
+                $table->boolean('on_front')->default(0)->nullable();
                 $table->string('up_post')->nullable();
                 $table->string('product_type')->nullable();
                 $table->text('service')->nullable();

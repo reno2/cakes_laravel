@@ -1,6 +1,7 @@
 @extends('layouts.profile')
 
 @section('content')
+
 @if(isset($ads))
     @include('profile.ads.edit')
 @else
@@ -26,4 +27,5 @@
     </script>
   <script src="{{ asset('js/forms.js')}}"></script>
 @stop
+
 

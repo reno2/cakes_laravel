@@ -170,6 +170,27 @@ const formsFile = {
         //formsFile.removeNotice(formsFile.input);
         formsFile.input.setAttribute('data-count', formsFile.count);
         formsFile.removeNotice(formsFile.input);
+
+        // ID элемента на удалени
+        let toDel = el.getAttribute('data-to-del');
+
+        // Значение для удаления
+        let deleteIds = document.getElementById('delete_ids');
+        let allIds = []
+        if(!deleteIds.value){
+            allIds.push(toDel)
+        }else{
+            allIds = JSON.parse(deleteIds.value);
+            allIds.push(toDel)
+        }
+        $(deleteIds).val(JSON.stringify( allIds ))
+
+
+
+
+
+
+
     },
     // Запрещаем или разрешаем отправку формы
     formStatus(status) {
@@ -225,7 +246,6 @@ const formsFile = {
 
 // Отмечаем файл как главный
 function setAsMain(el, name = null) {
-
     el.parentElement.querySelectorAll('.image-preview__item').forEach(item => {
         item.classList.remove('image_main')
     })

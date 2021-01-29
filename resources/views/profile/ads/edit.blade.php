@@ -20,15 +20,16 @@
             </div>
         @endif
 
-        <form method="post" id="post-image" action="{{ route('profile.ads.store')}}" class="create-form"
+        <form method="post" id="post-image" action="{{ route('profile.ads.update', $ads)}}" class="create-form"
               enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="_method" value="put">
             <div class="form-group row">
                 <label for="published" class="col-md-4 col-form-label text-md-right">Статус</label>
                 <div class="col-md-7">
                     <select name="published" class="form-control" id="published">
-                        <option value="0" @if($article->published == 0) selected="" @endif>Опубликовано</option>
-                        <option value="1" @if($article->published == 1) selected="" @endif>Не опубликовано</option>
+                        <option value="0" @if($ads->published == 0) selected="" @endif>Опубликовано</option>
+                        <option value="1" @if($ads->published == 1) selected="" @endif>Не опубликовано</option>
                     </select>
                 </div>
             </div>
@@ -37,8 +38,11 @@
                 <div class="col-md-7">
                     <select name="product_type"
                             class="form-control  @error('product_type') is-invalid @enderror" id="product_type">
-                        <option value="product" @if($article->product_type == 'product') selected="" @endif>Готовое изделие</option>
-                        <option value="order" @if($article->product_type == 'order') selected="" @endif>Продукт под заказ</option>
+                        <option value="product" @if($ads->product_type == 'product') selected="" @endif>Готовое
+                            изделие
+                        </option>
+                        <option value="order" @if($ads->product_type == 'order') selected="" @endif>Продукт под заказ
+                        </option>
                     </select>
                     @error('product_type')
                     <span class="invalid-feedback" role="alert">
@@ -53,7 +57,7 @@
                 <div class="col-md-7">
                     <input id="title" type="text"
                            class="form-control @error('title') is-invalid @enderror" name="title"
-                           value="{{old('title', $article->title)}}">
+                           value="{{old('title', $ads->title)}}">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -66,7 +70,7 @@
                 <div class="col-md-2">
                     <input id="price" type="text"
                            class="form-control @error('price') is-invalid @enderror" name="price"
-                           value="{{old('price', $article->price)}}">
+                           value="{{old('price', $ads->price)}}">
                     @error('price')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -79,7 +83,7 @@
                 <div class="col-md-2">
                     <input id="weight" type="text"
                            class="form-control @error('weight') is-invalid @enderror" name="weight"
-                           value="{{old('weight', $article->weight)}}">
+                           value="{{old('weight', $ads->weight)}}">
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -91,7 +95,7 @@
                 <label for="description" class="col-md-4 col-form-label text-md-right">Описание</label>
                 <div class="col-md-7">
                     <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-                              id="description">{{old('description', $article->description)}}</textarea>
+                              id="description">{{old('description', $ads->description)}}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -159,29 +163,36 @@
                     </div>
 
                     <div id="image-list" class="create-form__preview image-preview">
-                        @if(isset($article->images))
-                            @foreach($article->images->sortByDesc('main') as $image)
-                                <div class="image-preview__item @if ($image->main) image_main @endif"
-                                     onclick="setAsMain(this, '{{$image->name}}')">
-                                    <img src="{{$image->small}}" alt="">
-                                    <input type="hidden" name="old_files[]" value="{{$article->small}}">
+                        @if($ads->getMedia('cover'))
+                            @foreach($ads->getMedia('cover') as $image)
+
+                                <div class="image-preview__item
+                                     @if ($image->getCustomProperty('main')) image_main @endif"
+                                     onclick="setAsMain(this, '{{$image->file_name}}')">
+                                    <img src="{{$image->getUrl('thumb')}}" alt="">
+                                    <input type="hidden" name="old_files[]" value="{{$image->file_name}}">
                                     <span class="image-preview__name"></span>
-                                    <svg onclick="formsFile.removeFile(this)" data-name="" class="image-preview__del">
+                                    <svg onclick="formsFile.removeFile(this)"
+                                         data-to-del="{{$image->id}}"
+                                         data-name=""
+                                         class="image-preview__del">
                                         <use xlink:href="/images/icons.svg#icon-close"></use>
                                     </svg>
                                 </div>
                             @endforeach
                         @endif
-                            <div id="image-list" class="create-form__preview image-preview">
-                                <div class="fake-upload">
-                                    <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
-                                </div>
+
+                            <div class="fake-upload">
+                                <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
                             </div>
+
                     </div>
 
 
                     <input type="hidden" name="main_image" id="main_image">
-
+                    <input type="hidden" id="delete_ids" name="remove">
+                    {!! json_encode($ads->media()->pluck('id')) !!}
+                    {!! json_encode($ads->tags()->allRelatedIds()) !!}
                 </div>
             </div>
             <div class="form-group row">
