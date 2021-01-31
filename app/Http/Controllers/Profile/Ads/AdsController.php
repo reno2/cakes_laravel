@@ -41,7 +41,7 @@ class AdsController extends Controller
     {
         $user           = Auth::user();
         $userRepository = new UserRepository();
-$f = $this->adsRepository->getAdsSortedDesc();
+        //$f = $this->adsRepository->getAdsImagesSortByMain();
         return view('profile.ads.index', [
             'user'    => $user,
             'ads' => $this->adsRepository->getAdsSortedDesc(),
@@ -102,7 +102,7 @@ $f = $this->adsRepository->getAdsSortedDesc();
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit( $id)
     {
@@ -128,12 +128,16 @@ $f = $this->adsRepository->getAdsSortedDesc();
         foreach($tags as $tag){
             $tags2[$tag->id] = $tag->name;
         }
-        $mediaItem = $ads->addMedia('cover');
+        $mediaItem =  Media::where('model_id', $ads->id)->whereJsonContains('custom_properties->main', true)->first();
+
+        $mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
+
 
 
 
         return view('profile.ads.switch_article', [
-
+            'main' => ($mediaItem->file_name) ?? '',
+            'mediaItem2'=> $mediaItem2,
             'ads'    => $ads,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
@@ -168,12 +172,20 @@ $f = $this->adsRepository->getAdsSortedDesc();
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @param int
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $ads = Article::find($id);
+        try{
+           $this->adsService->removeAds($ads);
+        }catch (\Exception $e){
+            return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
+        }
+        return redirect()->route('profile.ads.index')->with('success','Объявление полностью удалено');
+
     }
 }

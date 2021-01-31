@@ -2,6 +2,10 @@
 
 @section('content')
 
+
+    @include('chunks.all_massages')
+
+
     <div class="card">
         <div class="card-header">{{ __('Dashboard') }}</div>
         <div class="card-body">
@@ -24,9 +28,13 @@
                     @endforeach
                 </div>
             </div>
+
+
         </div>
     </div>
-
+    <ul class="pagination pull-right">
+        {{$ads->links()}}
+    </ul>
 @endsection
 {{--Тут подключаем нужные стили и скрипты для шаблонов форм--}}
 @section('page-script')
@@ -34,8 +42,9 @@
     <script src="{{asset('js/libs/jQuery.Brazzers-Carousel.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $(".item").brazzersCarousel();
+            $(".ad__img").brazzersCarousel();
         })
-    </script>
 
+    </script>
 @stop
+
