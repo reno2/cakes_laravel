@@ -17,17 +17,32 @@ class AdsService
     protected $adsRepository;
     protected $request;
 
+    public function removeAds($article){
+        $this->adsRepository = new AdsRepository();
 
-    function chain($request, $article)
+        if(!$this->adsRepository->removeFilterValName($article))
+            $this->fail('Ошибка при удалении связи');
+
+        if(!$this->adsRepository->removeRelationCategories($article))
+            $this->fail('Ошибка при удалении связи');
+
+        if(!$this->adsRepository->removeRelationTags($article))
+            $this->fail('Ошибка при удалении связи');
+
+        if(!$this->deleteAllElementMedia($article))
+            $this->fail('Ошибка при удалении связи картинок');
+
+        if(!$this->adsRepository->removeArticle($article))
+            $this->fail('Ошибка при удалении связи');
+
+
+    }
+
+    public function chain($request, $article)
     {
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $request;
-
-
-//        if ($request->isMethod('post')) {
-//
-//        }
 
         $this->prepareImages();
 
@@ -54,7 +69,7 @@ class AdsService
     }
 
     function fail($msg = 'Ошибка сохранения файла'){
-        throw new  \Exception($msg);
+        throw new \Exception($msg);
     }
 
 

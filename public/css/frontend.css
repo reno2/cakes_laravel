@@ -6283,10 +6283,6 @@ readers do not read off random characters that represent icons */
   color: #ffffff;
 }
 
-.ad .ad__img {
-  width: 100%;
-}
-
 .ava {
   position: relative;
   margin-bottom: 8px;

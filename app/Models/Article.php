@@ -105,9 +105,10 @@ class Article extends Model implements HasMedia
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->width(250)
-                    ->height(250)
-                    ->sharpen(10);
+                    ->fit('fill', 250, 250);
+//                    ->width(250)
+//                    ->height(250)
+//                    ->sharpen(10);
             });
     }
 

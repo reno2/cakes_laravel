@@ -28,7 +28,7 @@ class AdsRequest extends FormRequest
         return [
             'title'   => "unique:articles|required",
             'description'   => "required|max:400",
-            'price'   => "required|max:400",
+            //'price'   => "required|max:400",
            // 'categories'=> "required|array|not_in:0",
 
           //  'description'   => "required",

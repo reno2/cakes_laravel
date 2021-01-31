@@ -4,14 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (imgInput) {
         imgInput.addEventListener('change', function (e) {
             formsFile.init(this, 'post-image', true);
-
         })
     }
-    let form = document.querySelector('.create-form__form')
+
+    // Отправка формы
+    let form = document.querySelector('.create-form')
     if (form) form.addEventListener('submit', function (e) {
         formsFile.formSubmit(this.getAttribute('action'), e)
     })
 
+    // Обновить время подняния поста
     let postUpBtn = document.querySelector('.js_postUp')
    if(postUpBtn) postUpBtn.addEventListener('click', postUp)
 
@@ -21,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
         imgInput.click()
     })
 })
+
+const tmpForMultipleFiles = [];
 
 const formsFile = {
     submit: null,
@@ -37,7 +41,7 @@ const formsFile = {
 
         let newFiles = document.querySelectorAll('.js_newImgItem')
             .forEach((ele) => {
-                if (ele) formsFile.removeFile(ele.querySelector('.image-preview__del'))
+                //if (ele) formsFile.removeFile(ele.querySelector('.image-preview__del'))
             });
 
 
@@ -58,29 +62,32 @@ const formsFile = {
     },
     // Отправка фомы
     formSubmit(url, e) {
-        e.preventDefault()
-        if (formsFile.sendFiles) {
-            let formData = new FormData();
-            for (let f in formsFile.sendFiles) {
-                formData.append("images[]", formsFile.sendFiles[f]);
-            }
-            axios.post(url,
-                formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then(function (response) {
-                console.log(response)
-            })
-        }
+        //e.preventDefault()
+        console.log(tmpForMultipleFiles)
+        return false;
+        // if (formsFile.sendFiles) {
+        //     let formData = new FormData();
+        //     for (let f in formsFile.sendFiles) {
+        //         formData.append("images[]", formsFile.sendFiles[f]);
+        //     }
+        //     axios.post(url,
+        //         formData, {
+        //             headers: {
+        //                 'Content-Type': 'multipart/form-data'
+        //             }
+        //         }).then(function (response) {
+        //         console.log(response)
+        //     })
+        // }
     },
     // Вывод превьюшек
     showUploadedItem(source, file) {
         let previewList = document.querySelector(".image-preview"),
            fakeUpload = document.querySelector(".fake-upload"),
             hash = md5(file.name),
+            ext = file.name.split('.').pop(),
             previewItem = `
-                <div class="js_newImgItem image-preview__item" onclick="setAsMain(this, '${hash}')">
+                <div class="js_newImgItem image-preview__item" onclick="setAsMain(this, '${hash}.${ext}')">
                     <img src="${source}" alt="">
                     <span class="image-preview__name">${file.name}</span>
                     <svg onclick="formsFile.removeFile(this)" data-name="${file.name}" class="image-preview__del">
@@ -91,6 +98,7 @@ const formsFile = {
                     </div>
                 </div>
             `;
+        console.log(file)
         //if (formsFile.multiple) previewList.innerHTML += previewItem;
         if (formsFile.multiple) fakeUpload.insertAdjacentHTML('beforebegin', previewItem);
         else previewList.innerHTML = previewItem;
@@ -130,6 +138,7 @@ const formsFile = {
                             formsFile.showUploadedItem(reader.result, currentFile);
                         // Добавляем в финальный массив файл
                         formsFile.sendFiles[currentFile.name] = currentFile;
+                        tmpForMultipleFiles.push(currentFile)
                     }
                     reader.readAsDataURL(el);
                 }
