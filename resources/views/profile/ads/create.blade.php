@@ -142,6 +142,9 @@
                 </div>
             </div>
 
+
+
+
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
                 <div class="col-md-7 p-0 create-form__right">
@@ -151,11 +154,13 @@
                             Загрузите свои изображения<br>
                             не более 5 файлов. (jpeg, png)
                         </div>
+
                         <div class="form-group single-img__group">
                             <input multiple name="image[]" type="file" id="file_" value=""
-                                   data-count="0" class="single-img__input">
+                                   data-count="0" class="js_fileInput single-img__input">
                             <div class="create-form__error"></div>
                         </div>
+
                     </div>
                     <input type="hidden" name="main_image" id="main_image">
                     <div id="image-list" class="create-form__preview image-preview">
@@ -165,6 +170,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="form-group row">
                 <div class="offset-md-4 col-md-8">
                     <input type="submit" class="btn btn-block btn-primary" value="Создать запись">

@@ -25,7 +25,7 @@
       $('#tags').select2().val({!! json_encode($ads->tags()->allRelatedIds()) !!}).trigger('change');
       @endisset
     </script>
-  <script src="{{ asset('js/forms.js')}}"></script>
+  <script src="{{ asset('js/js_forms.js')}}"></script>
 @stop
 
 

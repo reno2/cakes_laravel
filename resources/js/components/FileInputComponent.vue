@@ -34,11 +34,6 @@
             loadImg(event) {
                 let file = event.target.files[0]
                 this.url = URL.createObjectURL(file);
-                // let reader = new FileReader();
-                // reader.onload = (el) => {
-                //
-                // }
-                // reader.readAsDataURL(el);
             },
             openInput() {
                 this.input.click()
