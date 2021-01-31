@@ -41,7 +41,7 @@ const formsFile = {
 
         let newFiles = document.querySelectorAll('.js_newImgItem')
             .forEach((ele) => {
-                //if (ele) formsFile.removeFile(ele.querySelector('.image-preview__del'))
+                if (ele) formsFile.removeFile(ele.querySelector('.image-preview__del'))
             });
 
 
