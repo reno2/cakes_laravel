@@ -8,7 +8,7 @@
                         <img class="card-img-top" src="{{$item->getUrl('thumb')}}"
                      alt="Card image cap trt">
                    @endforeach
-            @endif</div>
+            @endif
     </div>
 
     <div class="ad__body card-body">

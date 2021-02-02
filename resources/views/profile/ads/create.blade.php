@@ -20,8 +20,8 @@
                 </div>
             @endif
 
-        <form method="post" id="post-image" action="{{ route('profile.ads.store')}}" class="create-form"
-              enctype="multipart/form-data">
+        <form method="post" id="post-image" action="{{ route('profile.ads.store')}}" class="js_adsCreate create-form"
+              enctype="multipart/form-data" class="js_adsCreate">
             @csrf
             <div class="form-group row">
                 <label for="published" class="col-md-4 col-form-label text-md-right">Статус</label>

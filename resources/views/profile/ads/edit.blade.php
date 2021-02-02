@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <form method="post" id="post-image" action="{{ route('profile.ads.update', $ads)}}" class="create-form"
+        <form method="post" id="post-image" action="{{ route('profile.ads.update', $ads)}}" class="js_adsCreate create-form"
               enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="_method" value="put">
@@ -157,7 +157,7 @@
                         </div>
                         <div class="form-group single-img__group">
                             <input multiple name="image[]" type="file" id="file_" value=""
-                                   data-count="0" class="single-img__input">
+                                   data-count="0" class="js_fileInput single-img__input">
                             <div class="create-form__error"></div>
                         </div>
                     </div>

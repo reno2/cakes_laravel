@@ -31,7 +31,7 @@ trait UploadTrait
         }
 
         // проверчем что есть картинки чтобы изменить главную
-        if (isset($this->request['image'])) {
+
             if (!$mainImg && !$mainDb) {
                 // когда загрузили и не указали главную при создании
                 $this->setFirstAsMain();
@@ -43,7 +43,7 @@ trait UploadTrait
                 $this->removeAsMain();
                 $this->setAsMain($mainImg);
             }
-        }
+
 
     }
 
