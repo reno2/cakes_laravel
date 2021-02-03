@@ -56,6 +56,7 @@ const removeFromArray = (element) => {
         editingImagesNames.splice(index, 1)
     }
     element.parentElement.remove()
+    removeNotice()
 }
 const addToValidArray = (file) => {
     if(!tmpForMultipleFiles.hasOwnProperty(file.name)){
@@ -72,9 +73,10 @@ const addFilesListToInput = () => {
     document.querySelector('.js_fileInput').files = dt.files
 }
 // Убераем сообщения об ошибках
-const removeNotice = (el) => {
-    if (el.nextSibling)
-        el.nextElementSibling.classList.remove('show')
+const removeNotice = (el = false) => {
+    const inputInput = el || document.querySelector('.js_fileInput')
+    if (inputInput.nextElementSibling)
+        inputInput.nextElementSibling.classList.remove('show')
 }
 // Правили валидации
 const validateRule =  {
