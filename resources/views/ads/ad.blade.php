@@ -1,14 +1,16 @@
 <div class="card ad" style="width: 18rem;">
     <div class="card-image ad__img">
-            @if($ad->getMedia('cover'))
-                @php
-               // dd($ad->media('cover'))
-                @endphp
+        @if($ad->getMedia('cover'))
+            <div class="ad__mobile">
+                <img class="card-img-top" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
+            </div>
+            <div class="ad__desc">
                 @foreach($ad->getMedia('cover') as $item)
-                        <img class="card-img-top" src="{{$item->getUrl('thumb')}}"
-                     alt="Card image cap trt">
-                   @endforeach
-            @endif
+                    <img class="card-img-top" src="{{$item->getUrl('thumb')}}"
+                         alt="Card image cap trt">
+                @endforeach
+            </div>
+        @endif
     </div>
 
     <div class="ad__body card-body">

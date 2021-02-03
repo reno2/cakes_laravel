@@ -42,7 +42,7 @@
     <script src="{{asset('js/libs/jQuery.Brazzers-Carousel.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $(".ad__img").brazzersCarousel();
+            $(".ad__desc").brazzersCarousel();
         })
 
     </script>

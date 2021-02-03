@@ -172,8 +172,8 @@
                                      onclick="setAsMain(this, '{{$image->file_name}}')">
                                     <img src="{{$image->getUrl('thumb')}}" alt="">
                                     <input type="hidden" name="old_files[]" value="{{$image->file_name}}">
-                                    <span class="image-preview__name"></span>
-                                    <svg onclick="formsFile.removeFile(this)"
+                                    <span class="image-preview__name">{{$image->file_name}}</span>
+                                    <svg onclick="removeFromArray(this)"
                                          data-to-del="{{$image->id}}"
                                          data-name=""
                                          class="image-preview__del">
@@ -193,8 +193,6 @@
                     <input type="hidden" name="main_image" id="main_image">
                     <input type="hidden" id="delete_ids" name="remove">
                     <input type="hidden" id="delete_ids" name="main" value="{{$main}}">
-                    {!! json_encode($ads->media()->pluck('id')) !!}
-                    {!! json_encode($ads->tags()->allRelatedIds()) !!}
                 </div>
             </div>
             <div class="form-group row">

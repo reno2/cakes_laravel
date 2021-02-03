@@ -6283,6 +6283,20 @@ readers do not read off random characters that represent icons */
   color: #ffffff;
 }
 
+.ad .ad__img .ad__mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .ad__mobile {
+    display: block;
+  }
+
+  .ad__desc {
+    display: none;
+  }
+}
+
 .ava {
   position: relative;
   margin-bottom: 8px;

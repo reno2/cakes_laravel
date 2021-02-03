@@ -15,8 +15,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if(fakeUpload) fakeUpload.addEventListener('click', ()=>{
         imgInput.click()
     })
-})
+    // Если форма редактирования
 
+    let editingImages = document.querySelectorAll('.image-preview__item')
+    if(editingImages.length > 0){
+        editingImages.forEach(el => {
+            editingImagesNames.push(el.querySelector('input[name="old_files[]"]').value)
+        })
+    }
+})
+const editingImagesNames = []
 
 const tmpForMultipleFiles = {};
 const addToTmp = function (e) {
@@ -40,10 +48,14 @@ const addToTmp = function (e) {
 }
 const removeFromArray = (element) => {
     const name = element.previousElementSibling.innerHTML
-    if(tmpForMultipleFiles.hasOwnProperty(name)){
+    if(tmpForMultipleFiles.hasOwnProperty(name))
         delete tmpForMultipleFiles[name]
-        element.parentElement.remove()
+
+    const index = editingImagesNames.indexOf(name)
+    if (index > -1) {
+        editingImagesNames.splice(index, 1)
     }
+    element.parentElement.remove()
 }
 const addToValidArray = (file) => {
     if(!tmpForMultipleFiles.hasOwnProperty(file.name)){
@@ -67,8 +79,10 @@ const removeNotice = (el) => {
 // Правили валидации
 const validateRule =  {
     limit: (file, el) => {
-        let msg = 'Максимальное количество файлов 5';
-        if (Object.keys(tmpForMultipleFiles).length + 1 > 5) {
+        let msg = 'Максимальное количество файлов 5',
+            editImg = editingImagesNames.length || 0
+
+        if (editImg + Object.keys(tmpForMultipleFiles).length + 1 > 5) {
             showNotice(el, msg)
             return false
         }
@@ -123,9 +137,13 @@ const renderFilePreview = function(file){
 
 // Отмечаем файл как главный
 const setAsMain = (el, name = null) => {
-    el.parentElement.querySelectorAll('.image-preview__item').forEach(item => {
-        item.classList.remove('image_main')
-    })
+    if(el.parentElement) {
+        const notMain = el.parentElement.querySelectorAll('.image-preview__item')
+        if (notMain.length)
+            notMain.forEach(item => {
+                item.classList.remove('image_main')
+            })
+    }
     el.classList.add('image_main')
     document.querySelector('input#main_image').value = name
 }
