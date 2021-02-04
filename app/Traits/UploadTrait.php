@@ -26,12 +26,13 @@ trait UploadTrait
                 $this->addToMedia($this->request['image'][0], $mainImg);
             }
         }
+
         if (!empty($this->request["remove"])) {
             $this->deleteMediaItem(json_decode($this->request["remove"]));
         }
 
         // проверчем что есть картинки чтобы изменить главную
-
+        if (isset($this->request['image']) || $mainImg){
             if (!$mainImg && !$mainDb) {
                 // когда загрузили и не указали главную при создании
                 $this->setFirstAsMain();
@@ -43,7 +44,7 @@ trait UploadTrait
                 $this->removeAsMain();
                 $this->setAsMain($mainImg);
             }
-
+        }
 
     }
 

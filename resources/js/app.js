@@ -28,6 +28,7 @@ Vue.component('features-component', require('./components/FeaturesComponent.vue'
 Vue.component('fileinput-component', require('./components/FileInputComponent.vue').default);
 Vue.component('fileautocomplite-component', require('./components/FileautocompliteComponent.vue').default);
 Vue.component('filemultiinput-component', require('./components/FileMultiInputComponent.vue').default);
+Vue.component('multipleselect-component', require('./components/MultipleSelectComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

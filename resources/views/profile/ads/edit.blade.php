@@ -33,6 +33,12 @@
                     </select>
                 </div>
             </div>
+
+
+
+
+
+
             <div class="form-group row">
                 <label for="product_type" class="col-md-4 col-form-label text-md-right">Тип</label>
                 <div class="col-md-7">
@@ -164,7 +170,6 @@
 
                     <div id="image-list" class="create-form__preview image-preview">
                         @if($ads->getMedia('cover'))
-{{--                            @foreach($ads->getMedia('cover') as $image)--}}
                             @foreach($mediaItem2 as $image)
 
                                 <div class="image-preview__item

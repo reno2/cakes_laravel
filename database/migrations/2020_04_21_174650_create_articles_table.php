@@ -28,9 +28,11 @@ class CreateArticlesTable extends Migration
 		        $table->integer('modified_by')->nullable();
                 $table->integer('sort')->nullable();
                 $table->boolean('on_front')->default(0)->nullable();
+                $table->boolean('delivery_self')->default(0)->nullable();
                 $table->string('up_post')->nullable();
                 $table->string('product_type')->nullable();
                 $table->text('service')->nullable();
+                $table->text('deal_address')->nullable();
                 $table->double('price')->default(0)->nullable();
                 $table->double('weight')->default(0)->nullable();
                 $table->unsignedMediumInteger('views')->default(0)->nullable();
