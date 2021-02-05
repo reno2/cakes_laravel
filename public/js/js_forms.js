@@ -57,7 +57,9 @@ const removeFromArray = (element) => {
     }
     element.parentElement.remove()
     removeNotice()
+    addFilesListToInput()
 }
+
 const addToValidArray = (file) => {
     if(!tmpForMultipleFiles.hasOwnProperty(file.name)){
         tmpForMultipleFiles[file.name] = file
@@ -125,7 +127,7 @@ const renderFilePreview = function(file){
             <div class="js_newImgItem image-preview__item" onclick="setAsMain(this, '${hash}.${ext}')">
                 <img src="${URL.createObjectURL(file)}" alt="">
                 <span class="image-preview__name">${file.name}</span>
-                <svg onclick="removeFromArray(this)" data-name="${file.name}" class="image-preview__del">
+                <svg onclick="event.stopPropagation(); removeFromArray(this)" data-name="${file.name}" class="image-preview__del">
                     <use xlink:href="/images/icons.svg#icon-close"></use>
                 </svg>
                 <div class="image-preview__process">
@@ -139,15 +141,17 @@ const renderFilePreview = function(file){
 
 // Отмечаем файл как главный
 const setAsMain = (el, name = null) => {
-    if(el.parentElement) {
-        const notMain = el.parentElement.querySelectorAll('.image-preview__item')
-        if (notMain.length)
-            notMain.forEach(item => {
-                item.classList.remove('image_main')
-            })
+    if(el.classList.contains('js_newImgItem')) {
+        if (el.parentElement) {
+            const notMain = el.parentElement.querySelectorAll('.image-preview__item')
+            if (notMain.length)
+                notMain.forEach(item => {
+                    item.classList.remove('image_main')
+                })
+        }
+        el.classList.add('image_main')
+        document.querySelector('input#main_image').value = name
     }
-    el.classList.add('image_main')
-    document.querySelector('input#main_image').value = name
 }
 
 
