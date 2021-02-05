@@ -54,7 +54,9 @@ class Article extends Model implements HasMedia
         'on_front',
         'service',
         'price',
-        'weight'
+        'weight',
+        'deal_address',
+        'user_id'
     ];
 
     //plymorphe
@@ -91,6 +93,13 @@ class Article extends Model implements HasMedia
     {
         return $this->hasMany('App\Models\PostImage');
     }
+
+    // Связь с пользователем
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     /**
      * Get all of the user's images.
      */
@@ -106,9 +115,6 @@ class Article extends Model implements HasMedia
                 $this
                     ->addMediaConversion('thumb')
                     ->fit('fill', 250, 250);
-//                    ->width(250)
-//                    ->height(250)
-//                    ->sharpen(10);
             });
     }
 

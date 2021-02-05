@@ -2343,6 +2343,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     choosing: function choosing() {
       if (this.results.length && this.showList) {
+        //console.log(this.results)
         return this.results;
       }
     }
@@ -2440,11 +2441,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    userCity: {
+    message: {
       type: String,
       "default": ''
     },
     value: {
+      type: String,
+      "default": ''
+    },
+    userCity: {
+      type: String,
+      "default": ''
+    },
+    target: {
       type: String,
       "default": ''
     }
@@ -2468,23 +2477,26 @@ __webpack_require__.r(__webpack_exports__);
     unblur: function unblur() {
       this.showList = false;
     },
-    selectCity: function selectCity(cityVal) {
-      this.dealPlace = cityVal;
+    selectCity: function selectCity(streetVal) {
+      this.dealPlace = streetVal;
       this.showList = false;
     },
     fillAddress: function fillAddress(event) {
-      this.message = '';
+      this.message = ''; //console.log( this.$el)
 
-      if (this.city.length > 3) {
+      if (this.dealPlace.length > 3) {
         var d = {
           query: this.dealPlace,
-          hint: false,
-          from_bound: {
-            "value": "city"
+          "from_bound": {
+            "value": "street"
           },
-          to_bound: {
-            "value": "city"
-          }
+          "to_bound": {
+            "value": "street"
+          },
+          "locations": [{
+            "city": this.userCity
+          }],
+          "restrict_value": true
         };
         this.getAddress(d);
       } else {
@@ -2515,7 +2527,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {//if (this.value) this.city = this.value
+  mounted: function mounted() {
+    if (this.value) this.dealPlace = this.value;
   }
 });
 
@@ -39828,11 +39841,11 @@ var render = function() {
                       staticClass: "dropdown-item",
                       on: {
                         click: function($event) {
-                          return _vm.selectCity(item.value)
+                          return _vm.selectCity(item.data.city)
                         }
                       }
                     },
-                    [_vm._v(_vm._s(item.value))]
+                    [_vm._v(_vm._s(item.data.city))]
                   )
                 }),
                 0
@@ -39871,7 +39884,7 @@ var render = function() {
       "label",
       {
         staticClass: "col-md-4 col-form-label text-md-right",
-        attrs: { for: "address" }
+        attrs: { for: "deal_address" }
       },
       [_vm._v("Место сделки")]
     ),
@@ -39890,13 +39903,13 @@ var render = function() {
             }
           ],
           staticClass: "form-control",
-          class: { "is-invalid": _vm.dealPlace },
+          class: { "is-invalid": _vm.message },
           attrs: {
             required: "",
             autocomplete: "off",
             type: "text",
-            id: "address",
-            name: "address"
+            id: "deal_address",
+            name: "deal_address"
           },
           domProps: { value: _vm.dealPlace },
           on: {
@@ -39913,9 +39926,9 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.dealPlace
+        _vm.message
           ? _c("span", { staticClass: "help-block text-danger" }, [
-              _vm._v(_vm._s(_vm.dealPlace))
+              _vm._v(_vm._s(_vm.message))
             ])
           : _vm._e(),
         _vm._v(" "),

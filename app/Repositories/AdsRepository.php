@@ -7,6 +7,7 @@ use App\Models\Article as Model;
 use App\Repositories\CoreRepository;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\Models\Media;
+use App\Models\Profile;
 
 
 class AdsRepository extends CoreRepository
@@ -17,6 +18,15 @@ class AdsRepository extends CoreRepository
     }
     public function getMainIfIsset(){
 
+    }
+
+    /*
+     * params $ads Article
+     * re
+     */
+
+    public function getUserProfileFirst($ads){
+        return $ads->user->profiles->first();
     }
 
     public function getForEdit($id){

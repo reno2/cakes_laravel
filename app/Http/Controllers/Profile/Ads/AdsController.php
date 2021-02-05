@@ -23,11 +23,13 @@ class AdsController extends Controller
 
     protected $adsService;
     protected $adsRepository;
+    protected $userRepository;
 
-    public function __construct(AdsService $adsService, AdsRepository $adsRepository)
+    public function __construct(AdsService $adsService, AdsRepository $adsRepository, UserRepository $userRepository)
     {
         $this->adsService = $adsService;
         $this->adsRepository = $adsRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -41,7 +43,6 @@ class AdsController extends Controller
     {
         $user           = Auth::user();
         $userRepository = new UserRepository();
-        //$f = $this->adsRepository->getAdsImagesSortByMain();
         return view('profile.ads.index', [
             'user'    => $user,
             'ads' => $this->adsRepository->getAdsSortedDesc(),
@@ -55,12 +56,12 @@ class AdsController extends Controller
      */
     public function create()
     {
-        $tags = \App\Models\Tag::all();
         return view('profile.ads.switch_article', [
-            'tags'       => $tags,
+            'tags'       => \App\Models\Tag::all(),
             'ads'    => null,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter'  => ''
+            'delimiter'  => '',
+            'profile' =>  $this->userRepository->getUserProfileEdit(Auth::id()) ?? null
         ]);
     }
 
@@ -75,7 +76,7 @@ class AdsController extends Controller
     {
         $validated = $request->validated();
         $inputs = $request->all();
-        $article = Article::create($request->except('image'));
+        $article = Article::create(array_merge($request->except('image'), ['user_id' => Auth::id()]) );
         try{
             $this->adsService->chain($inputs, $article);
         }catch (\Exception $e){
@@ -107,21 +108,6 @@ class AdsController extends Controller
     public function edit( $id)
     {
         $ads = $this->adsRepository->getForEdit($id);
-
-
-       // $f = $ads->media()->delete();
-        //dd($f);
-        //$ads->deleteMedia($f->id);
-        $rrdd = '';
-//        $media = Media::find($id);
-
-//        $model_type = $media->model_type;
-//
-//        $model = $model_type::find($media->model_id);
-//        $model->deleteMedia($media->id);
-
-
-
         $tags = \App\Models\Tag::all();
         $tags2 = [];
        $rr =  $ads->filterValues;
@@ -133,7 +119,9 @@ class AdsController extends Controller
         $mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
 
 
-
+            //$r = $this->adsRepository->getUserProfile($ads);
+            //$r = $this->adsRepository->getUserProfile($ads);
+       //dd( $this->adsRepository->getUserProfileFirst($ads));
 
         return view('profile.ads.switch_article', [
             'main' => ($mediaItem->file_name) ?? '',
@@ -143,6 +131,7 @@ class AdsController extends Controller
             'tags'       => $tags,
             'filter'     => $ads->filterValues->pluck('id')->toArray(),
             'delimiter'  => '',
+            'profile' => $this->adsRepository->getUserProfileFirst($ads)
        ]);
     }
 

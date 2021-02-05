@@ -32,6 +32,14 @@
                     </select>
                 </div>
             </div>
+
+            <multipleselect-component
+                target="street"
+                user-city="{{$profile->address}}"
+                value="{{ old('deal_address') }}"
+                message="@error('deal_address') {{$message}} @enderror">
+                ></multipleselect-component>
+
             <div class="form-group row">
                 <label for="product_type" class="col-md-4 col-form-label text-md-right">Тип</label>
                 <div class="col-md-7">

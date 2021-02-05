@@ -42,7 +42,7 @@ class UserRepository extends CoreRepository{
 
     /*
      * @param model $user
-     * @return Model
+     * @return Model | int Id
      * Получаем связанный профиль
      */
     public function getUserProfileEdit($user){

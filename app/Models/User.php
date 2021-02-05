@@ -53,6 +53,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profiles(){
         return $this->hasMany('App\Models\Profile');
     }
+    public function articles(){
+        return $this->hasMany('App\Models\Article');
+    }
     public function sendEmailVerificationNotification()
     {
         $this->notify(new CustomEmailNotification);

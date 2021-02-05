@@ -63,20 +63,11 @@
                                 </div>
                             </div>
 
-                            <fileautocomplite-component value="{{ old('address', $profile->address) }}" message="@error('address') {{$message}} @enderror"></fileautocomplite-component>
-{{--                            <div class="form-group row">--}}
-{{--                                <label for="address" class="col-md-4 col-form-label text-md-right">Адрес сделки</label>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <input id="address" type="text"--}}
-{{--                                           class="form-control @error('address') is-invalid @enderror" name="address"--}}
-{{--                                           value="{{ old('address', $profile->address) }}" required autofocus>--}}
-{{--                                    @error('address')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                            <strong>{{ $message }}</strong>--}}
-{{--                                        </span>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            <fileautocomplite-component
+                                value="{{ old('address', $profile->address) }}"
+                                message="@error('address') {{$message}} @enderror">
+                            </fileautocomplite-component>
+
 
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right" for="type">Тип
