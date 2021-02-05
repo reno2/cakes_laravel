@@ -36,7 +36,14 @@ class CreateArticlesTable extends Migration
                 $table->double('price')->default(0)->nullable();
                 $table->double('weight')->default(0)->nullable();
                 $table->unsignedMediumInteger('views')->default(0)->nullable();
+
+                $table->unsignedBigInteger('user_id')->nullable(false);
                 $table->timestamps();
+
+        });
+        Schema::table('articles', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

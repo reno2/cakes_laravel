@@ -8,7 +8,7 @@
             <span v-if="message" class="help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
                 <div v-if="choosing" class="dropdown-menu">
-                    <a @click="selectCity(item.value)" class="dropdown-item" v-for="(item, inx) in choosing" :key="inx">{{item.value}}</a>
+                    <a @click="selectCity(item.data.city)" class="dropdown-item" v-for="(item, inx) in choosing" :key="inx">{{item.data.city}}</a>
                 </div>
             </transition>
         </div>
@@ -37,7 +37,9 @@
         },
         computed: {
             choosing() {
+
                 if (this.results.length && this.showList) {
+                    //console.log(this.results)
                     return this.results
                 }
             }

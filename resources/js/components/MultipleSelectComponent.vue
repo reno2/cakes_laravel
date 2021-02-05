@@ -1,18 +1,18 @@
 <template>
 
     <div class="form-group row">
-        <label for="address" class="col-md-4 col-form-label text-md-right">Место сделки</label>
+        <label for="deal_address" class="col-md-4 col-form-label text-md-right">Место сделки</label>
         <div class="col-md-7">
             <input required @blur="unblur"
                    @keyup="fillAddress($event)"
                    autocomplete="off"
                    v-model="dealPlace"
                    type="text"
-                   id="address"
-                   name="address"
-                   :class="{'is-invalid' : dealPlace}"
+                   id="deal_address"
+                   name="deal_address"
+                   :class="{'is-invalid' : message}"
                    class="form-control">
-            <span v-if="dealPlace" class="help-block text-danger">{{ dealPlace }}</span>
+            <span v-if="message" class="help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
                 <div v-if="choosing" class="dropdown-menu">
                     <a @click="selectCity(item.value)" class="dropdown-item" v-for="(item, inx) in choosing" :key="inx">{{item.value}}</a>
@@ -25,11 +25,19 @@
 <script>
     export default {
         props: {
-            userCity: {
+            message: {
                 type: String,
                 default: ''
             },
             value: {
+                type: String,
+                default: ''
+            },
+            userCity: {
+                type: String,
+                default: ''
+            },
+            target: {
                 type: String,
                 default: ''
             }
@@ -53,18 +61,21 @@
             unblur(){
                 this.showList = false
             },
-            selectCity(cityVal) {
-                this.dealPlace = cityVal
+            selectCity(streetVal) {
+                this.dealPlace = streetVal
                 this.showList = false
             },
             fillAddress(event) {
                 this.message = ''
-                if (this.city.length > 3) {
+                //console.log( this.$el)
+                if (this.dealPlace.length > 3) {
                     let d = {
                         query: this.dealPlace,
-                        hint: false,
-                        from_bound: {"value": "city"},
-                        to_bound: {"value": "city"}
+                        "from_bound": { "value": "street" },
+                        "to_bound": { "value": "street" },
+                        "locations": [{ "city": this.userCity }],
+                        "restrict_value": true
+
                     }
                     this.getAddress(d)
                 }else{
@@ -97,7 +108,7 @@
             },
         },
         mounted() {
-            //if (this.value) this.city = this.value
+            if (this.value) this.dealPlace = this.value
         }
     }
 </script>

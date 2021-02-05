@@ -77,10 +77,27 @@ class AdsService
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $request;
-        // Удаляем картинки если они пришли
+
+        $update = $article->update($request);
+
+        $this->adsRepository->removeRelationCategories($article);
+        $this->adsRepository->removeRelationTags($article);
+        $this->adsRepository->removeRelationTags($article);
+
+        if (isset($request['attrs']) && !empty($request['attrs'])):
+            $this->setNewRelations('Attrs', $request['attrs'], $article);
+        endif;
+
+        if (isset($request['categories']) && !empty($request['categories'])):
+            $this->setNewRelations('Categories', $request['categories'], $article);
+        endif;
+
+        if (isset($request['tags']) && !empty($request['tags'])):
+            $this->setNewRelations('Tags', $request['tags'], $article);
+        endif;
+
         $this->prepareImages();
-//        if(!empty($inputs["remove"]))
-//            $this->deleteMediaItem(json_decode($inputs["remove"]),  $ads);
+
         return true;
     }
 }

@@ -34,7 +34,12 @@
                 </div>
             </div>
 
-
+            <multipleselect-component
+                target="street"
+                user-city="{{$profile->address}}"
+                value="{{ old('deal_address', $ads->deal_address) }}"
+                message="@error('deal_address') {{$message}} @enderror">
+            ></multipleselect-component>
 
 
 
