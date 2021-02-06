@@ -56,6 +56,7 @@ class Article extends Model implements HasMedia
         'price',
         'weight',
         'deal_address',
+        'delivery_self',
         'user_id'
     ];
 

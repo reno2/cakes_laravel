@@ -41,6 +41,20 @@
                 ></addresssearchstreet-component>
 
             <div class="form-group row">
+                <label for="delivery_self" class="col-md-4 col-form-label text-md-right">Возможна доставка</label>
+                <div class="col-md-7">
+                    <div class="form-check">
+                        <input name="delivery_self" class="form-check-input" type="checkbox" id="delivery_self">
+                        @error('delivery_self')
+                        <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="product_type" class="col-md-4 col-form-label text-md-right">Тип</label>
                 <div class="col-md-7">
                     <select name="product_type"

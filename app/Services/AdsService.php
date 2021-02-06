@@ -77,7 +77,7 @@ class AdsService
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $request;
-
+        $request['delivery_self'] = ($request['delivery_self']) ? true : false;
         $update = $article->update($request);
 
         $this->adsRepository->removeRelationCategories($article);

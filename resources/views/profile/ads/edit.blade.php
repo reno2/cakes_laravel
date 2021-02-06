@@ -41,7 +41,22 @@
                 message="@error('deal_address') {{$message}} @enderror">
             ></addresssearchstreet-component>
 
-
+            <div class="form-group row">
+                <label for="delivery_self" class="col-md-4 col-form-label text-md-right">Возможна доставка</label>
+                <div class="col-md-7">
+                    <div class="form-check">
+                        <input aria-describedby="hint" class="form-check-input" type="checkbox" name="delivery_self" id="delivery_self" @if($ads->delivery_self) checked @endif>
+                        <small id="hint" class="text-muted">
+                            Можете договарится с клиентом о доставке
+                        </small>
+                        @error('delivery_self')
+                        <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
 
 
             <div class="form-group row">
