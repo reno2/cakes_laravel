@@ -76,8 +76,7 @@ class AdsController extends Controller
     {
         $validated = $request->validated();
         $inputs = $request->all();
-        $inputs['delivery_self'] = ($request->input('delivery_self')) ? true : false;
-        $article = Article::create(array_merge($request->except('image'), ['user_id' => Auth::id()]) );
+        $article = Article::create(array_merge($request->except('image'), ['user_id' => Auth::id(), 'delivery_self' => ($request->input('delivery_self')) ? true : false]) );
         try{
             $this->adsService->chain($inputs, $article);
         }catch (\Exception $e){
