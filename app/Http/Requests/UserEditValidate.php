@@ -26,6 +26,7 @@ class UserEditValidate extends FormRequest
         return [
             'new_password' => 'required|min:6',
             'new_confirm_password' => 'required|min:6|same:new_password',
+            'email' =>'email|unique:users,email',
         ];
     }
 
@@ -33,6 +34,8 @@ class UserEditValidate extends FormRequest
     public function messages()
     {
         return [
+            'email.email' => 'Некорректный вод',
+            'email.unique' => 'Email существует',
             'new_password.min' => 'Минимальная длинна 6',
             'new_confirm_password.min' => 'Минимальная длинна 6',
             'new_confirm_password.same' => 'Пароли не совпадают',

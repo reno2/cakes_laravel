@@ -34,12 +34,12 @@
                 </div>
             </div>
 
-            <multipleselect-component
+            <addresssearchstreet-component
                 target="street"
                 user-city="{{$profile->address}}"
                 value="{{ old('deal_address', $ads->deal_address) }}"
                 message="@error('deal_address') {{$message}} @enderror">
-            ></multipleselect-component>
+            ></addresssearchstreet-component>
 
 
 
@@ -202,7 +202,7 @@
 
                     <input type="hidden" name="main_image" id="main_image">
                     <input type="hidden" id="delete_ids" name="remove">
-                    <input type="hidden" id="delete_ids" name="main" value="{{$main}}">
+                    <input type="hidden" id="main" name="main" value="{{$main}}">
                 </div>
             </div>
             <div class="form-group row">
