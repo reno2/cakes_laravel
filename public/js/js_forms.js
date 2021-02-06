@@ -15,15 +15,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if(fakeUpload) fakeUpload.addEventListener('click', ()=>{
         imgInput.click()
     })
-    // Если форма редактирования
 
+    // Если форма редактирования
     let editingImages = document.querySelectorAll('.image-preview__item')
     if(editingImages.length > 0){
         editingImages.forEach(el => {
-            editingImagesNames.push(el.querySelector('input[name="old_files[]"]').value)
+            tmpForMultipleFiles[el.querySelector('.image-preview__name').innerHTML] = 'old'
+            //editingImagesNames.push(el.querySelector('input[name="old_files[]"]').value)
         })
     }
 })
+
 const editingImagesNames = []
 
 const tmpForMultipleFiles = {};
@@ -45,19 +47,40 @@ const addToTmp = function (e) {
             if(valid) addToValidArray(files[i])
         }
     }
+    console.log(tmpForMultipleFiles)
 }
 const removeFromArray = (element) => {
     const name = element.previousElementSibling.innerHTML
-    if(tmpForMultipleFiles.hasOwnProperty(name))
+    if(tmpForMultipleFiles.hasOwnProperty(name)) {
+        if(tmpForMultipleFiles[name] == 'old')
+            addToBeDelete(element)
         delete tmpForMultipleFiles[name]
-
-    const index = editingImagesNames.indexOf(name)
-    if (index > -1) {
-        editingImagesNames.splice(index, 1)
     }
+    // const index = editingImagesNames.indexOf(name)
+    // if (index > -1) {
+    //     editingImagesNames.splice(index, 1)
+    // }
     element.parentElement.remove()
     removeNotice()
     addFilesListToInput()
+
+}
+
+const addToBeDelete = (el) => {
+
+    // ID элемента на удалени
+    let toDel = el.getAttribute('data-to-del');
+    // Значение для удаления
+    let deleteIds = document.getElementById('delete_ids');
+    let allIds = []
+    if(!deleteIds.value){
+        allIds.push(toDel)
+    }else{
+        allIds = JSON.parse(deleteIds.value);
+        allIds.push(toDel)
+    }
+    $(deleteIds).val(JSON.stringify( allIds ))
+    //console.log($(deleteIds).val)
 }
 
 const addToValidArray = (file) => {
@@ -71,7 +94,8 @@ const addToValidArray = (file) => {
 const addFilesListToInput = () => {
     const dt = new DataTransfer();
     for (key in tmpForMultipleFiles)
-        dt.items.add(tmpForMultipleFiles[key]);
+        if(tmpForMultipleFiles[key] != 'old')
+            dt.items.add(tmpForMultipleFiles[key]);
     document.querySelector('.js_fileInput').files = dt.files
 }
 // Убераем сообщения об ошибках

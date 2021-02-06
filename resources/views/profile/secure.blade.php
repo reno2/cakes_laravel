@@ -34,7 +34,7 @@
                                     <input id="email" type="text"
                                            class="form-control @error('email') is-invalid @enderror" name="email"
                                            value="{{$user->email}}" required autofocus>
-                                    @error('contact2')
+                                    @error('email')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

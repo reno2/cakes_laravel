@@ -71,8 +71,8 @@
                 if (this.dealPlace.length > 3) {
                     let d = {
                         query: this.dealPlace,
-                        "from_bound": { "value": "street" },
-                        "to_bound": { "value": "street" },
+                        // "from_bound": { "value": "street" },
+                        // "to_bound": { "value": "street" },
                         "locations": [{ "city": this.userCity }],
                         "restrict_value": true
 
