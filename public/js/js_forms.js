@@ -66,6 +66,7 @@ const removeFromArray = (element) => {
 
 }
 
+
 const addToBeDelete = (el) => {
 
     // ID элемента на удалени
