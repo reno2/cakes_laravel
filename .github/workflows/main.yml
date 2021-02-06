@@ -1,26 +1,23 @@
-name: CI
-
-on:
-  push:
-    branches:
-      - master
+name: 'CI'
+on: 
+  push:
+    branches: 
+      - master
 
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  build:
+    
+    runs-on: ubuntu-lastest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Push to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SERVER_IP}}
+          username: ${{secrets.SERVER_USERNAME}}
+          password: ${{secrets.SERVER_PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: cd ${{secrets.PROJECT_PATH }} && git pull
+        
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1 
-      # Runs a single command using the runners shell
-      - name: Push to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: _${{ _secrets.SERVER_IP }}
-          username: _${{ _secrets.SERVER_USERNAME }}
-          password: _${{ _secrets.SERVER_PASSWORD }}
-          port: _${{ _secrets.PORT }}
-          script: cd _${{ _secrets.PROJECT_PATH }} && git pull
+
