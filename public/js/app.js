@@ -2578,22 +2578,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    renderFiles: function renderFiles() {
-      if (this.oldFiles.length) {
-        return this.oldFiles.length;
-      }
+    renderFiles: function renderFiles() {// if(this.oldFiles.length){
+      //     return this.oldFiles.length
+      // }
     },
-    choosing: function choosing() {
-      if (this.results.length && this.showList) {
-        //console.log(this.results)
-        return this.results;
-      }
+    choosing: function choosing() {// if (this.results.length && this.showList) {
+      //     //console.log(this.results)
+      //     return this.results
+      // }
     }
   },
   methods: {},
-  mounted: function mounted() {
-    //this.to_remove = this
-    console.log(this.$el.querySelector("#to_remove"));
+  mounted: function mounted() {//this.to_remove = this
+    //console.log(this.$el.querySelector("#to_remove"))
   }
 });
 

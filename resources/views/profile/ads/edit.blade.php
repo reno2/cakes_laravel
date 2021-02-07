@@ -33,6 +33,15 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="published" class="col-md-4 col-form-label text-md-right">Поднят объявление</label>
+                <div class="col-md-7">
+                    <div class="js_postUpMsg post-up__msg"></div>
+                    <button class="js_postUp btn btn-success btn-block post-update mb-3" data-id="{{$ads->id}}">
+                        Поднять
+                    </button>
+                </div>
+            </div>
 
             <addresssearchstreet-component
                 target="street"
@@ -174,8 +183,8 @@
                 </div>
             </div>
 
-{{--            <multifileupload-component old-files="{{$mediaItem2}}"></multifileupload-component>--}}
-            {{ asset('images/file-upload3.svg') }}
+            <multifileupload-component ></multifileupload-component>
+
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
                 <div class="col-md-7 p-0 create-form__right">
