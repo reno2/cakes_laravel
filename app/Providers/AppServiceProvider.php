@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        \Debugbar::disable();
         Carbon::setLocale(config('app.locale'));
         Date::setlocale(config('app.locale'));
         Profile::observe(ProfileObserver::class);

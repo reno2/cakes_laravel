@@ -76,7 +76,7 @@ class AdsController extends Controller
     {
         $validated = $request->validated();
         $inputs = $request->all();
-        $article = Article::create(array_merge($request->except('image'), ['user_id' => Auth::id(), 'delivery_self' => ($request->input('delivery_self')) ? true : false]) );
+        $article = Article::create(array_merge($request->except('image'), ['user_id' => Auth::id()]));
         try{
             $this->adsService->chain($inputs, $article);
         }catch (\Exception $e){
@@ -107,6 +107,7 @@ class AdsController extends Controller
      */
     public function edit( $id)
     {
+        $this->adsRepository->getUrls();
         $ads = $this->adsRepository->getForEdit($id);
         $tags = \App\Models\Tag::all();
         $tags2 = [];

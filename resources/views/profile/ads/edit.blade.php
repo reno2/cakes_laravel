@@ -45,7 +45,9 @@
                 <label for="delivery_self" class="col-md-4 col-form-label text-md-right">Возможна доставка</label>
                 <div class="col-md-7">
                     <div class="form-check">
-                        <input aria-describedby="hint" class="form-check-input" type="checkbox" name="delivery_self" id="delivery_self" @if($ads->delivery_self) checked @endif>
+                        <input name="delivery_self" value="0" type="hidden">
+                        <input name="delivery_self" class="form-check-input" value="1" type="checkbox" id="delivery_self" @if($ads->delivery_self == 1) checked @endif>
+
                         <small id="hint" class="text-muted">
                             Можете договарится с клиентом о доставке
                         </small>
@@ -172,6 +174,8 @@
                 </div>
             </div>
 
+{{--            <multifileupload-component old-files="{{$mediaItem2}}"></multifileupload-component>--}}
+            {{ asset('images/file-upload3.svg') }}
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
                 <div class="col-md-7 p-0 create-form__right">
@@ -191,8 +195,7 @@
                     <div id="image-list" class="create-form__preview image-preview">
                         @if($ads->getMedia('cover'))
                             @foreach($mediaItem2 as $image)
-
-                                <div class="image-preview__item
+                                <div class="image-preview__item js_newImgItem
                                      @if ($image->getCustomProperty('main')) image_main @endif"
                                      onclick="setAsMain(this, '{{$image->file_name}}')">
                                     <img src="{{$image->getUrl('thumb')}}" alt="">
@@ -207,11 +210,9 @@
                                 </div>
                             @endforeach
                         @endif
-
                             <div class="fake-upload">
                                 <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
                             </div>
-
                     </div>
 
 

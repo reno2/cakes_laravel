@@ -68,6 +68,18 @@ class AdsRepository extends CoreRepository
     //==========================================
     //
 
+
+    public function getUrls(){
+        $t = \DB::table('media')
+            ->select('id', 'file_name')
+            ->where('model_id', 18)
+            ->where('collection_name', 'cover')
+            ->where('custom_properties->generated_conversions->thumb', true)
+            ->orderBy('order_column')
+            ->get();
+     
+    }
+
     public function removeArticle($ads){
         $ads->delete();
         return true;

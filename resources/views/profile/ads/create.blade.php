@@ -44,7 +44,11 @@
                 <label for="delivery_self" class="col-md-4 col-form-label text-md-right">Возможна доставка</label>
                 <div class="col-md-7">
                     <div class="form-check">
-                        <input name="delivery_self" class="form-check-input" type="checkbox" id="delivery_self">
+                        <input name="delivery_self" value="0" type="hidden">
+                        <input name="delivery_self" class="form-check-input" value="1" type="checkbox" id="delivery_self">
+                        <small id="hint" class="text-muted">
+                            Можете договарится с клиентом о доставке
+                        </small>
                         @error('delivery_self')
                         <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

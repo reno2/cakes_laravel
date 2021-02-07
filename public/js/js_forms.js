@@ -56,10 +56,6 @@ const removeFromArray = (element) => {
             addToBeDelete(element)
         delete tmpForMultipleFiles[name]
     }
-    // const index = editingImagesNames.indexOf(name)
-    // if (index > -1) {
-    //     editingImagesNames.splice(index, 1)
-    // }
     element.parentElement.remove()
     removeNotice()
     addFilesListToInput()
