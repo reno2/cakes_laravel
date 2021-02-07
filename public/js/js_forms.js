@@ -177,8 +177,12 @@ const setAsMain = (el, name = null) => {
 
 
 const postUp = (e) => {
-    let postId = this.getAttribute('data-id'),
-        postUpMsg = this.previousElementSibling
+    e.preventDefault()
+
+    let postId = e.target.getAttribute('data-id'),
+        postUpMsg = e.target.previousElementSibling
+
+    //console.log(postId)
     if (postId) {
         axios.post(
             '/admin/article/update',
@@ -189,12 +193,11 @@ const postUp = (e) => {
                 }
             }
         ).then(function (response) {
-            console.log(postUpMsg)
             postUpMsg.innerHTML = response.data
         })
     }
     //this.setAttribute('disabled', !this.getAttribute('disabled'))
-    e.preventDefault()
+
 }
 
 
