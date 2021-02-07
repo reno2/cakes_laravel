@@ -107,7 +107,7 @@ class AdsController extends Controller
      */
     public function edit( $id)
     {
-        $this->adsRepository->getUrls();
+        //$this->adsRepository->getUrls();
         $ads = $this->adsRepository->getForEdit($id);
         $tags = \App\Models\Tag::all();
         $tags2 = [];
@@ -117,16 +117,12 @@ class AdsController extends Controller
         }
         $mediaItem =  Media::where('model_id', $ads->id)->whereJsonContains('custom_properties->main', true)->first();
 
-        $mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
+        //$mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
 
-
-            //$r = $this->adsRepository->getUserProfile($ads);
-            //$r = $this->adsRepository->getUserProfile($ads);
-       //dd( $this->adsRepository->getUserProfileFirst($ads));
 
         return view('profile.ads.switch_article', [
             'main' => ($mediaItem->file_name) ?? '',
-            'mediaItem2'=> $mediaItem2,
+            'mediaFiles'=> $this->adsRepository->getAdsImages($ads->id),
             'ads'    => $ads,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,

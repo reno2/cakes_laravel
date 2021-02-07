@@ -183,7 +183,7 @@
                 </div>
             </div>
 
-{{--            <multifileupload-component ></multifileupload-component>--}}
+            <multifileupload-component db-main="{{$main}}" old-files="{{$mediaFiles}}"></multifileupload-component>
 
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
@@ -203,21 +203,21 @@
 
                     <div id="image-list" class="create-form__preview image-preview">
                         @if($ads->getMedia('cover'))
-                            @foreach($mediaItem2 as $image)
-                                <div class="image-preview__item js_newImgItem
-                                     @if ($image->getCustomProperty('main')) image_main @endif"
-                                     onclick="setAsMain(this, '{{$image->file_name}}')">
-                                    <img src="{{$image->getUrl('thumb')}}" alt="">
-                                    <input type="hidden" name="old_files[]" value="{{$image->file_name}}">
-                                    <span class="image-preview__name">{{$image->file_name}}</span>
-                                    <svg onclick="removeFromArray(this)"
-                                         data-to-del="{{$image->id}}"
-                                         data-name=""
-                                         class="image-preview__del">
-                                        <use xlink:href="/images/icons.svg#icon-close"></use>
-                                    </svg>
-                                </div>
-                            @endforeach
+{{--                            @foreach($mediaFiles as $image)--}}
+{{--                                <div class="image-preview__item js_newImgItem--}}
+{{--                                     @if ($image['main']) image_main @endif"--}}
+{{--                                     onclick="setAsMain(this, '{{$image['file_name']}}')">--}}
+{{--                                    <img src="{{$image['src']}}" alt="">--}}
+{{--                                    <input type="hidden" name="old_files[]" value="{{$image['file_name']}}">--}}
+{{--                                    <span class="image-preview__name">{{$image['file_name']}}</span>--}}
+{{--                                    <svg onclick="removeFromArray(this)"--}}
+{{--                                         data-to-del="{{$image['id']}}"--}}
+{{--                                         data-name=""--}}
+{{--                                         class="image-preview__del">--}}
+{{--                                        <use xlink:href="/images/icons.svg#icon-close"></use>--}}
+{{--                                    </svg>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
                         @endif
                             <div class="fake-upload">
                                 <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">

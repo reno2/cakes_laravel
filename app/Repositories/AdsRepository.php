@@ -68,16 +68,33 @@ class AdsRepository extends CoreRepository
     //==========================================
     //
 
+    /*
+     * @param Article Id
+     * @return Array
+     * Возвращаем массив данных
+     */
+    public function getAdsImages($id){
+        $mediaAdsCollection = Media::where('model_id', $id)->orderBy('custom_properties->main', 'desc')->get();
+        if(!$mediaAdsCollection->isEmpty()){
+            $adsFiles = [];
+            foreach($mediaAdsCollection as $key=>$mediaItem){
+                $adsFiles[$mediaItem->file_name]['id'] = $mediaItem->id;
+                $adsFiles[$mediaItem->file_name]['main'] = ($mediaItem->getCustomProperty('main')) ?? false ;
+                $adsFiles[$mediaItem->file_name]['src'] = $mediaItem->getUrl('thumb');
+                $adsFiles[$mediaItem->file_name]['file_name'] = $mediaItem->file_name;
+            }
+            return json_encode($adsFiles);
+        }
 
-    public function getUrls(){
-        $t = \DB::table('media')
-            ->select('id', 'file_name')
-            ->where('model_id', 18)
-            ->where('collection_name', 'cover')
-            ->where('custom_properties->generated_conversions->thumb', true)
-            ->orderBy('order_column')
-            ->get();
-     
+//
+
+//        $t = \DB::table('media')
+//            ->select('id', 'file_name')
+//            ->where('model_id', 18)
+//            ->where('collection_name', 'cover')
+//            ->where('custom_properties->generated_conversions->thumb', true)
+//            ->orderBy('order_column')
+//            ->get();
     }
 
     public function removeArticle($ads){

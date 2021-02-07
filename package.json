@@ -28,6 +28,7 @@
     "dependencies": {
         "highlight.js": "^10.1.2",
         "md5": "^2.3.0",
-        "select2": "^4.0.13"
+        "select2": "^4.0.13",
+        "vee-validate": "^3.4.5"
     }
 }
