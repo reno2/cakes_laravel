@@ -27,9 +27,7 @@ trait UploadTrait
             }
         }
 
-        if (!empty($this->request["remove"])) {
-            $this->deleteMediaItem(json_decode($this->request["remove"]));
-        }
+
 
         // проверчем что есть картинки чтобы изменить главную
         if (isset($this->request['image']) || $mainImg){
@@ -46,6 +44,9 @@ trait UploadTrait
             }
         }
 
+        if (!empty($this->request["remove"])) {
+            $this->deleteMediaItem(json_decode($this->request["remove"]));
+        }
     }
 
     public function removeAsMain()
