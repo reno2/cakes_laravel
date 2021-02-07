@@ -183,7 +183,7 @@
                 </div>
             </div>
 
-            <multifileupload-component ></multifileupload-component>
+{{--            <multifileupload-component ></multifileupload-component>--}}
 
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
