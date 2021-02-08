@@ -21,7 +21,13 @@
             </div>
 
         </div>
-        <input type="file" @change="files" multiple name="image[]"  id="file">
+
+
+        <ValidationProvider rules="is_earlier:2"  ref="provider" v-slot="{ errors, validate }">
+            <input multiple type="file" @change="selected">
+            <span>{{ errors[0] }}</span>
+        </ValidationProvider>
+
         <input type="hidden" name="to_remove" id="to_remove">
         <input type="hidden" name="make_main" id="main_image">
         <input type="hidden" name="db_main" id="main"  value="">
@@ -29,6 +35,23 @@
 </template>
 <script>
     import { ValidationProvider } from 'vee-validate';
+    //import {  extend } from 'vee-validate';
+    import {  email } from 'vee-validate/dist/rules';
+    // import {  size } from 'vee-validate/dist/rules';
+    // // Override the default message.
+    //
+    // extend('size', {
+    //     ...size,
+    //     message: 'This field is required'
+    // });
+    //
+    // extend('odd', value => {
+    //     if (value % 2 !== 0) {
+    //         return true;
+    //     }
+    //     return 'This field must be an odd number';
+    // });
+    import '../validators';
     export default {
         props: {
             message: {
@@ -36,7 +59,7 @@
                 default: ''
             },
             oldFiles: {
-                type: Array,
+                type: String,
                 default: null
             },
             dbMain: {
@@ -49,7 +72,7 @@
                 name:  'basic-example',
                 files: [],
                 to_remove: null,
-
+                value: null
             }
         },
         computed: {
@@ -75,7 +98,18 @@
             },
             validateRule(newFile){
 
-            }
+            },
+            async selected({ target: { files } }) {
+                //console.log(files)
+                const valid = await this.$refs.provider.validate(files);
+
+                if (!valid) {
+                    console.log("not valid");
+                    return;
+                }
+
+                console.log(valid.errors);
+            },
         },
         mounted() {
             if(this.oldFiles.length){

@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2539,7 +2551,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
+/* harmony import */ var _validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../validators */ "./resources/js/validators/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2569,6 +2591,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+ //import {  extend } from 'vee-validate';
+
+ // import {  size } from 'vee-validate/dist/rules';
+// // Override the default message.
+//
+// extend('size', {
+//     ...size,
+//     message: 'This field is required'
+// });
+//
+// extend('odd', value => {
+//     if (value % 2 !== 0) {
+//         return true;
+//     }
+//     return 'This field must be an odd number';
+// });
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2577,7 +2622,7 @@ __webpack_require__.r(__webpack_exports__);
       "default": ''
     },
     oldFiles: {
-      type: Array,
+      type: String,
       "default": null
     },
     dbMain: {
@@ -2589,7 +2634,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: 'basic-example',
       files: [],
-      to_remove: null
+      to_remove: null,
+      value: null
     };
   },
   computed: {
@@ -2605,13 +2651,48 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]
+    ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationProvider"]
   },
   methods: {
     removeItem: function removeItem(name) {
       console.log(name);
     },
-    validateRule: function validateRule(newFile) {}
+    validateRule: function validateRule(newFile) {},
+    selected: function selected(_ref) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var files, valid;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                files = _ref.target.files;
+                _context.next = 3;
+                return _this.$refs.provider.validate(files);
+
+              case 3:
+                valid = _context.sent;
+
+                if (valid) {
+                  _context.next = 7;
+                  break;
+                }
+
+                console.log("not valid");
+                return _context.abrupt("return");
+
+              case 7:
+                console.log(valid.errors);
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
   },
   mounted: function mounted() {
     if (this.oldFiles.length) {
@@ -38473,6 +38554,765 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
+  }
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -39432,6 +40272,775 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vee-validate/dist/rules.js":
+/*!*************************************************!*\
+  !*** ./node_modules/vee-validate/dist/rules.js ***!
+  \*************************************************/
+/*! exports provided: alpha, alpha_dash, alpha_num, alpha_spaces, between, confirmed, digits, dimensions, double, email, excluded, ext, image, integer, is, is_not, length, max, max_value, mimes, min, min_value, numeric, oneOf, regex, required, required_if, size */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alpha", function() { return alpha$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alpha_dash", function() { return alpha_dash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alpha_num", function() { return alpha_num; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alpha_spaces", function() { return alpha_spaces; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "between", function() { return between; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirmed", function() { return confirmed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "digits", function() { return digits; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dimensions", function() { return dimensions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "double", function() { return double; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "email", function() { return email; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "excluded", function() { return excluded; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ext", function() { return ext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "image", function() { return image; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "integer", function() { return integer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "is", function() { return is; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "is_not", function() { return is_not; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "length", function() { return length; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "max", function() { return max; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "max_value", function() { return max_value; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mimes", function() { return mimes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "min", function() { return min; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "min_value", function() { return min_value; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numeric", function() { return numeric; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "oneOf", function() { return oneOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "regex", function() { return regex; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "required", function() { return required; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "required_if", function() { return required_if; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "size", function() { return size; });
+/**
+  * vee-validate v3.4.5
+  * (c) 2020 Abdelrahman Awad
+  * @license MIT
+  */
+/**
+ * Some Alpha Regex helpers.
+ * https://github.com/chriso/validator.js/blob/master/src/lib/alpha.js
+ */
+/* eslint-disable no-misleading-character-class */
+var alpha = {
+    en: /^[A-Z]*$/i,
+    cs: /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]*$/i,
+    da: /^[A-ZÆØÅ]*$/i,
+    de: /^[A-ZÄÖÜß]*$/i,
+    es: /^[A-ZÁÉÍÑÓÚÜ]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]*$/i,
+    it: /^[A-Z\xC0-\xFF]*$/i,
+    lt: /^[A-ZĄČĘĖĮŠŲŪŽ]*$/i,
+    nl: /^[A-ZÉËÏÓÖÜ]*$/i,
+    hu: /^[A-ZÁÉÍÓÖŐÚÜŰ]*$/i,
+    pl: /^[A-ZĄĆĘŚŁŃÓŻŹ]*$/i,
+    pt: /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]*$/i,
+    ro: /^[A-ZĂÂÎŞŢ]*$/i,
+    ru: /^[А-ЯЁ]*$/i,
+    sk: /^[A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ]*$/i,
+    sr: /^[A-ZČĆŽŠĐ]*$/i,
+    sv: /^[A-ZÅÄÖ]*$/i,
+    tr: /^[A-ZÇĞİıÖŞÜ]*$/i,
+    uk: /^[А-ЩЬЮЯЄІЇҐ]*$/i,
+    ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]*$/,
+    az: /^[A-ZÇƏĞİıÖŞÜ]*$/i,
+    el: /^[Α-ώ]*$/i
+};
+var alphaSpaces = {
+    en: /^[A-Z\s]*$/i,
+    cs: /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ\s]*$/i,
+    da: /^[A-ZÆØÅ\s]*$/i,
+    de: /^[A-ZÄÖÜß\s]*$/i,
+    es: /^[A-ZÁÉÍÑÓÚÜ\s]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ\s]*$/i,
+    it: /^[A-Z\xC0-\xFF\s]*$/i,
+    lt: /^[A-ZĄČĘĖĮŠŲŪŽ\s]*$/i,
+    nl: /^[A-ZÉËÏÓÖÜ\s]*$/i,
+    hu: /^[A-ZÁÉÍÓÖŐÚÜŰ\s]*$/i,
+    pl: /^[A-ZĄĆĘŚŁŃÓŻŹ\s]*$/i,
+    pt: /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ\s]*$/i,
+    ro: /^[A-ZĂÂÎŞŢ\s]*$/i,
+    ru: /^[А-ЯЁ\s]*$/i,
+    sk: /^[A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ\s]*$/i,
+    sr: /^[A-ZČĆŽŠĐ\s]*$/i,
+    sv: /^[A-ZÅÄÖ\s]*$/i,
+    tr: /^[A-ZÇĞİıÖŞÜ\s]*$/i,
+    uk: /^[А-ЩЬЮЯЄІЇҐ\s]*$/i,
+    ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ\s]*$/,
+    az: /^[A-ZÇƏĞİıÖŞÜ\s]*$/i,
+    el: /^[Α-ώ\s]*$/i
+};
+var alphanumeric = {
+    en: /^[0-9A-Z]*$/i,
+    cs: /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]*$/i,
+    da: /^[0-9A-ZÆØÅ]$/i,
+    de: /^[0-9A-ZÄÖÜß]*$/i,
+    es: /^[0-9A-ZÁÉÍÑÓÚÜ]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]*$/i,
+    it: /^[0-9A-Z\xC0-\xFF]*$/i,
+    lt: /^[0-9A-ZĄČĘĖĮŠŲŪŽ]*$/i,
+    hu: /^[0-9A-ZÁÉÍÓÖŐÚÜŰ]*$/i,
+    nl: /^[0-9A-ZÉËÏÓÖÜ]*$/i,
+    pl: /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]*$/i,
+    pt: /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]*$/i,
+    ro: /^[0-9A-ZĂÂÎŞŢ]*$/i,
+    ru: /^[0-9А-ЯЁ]*$/i,
+    sk: /^[0-9A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ]*$/i,
+    sr: /^[0-9A-ZČĆŽŠĐ]*$/i,
+    sv: /^[0-9A-ZÅÄÖ]*$/i,
+    tr: /^[0-9A-ZÇĞİıÖŞÜ]*$/i,
+    uk: /^[0-9А-ЩЬЮЯЄІЇҐ]*$/i,
+    ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]*$/,
+    az: /^[0-9A-ZÇƏĞİıÖŞÜ]*$/i,
+    el: /^[0-9Α-ώ]*$/i
+};
+var alphaDash = {
+    en: /^[0-9A-Z_-]*$/i,
+    cs: /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ_-]*$/i,
+    da: /^[0-9A-ZÆØÅ_-]*$/i,
+    de: /^[0-9A-ZÄÖÜß_-]*$/i,
+    es: /^[0-9A-ZÁÉÍÑÓÚÜ_-]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ_-]*$/i,
+    it: /^[0-9A-Z\xC0-\xFF_-]*$/i,
+    lt: /^[0-9A-ZĄČĘĖĮŠŲŪŽ_-]*$/i,
+    nl: /^[0-9A-ZÉËÏÓÖÜ_-]*$/i,
+    hu: /^[0-9A-ZÁÉÍÓÖŐÚÜŰ_-]*$/i,
+    pl: /^[0-9A-ZĄĆĘŚŁŃÓŻŹ_-]*$/i,
+    pt: /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ_-]*$/i,
+    ro: /^[0-9A-ZĂÂÎŞŢ_-]*$/i,
+    ru: /^[0-9А-ЯЁ_-]*$/i,
+    sk: /^[0-9A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ_-]*$/i,
+    sr: /^[0-9A-ZČĆŽŠĐ_-]*$/i,
+    sv: /^[0-9A-ZÅÄÖ_-]*$/i,
+    tr: /^[0-9A-ZÇĞİıÖŞÜ_-]*$/i,
+    uk: /^[0-9А-ЩЬЮЯЄІЇҐ_-]*$/i,
+    ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ_-]*$/,
+    az: /^[0-9A-ZÇƏĞİıÖŞÜ_-]*$/i,
+    el: /^[0-9Α-ώ_-]*$/i
+};
+
+var validate = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alpha).some(function (loc) { return alpha[loc].test(value); });
+    }
+    return (alpha[locale] || alpha.en).test(value);
+};
+var params = [
+    {
+        name: 'locale'
+    }
+];
+var alpha$1 = {
+    validate: validate,
+    params: params
+};
+
+var validate$1 = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$1(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alphaDash).some(function (loc) { return alphaDash[loc].test(value); });
+    }
+    return (alphaDash[locale] || alphaDash.en).test(value);
+};
+var params$1 = [
+    {
+        name: 'locale'
+    }
+];
+var alpha_dash = {
+    validate: validate$1,
+    params: params$1
+};
+
+var validate$2 = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$2(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alphanumeric).some(function (loc) { return alphanumeric[loc].test(value); });
+    }
+    return (alphanumeric[locale] || alphanumeric.en).test(value);
+};
+var params$2 = [
+    {
+        name: 'locale'
+    }
+];
+var alpha_num = {
+    validate: validate$2,
+    params: params$2
+};
+
+var validate$3 = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$3(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alphaSpaces).some(function (loc) { return alphaSpaces[loc].test(value); });
+    }
+    return (alphaSpaces[locale] || alphaSpaces.en).test(value);
+};
+var params$3 = [
+    {
+        name: 'locale'
+    }
+];
+var alpha_spaces = {
+    validate: validate$3,
+    params: params$3
+};
+
+var validate$4 = function (value, _a) {
+    var _b = _a === void 0 ? {} : _a, min = _b.min, max = _b.max;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return !!validate$4(val, { min: min, max: max }); });
+    }
+    return Number(min) <= value && Number(max) >= value;
+};
+var params$4 = [
+    {
+        name: 'min'
+    },
+    {
+        name: 'max'
+    }
+];
+var between = {
+    validate: validate$4,
+    params: params$4
+};
+
+var validate$5 = function (value, _a) {
+    var target = _a.target;
+    return String(value) === String(target);
+};
+var params$5 = [
+    {
+        name: 'target',
+        isTarget: true
+    }
+];
+var confirmed = {
+    validate: validate$5,
+    params: params$5
+};
+
+var validate$6 = function (value, _a) {
+    var length = _a.length;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$6(val, { length: length }); });
+    }
+    var strVal = String(value);
+    return /^[0-9]*$/.test(strVal) && strVal.length === length;
+};
+var params$6 = [
+    {
+        name: 'length',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var digits = {
+    validate: validate$6,
+    params: params$6
+};
+
+var validateImage = function (file, width, height) {
+    var URL = window.URL || window.webkitURL;
+    return new Promise(function (resolve) {
+        var image = new Image();
+        image.onerror = function () { return resolve(false); };
+        image.onload = function () { return resolve(image.width === width && image.height === height); };
+        image.src = URL.createObjectURL(file);
+    });
+};
+var validate$7 = function (files, _a) {
+    var width = _a.width, height = _a.height;
+    var list = [];
+    files = Array.isArray(files) ? files : [files];
+    for (var i = 0; i < files.length; i++) {
+        // if file is not an image, reject.
+        if (!/\.(jpg|svg|jpeg|png|bmp|gif)$/i.test(files[i].name)) {
+            return Promise.resolve(false);
+        }
+        list.push(files[i]);
+    }
+    return Promise.all(list.map(function (file) { return validateImage(file, width, height); })).then(function (values) {
+        return values.every(function (v) { return v; });
+    });
+};
+var params$7 = [
+    {
+        name: 'width',
+        cast: function (value) {
+            return Number(value);
+        }
+    },
+    {
+        name: 'height',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var dimensions = {
+    validate: validate$7,
+    params: params$7
+};
+
+var validate$8 = function (value, _a) {
+    var multiple = (_a === void 0 ? {} : _a).multiple;
+    // eslint-disable-next-line
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (multiple && !Array.isArray(value)) {
+        value = String(value)
+            .split(',')
+            .map(function (emailStr) { return emailStr.trim(); });
+    }
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return re.test(String(val)); });
+    }
+    return re.test(String(value));
+};
+var params$8 = [
+    {
+        name: 'multiple',
+        default: false
+    }
+];
+var email = {
+    validate: validate$8,
+    params: params$8
+};
+
+function isNullOrUndefined(value) {
+    return value === null || value === undefined;
+}
+function isEmptyArray(arr) {
+    return Array.isArray(arr) && arr.length === 0;
+}
+function isCallable(fn) {
+    return typeof fn === 'function';
+}
+
+function includes(collection, item) {
+    return collection.indexOf(item) !== -1;
+}
+/**
+ * Converts an array-like object to array, provides a simple polyfill for Array.from
+ */
+function toArray(arrayLike) {
+    if (isCallable(Array.from)) {
+        return Array.from(arrayLike);
+    }
+    /* istanbul ignore next */
+    return _copyArray(arrayLike);
+}
+/* istanbul ignore next */
+function _copyArray(arrayLike) {
+    var array = [];
+    var length = arrayLike.length;
+    for (var i = 0; i < length; i++) {
+        array.push(arrayLike[i]);
+    }
+    return array;
+}
+
+var validate$9 = function (value, options) {
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$9(val, options); });
+    }
+    return toArray(options).some(function (item) {
+        // eslint-disable-next-line
+        return item == value;
+    });
+};
+var oneOf = {
+    validate: validate$9
+};
+
+var validate$a = function (value, args) {
+    return !validate$9(value, args);
+};
+var excluded = {
+    validate: validate$a
+};
+
+var validate$b = function (files, extensions) {
+    var regex = new RegExp(".(" + extensions.join('|') + ")$", 'i');
+    if (Array.isArray(files)) {
+        return files.every(function (file) { return regex.test(file.name); });
+    }
+    return regex.test(files.name);
+};
+var ext = {
+    validate: validate$b
+};
+
+var validate$c = function (files) {
+    var regex = /\.(jpg|svg|jpeg|png|bmp|gif|webp)$/i;
+    if (Array.isArray(files)) {
+        return files.every(function (file) { return regex.test(file.name); });
+    }
+    return regex.test(files.name);
+};
+var image = {
+    validate: validate$c
+};
+
+var validate$d = function (value) {
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return /^-?[0-9]+$/.test(String(val)); });
+    }
+    return /^-?[0-9]+$/.test(String(value));
+};
+var integer = {
+    validate: validate$d
+};
+
+var validate$e = function (value, _a) {
+    var other = _a.other;
+    return value === other;
+};
+var params$9 = [
+    {
+        name: 'other'
+    }
+];
+var is = {
+    validate: validate$e,
+    params: params$9
+};
+
+var validate$f = function (value, _a) {
+    var other = _a.other;
+    return value !== other;
+};
+var params$a = [
+    {
+        name: 'other'
+    }
+];
+var is_not = {
+    validate: validate$f,
+    params: params$a
+};
+
+var validate$g = function (value, _a) {
+    var length = _a.length;
+    if (isNullOrUndefined(value)) {
+        return false;
+    }
+    if (typeof value === 'string') {
+        value = toArray(value);
+    }
+    if (typeof value === 'number') {
+        value = String(value);
+    }
+    if (!value.length) {
+        value = toArray(value);
+    }
+    return value.length === length;
+};
+var params$b = [
+    {
+        name: 'length',
+        cast: function (value) { return Number(value); }
+    }
+];
+var length = {
+    validate: validate$g,
+    params: params$b
+};
+
+var validate$h = function (value, _a) {
+    var length = _a.length;
+    if (isNullOrUndefined(value)) {
+        return length >= 0;
+    }
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$h(val, { length: length }); });
+    }
+    return String(value).length <= length;
+};
+var params$c = [
+    {
+        name: 'length',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var max = {
+    validate: validate$h,
+    params: params$c
+};
+
+var validate$i = function (value, _a) {
+    var max = _a.max;
+    if (isNullOrUndefined(value) || value === '') {
+        return false;
+    }
+    if (Array.isArray(value)) {
+        return value.length > 0 && value.every(function (val) { return validate$i(val, { max: max }); });
+    }
+    return Number(value) <= max;
+};
+var params$d = [
+    {
+        name: 'max',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var max_value = {
+    validate: validate$i,
+    params: params$d
+};
+
+var validate$j = function (files, mimes) {
+    var regex = new RegExp(mimes.join('|').replace('*', '.+') + "$", 'i');
+    if (Array.isArray(files)) {
+        return files.every(function (file) { return regex.test(file.type); });
+    }
+    return regex.test(files.type);
+};
+var mimes = {
+    validate: validate$j
+};
+
+var validate$k = function (value, _a) {
+    var length = _a.length;
+    if (isNullOrUndefined(value)) {
+        return false;
+    }
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$k(val, { length: length }); });
+    }
+    return String(value).length >= length;
+};
+var params$e = [
+    {
+        name: 'length',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var min = {
+    validate: validate$k,
+    params: params$e
+};
+
+var validate$l = function (value, _a) {
+    var min = _a.min;
+    if (isNullOrUndefined(value) || value === '') {
+        return false;
+    }
+    if (Array.isArray(value)) {
+        return value.length > 0 && value.every(function (val) { return validate$l(val, { min: min }); });
+    }
+    return Number(value) >= min;
+};
+var params$f = [
+    {
+        name: 'min',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var min_value = {
+    validate: validate$l,
+    params: params$f
+};
+
+var ar = /^[٠١٢٣٤٥٦٧٨٩]+$/;
+var en = /^[0-9]+$/;
+var validate$m = function (value) {
+    var testValue = function (val) {
+        var strValue = String(val);
+        return en.test(strValue) || ar.test(strValue);
+    };
+    if (Array.isArray(value)) {
+        return value.every(testValue);
+    }
+    return testValue(value);
+};
+var numeric = {
+    validate: validate$m
+};
+
+var validate$n = function (value, _a) {
+    var regex = _a.regex;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$n(val, { regex: regex }); });
+    }
+    return regex.test(String(value));
+};
+var params$g = [
+    {
+        name: 'regex',
+        cast: function (value) {
+            if (typeof value === 'string') {
+                return new RegExp(value);
+            }
+            return value;
+        }
+    }
+];
+var regex = {
+    validate: validate$n,
+    params: params$g
+};
+
+var validate$o = function (value, _a) {
+    var allowFalse = (_a === void 0 ? { allowFalse: true } : _a).allowFalse;
+    var result = {
+        valid: false,
+        required: true
+    };
+    if (isNullOrUndefined(value) || isEmptyArray(value)) {
+        return result;
+    }
+    // incase a field considers `false` as an empty value like checkboxes.
+    if (value === false && !allowFalse) {
+        return result;
+    }
+    result.valid = !!String(value).trim().length;
+    return result;
+};
+var computesRequired = true;
+var params$h = [
+    {
+        name: 'allowFalse',
+        default: true
+    }
+];
+var required = {
+    validate: validate$o,
+    params: params$h,
+    computesRequired: computesRequired
+};
+
+var testEmpty = function (value) {
+    return isEmptyArray(value) || includes([false, null, undefined], value) || !String(value).trim().length;
+};
+var validate$p = function (value, _a) {
+    var target = _a.target, values = _a.values;
+    var required;
+    if (values && values.length) {
+        if (!Array.isArray(values) && typeof values === 'string') {
+            values = [values];
+        }
+        // eslint-disable-next-line
+        required = values.some(function (val) { return val == String(target).trim(); });
+    }
+    else {
+        required = !testEmpty(target);
+    }
+    if (!required) {
+        return {
+            valid: true,
+            required: required
+        };
+    }
+    return {
+        valid: !testEmpty(value),
+        required: required
+    };
+};
+var params$i = [
+    {
+        name: 'target',
+        isTarget: true
+    },
+    {
+        name: 'values'
+    }
+];
+var computesRequired$1 = true;
+var required_if = {
+    validate: validate$p,
+    params: params$i,
+    computesRequired: computesRequired$1
+};
+
+var validate$q = function (files, _a) {
+    var size = _a.size;
+    if (isNaN(size)) {
+        return false;
+    }
+    var nSize = size * 1024;
+    if (!Array.isArray(files)) {
+        return files.size <= nSize;
+    }
+    for (var i = 0; i < files.length; i++) {
+        if (files[i].size > nSize) {
+            return false;
+        }
+    }
+    return true;
+};
+var params$j = [
+    {
+        name: 'size',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var size = {
+    validate: validate$q,
+    params: params$j
+};
+
+var validate$r = function (value, params) {
+    var _a = params || {}, _b = _a.decimals, decimals = _b === void 0 ? 0 : _b, _c = _a.separator, separator = _c === void 0 ? 'dot' : _c;
+    var separators = {
+        dot: '.',
+        comma: ','
+    };
+    var regexPart = +decimals === 0 ? '+' : "{" + decimals + "}";
+    var regex = new RegExp("^-?\\d+\\" + (separators[separator] || '.') + "\\d" + regexPart + "$");
+    return Array.isArray(value) ? value.every(function (val) { return regex.test(String(val)); }) : regex.test(String(value));
+};
+var params$k = [
+    {
+        name: 'decimals',
+        default: 0
+    },
+    {
+        name: 'separator',
+        default: 'dot'
+    }
+];
+var double = {
+    validate: validate$r,
+    params: params$k
+};
+
+
+
 
 /***/ }),
 
@@ -42142,63 +43751,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group row" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "mfu__right" }, [
-      _c(
-        "div",
-        { staticClass: "mfu__files" },
-        [
-          _vm._l(_vm.renderFiles, function(el, inx) {
-            return _c(
-              "div",
-              { staticClass: "mfu__item", class: { mfu__main: el.main } },
-              [
-                _c("img", { attrs: { src: el.src, alt: "" } }),
-                _vm._v(" "),
-                _c(
-                  "svg",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.removeItem(el.file_name)
+  return _c(
+    "div",
+    { staticClass: "form-group row" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "mfu__right" }, [
+        _c(
+          "div",
+          { staticClass: "mfu__files" },
+          [
+            _vm._l(_vm.renderFiles, function(el, inx) {
+              return _c(
+                "div",
+                { staticClass: "mfu__item", class: { mfu__main: el.main } },
+                [
+                  _c("img", { attrs: { src: el.src, alt: "" } }),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.removeItem(el.file_name)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("use", {
-                      attrs: { "xlink:href": "/images/icons.svg#icon-close" }
-                    })
-                  ]
-                )
+                    },
+                    [
+                      _c("use", {
+                        attrs: { "xlink:href": "/images/icons.svg#icon-close" }
+                      })
+                    ]
+                  )
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("ValidationProvider", {
+        ref: "provider",
+        attrs: { rules: "is_earlier:2|size:100" },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(ref) {
+              var errors = ref.errors
+              var validate = ref.validate
+              return [
+                _c("input", {
+                  attrs: { multiple: "", type: "file" },
+                  on: { change: _vm.selected }
+                }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(errors[0]))])
               ]
-            )
-          }),
-          _vm._v(" "),
-          _vm._m(1)
-        ],
-        2
-      )
-    ]),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "file", multiple: "", name: "image[]", id: "file" },
-      on: { change: _vm.files }
-    }),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "hidden", name: "to_remove", id: "to_remove" }
-    }),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "hidden", name: "make_main", id: "main_image" }
-    }),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "hidden", name: "db_main", id: "main", value: "" }
-    })
-  ])
+            }
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "to_remove", id: "to_remove" }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "make_main", id: "main_image" }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: "db_main", id: "main", value: "" }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -54399,9 +56030,12 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -54413,6 +56047,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import
 
 window.md5 = __webpack_require__(/*! md5 */ "./node_modules/md5/md5.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+Vue.use(vee_validate__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -55213,6 +56849,81 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MultiFileUploadComponent_vue_vue_type_template_id_07a3ccd2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/validators/index.js":
+/*!******************************************!*\
+  !*** ./resources/js/validators/index.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
+/* harmony import */ var _rules_file_rules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rules/file_rules */ "./resources/js/validators/rules/file_rules.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+ // extend('email', {
+//     ...email,
+//     message: 'You should add a valid email address'
+// });
+//
+// extend('ext', {
+//     ...ext,
+//     message: 'Не допустимое расширение'
+// });
+
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('size', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_1__["size"]), {}, {
+  message: 'Не верный размер файла'
+}));
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('is_earlier', {
+  validate: function validate(value, _ref) {
+    var compare = _ref.compare;
+    return Object(_rules_file_rules__WEBPACK_IMPORTED_MODULE_2__["default"])({
+      value: value,
+      compare: compare,
+      validationType: 'earlier'
+    });
+  },
+  params: ['compare', 'dateType'],
+  message: 'Максимальное колчество файлов 5 {dateType}'
+}); // extend('is_beyond', {
+//     validate: (value, { compare }) => {
+//         return date_compare({value, compare, validationType: 'beyond'});
+//     },
+//     params: ['compare', 'dateType'],
+//     message: 'The selected date must not be older than {dateType}'
+// });
+
+/***/ }),
+
+/***/ "./resources/js/validators/rules/file_rules.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/validators/rules/file_rules.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var value = _ref.value,
+      compare = _ref.compare,
+      validationType = _ref.validationType;
+  var pass = true;
+  if (value.length > Number(compare)) pass = false;
+  console.log(value.length, compare, validationType);
+  return pass;
+});
 
 /***/ }),
 
