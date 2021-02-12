@@ -5,13 +5,10 @@
             <div class="mfu__hint"> Загрузите свои изображения не более 5 файлов. (jpeg, png)</div>
         </div>
         <div class="mfu__right">
-
-
-
             <div class="mfu__files">
-                <div :class="{'mfu__main' : el.main}" class="mfu__item" v-for="(el, inx) of renderFiles">
-                    <img :src="el.src" alt="">
-                    <svg @click="removeItem(el.file_name)">
+                <div :class="{'mfu__main' : prop.main}" class="mfu__item" v-for="prop in renderFiles">
+                    <img :src="url(prop)" alt="">
+                    <svg @click="removeItem(prop.file_name)">
                         <use xlink:href="/images/icons.svg#icon-close"></use>
                     </svg>
                 </div>
@@ -22,11 +19,11 @@
 
         </div>
 
-
-        <ValidationProvider rules="is_earlier:2"  ref="provider" v-slot="{ errors, validate }">
-            <input multiple type="file" @change="selected">
+        <ValidationProvider ref="provider" rules="size:200|ext:jpg,png|check_count:5" v-slot="{ errors, validate }">
+            <input accept="image/*" multiple type="file" @change="selected">
             <span>{{ errors[0] }}</span>
         </ValidationProvider>
+
 
         <input type="hidden" name="to_remove" id="to_remove">
         <input type="hidden" name="make_main" id="main_image">
@@ -34,23 +31,7 @@
     </div>
 </template>
 <script>
-    import { ValidationProvider } from 'vee-validate';
-    //import {  extend } from 'vee-validate';
-    import {  email } from 'vee-validate/dist/rules';
-    // import {  size } from 'vee-validate/dist/rules';
-    // // Override the default message.
-    //
-    // extend('size', {
-    //     ...size,
-    //     message: 'This field is required'
-    // });
-    //
-    // extend('odd', value => {
-    //     if (value % 2 !== 0) {
-    //         return true;
-    //     }
-    //     return 'This field must be an odd number';
-    // });
+    import { ValidationProvider } from 'vee-validate';;
     import '../validators';
     export default {
         props: {
@@ -67,20 +48,20 @@
                 default: null
             }
         },
-        data() {
-            return {
+        data: () => ({
                 name:  'basic-example',
                 files: [],
                 to_remove: null,
-                value: null
-            }
-        },
+                value: null,
+                tmpForMultipleFiles: {},
+                addFile: 0
+        }),
         computed: {
             renderFiles(){
-
-                if(this.files){
-                    return this.files
-                }
+                console.log(this.addFile)
+        
+                if(Object.keys(this.tmpForMultipleFiles).length > 0)
+                return this.tmpForMultipleFiles
             },
             choosing() {
                 // if (this.results.length && this.showList) {
@@ -93,22 +74,31 @@
             ValidationProvider
         },
         methods: {
+            url(prop){
+                return URL.createObjectURL(prop);
+            },
             removeItem(name){
                 console.log(name)
             },
             validateRule(newFile){
 
             },
-            async selected({ target: { files } }) {
-                //console.log(files)
-                const valid = await this.$refs.provider.validate(files);
-
-                if (!valid) {
-                    console.log("not valid");
+            async selected( e) {
+                const that = this
+                const valid = await this.$refs.provider.validate(Array.from(e.target.files ));
+                if (!valid.valid) {
+                    e.target.value = null
                     return;
                 }
+                Array.from(e.target.files).forEach(file => {
+                    if(!that.tmpForMultipleFiles.hasOwnProperty(file.name)) {
+                        that.tmpForMultipleFiles[file.name] = file
+                        that.addFile +=1
+                    }
+                })
 
-                console.log(valid.errors);
+
+
             },
         },
         mounted() {

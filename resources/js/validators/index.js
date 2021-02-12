@@ -2,8 +2,21 @@ import { extend } from 'vee-validate';
 
 import {
     ext,
-   size
+    size,
+    length,
 } from 'vee-validate/dist/rules';
+
+extend('ext', {
+    ...ext,
+    message: 'Не допустимый формат файлов'
+});
+
+extend('size', {
+    ...size,
+    message: 'Не верный размер файла'
+});
+
+
 
 import date_compare from './rules/file_rules';
 
@@ -17,18 +30,15 @@ import date_compare from './rules/file_rules';
 //     message: 'Не допустимое расширение'
 // });
 
-extend('size', {
-    ...size,
-    message: 'Не верный размер файла'
-});
 
 
 
 
 
-extend('is_earlier', {
+
+extend('check_count', {
     validate: (value, { compare }) => {
-        return date_compare({value, compare, validationType: 'earlier'});
+        return date_compare({value, compare, validationType: 'check_count'});
     },
     params: ['compare', 'dateType'],
     message: 'Максимальное колчество файлов 5 {dateType}'

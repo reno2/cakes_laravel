@@ -26,6 +26,13 @@
       @endisset
     </script>
   <script src="{{ asset('js/js_forms.js')}}"></script>
+  <script src="{{ asset('js/validate.js')}}"></script>
 @stop
+<style>
+    .hide{
+        display: none;
+    }
+</style>
+
 
 

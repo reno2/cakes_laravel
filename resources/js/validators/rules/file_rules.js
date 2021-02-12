@@ -4,7 +4,7 @@ export default ({ value, compare, validationType }) => {
     if(value.length > Number(compare))
         pass = false
 
-    console.log(value.length, compare, validationType)
+   // console.log(value.length, compare, validationType)
 
 
 

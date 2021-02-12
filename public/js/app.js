@@ -2554,8 +2554,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate/dist/rules */ "./node_modules/vee-validate/dist/rules.js");
-/* harmony import */ var _validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../validators */ "./resources/js/validators/index.js");
+/* harmony import */ var _validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../validators */ "./resources/js/validators/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2594,26 +2593,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
- //import {  extend } from 'vee-validate';
 
- // import {  size } from 'vee-validate/dist/rules';
-// // Override the default message.
-//
-// extend('size', {
-//     ...size,
-//     message: 'This field is required'
-// });
-//
-// extend('odd', value => {
-//     if (value % 2 !== 0) {
-//         return true;
-//     }
-//     return 'This field must be an odd number';
-// });
-
+;
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2635,14 +2616,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       name: 'basic-example',
       files: [],
       to_remove: null,
-      value: null
+      value: null,
+      tmpForMultipleFiles: {},
+      addFile: 0
     };
   },
   computed: {
     renderFiles: function renderFiles() {
-      if (this.files) {
-        return this.files;
-      }
+      console.log(this.addFile);
+      if (Object.keys(this.tmpForMultipleFiles).length > 0) return this.tmpForMultipleFiles;
     },
     choosing: function choosing() {// if (this.results.length && this.showList) {
       //     //console.log(this.results)
@@ -2654,36 +2636,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationProvider"]
   },
   methods: {
+    url: function url(prop) {
+      return URL.createObjectURL(prop);
+    },
     removeItem: function removeItem(name) {
       console.log(name);
     },
     validateRule: function validateRule(newFile) {},
-    selected: function selected(_ref) {
+    selected: function selected(e) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var files, valid;
+        var that, valid;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                files = _ref.target.files;
+                that = _this;
                 _context.next = 3;
-                return _this.$refs.provider.validate(files);
+                return _this.$refs.provider.validate(Array.from(e.target.files));
 
               case 3:
                 valid = _context.sent;
 
-                if (valid) {
+                if (valid.valid) {
                   _context.next = 7;
                   break;
                 }
 
-                console.log("not valid");
+                e.target.value = null;
                 return _context.abrupt("return");
 
               case 7:
-                console.log(valid.errors);
+                Array.from(e.target.files).forEach(function (file) {
+                  if (!that.tmpForMultipleFiles.hasOwnProperty(file.name)) {
+                    that.tmpForMultipleFiles[file.name] = file;
+                    that.addFile += 1;
+                  }
+                });
 
               case 8:
               case "end":
@@ -43762,19 +43752,19 @@ var render = function() {
           "div",
           { staticClass: "mfu__files" },
           [
-            _vm._l(_vm.renderFiles, function(el, inx) {
+            _vm._l(_vm.renderFiles, function(prop) {
               return _c(
                 "div",
-                { staticClass: "mfu__item", class: { mfu__main: el.main } },
+                { staticClass: "mfu__item", class: { mfu__main: prop.main } },
                 [
-                  _c("img", { attrs: { src: el.src, alt: "" } }),
+                  _c("img", { attrs: { src: _vm.url(prop), alt: "" } }),
                   _vm._v(" "),
                   _c(
                     "svg",
                     {
                       on: {
                         click: function($event) {
-                          return _vm.removeItem(el.file_name)
+                          return _vm.removeItem(prop.file_name)
                         }
                       }
                     },
@@ -43796,7 +43786,7 @@ var render = function() {
       _vm._v(" "),
       _c("ValidationProvider", {
         ref: "provider",
-        attrs: { rules: "is_earlier:2|size:100" },
+        attrs: { rules: "size:200|ext:jpg,png|check_count:5" },
         scopedSlots: _vm._u([
           {
             key: "default",
@@ -43805,7 +43795,7 @@ var render = function() {
               var validate = ref.validate
               return [
                 _c("input", {
-                  attrs: { multiple: "", type: "file" },
+                  attrs: { accept: "image/*", multiple: "", type: "file" },
                   on: { change: _vm.selected }
                 }),
                 _vm._v(" "),
@@ -56872,6 +56862,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('ext', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_1__["ext"]), {}, {
+  message: 'Не допустимый формат файлов'
+}));
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('size', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_1__["size"]), {}, {
+  message: 'Не верный размер файла'
+}));
  // extend('email', {
 //     ...email,
 //     message: 'You should add a valid email address'
@@ -56882,16 +56878,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //     message: 'Не допустимое расширение'
 // });
 
-Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('size', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_1__["size"]), {}, {
-  message: 'Не верный размер файла'
-}));
-Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('is_earlier', {
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["extend"])('check_count', {
   validate: function validate(value, _ref) {
     var compare = _ref.compare;
     return Object(_rules_file_rules__WEBPACK_IMPORTED_MODULE_2__["default"])({
       value: value,
       compare: compare,
-      validationType: 'earlier'
+      validationType: 'check_count'
     });
   },
   params: ['compare', 'dateType'],
@@ -56920,8 +56913,8 @@ __webpack_require__.r(__webpack_exports__);
       compare = _ref.compare,
       validationType = _ref.validationType;
   var pass = true;
-  if (value.length > Number(compare)) pass = false;
-  console.log(value.length, compare, validationType);
+  if (value.length > Number(compare)) pass = false; // console.log(value.length, compare, validationType)
+
   return pass;
 });
 

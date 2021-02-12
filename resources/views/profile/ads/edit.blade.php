@@ -119,8 +119,13 @@
                 <label for="weight" class="col-md-4 col-form-label text-md-right">Вес г.</label>
                 <div class="col-md-2">
                     <input id="weight" type="text"
-                           class="form-control @error('weight') is-invalid @enderror" name="weight"
+                           class="js_numbers js_validate form-control @error('weight') is-invalid @enderror" name="weight"
                            value="{{old('weight', $ads->weight)}}">
+
+                    <span class="invalid-feedback hide onlyNubmers" role="alert">
+                          <strong>Возможно только цифры</strong>
+                    </span>
+
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
