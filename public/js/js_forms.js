@@ -47,7 +47,6 @@ const addToTmp = function (e) {
             if(valid) addToValidArray(files[i])
         }
     }
-    console.log(tmpForMultipleFiles)
 }
 const removeFromArray = (element) => {
     const name = element.previousElementSibling.innerHTML

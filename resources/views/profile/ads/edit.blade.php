@@ -104,7 +104,7 @@
             </div>
             <div class="form-group row">
                 <label for="price" class="col-md-4 col-form-label text-md-right">Стоимость Руб.</label>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <input id="price" type="text"
                            class="form-control @error('price') is-invalid @enderror" name="price"
                            value="{{old('price', $ads->price)}}">
@@ -117,10 +117,15 @@
             </div>
             <div class="form-group row">
                 <label for="weight" class="col-md-4 col-form-label text-md-right">Вес г.</label>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <input id="weight" type="text"
-                           class="form-control @error('weight') is-invalid @enderror" name="weight"
+                           class="js_maskWeight  js_numbersPoint js_validate form-control @error('weight') is-invalid @enderror" name="weight"
                            value="{{old('weight', $ads->weight)}}">
+
+                    <span class="invalid-feedback js_error js_numbersPoint" role="alert">
+                          <strong>Возможно только цифры</strong>
+                    </span>
+
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -183,7 +188,7 @@
                 </div>
             </div>
 
-            <multifileupload-component db-main="{{$main}}" old-files="{{$mediaFiles}}"></multifileupload-component>
+{{--            <multifileupload-component db-main="{{$main}}" old-files="{{$mediaFiles}}"></multifileupload-component>--}}
 
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
@@ -203,21 +208,21 @@
 
                     <div id="image-list" class="create-form__preview image-preview">
                         @if($ads->getMedia('cover'))
-{{--                            @foreach($mediaFiles as $image)--}}
-{{--                                <div class="image-preview__item js_newImgItem--}}
-{{--                                     @if ($image['main']) image_main @endif"--}}
-{{--                                     onclick="setAsMain(this, '{{$image['file_name']}}')">--}}
-{{--                                    <img src="{{$image['src']}}" alt="">--}}
-{{--                                    <input type="hidden" name="old_files[]" value="{{$image['file_name']}}">--}}
-{{--                                    <span class="image-preview__name">{{$image['file_name']}}</span>--}}
-{{--                                    <svg onclick="removeFromArray(this)"--}}
-{{--                                         data-to-del="{{$image['id']}}"--}}
-{{--                                         data-name=""--}}
-{{--                                         class="image-preview__del">--}}
-{{--                                        <use xlink:href="/images/icons.svg#icon-close"></use>--}}
-{{--                                    </svg>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
+                            @foreach($mediaFiles as $image)
+                                <div class="image-preview__item js_newImgItem
+                                     @if ($image['main']) image_main @endif"
+                                     onclick="setAsMain(this, '{{$image['file_name']}}')">
+                                    <img src="{{$image['src']}}" alt="">
+                                    <input type="hidden" name="old_files[]" value="{{$image['file_name']}}">
+                                    <span class="image-preview__name">{{$image['file_name']}}</span>
+                                    <svg onclick="removeFromArray(this)"
+                                         data-to-del="{{$image['id']}}"
+                                         data-name=""
+                                         class="image-preview__del">
+                                        <use xlink:href="/images/icons.svg#icon-close"></use>
+                                    </svg>
+                                </div>
+                            @endforeach
                         @endif
                             <div class="fake-upload">
                                 <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">

@@ -10,6 +10,9 @@ require('./bootstrap');
 // import 'jquery-ui/themes/base/all.css'
 window.md5 = require('md5');
 window.Vue = require('vue');
+import * as VeeValidate from 'vee-validate';
+Vue.use(VeeValidate);
+
 
 /**
  * The following block of code may be used to automatically register your

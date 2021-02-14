@@ -83,18 +83,9 @@ class AdsRepository extends CoreRepository
                 $adsFiles[$mediaItem->file_name]['src'] = $mediaItem->getUrl('thumb');
                 $adsFiles[$mediaItem->file_name]['file_name'] = $mediaItem->file_name;
             }
-            return json_encode($adsFiles);
+            //return json_encode($adsFiles);
+            return $adsFiles;
         }
-
-//
-
-//        $t = \DB::table('media')
-//            ->select('id', 'file_name')
-//            ->where('model_id', 18)
-//            ->where('collection_name', 'cover')
-//            ->where('custom_properties->generated_conversions->thumb', true)
-//            ->orderBy('order_column')
-//            ->get();
     }
 
     public function removeArticle($ads){
