@@ -135,13 +135,15 @@ class AdsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param AdsRequest $request
+     * @param Article    $ads
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(AdsRequest $request, $id)
     {
+
+        $validated = $request->validated();
         $ads = Article::find($id);
         $inputs = $request->all();
 

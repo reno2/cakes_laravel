@@ -6,6 +6,12 @@
         </div>
         <div class="mfu__right">
             <div class="mfu__files">
+                <div :class="{'mfu__main' : file.main}" class="mfu__item" v-for="file in files">
+                    <img :src="file.src" alt="">
+                    <svg @click="removeItem(file.file_name, true)">
+                        <use xlink:href="/images/icons.svg#icon-close"></use>
+                    </svg>
+                </div>
                 <div :class="{'mfu__main' : prop.main}" class="mfu__item" v-for="prop in renderFiles">
                     <img :src="url(prop)" alt="">
                     <svg @click="removeItem(prop.file_name)">
@@ -16,22 +22,25 @@
                     <img class="mfu__btn" src="/images/plus.svg" alt="">
                 </div>
             </div>
-
         </div>
 
-        <ValidationProvider ref="provider" rules="size:200|ext:jpg,png|check_count:5" v-slot="{ errors, validate }">
-            <input accept="image/*" multiple type="file" @change="selected">
-            <span>{{ errors[0] }}</span>
-        </ValidationProvider>
+<!--        <ValidationProvider ref="provider"-->
+<!--                            :rules="`size:200|ext:jpg,png|check_count:5,${Object.keys(files).length+Object.keys(tmpForMultipleFiles).length}|file_exists:${Object.keys(files)}`"-->
+<!--                            v-slot="{ errors, validate }">-->
+<!--            <input accept="image/*" multiple type="file" name="image[]" @change="selected">-->
+<!--            <span>{{ errors[0] }}</span>-->
+<!--        </ValidationProvider>-->
+
+        <input accept="image/*" multiple type="file" name="image[]" id="image_input" @change="selected">
 
 
-        <input type="hidden" name="to_remove" id="to_remove">
+        <input type="hidden" v-model="to_remove" name="to_remove" id="to_remove">
         <input type="hidden" name="make_main" id="main_image">
         <input type="hidden" name="db_main" id="main"  value="">
     </div>
 </template>
 <script>
-    import { ValidationProvider } from 'vee-validate';;
+    import { ValidationProvider } from 'vee-validate';
     import '../validators';
     export default {
         props: {
@@ -51,24 +60,20 @@
         data: () => ({
                 name:  'basic-example',
                 files: [],
-                to_remove: null,
+                to_remove: [],
                 value: null,
                 tmpForMultipleFiles: {},
-                addFile: 0
+                addFile: 0,
+                rules:['limit', 'size', 'type'],
+                errors: null
         }),
         computed: {
             renderFiles(){
                 console.log(this.addFile)
-        
                 if(Object.keys(this.tmpForMultipleFiles).length > 0)
-                return this.tmpForMultipleFiles
+                    return this.tmpForMultipleFiles
+
             },
-            choosing() {
-                // if (this.results.length && this.showList) {
-                //     //console.log(this.results)
-                //     return this.results
-                // }
-            }
         },
         components: {
             ValidationProvider
@@ -77,40 +82,53 @@
             url(prop){
                 return URL.createObjectURL(prop);
             },
-            removeItem(name){
-                console.log(name)
+            removeItem(name, toDel = false){
+                if(this.to_remove.length)
+                    this.to_remove = JSON.parse(this.to_remove);
+
+                if(!this.to_remove.includes(this.files[name].id))
+                    this.to_remove.push(this.files[name].id)
+
+                this.to_remove = JSON.stringify(this.to_remove)
+                delete this.files[name]
             },
             validateRule(newFile){
 
             },
-            async selected( e) {
-                const that = this
-                const valid = await this.$refs.provider.validate(Array.from(e.target.files ));
-                if (!valid.valid) {
-                    e.target.value = null
-                    return;
+            selected(e){
+                if ('files' in e.target) {
+                    let files = e.target.files, valid = true
+                    // Убераем ошибки если есть
                 }
-                Array.from(e.target.files).forEach(file => {
-                    if(!that.tmpForMultipleFiles.hasOwnProperty(file.name)) {
-                        that.tmpForMultipleFiles[file.name] = file
-                        that.addFile +=1
-                    }
-                })
-
-
-
-            },
+            }
+            // async selected( e) {
+            //     const that = this
+            //     const valid = await this.$refs.provider.validate(Array.from(e.target.files ));
+            //     if (!valid.valid) {
+            //         e.target.value = null
+            //         return;
+            //     }
+            //
+            //     Array.from(e.target.files).forEach(file => {
+            //         if(!that.tmpForMultipleFiles.hasOwnProperty(file.name) && !that.files.hasOwnProperty(file.name)) {
+            //             that.tmpForMultipleFiles[file.name] = file
+            //             that.addFile +=1
+            //         }
+            //     })
+            //
+            // },
         },
         mounted() {
             if(this.oldFiles.length){
                 this.files = JSON.parse(this.oldFiles)
             }
-            //this.to_remove = this
-            //console.log(this.$el.querySelector("#to_remove"))
         }
     }
 </script>
 <style lang="scss">
+    #image_input{
+        display: none;
+    }
     .mfu__left{
         flex: 0 0 33.3333333333%;
         max-width: 33.3333333333%;

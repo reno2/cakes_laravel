@@ -34,7 +34,7 @@ class CreateArticlesTable extends Migration
                 $table->text('service')->nullable();
                 $table->text('deal_address')->nullable();
                 $table->double('price')->default(0)->nullable();
-                $table->double('weight')->default(0)->nullable();
+                $table->string('weight')->default(0)->nullable();
                 $table->unsignedMediumInteger('views')->default(0)->nullable();
 
                 $table->unsignedBigInteger('user_id')->nullable(false);

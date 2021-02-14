@@ -6288,6 +6288,10 @@ readers do not read off random characters that represent icons */
   width: 100% !important;
 }
 
+.js_error.show {
+  display: block;
+}
+
 .info.info_admin {
   position: absolute;
   right: 3%;

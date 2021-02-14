@@ -27,6 +27,7 @@
     </script>
   <script src="{{ asset('js/js_forms.js')}}"></script>
   <script src="{{ asset('js/validate.js')}}"></script>
+  <link href="{{ asset('css/forms.css')}}" rel="stylesheet">
 @stop
 <style>
     .hide{

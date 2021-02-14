@@ -4,50 +4,38 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function validate(){
-    if(!this.value){
+    if(!this.value) return
 
+    removeError(this);
+    //Check mask
+    if(this.classList.contains('js_maskWeight')){
+        const x = this.value
+            .replace(/^0/g, "")
+            .replace(/\D/g, "")
+            .match(/^(\d{0,1})(\d{0,1})(\d{0,1})(\d{0,1})(\d{0,1})(.*)?$/i);
+
+        if (x[1] && !x[4]) {
+            this.value = `0.${x[1]}${x[2]}${x[3]}`;
+        } else if (x[1] && x[4] && !x[5]) {
+            this.value = `${x[1]}.${x[2]}${x[3]}${x[4]}`;
+        } else if (x[1] && x[5]) {
+            this.value = `${x[1]}${x[2]}.${x[3]}${x[4]}${x[5]}`;
+        }
     }
 
-    if(this.classList.contains('js_numbers')) {
-        const regex = /^(\d)?(\d)?(\d?)$/i
-
-        const regex3 = /^(0)?(\.)?(\d{1})?$/i
-
-        const regex2 = /^(\d{1})(\.)?(\d{1})?(\d{1})?(\d{1})?(\d{1})?$/i
-
-
-//        if(!regex3.test(this.value))
-
-        // if(regex3.test(this.value)) {
-        //     console.log('222')
-        //     this.value = ''
-        // }
-
-
-        // if(regex.test(this.value)) {
-        //     console.log('444')
-        //     this.value = this.value.replace(/^(\d)?(\d)?(\d)?$/i, '0.$1$2$3')
-        // }
-        // else if(regex2.test(this.value)) {
-        //     console.log('rt')
-        //     this.value = this.value.replace(regex2, '$3.$4$5$6')
-        // }
-        // else if(regex3.test(this.value))  this.value = ''
-
+    if(this.classList.contains('js_numbersPoint')) {
+        let pattern = /\d+\.?/g;
+        if (!pattern.test(this.value)){
+            showError('.js_numbersPoint', this);
+        }
     }
-        // if(!onlyNumbers(this.value))
-        //     showError('.onlyNubmers', this);
 
-}
-
-function onlyNumbers(val){
-    const regex = /[\d|\.]/gm;
-    if (!regex.test(val)) {
-        return false
-    }
-}
 
 function showError(type, element) {
-    let gg = element.parentElement.querySelector('.onlyNubmers').classList.remove('hide')
+    let errorEl = element.parentElement.querySelector(`.js_error${type}`)
+    errorEl.classList.add('show')
+}
 
+function removeError(element) {
+    let errorEl = element.parentElement.querySelector(`.js_error`).classList.remove('show')
 }

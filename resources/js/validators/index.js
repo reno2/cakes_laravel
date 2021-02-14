@@ -5,6 +5,8 @@ import {
     size,
     length,
 } from 'vee-validate/dist/rules';
+import if_file_exists from './rules/file_rules';
+
 
 extend('ext', {
     ...ext,
@@ -17,38 +19,32 @@ extend('size', {
 });
 
 
-
-import date_compare from './rules/file_rules';
-
-// extend('email', {
-//     ...email,
-//     message: 'You should add a valid email address'
-// });
-//
-// extend('ext', {
-//     ...ext,
-//     message: 'Не допустимое расширение'
-// });
-
-
-
-
-
-
-
 extend('check_count', {
-    validate: (value, { compare }) => {
-        return date_compare({value, compare, validationType: 'check_count'});
+    validate: (value, { limit, loaded }) => {
+        let pass  = true;
+        if(value.length > Number(limit+loaded)) pass = false
+        return pass
     },
-    params: ['compare', 'dateType'],
-    message: 'Максимальное колчество файлов 5 {dateType}'
+    params: ['limit', 'loaded'],
+    message: 'Максимальное колчество файлов 5'
 });
 
 
-// extend('is_beyond', {
+extend('file_exists', {
+    validate: (value,  files ) => {
+        return if_file_exists({value, files, validationType: 'file_exists'});
+    },
+    params: ['files'],
+    message: 'Файл с таким именем уже загружен'
+});
+
+// extend('check_count', {
 //     validate: (value, { compare }) => {
-//         return date_compare({value, compare, validationType: 'beyond'});
+//         let pass  = true;
+//         if(value.length > Number(compare))
+//             pass = false
+//         return date_compare({value, compare, validationType: 'check_count'});
 //     },
 //     params: ['compare', 'dateType'],
-//     message: 'The selected date must not be older than {dateType}'
+//     message: 'Максимальное колчество файлов 5 {dateType}'
 // });
