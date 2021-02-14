@@ -31,6 +31,8 @@ class AdsRequest extends FormRequest
 
             'title'   => [
                 'required',
+                'alpha_dash',
+                'max:155',
                 Rule::unique('articles', 'title')->ignore($this->route('ad')),
             ],
 
@@ -51,6 +53,8 @@ class AdsRequest extends FormRequest
         return [
             'title.unique' => 'Объявление с таким названием существует',
             'title.required' => 'Название объязательно',
+            'title.max' => 'Не более 155 символов',
+            'title.alpha_dash' => 'Поле можно содержать только алфавитные символы, цифры, знаки подчёркивания _ и дефисы -',
             'description.required' => 'Поле объязательное',
             'description.max' => 'Максимальное количество 400 символов',
             //'categories.required|not_in' => 'Выбор категории объязателен',
