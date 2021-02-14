@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
         el.addEventListener('keyup', validate)})
 })
 
-function validate(){
-    if(!this.value) return
+function validate() {
+    if (!this.value) return
 
     removeError(this);
     //Check mask
-    if(this.classList.contains('js_maskWeight')){
+    if (this.classList.contains('js_maskWeight')) {
         const x = this.value
             .replace(/^0/g, "")
             .replace(/\D/g, "")
@@ -23,13 +23,13 @@ function validate(){
         }
     }
 
-    if(this.classList.contains('js_numbersPoint')) {
+    if (this.classList.contains('js_numbersPoint')) {
         let pattern = /\d+\.?/g;
-        if (!pattern.test(this.value)){
+        if (!pattern.test(this.value)) {
             showError('.js_numbersPoint', this);
         }
     }
-
+}
 
 function showError(type, element) {
     let errorEl = element.parentElement.querySelector(`.js_error${type}`)
