@@ -52,8 +52,8 @@ class AdsRequest extends FormRequest
             'price'   => "required|max:10|regex:/^\d+(\.\d{1,2})?$/",
             'categories'=> "required|array|not_in:0",
           //  'description'   => "required",
-//            'image'   => "max:5",
-//            'image.*' => "mimes:png,jpg,jpeg|max:20000",
+            'image'   => "max:5",
+           'image.*' => "mimes:png,jpg,jpeg|max:20000",
         ];
     }
 
@@ -75,11 +75,11 @@ class AdsRequest extends FormRequest
             'deal_address.regex' => 'Не корректный ввод',
             'deal_address.required' => 'Название объязательно',
             'tags.required' => 'Необходимо выбрать один тег',
-            'tags.regex' => 'Необходимо выбрать один тег'
+            'tags.regex' => 'Необходимо выбрать один тег',
 //            'title.unique' => 'Название уже существует',
-//            'image.max'      => 'Не более 5 файлов',
-//            'image.required' => 'Загрузка файла объязательна',
-//            'image.*.mimes'  => 'Только разрешённые форматы'
+            'image.max'      => 'Не более 5 файлов',
+            'image.required' => 'Загрузка файла объязательна',
+            'image.*.mimes'  => 'Только разрешённые форматы'
         ];
     }
 }
