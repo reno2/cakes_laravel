@@ -53,6 +53,7 @@ class Article extends Model implements HasMedia
         'modifierd_by',
         'on_front',
         'service',
+        'product_type',
         'price',
         'weight',
         'deal_address',
