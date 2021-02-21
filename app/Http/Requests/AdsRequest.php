@@ -45,7 +45,7 @@ class AdsRequest extends FormRequest
                 'max:155',
                 Rule::unique('articles', 'title')->ignore($this->route('ad')),
             ],
-            'deal_address' => 'required|regex:/^[а-яА-Я0-9 \-]+$/',
+            'deal_address' => "required|regex:/[а-яА-Я0-9 -]+/",
             'tags' => 'required',
             'description'   => "required|max:1000",
             'weight' => 'regex:/^(\d+){0,2}(\.){0,1}(\d){1,3}$/i',
@@ -74,7 +74,8 @@ class AdsRequest extends FormRequest
             'weight.regex' => 'Не корректный ввод',
             'deal_address.regex' => 'Не корректный ввод',
             'deal_address.required' => 'Название объязательно',
-            'tags.required' => 'Необходимо выбрать один тег'
+            'tags.required' => 'Необходимо выбрать один тег',
+            'tags.regex' => 'Необходимо выбрать один тег'
 //            'title.unique' => 'Название уже существует',
 //            'image.max'      => 'Не более 5 файлов',
 //            'image.required' => 'Загрузка файла объязательна',

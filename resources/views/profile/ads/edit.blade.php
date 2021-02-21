@@ -123,7 +123,7 @@
                 <label for="weight" class="col-md-4 col-form-label text-md-right">Вес г.</label>
                 <div class="col-md-3">
                     <input id="weight" type="text"
-                           class="js_maskWeight  js_numbersPoint js_validate form-control @error('weight') is-invalid @enderror" name="weight"
+                           class="js_maskWeight js_mask js_numbersPoint js_validate form-control @error('weight') is-invalid @enderror" name="weight"
                            value="{{old('weight', $ads->weight)}}">
 
                     <span class="invalid-feedback js_error js_numbersPoint" role="alert">
@@ -173,7 +173,7 @@
                     <select name="categories[]" class="form-control @error('categories') is-invalid @enderror"
                             id="categories">
                         <option value="0">Выбрать категорию</option>
-                        @include('admin.articles.partials.categories', ['categories' => $categories, ])
+                        @include('profile.ads.categories', ['categories' => $categories, ])
                     </select>
                     @error('categories')
                     <span class="invalid-feedback" role="alert">

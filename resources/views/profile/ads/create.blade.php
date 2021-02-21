@@ -144,7 +144,7 @@
                     <select name="categories[]" class="form-control @error('categories') is-invalid @enderror"
                             id="categories">
                         <option value="0">Выбрать категорию</option>
-                        @include('admin.articles.partials.categories', ['categories' => $categories, ])
+                        @include('profile.ads.categories', ['categories' => $categories, ])
                     </select>
                     @error('categories')
                     <span class="invalid-feedback" role="alert">

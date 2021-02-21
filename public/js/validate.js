@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //document.querySelectorAll('.js_validate').forEach(el=> {
-        //el.addEventListener('keyup', validate)})
+    document.querySelectorAll('.js_mask').forEach(el=> {
+       el.addEventListener('keyup', setMask)})
 })
 document.addEventListener("DOMContentLoaded", () => {
     const formCreate = document.querySelector('.js_adsCreate')
@@ -8,13 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function formSubmit(e){
-
     let valid = true
     try {
         e.target.querySelectorAll('input.js_validate').forEach(el => {
-            if(!validateInput(el)){
-                throw new Error();
-            }
+
+            if (el.classList.contains('js_numbersPoint'))
+                if (!numbersPoint(el))
+                    throw new Error();
+
         })
     }catch (error) {
         e.preventDefault();
@@ -22,22 +23,17 @@ function formSubmit(e){
     }
 
 }
-function validateInput(el) {
+function numbersPoint(el) {
     removeError(el);
-    if (el.classList.contains('js_numbersPoint')) {
-        const pattern =  /^(\d)*(\.)?([0-9]{1,3})?$/g;
-        if (!pattern.test(el.value)) {
-            showError('.js_numbersPoint', el);
-            return false
-        }else return true
+    const pattern =  /^(\d)*(\.)?([0-9]{1,3})?$/g;
+    if (!pattern.test(el.value)) {
+        showError('.js_numbersPoint', el);
+        return false
     }else
     return true
 }
 
-function validate() {
-
-    if (!this.value) return
-    removeError(this);
+function setMask() {
     //Check mask
     if (this.classList.contains('js_maskWeight')) {
         const x = this.value
@@ -50,13 +46,6 @@ function validate() {
             this.value = `${x[1]}.${x[2]}${x[3]}${x[4]}`;
         } else if (x[1] && x[5]) {
             this.value = `${x[1]}${x[2]}.${x[3]}${x[4]}${x[5]}`;
-        }
-    }
-
-    if (this.classList.contains('js_numbersPoint')) {
-        const pattern =  /^(\d)*(\.)?([0-9]{1,2})?$/g;
-        if (!pattern.test(this.value)) {
-            showError('.js_numbersPoint', this);
         }
     }
 }
