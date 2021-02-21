@@ -6250,6 +6250,18 @@ readers do not read off random characters that represent icons */
   border: 4px solid #4271ae;
 }
 
+.create-form .image-preview .image-preview__item.image_main:after {
+  position: absolute;
+  content: "\43E\441\43D\43E\432\43D\430\44F";
+  bottom: 0;
+  background: #4271ae;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  line-height: 100%;
+  font-size: 10px;
+}
+
 .front .image-preview__item {
   max-width: 300px;
   overflow: hidden;

@@ -180,7 +180,7 @@ return [
         App\Providers\SeometaServiceProvider::class,
         App\Providers\WidgetServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        App\Providers\ProfileServiceProvider::class
+        App\Providers\ProfileServiceProvider::class,
     ],
 
     /*

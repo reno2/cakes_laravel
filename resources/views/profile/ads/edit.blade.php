@@ -106,13 +106,17 @@
                 <label for="price" class="col-md-4 col-form-label text-md-right">Стоимость Руб.</label>
                 <div class="col-md-3">
                     <input id="price" type="text"
-                           class="form-control @error('price') is-invalid @enderror" name="price"
+                           class="js_numbersPoint js_validate form-control @error('price') is-invalid @enderror" name="price"
+                           autocomplete="off"
                            value="{{old('price', $ads->price)}}">
                     @error('price')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <span class="invalid-feedback js_error js_numbersPoint" role="alert">
+                          <strong>Возможно только цифры и точка</strong>
+                    </span>
                 </div>
             </div>
             <div class="form-group row">
@@ -151,11 +155,16 @@
                     <span></span>
                 </label>
                 <div class="col-md-7">
-                    <select multiple="" name="tags[]" id="tags">
+                    <select multiple="" name="tags[]" id="tags"  class="form-control @error('tags') is-invalid @enderror">
                         @foreach($tags as $tag)
                             <option value="{{$tag->id}}">{{$tag->name}}</option>
                         @endforeach
                     </select>
+                    @error('tags')
+                    <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
@@ -207,7 +216,8 @@
                     </div>
 
                     <div id="image-list" class="create-form__preview image-preview">
-                        @if($ads->getMedia('cover'))
+{{--                       // @if($ads->getMedia('cover'))--}}
+                        @if($mediaFiles)
                             @foreach($mediaFiles as $image)
                                 <div class="image-preview__item js_newImgItem
                                      @if ($image['main']) image_main @endif"

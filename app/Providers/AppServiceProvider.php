@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\Profile;
+use App\Observers\ArticleObserver;
 use App\Observers\ProfileObserver;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
@@ -32,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
         Date::setlocale(config('app.locale'));
         Profile::observe(ProfileObserver::class);
+        Article::observe(ArticleObserver::class);
     }
 }
