@@ -37,7 +37,7 @@
             {{csrf_field()}}
             <input type="hidden" name="id" value="{{$ad->id}}">
             <button type="submit" class="btn btn-default">
-                @if(in_array($ad->id, $favorites))
+                @if($favorites && in_array($ad->id, $favorites))
                     <i class="js_favoritesIcon fas fa-heart"></i>
                 @else
                     <i class="js_favoritesIcon far fa-heart"></i>
