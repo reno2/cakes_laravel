@@ -158,7 +158,7 @@ class ProfileController extends Controller
         }
 
 
-       $cookies =  cookie('favorites', json_encode($cookies, JSON_OBJECT_AS_ARRAY ));
+        $cookies =  cookie('favorites', json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY ));
         return response( $action, 200)->cookie(
             $cookies
         );
