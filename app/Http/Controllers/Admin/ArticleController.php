@@ -407,6 +407,6 @@ class ArticleController extends Controller
                 Carbon::parse($article->up_post)->diff(Carbon::now())->format('%h часов %i минут %s секунд');
         }
 
-        return response()->json($response);
+        return response()->json($response, 200);
     }
 }

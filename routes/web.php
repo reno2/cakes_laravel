@@ -29,7 +29,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         // Пост
         Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
         Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
-        //Route::resource('/seo', 'SeoController', ['as'=> 'admin']);
         Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {
             Route::group(['prefix' => '/category'], function () {
                 Route::get('/', 'SeoCategoryController@get')->name('seo.category.index');
@@ -54,6 +53,7 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/', 'ProfileController@index')->name('profile.index');
         Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
         Route::get('/secure', 'ProfileController@secure')->name('profile.secure');
+        Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');
         Route::put('/update/{profile}', 'ProfileController@update')->name('profile.update');
         Route::group([ 'namespace' => 'Ads', 'middleware' => ['profile']], function () {

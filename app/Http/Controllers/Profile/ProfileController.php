@@ -10,10 +10,12 @@ use App\Models\User;
 use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CoreRepository;
+
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -137,4 +139,29 @@ class ProfileController extends Controller
         }
 
     }
+    public function favorites(Request $request){
+        $adsId = $request->get('id');
+        $action = '';
+        if(!json_decode(Cookie::get('favorites'))) {
+            $cookies[] = $adsId;
+            $action    = 'add';
+        }else{
+            $cookies = json_decode(Cookie::get('favorites'));
+            if(!in_array($adsId, $cookies)){
+                $cookies[] = $adsId;
+                $action = 'add';
+            }else{
+                $key = array_search($adsId, $cookies);
+                unset($cookies[$key]);
+                $action = 'del';
+            }
+        }
+
+
+       $cookies =  cookie('favorites', json_encode($cookies, JSON_OBJECT_AS_ARRAY ));
+        return response( $action, 200)->cookie(
+            $cookies
+        );
+    }
+
 }

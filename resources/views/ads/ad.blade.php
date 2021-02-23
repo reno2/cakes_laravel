@@ -32,6 +32,21 @@
                 {{$ads->categories->pluck('title')->first()}}
             </p>
         @endisset
+
+        <form action="{{route('profile.favorites')}}" method="post" class="js_favorites">
+            {{csrf_field()}}
+            <input type="hidden" name="id" value="{{$ad->id}}">
+            <button type="submit" class="btn btn-default">
+                @if(in_array($ad->id, $favorites))
+                    <i class="js_favoritesIcon fas fa-heart"></i>
+                @else
+                    <i class="js_favoritesIcon far fa-heart"></i>
+                @endif
+            </button>
+        </form>
+
+
+
         <a href="{{route('profile.ads.edit', $ad)}}"><i class="fas fa-edit">изменить</i></a>
         <form onsubmit="if(confirm('Удалить?')){return true} else {return false}" action="{{route('profile.ads.destroy', $ad)}}" method="post">
             <input type="hidden" name="_method" value="DELETE">

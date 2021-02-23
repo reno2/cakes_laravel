@@ -82,7 +82,6 @@
     </main>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
-{{--    <script src="public/js/forms.js"></script>--}}
 @yield('page-script')
 </body>
 </html>

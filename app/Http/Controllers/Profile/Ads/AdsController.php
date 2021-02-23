@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Repositories\AdsRepository;
+use Illuminate\Support\Facades\Cookie;
 use Spatie\MediaLibrary\Models\Media;
 
 class AdsController extends Controller
@@ -46,6 +47,7 @@ class AdsController extends Controller
         return view('profile.ads.index', [
             'user'    => $user,
             'ads' => $this->adsRepository->getAdsSortedDesc(),
+            'favorites' => json_decode(Cookie::get('favorites'))
         ]);
     }
 
