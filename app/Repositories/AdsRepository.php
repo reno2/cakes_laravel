@@ -12,6 +12,27 @@ use App\Models\Profile;
 
 class AdsRepository extends CoreRepository
 {
+    /*
+    * @param ind user Id
+    * @return Collection
+    * Передаём id пользователя и
+    * возвращаем коллекцию со связами
+    */
+    public function getByCurrentProfileFavoritesAdsSortedDesc($id, $per = 9) {
+        $ids = (new ProfileRepository())->getFavoritesArray($id);
+        return $this->startCondition()->whereIn('id', $ids)->orderBy('created_at', 'desc')->paginate($per);
+
+
+    }
+
+    /*
+    * @param User Id
+    * @return Collection
+    * Возвращаем коллекцию объявлений пользователя
+    */
+    public function getByCurrentProfileAdsSortedDesc($user, $per = 9) {
+        return $this->startCondition()->where('user_id', $user)->orderBy('created_at', 'desc')->paginate($per);
+    }
 
     public function getAdsImagesSortByMain(){
         $mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
@@ -24,11 +45,13 @@ class AdsRepository extends CoreRepository
      * params $ads Article
      * re
      */
-
     public function getUserProfileFirst($ads){
         return $ads->user->profiles->first();
     }
 
+    /*
+     *
+     */
     public function getForEdit($id){
         return $this->startCondition()->find($id);
     }

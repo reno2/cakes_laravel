@@ -40,17 +40,39 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function favoritesList(UserRepository $userRepository, ProfileRepository $profileRepository)
+    {
+
+
+
+        $user = Auth::user();
+        $profile = $userRepository->getUserProfileEdit($user->id);
+
+        $ads = $profileRepository->getFavoritesWithPagination($user->id);
+
+
+        $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
+        return view('profile.favorites', [
+            'user'    => $user,
+            //'profile' => $profile,
+            'ads' => $ads,
+            'favorites_cookies' => json_decode(Cookie::get('favorites')),
+            'favorites_profile' => $favorites_profile
+        ]);
+    }
+
     public function edit(UserRepository $userRepository, ProfileRepository $profileRepository)
     {
         $user    = Auth::user();
         $profile = $userRepository->getUserProfileEdit($user->id);
-
-
+        $g = $profile->favorites;
+    //dd($g);
         return view('profile.edit', [
             'check' => $profileRepository->checkIfCanAddAds($user),
             'user'         => $user,
             'profile'      => $profile,
-            'profileTypes' => $profileRepository->getTypes()
+            'profileTypes' => $profileRepository->getTypes(),
+            'myFavorites'=> $profile->favorites
         ]);
     }
 
@@ -139,29 +161,41 @@ class ProfileController extends Controller
         }
 
     }
-    public function favorites(Request $request){
+    public function favorites(Request $request, ProfileRepository $profileRepository){
         $adsId = $request->get('id');
         $action = '';
-        if(!json_decode(Cookie::get('favorites'))) {
-            $cookies[] = $adsId;
-            $action    = 'add';
-        }else{
-            $cookies = json_decode(Cookie::get('favorites'));
-            if(!in_array($adsId, $cookies)){
-                $cookies[] = $adsId;
-                $action = 'add';
-            }else{
-                $key = array_search($adsId, $cookies);
-                unset($cookies[$key]);
+
+        if(Auth::id()){
+            if($profileRepository->checkIfFavoritesIsSet( $adsId)) {
+                $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->detach($adsId);
                 $action = 'del';
+            }else {
+                $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->attach($adsId);
+                $action = 'add';
             }
+            return response( $action, 200);
+        }else {
+
+            if (!json_decode(Cookie::get('favorites'))) {
+                $cookies[] = $adsId;
+                $action    = 'add';
+            } else {
+                $cookies = json_decode(Cookie::get('favorites'));
+                if (!in_array($adsId, $cookies)) {
+                    $cookies[] = $adsId;
+                    $action    = 'add';
+                } else {
+                    $key = array_search($adsId, $cookies);
+                    unset($cookies[$key]);
+                    $action = 'del';
+                }
+            }
+            $cookies = cookie('favorites', json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY));
+            return response( $action, 200)->cookie(
+                $cookies
+            );
         }
 
-
-        $cookies =  cookie('favorites', json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY ));
-        return response( $action, 200)->cookie(
-            $cookies
-        );
     }
 
 }

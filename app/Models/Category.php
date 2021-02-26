@@ -30,7 +30,7 @@ class Category extends Model
     //plymorphe
     public function articles()
     {
-        return $this->morphedByMany('App\Article', 'categoryable');
+        return $this->morphedByMany('App\Models\Article', 'categoryable');
     }
 
     public function scopeLastCategories($query, $count)

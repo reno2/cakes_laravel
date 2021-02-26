@@ -19,4 +19,9 @@ class Profile extends Model
     public function user(){
         return $this->hasOne('App\Models\User');
     }
+
+    public function favoritePosts()
+    {
+        return $this->belongsToMany('App\Models\Article', 'favorites');
+    }
 }

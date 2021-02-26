@@ -3,7 +3,7 @@
         @if($ad->getMedia('cover'))
             <div class="ad__mobile">
                 @if(!empty($ad->getMedia('cover')->first()))
-                <img class="card-img-top" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
+                    <img class="card-img-top" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
                 @endif
             </div>
             <div class="ad__desc">
@@ -37,18 +37,29 @@
             {{csrf_field()}}
             <input type="hidden" name="id" value="{{$ad->id}}">
             <button type="submit" class="btn btn-default">
-                @if($favorites && in_array($ad->id, $favorites))
-                    <i class="js_favoritesIcon fas fa-heart"></i>
-                @else
-                    <i class="js_favoritesIcon far fa-heart"></i>
-                @endif
+
+                    @if(Auth::user() )
+                        @if($favorites_profile && in_array($ad->id, $favorites_profile))
+                            <i class="js_favoritesIcon fas fa-heart"></i>
+                        @else
+                            <i class="js_favoritesIcon far fa-heart"></i>
+                        @endif
+                    @else
+                        @if($favorites_profile && in_array($ad->id, $favorites_cookies))
+                            <i class="js_favoritesIcon fas fa-heart"></i>
+                        @else
+                            <i class="js_favoritesIcon far fa-heart"></i>
+                        @endif
+
+                    @endif
+
             </button>
         </form>
 
 
-
         <a href="{{route('profile.ads.edit', $ad)}}"><i class="fas fa-edit">изменить</i></a>
-        <form onsubmit="if(confirm('Удалить?')){return true} else {return false}" action="{{route('profile.ads.destroy', $ad)}}" method="post">
+        <form onsubmit="if(confirm('Удалить?')){return true} else {return false}"
+              action="{{route('profile.ads.destroy', $ad)}}" method="post">
             <input type="hidden" name="_method" value="DELETE">
             {{csrf_field()}}
             <button type="submit" class="btn btn-default"><i class="fas fa-trash-alt">удалить</i></button>

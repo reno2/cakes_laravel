@@ -54,6 +54,7 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
         Route::get('/secure', 'ProfileController@secure')->name('profile.secure');
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
+        Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');
         Route::put('/update/{profile}', 'ProfileController@update')->name('profile.update');
         Route::group([ 'namespace' => 'Ads', 'middleware' => ['profile']], function () {

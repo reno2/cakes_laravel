@@ -1,6 +1,7 @@
 @extends('layouts.profile')
 
 @section('content')
+{{--    {{ dd($profile->favorites)}}--}}
 
                 <div class="card">
                     <div class="card-header">Редактировать профиль</div>

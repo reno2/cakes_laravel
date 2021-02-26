@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 
 use App\Models\Category;
+use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Services\AdsService;
 use Carbon\Carbon;
@@ -40,14 +41,17 @@ class AdsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(ProfileRepository $profileRepository)
     {
-        $user           = Auth::user();
-        $userRepository = new UserRepository();
+
+        $user = Auth::user();
+        $profile = $profileRepository->getFirstProfileByUser(Auth::id());
+        $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
         return view('profile.ads.index', [
             'user'    => $user,
-            'ads' => $this->adsRepository->getAdsSortedDesc(),
-            'favorites' => json_decode(Cookie::get('favorites'))
+            'ads' => $this->adsRepository->getByCurrentProfileAdsSortedDesc(Auth::id()),
+            'favorites_cookies' => json_decode(Cookie::get('favorites')),
+            'favorites_profile' => $favorites_profile
         ]);
     }
 

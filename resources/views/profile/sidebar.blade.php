@@ -33,7 +33,7 @@
             <span class="badge badge-primary badge-pill">1</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a class="personal_a" href="#">Избранное</a>
+            <a class="personal_a" href="{{route('profile.favorites_list')}}">Избранное</a>
             <span class="badge badge-primary badge-pill">1</span>
         </li>
     </ul>

@@ -120,4 +120,9 @@ class Article extends Model implements HasMedia
             });
     }
 
+    public function favoritesProfiles()
+    {
+        return $this->belongsToMany('App\Models\Profile', 'favorites');
+    }
+
 }
