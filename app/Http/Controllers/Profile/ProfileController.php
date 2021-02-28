@@ -11,6 +11,7 @@ use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CoreRepository;
 
+use App\Services\ProfileService;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,10 +26,14 @@ use Mockery\Exception;
 
 class ProfileController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
+
+    protected $profileService;
+
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
+        $this->middleware('auth');
+    }
 
     public function index(UserRepository $userRepository)
     {
@@ -42,20 +47,13 @@ class ProfileController extends Controller
 
     public function favoritesList(UserRepository $userRepository, ProfileRepository $profileRepository)
     {
-
-
-
-        $user = Auth::user();
-        $profile = $userRepository->getUserProfileEdit($user->id);
-
-        $ads = $profileRepository->getFavoritesWithPagination($user->id);
-
-
+        $user              = Auth::user();
+        $profile           = $userRepository->getUserProfileEdit($user->id);
+        $ads               = $profileRepository->getFavoritesWithPagination($user->id);
         $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
         return view('profile.favorites', [
-            'user'    => $user,
-            //'profile' => $profile,
-            'ads' => $ads,
+            'user'              => $user,
+            'ads'               => $ads,
             'favorites_cookies' => json_decode(Cookie::get('favorites')),
             'favorites_profile' => $favorites_profile
         ]);
@@ -65,14 +63,13 @@ class ProfileController extends Controller
     {
         $user    = Auth::user();
         $profile = $userRepository->getUserProfileEdit($user->id);
-        $g = $profile->favorites;
-    //dd($g);
+
         return view('profile.edit', [
-            'check' => $profileRepository->checkIfCanAddAds($user),
+            'check'        => $profileRepository->checkIfCanAddAds($user),
             'user'         => $user,
             'profile'      => $profile,
             'profileTypes' => $profileRepository->getTypes(),
-            'myFavorites'=> $profile->favorites
+            'myFavorites'  => $profile->favorites
         ]);
     }
 
@@ -80,45 +77,51 @@ class ProfileController extends Controller
     {
         $user    = Auth::user();
         $profile = $userRepository->getUserProfileEdit($user->id);
-
         return view('profile.secure', [
             'user'    => $user,
             'profile' => $profile
         ]);
     }
 
-    public function secureUpdate(
-        User $user,
-        UserEditValidate $request
-    ) {
+    public function secureUpdate( ProfileService $profileService, UserEditValidate $request) {
         $validated = $request->validated();
-        if (Hash::check($request->input('password'), $user->password)) {
-            if (!Hash::check($request->input('new_password'), $user->password)) {
-                try {
-                    // Создаём пустой массив
-                    $newUser = [];
-                    // Проверяем если почта изменена, то добавляем в изменения
-                    if ($request->input('email') !== $user->email) {
-                        $newUser['email'] = $request->input('email');
-                    }
-                    // Создаём новый хеш
-                    $newUser['password'] = Hash::make($request->input('new_password'));
-                    $user->update($newUser);
-                    // Сообщаем что всё гуд
-                    return redirect()
-                        ->route('profile.secure', ['user' => $user,])
-                        ->with(['message' => 'Данные пользователя изменены']);
-
-                } catch (Exception $exception) {
-                    session()->flash('message', $exception->getMessage());
-                    return redirect()->route('profile.secure');
-                }
-            } else {
-                return redirect()->back()->withInput()->withErrors(['password' => "Пароль не может бытьь равен текущему"]);
-            }
-        } else {
-            return redirect()->back()->withInput()->withErrors(['password' => "Пароль не совпадает с текущим"]);
+        try {
+            $newUser = $profileService->changePassword($request, Auth::user());
+        } catch (\Exception $e) {
+            return back()->withErrors($e->getMessage())->withInput();
         }
+        return redirect()
+            ->route('profile.secure', ['user' => $newUser,])
+            ->with(['message' => 'Данные пользователя изменены']);
+
+
+//        if (Hash::check($request->input('password'), $user->password)) {
+//            if (!Hash::check($request->input('new_password'), $user->password)) {
+//                try {
+//                    // Создаём пустой массив
+//                    $newUser = [];
+//                    // Проверяем если почта изменена, то добавляем в изменения
+//                    if ($request->input('email') !== $user->email) {
+//                        $newUser['email'] = $request->input('email');
+//                    }
+//                    // Создаём новый хеш
+//                    $newUser['password'] = Hash::make($request->input('new_password'));
+//                    $user->update($newUser);
+//                    // Сообщаем что всё гуд
+//                    return redirect()
+//                        ->route('profile.secure', ['user' => $user,])
+//                        ->with(['message' => 'Данные пользователя изменены']);
+//
+//                } catch (Exception $exception) {
+//                    session()->flash('message', $exception->getMessage());
+//                    return redirect()->route('profile.secure');
+//                }
+//            } else {
+//                return redirect()->back()->withInput()->withErrors(['password' => "Пароль не может бытьь равен текущему"]);
+//            }
+//        } else {
+//            return redirect()->back()->withInput()->withErrors(['password' => "Пароль не совпадает с текущим"]);
+//        }
     }
 
     public function update(
@@ -155,26 +158,30 @@ class ProfileController extends Controller
             ]);
         } catch (Exception $exception) {
             session()->flash('message', $exception->getMessage());
+
             //$response->header("Cache-Control", "no-store,no-cache, must-revalidate, post-check=0, pre-check=0");
             return redirect()->route('profile.index')
                 ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
         }
 
     }
-    public function favorites(Request $request, ProfileRepository $profileRepository){
-        $adsId = $request->get('id');
+
+    public function favorites(Request $request, ProfileRepository $profileRepository)
+    {
+        $adsId  = $request->get('id');
         $action = '';
 
-        if(Auth::id()){
-            if($profileRepository->checkIfFavoritesIsSet( $adsId)) {
+        if (Auth::id()) {
+            if ($profileRepository->checkIfFavoritesIsSet($adsId)) {
                 $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->detach($adsId);
                 $action = 'del';
-            }else {
+            } else {
                 $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->attach($adsId);
                 $action = 'add';
             }
-            return response( $action, 200);
-        }else {
+
+            return response($action, 200);
+        } else {
 
             if (!json_decode(Cookie::get('favorites'))) {
                 $cookies[] = $adsId;
@@ -191,7 +198,8 @@ class ProfileController extends Controller
                 }
             }
             $cookies = cookie('favorites', json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY));
-            return response( $action, 200)->cookie(
+
+            return response($action, 200)->cookie(
                 $cookies
             );
         }

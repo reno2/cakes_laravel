@@ -23,10 +23,12 @@ class UserEditValidate extends FormRequest
      */
     public function rules()
     {
+        $userId = $this->route('user');
+
         return [
             'new_password' => 'required|min:6',
             'new_confirm_password' => 'required|min:6|same:new_password',
-            'email' =>'email|unique:users,email',
+            'email' =>'email|unique:users,email,' . $userId,
         ];
     }
 

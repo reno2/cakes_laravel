@@ -113,7 +113,7 @@ class AdsController extends Controller
      */
     public function edit( $id)
     {
-        //$this->adsRepository->getUrls();
+
         $ads = $this->adsRepository->getForEdit($id);
         $tags = \App\Models\Tag::all();
         $tags2 = [];
