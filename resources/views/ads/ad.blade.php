@@ -33,7 +33,7 @@
             </p>
         @endisset
 
-        <form action="{{route('profile.favorites')}}" method="post" class="js_favorites">
+        <form action="{{route('profile.favorites')}}" method="post" class="@if(Auth::user()) auth @else guest @endif js_favorites">
             {{csrf_field()}}
             <input type="hidden" name="id" value="{{$ad->id}}">
             <button type="submit" class="btn btn-default">
@@ -45,7 +45,7 @@
                             <i class="js_favoritesIcon far fa-heart"></i>
                         @endif
                     @else
-                        @if($favorites_profile && in_array($ad->id, $favorites_cookies))
+                        @if($favorites_cookies && in_array($ad->id, $favorites_cookies))
                             <i class="js_favoritesIcon fas fa-heart"></i>
                         @else
                             <i class="js_favoritesIcon far fa-heart"></i>
@@ -56,6 +56,9 @@
             </button>
         </form>
 
+        <a href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question" class="js_modal">
+            <i class="fas fa-envelope">&#32 задать вопрос</i>
+        </a><br>
 
         <a href="{{route('profile.ads.edit', $ad)}}"><i class="fas fa-edit">изменить</i></a>
         <form onsubmit="if(confirm('Удалить?')){return true} else {return false}"

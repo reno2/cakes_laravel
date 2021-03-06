@@ -91,26 +91,33 @@
                 <label for="price" class="col-md-4 col-form-label text-md-right">Стоимость Руб.</label>
                 <div class="col-md-2">
                     <input id="price" type="text"
-                           class="form-control @error('price') is-invalid @enderror" name="price"
+                           class="js_numbersPoint js_validate form-control @error('price') is-invalid @enderror" name="price"
+                           autocomplete="off"
                            value="{{old('price')}}">
                     @error('price')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <span class="invalid-feedback js_error js_numbersPoint" role="alert">
+                          <strong>Возможно только цифры и точка</strong>
+                    </span>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="weight" class="col-md-4 col-form-label text-md-right">Вес г.</label>
                 <div class="col-md-2">
                     <input id="weight" type="text"
-                           class="form-control @error('weight') is-invalid @enderror" name="weight"
+                           class="js_maskWeight js_mask js_numbersPoint js_validate form-control @error('weight') is-invalid @enderror" name="weight"
                            value="{{old('weight')}}">
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <span class="invalid-feedback js_error js_numbersPoint" role="alert">
+                          <strong>Возможно только цифры</strong>
+                    </span>
                 </div>
             </div>
             <div class="form-group row">

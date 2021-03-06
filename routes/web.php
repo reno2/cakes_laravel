@@ -1,7 +1,13 @@
 <?php
 
+use App\Mail\UserRegisteredMail;
+use App\Models\User;
+use App\Notifications\NewUserNotification;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PostCreatedNotification;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +20,9 @@ use Illuminate\Support\Facades\Auth;
 */
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
@@ -70,3 +76,17 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::get('/', 'BlogController@front')->name('front');
 Route::get('/blog/category/{slug?}', 'BlogController@category')->name('category');
 Route::get('/blog/post/{slug?}/', 'BlogController@post')->name('post');
+
+
+Route::get('/', 'BlogController@front')->name('main');
+Route::post('/favorites', 'BlogController@favorites')->name('favorites');
+
+
+Route::get('/test-mail', function (){
+
+
+  //return  (new PostCreatedNotification(['name'=> 'efef']))->toMail('chedia@mail.ru');
+  return  (new NewUserNotification(['name'=> 'efef']))->toMail('chedia@mail.ru');
+
+
+});

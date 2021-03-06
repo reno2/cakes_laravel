@@ -69,7 +69,7 @@ class AdsRequest extends FormRequest
             'description.max' => 'Максимальное количество 400 символов',
             //'categories.required|not_in' => 'Выбор категории объязателен',
             'categories.not_in' => 'Выбор категории объязателен',
-            'price'   => 'Поле цена объязательно',
+            'price.required'   => 'Поле цена объязательно',
             'price.regex'   => 'Не верный формат',
             'weight.regex' => 'Не корректный ввод',
             'deal_address.regex' => 'Не корректный ввод',

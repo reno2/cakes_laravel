@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites))
 })
 function favorites(e){
+    let url = '/favorites'
+
     const id =e.target.querySelector('input[name="id"]').value
     const token =e.target.querySelector('input[name="_token"]').value
 
     axios.post(
-        '/profile/favorites',
+        url,
         {id: id},
         {
             headers: {

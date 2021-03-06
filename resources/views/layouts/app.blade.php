@@ -78,10 +78,12 @@
 
     <main class="py-4">
         @yield('content')
-
     </main>
 </div>
+@include('chunks.footer')
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/modal.js') }}"></script>
+<script src="{{ asset('js/main.js')}}"></script>
 @yield('page-script')
 </body>
 </html>

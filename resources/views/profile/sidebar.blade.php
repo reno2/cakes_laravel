@@ -30,7 +30,7 @@
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <a class="personal_a" href="#">Сообщения</a>
-            <span class="badge badge-primary badge-pill">1</span>
+            <span class="badge badge-primary badge-pill">{{$notifications_count}}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <a class="personal_a" href="{{route('profile.favorites_list')}}">Избранное</a>

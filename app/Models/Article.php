@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, Notifiable;
 
     // Mutators
 //    public function setSlugAttribute($value)

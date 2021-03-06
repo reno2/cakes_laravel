@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,14 @@ class ProfileServiceProvider extends ServiceProvider
         view()->composer(
             'layouts.profile',
             function ($view) {
-                $userId = Auth::user()->id;
+                $userId  = Auth::user()->id;
                 $profile = (new ProfileRepository)->getEdit($userId);
+                $notifications =  Auth::user()->unreadNotifications;
                 //dd($userId);
-                $view->with('profile', $profile);
+                $view
+                    ->with('profile', $profile)
+                    ->with('notifications_count', $notifications->count())
+                    ->with('notifications', $notifications);
             }
         );
     }

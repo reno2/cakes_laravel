@@ -3,6 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Article;
+use App\Models\User;
+use App\Notifications\PostCreatedNotification;
+use Illuminate\Support\Facades\Notification;
 
 class ArticleObserver
 {
@@ -15,7 +18,13 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        //dd($profile->toArray());
+
+        $userTo = User::find(1);
+        $data = [
+            'name' => $article->title
+        ];
+        Notification::send($userTo, new PostCreatedNotification($data));
+        //dd($userTo);
     }
 
     /**
