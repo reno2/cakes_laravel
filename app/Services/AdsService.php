@@ -77,7 +77,6 @@ class AdsService
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $request;
-        //dd($this->request );
         $update = $article->update($request);
 
         $this->adsRepository->removeRelationCategories($article);

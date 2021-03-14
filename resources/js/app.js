@@ -13,6 +13,10 @@ window.Vue = require('vue');
 import * as VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 
+require('./bootstrap');
+window.moment = require('moment');
+moment.locale('ru')
+moment().format()
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,6 +37,7 @@ Vue.component('fileautocomplite-component', require('./components/Fileautocompli
 Vue.component('filemultiinput-component', require('./components/FileMultiInputComponent.vue').default);
 Vue.component('addresssearchstreet-component', require('./components/AddressSearchStreetComponent.vue').default);
 Vue.component('multifileupload-component', require('./components/MultiFileUploadComponent.vue').default);
+Vue.component('addcomment', require('./components/AddComment.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

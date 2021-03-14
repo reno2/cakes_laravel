@@ -56,7 +56,7 @@
             </button>
         </form>
 
-        <a href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question" class="js_modal">
+        <a href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question" class="js_modal">
             <i class="fas fa-envelope">&#32 задать вопрос</i>
         </a><br>
 

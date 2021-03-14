@@ -126,4 +126,8 @@ class Article extends Model implements HasMedia
         return $this->belongsToMany('App\Models\Profile', 'favorites');
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
 }

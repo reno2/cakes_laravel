@@ -45,6 +45,17 @@ class ProfileRepository extends CoreRepository
         return $this->startCondition()->find($id);
     }
 
+
+    /*
+    * @param int $id
+    * @return String
+    * Получаем имя профиля пользователя
+    */
+    public function getProfileNameByUserId($id)
+    {
+        return $this->getFirstProfileByUser($id)->name;
+    }
+
     /*
     * @param id|Model
     * @return Bool

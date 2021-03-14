@@ -60,6 +60,15 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
         Route::get('/secure', 'ProfileController@secure')->name('profile.secure');
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
+
+        // Comments
+        Route::post('/comments/', 'CommentController@store')->name('comments.store');
+        Route::put('/comments/{comment_id}', 'CommentController@update')->name('comments.update');
+
+        Route::get('/comments', 'CommentController@index')->name('comments.index');
+        Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');
+        Route::get('/comments/{article_id}/{user_id}', 'CommentController@comment')->name('comments.comment');
+
         Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');
         Route::put('/update/{profile}', 'ProfileController@update')->name('profile.update');

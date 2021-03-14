@@ -2,7 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 @include('chunks.head')
-
 <body class="front">
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

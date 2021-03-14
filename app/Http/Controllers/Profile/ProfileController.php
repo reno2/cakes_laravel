@@ -51,6 +51,7 @@ class ProfileController extends Controller
         $profile           = $userRepository->getUserProfileEdit($user->id);
         $ads               = $profileRepository->getFavoritesWithPagination($user->id);
         $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
+        //dd(count($favorites_profile));
         return view('profile.favorites', [
             'user'              => $user,
             'ads'               => $ads,

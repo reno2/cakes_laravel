@@ -23,7 +23,8 @@
 
 @foreach (['danger', 'warning', 'message', 'success', 'info', 'errors'] as $msg)
     @if(Session::has($msg))
-        @if($msg == 'errors')
+        @if($msg == 'errors' && is_array($msg))
+
             <p class="alert alert-{{ ($msg == 'errors') ?  'danger' : $msg}}">
             @foreach(Session::get($msg)->getBags() as $bag => $error)
                 {{$error->first()}}

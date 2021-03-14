@@ -10,7 +10,7 @@
 </div>
 
 <div class="card personal">
-    <div class="card-header">Меню</div>
+    <div class="card-header">Меню - {{Auth::id()}}</div>
     <ul class="list-group list-group-flush personal_ul">
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <a class="personal_a" href="{{route('profile.edit')}}">
@@ -29,12 +29,13 @@
             <span class="badge badge-primary badge-pill">23</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a class="personal_a" href="#">Сообщения</a>
-            <span class="badge badge-primary badge-pill">{{$notifications_count}}</span>
+            <a class="personal_a" href="{{route('comments.index')}}">Вопросы</a>
+            <span class="badge badge-primary badge-pill"></span>
         </li>
+
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <a class="personal_a" href="{{route('profile.favorites_list')}}">Избранное</a>
-            <span class="badge badge-primary badge-pill">1</span>
+            <span class="badge badge-primary badge-pill">{{$favorites}}</span>
         </li>
     </ul>
 </div>

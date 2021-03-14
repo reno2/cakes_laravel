@@ -175,6 +175,7 @@ class AdsController extends Controller
     {
         $ads = Article::find($id);
         try{
+            $ads->favoritesProfiles()->detach();
            $this->adsService->removeAds($ads);
         }catch (\Exception $e){
             return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
