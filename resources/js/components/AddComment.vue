@@ -61,7 +61,7 @@
         },
         props: {
             currentUserId: {type: String},
-            owner: {type: String},
+            recipient: {type: String},
             sender: {type: String},
             ads: {type: String},
             subs: {type: String},
@@ -77,7 +77,6 @@
                     id: comment.id,
                     from_user_id: comment.from_user_id,
                     user_id: comment.user_id,
-                    //name: this.user_name
                 }
                 this.comments.push(tmp)
             },
@@ -90,8 +89,8 @@
                         parent_id: that.commentId,
                         comment: that.comment,
                         article_id: that.ads,
-                        from_user_id: that.user_id,
-                        user_id: that.adsSender.user_id
+                        from_user_id: that.adsSender.user_id,
+                        user_id: that.adsRecipient.user_id
                     },
                     headers: {
                         "Content-Type": "application/json",
@@ -109,8 +108,8 @@
             }
         },
         mounted() {
-            if (this.owner) {
-                this.adsOwner = JSON.parse(this.owner)[0]
+            if (this.recipient) {
+                this.adsRecipient = JSON.parse(this.recipient)
             }
             if (this.sender) {
                 this.adsSender = JSON.parse(this.sender)

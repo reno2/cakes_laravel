@@ -65,13 +65,14 @@ class CommentController extends Controller
             ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
             ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
             ->selectRaw('ANY_VALUE(profiles.name) as name')
+            ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
             ->where('comments.parent_id', 0)->where('comments.from_user_id', Auth::id())
             ->groupBy('article_id')
             ->orderBy('last_date', 'DESC')
             ->get();
 
 
-           //dd($toUserQuestions);
+        //dd($toUserQuestions);
         return view('profile.comments.index', [
             'user' => $user,
             'userQuestions' => $userQuestions,
@@ -84,6 +85,7 @@ class CommentController extends Controller
         $userId = Auth::id();
         $article = \DB::table('articles')->where('id', $article_id)->first();
         $data = [];
+        // Текщий пользователь влделец поста
        if($article->user_id ===  $userId){
            $view = 'profile.comments.users';
            $comments = \DB::table('comments')
@@ -107,6 +109,7 @@ class CommentController extends Controller
            $data = ['data' => $comments];
 
        }else{
+           // Текущий пользователь не владелец поста
            $view = 'profile.comments.comment';
            $comments =  \DB::table('comments')
                ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
@@ -118,16 +121,20 @@ class CommentController extends Controller
                ->get()
                ->toArray();
 
+           //dd($comments);
+           //dd($this->getRecipient($article->user_id));
+
            $data = [
-               'owner'    => json_encode($this->getOwner($article->id)),
-               'sender'     => json_encode($this->getSender()),
-               'comment'  => $comments[0],
-               'ads'      => $article,
-               'sub'      => json_encode($comments),
-               'userId'   => $userId,
-               'userName' => $userName = $this->profileRepository->getProfileNameByUserId($userId)
+               'owner'     => json_encode($this->getOwner($article->id)),
+               'sender'    => json_encode($this->getSender()),
+               'recipient' => json_encode($this->getRecipient($article->user_id)),
+               'comment'   => $comments[0],
+               'ads'       => $article,
+               'sub'       => json_encode($comments),
+               'userId'    => $userId,
+               'userName'  => $userName = $this->profileRepository->getProfileNameByUserId($userId)
            ];
-        //dd($data);
+
        }
 
         return view($view, $data);
@@ -159,6 +166,7 @@ class CommentController extends Controller
         return view('profile.comments.comment', [
             'owner'    => json_encode($this->getOwner($article->id)),
             'sender' => json_encode($this->getSender()),
+            'recipient' => json_encode($this->getRecipient($user_id)),
             'comment'  => $comments[0],
             'ads'      => $article,
             'sub'      => json_encode($comments),
@@ -166,6 +174,11 @@ class CommentController extends Controller
         ]);
     }
 
+    public function getRecipient($user_id){
+
+        $profileName = $this->profileRepository->getProfileNameByUserId($user_id);
+        return ['user_id'=>$user_id, 'name'=>$profileName];
+    }
     public function getSender(){
         $userId = Auth::id();
         $profileName = $this->profileRepository->getProfileNameByUserId($userId);

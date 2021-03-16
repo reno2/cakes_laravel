@@ -32,7 +32,8 @@
                                     <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans()}}</small>
                                 </div>
                                 <p class="mb-1">Вопрос от {{$comment->name}} ({{$comment->from_user_id}})</p>
-
+                                <p>Отправитель: {{$sender}}</p>
+                                <p>Получатель: {{$recipient}}</p>
                                 <i class="fas fa-comment-alt"> </i> <small> перейти к вопросам ({{$comment->id}})</small>
                             </a>
                         @else
@@ -47,8 +48,8 @@
             </div>
             <addcomment
                 ads="{{$ads->id}}"
-                owner="{{$owner}}"
                 sender="{{$sender}}"
+                recipient="{{$recipient}}"
                 current-user-id="{{$userId}}"
                 subs="{{$sub}}"
                 comment-id="{{$comment->id}}"

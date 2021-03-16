@@ -55,11 +55,11 @@
 
             </button>
         </form>
-
+        @if($ad->user_id !== Auth::id())
         <a href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question" class="js_modal">
             <i class="fas fa-envelope">&#32 задать вопрос</i>
         </a><br>
-
+        @endif
         <a href="{{route('profile.ads.edit', $ad)}}"><i class="fas fa-edit">изменить</i></a>
         <form onsubmit="if(confirm('Удалить?')){return true} else {return false}"
               action="{{route('profile.ads.destroy', $ad)}}" method="post">

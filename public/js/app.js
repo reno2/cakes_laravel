@@ -1974,7 +1974,7 @@ __webpack_require__.r(__webpack_exports__);
     currentUserId: {
       type: String
     },
-    owner: {
+    recipient: {
       type: String
     },
     sender: {
@@ -2003,8 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
         created_at: new Date(),
         id: comment.id,
         from_user_id: comment.from_user_id,
-        user_id: comment.user_id //name: this.user_name
-
+        user_id: comment.user_id
       };
       this.comments.push(tmp);
     },
@@ -2017,8 +2016,8 @@ __webpack_require__.r(__webpack_exports__);
           parent_id: that.commentId,
           comment: that.comment,
           article_id: that.ads,
-          from_user_id: that.user_id,
-          user_id: that.adsSender.user_id
+          from_user_id: that.adsSender.user_id,
+          user_id: that.adsRecipient.user_id
         },
         headers: {
           "Content-Type": "application/json",
@@ -2036,8 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    if (this.owner) {
-      this.adsOwner = JSON.parse(this.owner)[0];
+    if (this.recipient) {
+      this.adsRecipient = JSON.parse(this.recipient);
     }
 
     if (this.sender) {
