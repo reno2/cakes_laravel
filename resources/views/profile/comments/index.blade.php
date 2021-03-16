@@ -48,11 +48,14 @@
                                 @forelse($toUserQuestions as $d)
                                     <a href="{{route('comments.article', $d->article_id)}}" class="list-group-item list-group-item-action">
                                         <div class="d-flex w-100 justify-content-between">
-                                            #{{$d->id}}
-                                            <h5 class="mb-1">Объявление - {{$d->title}} ({{$d->article_id}})</h5>
-                                            <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($d->last_date))->diffForHumans()}}</small>
+
+                                            <div>
+                                                #{{$d->id}}
+                                                <h5 class="mb-1">Объявление - {{$d->title}} ({{$d->article_id}})</h5>
+                                                <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($d->last_date))->diffForHumans()}}</small>
+                                            </div>
                                         </div>
-                                        <p class="mb-1">Вопросы от пользователя {{$d->name}} с id {{$d->from_user_id}}</p>
+                                        <p class="mb-1">Вопросы от {{$d->count}} пользователей</p>
                                         <i class="fas fa-comment-alt"> </i> <small> перейти к вопросам</small>
                                     </a>
                                 @empty

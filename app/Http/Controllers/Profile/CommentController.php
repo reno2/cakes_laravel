@@ -37,7 +37,7 @@ class CommentController extends Controller
             ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
             ->select('articles.title',
-                \DB::raw('COUNT(comments.article_id) AS count'))
+                \DB::raw('COUNT(comments.from_user_id) AS count'))
 
             ->selectRaw('MAX(comments.created_at) AS last_date')
             ->selectRaw('ANY_VALUE(comments.id) as id')
@@ -101,10 +101,7 @@ class CommentController extends Controller
                ->selectRaw('MAX(comments.created_at) AS last_date')
                ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
                ->selectRaw('ANY_VALUE(comments.id) as id')
-
-
                ->groupBy('comments.from_user_id')
-
                ->orderBy('last_date', 'ASC')
                ->get();
 
@@ -112,13 +109,20 @@ class CommentController extends Controller
            $data = ['data' => $comments];
 
        }else{
+           $owner = $article->user_id;
            // Текущий пользователь не владелец поста
            $view = 'profile.comments.comment';
            $comments =  \DB::table('comments')
                ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
                ->join('articles', 'articles.id', '=', 'comments.article_id')
                ->where('article_id', $article_id)
-               ->whereIn('comments.from_user_id', [$userId, $article->user_id])
+               ->where(function($query) use ($userId) {
+                   $query->where('comments.from_user_id', $userId)
+                       ->orWhere('comments.user_id', $userId);
+               })->where(function($query) use ($owner) {
+                   $query->where('comments.from_user_id', $owner)
+                       ->orWhere('comments.user_id', $owner);
+               })
                ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at')
                ->orderBy('comments.created_at', 'ASC')
                ->get()
@@ -159,13 +163,19 @@ class CommentController extends Controller
             ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
             ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->where('article_id', $article_id)
-            ->where('comments.from_user_id',  $user_id)
-            ->where('comments.user_id',  $userId)
+            ->where(function($query) use ($userId) {
+                $query->where('comments.from_user_id', $userId)
+                    ->orWhere('comments.user_id', $userId);
+            })->where(function($query) use ($user_id) {
+                $query->where('comments.from_user_id', $user_id)
+                    ->orWhere('comments.user_id', $user_id);
+            })
+
             ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at')
             ->orderBy('comments.created_at', 'ASC')
             ->get()
             ->toArray();
-
+//dd($comments);
        //dd($this->getOwner($article->id));
         return view('profile.comments.comment', [
             'owner'    => json_encode($this->getOwner($article->id)),
