@@ -92,8 +92,8 @@ class CommentController extends Controller
                ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
                ->join('articles', 'articles.id', '=', 'comments.article_id')
                ->where('comments.article_id', $article_id)
-               ->whereIn('comments.user_id', [$userId, $article->user_id])
-               ->select('comments.user_id', \DB::raw('COUNT(comments.from_user_id) AS from_user_questions'))
+               ->where('comments.user_id', $article->user_id)
+               ->select( \DB::raw('COUNT(comments.from_user_id) AS from_user_questions'))
                ->selectRaw('ANY_VALUE(profiles.name) as name')
                ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
                ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
@@ -101,7 +101,10 @@ class CommentController extends Controller
                ->selectRaw('MAX(comments.created_at) AS last_date')
                ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
                ->selectRaw('ANY_VALUE(comments.id) as id')
-               ->groupBy('comments.user_id')
+
+
+               ->groupBy('comments.from_user_id')
+
                ->orderBy('last_date', 'ASC')
                ->get();
 
@@ -156,7 +159,8 @@ class CommentController extends Controller
             ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
             ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->where('article_id', $article_id)
-            ->whereIn('comments.from_user_id', [$userId, $user_id])
+            ->where('comments.from_user_id',  $user_id)
+            ->where('comments.user_id',  $userId)
             ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at')
             ->orderBy('comments.created_at', 'ASC')
             ->get()
