@@ -63,7 +63,9 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
 
         // Comments
         Route::post('/comments/', 'CommentController@store')->name('comments.store');
+        Route::post('/comments/{comment_id}', 'CommentController@answer')->name('comments.answer');
         Route::put('/comments/{comment_id}', 'CommentController@update')->name('comments.update');
+        Route::delete('/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
 
         Route::get('/comments', 'CommentController@index')->name('comments.index');
         Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');

@@ -7,6 +7,7 @@ use App\Models\Profile as Model;
 use App\Repositories\CoreRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileRepository extends CoreRepository
 {
@@ -54,6 +55,21 @@ class ProfileRepository extends CoreRepository
     public function getProfileNameByUserId($id)
     {
         return $this->getFirstProfileByUser($id)->name;
+    }
+
+    /*
+    * @param Model $profile
+    * @return String
+    * Возвращает аватарку пользователя
+    */
+    public function getProfileImg($profile)
+    {
+        //dd($profile);
+        if ( Storage::exists($profile->image)) {
+            return (Storage::url($profile->image));
+        } else {
+            return Storage::url('images/avatar/default.svg');
+        }
     }
 
     /*

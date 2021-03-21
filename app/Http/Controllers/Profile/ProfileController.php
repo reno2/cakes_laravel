@@ -145,7 +145,8 @@ class ProfileController extends Controller
             }, 'center');
             Storage::put($path, (string)$newImage->encode());
             $url                  = Storage::url($path);
-            $inputsArray['image'] = $url;
+
+            $inputsArray['image'] = $path;
         }
 
         try {

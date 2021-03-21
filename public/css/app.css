@@ -10932,3 +10932,24 @@ a.text-dark:focus {
   fill: #a5a5a5;
 }
 
+button,
+input {
+  outline: none;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+}
+
+.card {
+  box-shadow: 0 0 0.875rem 0 rgba(41, 48, 66, 0.05);
+  background: #fff;
+  border: none;
+}
+
+.card .card-header {
+  background-color: none;
+  border: none;
+}
+

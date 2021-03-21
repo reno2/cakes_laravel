@@ -26,16 +26,17 @@
                     <div class="list-group  w-100 mt-3">
 
                         @if($comment)
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Объявление - <strong>{{$ads->title}}</strong> ({{$comment->article_id}})</h5>
-                                    <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans()}}</small>
+                            <div class="p-comment">
+                                <div class="p-comment__date">
+                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans()}}
                                 </div>
-                                <p class="mb-1">Вопрос от {{$comment->name}} ({{$comment->from_user_id}})</p>
-                                <p>Отправитель: {{$sender}}</p>
-                                <p>Получатель: {{$recipient}}</p>
-                                <i class="fas fa-comment-alt"> </i> <small> перейти к вопросам ({{$comment->id}})</small>
-                            </a>
+                                <div class="">
+                                    <h5 class="p-comment__title mb-1">
+                                        {{$ads->title}}
+                                    </h5>
+                                    <p class="p-comment__desc mb-1">Вопрос от {{$comment->name}} ({{$comment->from_user_id}})</p>
+                                </div>
+                            </div>
                         @else
                             <div>Никаких объявлений не отложенно</div>
                         @endif
@@ -53,7 +54,8 @@
                 current-user-id="{{$userId}}"
                 subs="{{$sub}}"
                 comment-id="{{$comment->id}}"
-                route="{{route('comments.update', $comment->id)}}"
+                route-create="{{route('comments.answer', $comment->id)}}"
+                route-update="{{route('comments.update', $comment->id)}}"
                 token="{{ csrf_token() }}">
             </addcomment>
         </div>

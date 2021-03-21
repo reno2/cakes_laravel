@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Requests\AdsRequest;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Repositories\AdsRepository;
 use Carbon\Carbon;
 use App\Repositories\ProfileRepository;
 use Illuminate\Http\JsonResponse;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\Models\Media;
 
 
 class CommentController extends Controller
@@ -19,10 +22,12 @@ class CommentController extends Controller
 
 
     protected $profileRepository;
+    protected $adsRepository;
 
-    public function __construct(ProfileRepository $profileRepository)
+    public function __construct(ProfileRepository $profileRepository, AdsRepository $adsRepository)
     {
         $this->profileRepository = $profileRepository;
+        $this->adsRepository = $adsRepository;
     }
 
     /**
@@ -36,6 +41,7 @@ class CommentController extends Controller
         $toUserQuestions = \DB::table('comments')
             ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
+            ->join('media', 'media.model_id', '=', 'comments.article_id')
             ->select('articles.title',
                 \DB::raw('COUNT(comments.from_user_id) AS count'))
 
@@ -46,8 +52,14 @@ class CommentController extends Controller
             ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
             ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
             ->selectRaw('ANY_VALUE(profiles.name) as name')
+            ->selectRaw('ANY_VALUE(media.file_name) as file_name')
+            ->selectRaw('ANY_VALUE(media.id) as media_id')
 
             ->where('comments.user_id', Auth::id())
+            ->whereJsonContains('custom_properties->main',
+                true)
+
+
             ->where('articles.user_id', Auth::id())
             ->groupBy('comments.article_id')
             ->orderBy('last_date', 'DESC')
@@ -72,6 +84,10 @@ class CommentController extends Controller
             ->get();
 
 
+       // $adsImg =
+        //$oldMain = Media::where('model_id', 29)->whereJsonContains('custom_properties->main',
+           // true)->first();
+        //dd($oldMain);
         //dd($toUserQuestions);
         return view('profile.comments.index', [
             'user' => $user,
@@ -171,12 +187,16 @@ class CommentController extends Controller
                     ->orWhere('comments.user_id', $user_id);
             })
 
-            ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at')
+            ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at', 'comments.updated_at')
             ->orderBy('comments.created_at', 'ASC')
             ->get()
             ->toArray();
 //dd($comments);
-       //dd($this->getOwner($article->id));
+
+        $profile = $this->profileRepository->getFirstProfileByUser($userId);
+
+            $this->profileRepository->getProfileImg($profile);
+
         return view('profile.comments.comment', [
             'owner'    => json_encode($this->getOwner($article->id)),
             'sender' => json_encode($this->getSender()),
@@ -189,13 +209,16 @@ class CommentController extends Controller
     }
 
     public function getRecipient($user_id){
-
-        $profileName = $this->profileRepository->getProfileNameByUserId($user_id);
-        return ['user_id'=>$user_id, 'name'=>$profileName];
+        $profile = $this->profileRepository->getFirstProfileByUser($user_id);
+        $profileName = $profile->name;
+        $profileAva = $this->profileRepository->getProfileImg($profile);
+        return ['user_id'=>$user_id, 'name'=>$profileName, 'ava' => $profileAva];
     }
     public function getSender(){
         $userId = Auth::id();
-        $profileName = $this->profileRepository->getProfileNameByUserId($userId);
+        $profile = $this->profileRepository->getFirstProfileByUser($userId);
+        $profileName = $profile->name;
+
         return ['user_id'=>$userId, 'name'=>$profileName];
     }
     public function getOwner($articleId){
@@ -233,7 +256,7 @@ class CommentController extends Controller
 
     }
 
-    public function update(Request $request)
+    public function answer(Request $request)
     {
 
         $comment = $request->toArray();
@@ -248,7 +271,30 @@ class CommentController extends Controller
         if ($newComment) {
             return response()->json(array('success' => true, 'comment' => $newComment), 200);
         }
-        //dd($comment);
+    }
+
+    public function update(Request $request)
+    {
+
+        $commentData = $request->toArray();
+        $comment = Comment::find($commentData['id']);
+        if($comment){
+            $commentToUpdate = [
+                'from_user_id' =>  $commentData['from_user_id'],
+                'parent_id' => $commentData['parent_id'],
+                'read_at'=> NULL,
+                'user_id' => $commentData['user_id'],
+                'comment' => $commentData['comment'],
+                'approved' => $commentData['approved']?? 1
+            ];
+            try {
+                $newComment = tap($comment)->update($commentToUpdate);
+                return response()->json(array('success' => true, 'comment' => $newComment), 200);
+            }catch( \Exception $e) {
+                return response()->json(array('success' => false, 'error' => $e->getMessage()), 500);
+            }
+
+        }
     }
 
     /**
@@ -256,10 +302,17 @@ class CommentController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        try{
+            $comment->delete();
+        }catch (\Exception $e){
+            return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
+        }
+        return response()->json(array('success' => true), 200);
+
     }
 }

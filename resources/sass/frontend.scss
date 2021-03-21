@@ -2,6 +2,7 @@
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import './forms_img';
+@import './comments';
 @import './ads';
 @import './modal';
 .ava{
@@ -86,3 +87,20 @@
 }
 
 
+//block
+
+.block-title{
+    margin-bottom: 24px;
+    .block-title__main{
+        font-weight: 600;
+        font-size: 18px;
+    }
+    .block-title__sub{
+        color: #b5b5c3;
+    }
+    .block-title__bb{
+        border-bottom: 1px solid #eee;
+        margin-top: 16px;
+    }
+
+}

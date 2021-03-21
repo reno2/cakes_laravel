@@ -22,7 +22,7 @@
                               enctype="multipart/form-data">
                             <input type="hidden" name="_method" value="put">
                             @csrf
-                            <fileinput-component img="{{$profile->image ?? ''}}"></fileinput-component>
+                            <fileinput-component img="{{Storage::url($profile->image) ?? ''}}"></fileinput-component>
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Имя</label>
