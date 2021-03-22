@@ -5,6 +5,15 @@
 @import './comments';
 @import './ads';
 @import './modal';
+
+a{
+   color: rgb(63, 66, 84);
+
+}
+a:hover{
+    color: #8950fc!important;
+    text-decoration: none;
+}
 .ava{
     position: relative;
     margin-bottom: 8px;
@@ -103,4 +112,21 @@
         margin-top: 16px;
     }
 
+}
+
+
+.info-badge{
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-weight: 600;
+    font-size: 11px;
+    transition:all .15s ease;
+    &.blue{
+        color: #3699ff;
+        background-color: #e1f0ff;
+        &:hover{
+            color: #fff;
+            background-color: #3699ff;
+        }
+    }
 }

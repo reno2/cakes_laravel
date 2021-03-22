@@ -6304,11 +6304,11 @@ readers do not read off random characters that represent icons */
 
 .i-comment__img {
   width: 80px;
+  border-radius: 8px;
 }
 
 .i-comment__title {
   font-weight: 600;
-  width: 85%;
   color: #0a0a0e;
 }
 
@@ -6318,6 +6318,7 @@ readers do not read off random characters that represent icons */
 
 .i-comment__content {
   margin-left: 24px;
+  width: 40%;
 }
 
 .i-comment__data {
@@ -6325,6 +6326,10 @@ readers do not read off random characters that represent icons */
   color: #b5b5c3;
   right: 24px;
   top: 16px;
+}
+
+.i-comment__new {
+  align-self: center;
 }
 
 .p-comment {
@@ -6438,6 +6443,15 @@ readers do not read off random characters that represent icons */
   width: 100%;
 }
 
+a {
+  color: #3f4254;
+}
+
+a:hover {
+  color: #8950fc !important;
+  text-decoration: none;
+}
+
 .ava {
   position: relative;
   margin-bottom: 8px;
@@ -6518,5 +6532,23 @@ readers do not read off random characters that represent icons */
 .block-title .block-title__bb {
   border-bottom: 1px solid #eee;
   margin-top: 16px;
+}
+
+.info-badge {
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-weight: 600;
+  font-size: 11px;
+  transition: all 0.15s ease;
+}
+
+.info-badge.blue {
+  color: #3699ff;
+  background-color: #e1f0ff;
+}
+
+.info-badge.blue:hover {
+  color: #fff;
+  background-color: #3699ff;
 }
 

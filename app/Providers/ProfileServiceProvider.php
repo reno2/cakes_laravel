@@ -29,7 +29,7 @@ class ProfileServiceProvider extends ServiceProvider
                     ->select('from_user_id',\DB::raw('COUNT(from_user_id) AS cnt, article_id'))
                     ->where([
                         ['user_id', '=', 1],
-                        ['read_at',  '=', null],
+//                        ['read_at',  '=', null],
                     ])
                     ->groupby(['from_user_id', 'article_id'])
                     ->get()

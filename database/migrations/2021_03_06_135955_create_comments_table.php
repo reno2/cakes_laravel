@@ -18,7 +18,8 @@ class CreateCommentsTable extends Migration
             $table->string('from_user_id')->nullable();
             $table->string('from_user_email')->nullable();
             $table->integer('parent_id')->nullable();
-            $table->timestamp('read_at')->nullable();
+            $table->timestamp('recipient_read_at')->nullable();
+            $table->timestamp('sender_read_at')->nullable();
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('article_id')->nullable();

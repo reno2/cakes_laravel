@@ -26,15 +26,41 @@
                     <div class="list-group  w-100 mt-3">
                         <h4></h4>
                         @forelse($data as $d)
-                            <a href="{{route('comments.comment', ['article_id' => $d->article_id, 'user_id' => $d->from_user_id])}}" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    #{{$d->id}}
-                                    <h5 class="mb-1">{{$d->title}}</h5>
-                                    <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($d->last_date))->diffForHumans()}}</small>
+
+                            <a href="{{route('comments.comment',
+                                        ['article_id' => $d->article_id, 'user_id' => $d->from_user_id])}}">
+                                <div class="i-comment">
+                                    <div class="i-comment__data">
+                                        {{ \Carbon\Carbon::createFromTimeStamp(strtotime($d->last_date))->diffForHumans()}}
+                                    </div>
+                                    <div class="i-comment__col">
+                                        <a href="{{route('comments.article', $d->article_id)}}">
+                                            @if ($d->image)
+                                                <img class="i-comment__img" src="{{Storage::url($d->image)}}">
+                                            @else
+                                                <img class="i-comment__img" src="{{asset('images/avatar/default.svg') }}">
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <div class="i-comment__content">
+                                        <div class="i-comment__title">
+                                            <a href="{{route('comments.comment',
+                                                ['article_id' => $d->article_id, 'user_id' => $d->from_user_id])}}">{{$d->title}}</a>
+                                        </div>
+                                        <div class="i-comment__desc">
+                                            Вопросы от {{$d->name}} пользователей
+                                        </div>
+                                    </div>
                                 </div>
+
+{{--                                <div class="d-flex w-100 justify-content-between">--}}
+{{--                                    #{{$d->id}}--}}
+{{--                                    <h5 class="mb-1">{{$d->title}}</h5>--}}
+{{--                                    <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($d->last_date))->diffForHumans()}}</small>--}}
+{{--                                </div>--}}
 {{--                                <p class="mb-1">от пользователя <strong>{{$d->name}} - {{$d->from_user_id}}</strong></p>--}}
-                                <p class="mb-1">Вопросы от пользователя {{$d->name}} ({{$d->from_user_id}})</p>
-                                <i class="fas fa-comment-alt"> </i> <small> перейти к вопросам</small>
+{{--                                <p class="mb-1">Вопросы от пользователя {{$d->name}} ({{$d->from_user_id}})</p>--}}
+{{--                                <i class="fas fa-comment-alt"> </i> <small> перейти к вопросам</small>--}}
                             </a>
                         @empty
                             <div>Никаких объявлений не отложенно</div>

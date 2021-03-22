@@ -41,7 +41,8 @@ class CommentController extends Controller
         $toUserQuestions = \DB::table('comments')
             ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
-            ->join('media', 'media.model_id', '=', 'comments.article_id')
+
+            ->leftJoin('media', 'media.model_id', '=', 'comments.article_id')
             ->select('articles.title',
                 \DB::raw('COUNT(comments.from_user_id) AS count'))
 
@@ -52,23 +53,26 @@ class CommentController extends Controller
             ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
             ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
             ->selectRaw('ANY_VALUE(profiles.name) as name')
-            ->selectRaw('ANY_VALUE(media.file_name) as file_name')
-            ->selectRaw('ANY_VALUE(media.id) as media_id')
 
-            ->where('comments.user_id', Auth::id())
-            ->whereJsonContains('custom_properties->main',
-                true)
 
+           ->where('comments.user_id', Auth::id())
+           //->whereJsonContains('custom_properties->main', true)
+           ->selectRaw('ANY_VALUE(media.file_name) as file_name')
+           ->selectRaw('ANY_VALUE(media.id) as media_id')
 
             ->where('articles.user_id', Auth::id())
             ->groupBy('comments.article_id')
             ->orderBy('last_date', 'DESC')
             ->get();
 
+       // dd($toUserQuestions);
 
+        // нужно получить все поля
+        // from_user_id = мой и recipient = null
         $userQuestions = \DB::table('comments')
             ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
+            ->leftJoin('media', 'media.model_id', '=', 'comments.article_id')
             ->select('articles.title', 'comments.article_id',
                 \DB::raw('COUNT(comments.article_id) AS article_id'))
             ->selectRaw('MAX(comments.created_at) AS last_date')
@@ -78,21 +82,53 @@ class CommentController extends Controller
             ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
             ->selectRaw('ANY_VALUE(profiles.name) as name')
             ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
+
+            ->selectRaw('ANY_VALUE(media.file_name) as file_name')
+            ->selectRaw('ANY_VALUE(media.id) as media_id')
+
             ->where('comments.parent_id', 0)->where('comments.from_user_id', Auth::id())
             ->groupBy('article_id')
             ->orderBy('last_date', 'DESC')
             ->get();
 
 
-       // $adsImg =
-        //$oldMain = Media::where('model_id', 29)->whereJsonContains('custom_properties->main',
-           // true)->first();
-        //dd($oldMain);
-        //dd($toUserQuestions);
+        // Не прочитанные вопросы в которых текущий пользователь отправитель, а получатель не прочитал (recipient)
+        $fromAuthorNotReadAnswer = \DB::table('comments')
+            ->selectRaw('COUNT(comments.comment) AS count')
+            ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
+            ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
+            ->where('comments.sender_read_at', null)
+            ->where('comments.from_user_id', Auth::id())
+            ->groupBy('comments.article_id')
+            ->get();
+
+        if($fromAuthorNotReadAnswer){
+            $fromAuthorNotReadAnswer =  collect($fromAuthorNotReadAnswer)->mapWithKeys(function($item){
+                return [$item->article_id => $item];
+            });
+        }
+
+
+        // Не прочитанные вопросы в которых текущий пользователь получатель, а получатель не прочитал (recipient)
+        $toAuthorQuestionsNotAnswer = \DB::table('comments')
+            ->selectRaw('COUNT(comments.comment) AS count')
+            ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
+            ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
+            ->where('comments.recipient_read_at', null)
+            ->where('comments.user_id', Auth::id())
+            ->groupBy('comments.article_id')
+            ->get();
+        $toAuthorQuestionsNotAnswer =  collect($toAuthorQuestionsNotAnswer)->mapWithKeys(function($item){
+            return [$item->article_id => $item];
+        });
+
+
         return view('profile.comments.index', [
             'user' => $user,
             'userQuestions' => $userQuestions,
-            'toUserQuestions' => $toUserQuestions
+            'toUserQuestions' => $toUserQuestions,
+            'toAuthorQuestionsNotAnswer' => $toAuthorQuestionsNotAnswer,
+            'fromAuthorNotReadAnswer' => $fromAuthorNotReadAnswer
 
         ]);
     }
@@ -111,6 +147,7 @@ class CommentController extends Controller
                ->where('comments.user_id', $article->user_id)
                ->select( \DB::raw('COUNT(comments.from_user_id) AS from_user_questions'))
                ->selectRaw('ANY_VALUE(profiles.name) as name')
+               ->selectRaw('ANY_VALUE(profiles.image) as image')
                ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
                ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
                ->selectRaw('ANY_VALUE(articles.title) as title')
@@ -125,8 +162,8 @@ class CommentController extends Controller
            $data = ['data' => $comments];
 
        }else{
-           $owner = $article->user_id;
            // Текущий пользователь не владелец поста
+           $owner = $article->user_id;
            $view = 'profile.comments.comment';
            $comments =  \DB::table('comments')
                ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
@@ -144,8 +181,6 @@ class CommentController extends Controller
                ->get()
                ->toArray();
 
-           //dd($comments);
-           //dd($this->getRecipient($article->user_id));
 
            $data = [
                'owner'     => json_encode($this->getOwner($article->id)),
@@ -158,19 +193,22 @@ class CommentController extends Controller
                'userName'  => $userName = $this->profileRepository->getProfileNameByUserId($userId)
            ];
 
+           $this->setAsReadSendersQuestions($article);
        }
 
         return view($view, $data);
     }
 
+
+    /**
+     * Выводим ветку переписка владельца объявления
+     * @param int $article_id ид поста
+     * @param int $user_id ид задающего вопрос
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function comment(Request $request, $article_id, $user_id)
     {
 
-        // делаем детку прочитанной
-        // $comment = tap(\DB::table('comments')
-        // ->where('comments.id',  $comment_id))
-        // ->update(['read_at' => Carbon::now()])
-        // ->first();
 
         $userId   = Auth::id();
         $userName = $this->profileRepository->getProfileNameByUserId($userId);
@@ -193,9 +231,12 @@ class CommentController extends Controller
             ->toArray();
 //dd($comments);
 
-        $profile = $this->profileRepository->getFirstProfileByUser($userId);
 
-            $this->profileRepository->getProfileImg($profile);
+
+        $this->setAsRead($article, $user_id);
+
+        $profile = $this->profileRepository->getFirstProfileByUser($userId);
+        $this->profileRepository->getProfileImg($profile);
 
         return view('profile.comments.comment', [
             'owner'    => json_encode($this->getOwner($article->id)),
@@ -230,6 +271,30 @@ class CommentController extends Controller
             ->where('articles.id', $articleId)
             ->get()
             ->toArray();
+    }
+
+    public function setAsRead($article, $askingUserId){
+        $currentUserId = Auth::id();
+        if($article->user_id == $currentUserId){
+             $comment = tap(\DB::table('comments')
+             ->where('comments.article_id',  $article->id))
+             ->where('from_user_id', $askingUserId)
+             ->update(['recipient_read_at' => Carbon::now()]);
+        }
+    }
+
+    /*
+     * $article model модель материала
+     * $senderUserId ind ид пользователя который задаёт вопрос
+     * Помечаем сообщения пользователя который задавал вопрос и перешёл в ветку
+     * как прочитыные
+     */
+    public function setAsReadSendersQuestions($article){
+        $currentUserId = Auth::id();
+        $comment = tap(\DB::table('comments')
+        ->where('comments.article_id',  $article->id))
+        ->update(['sender_read_at' => Carbon::now()]);
+
     }
 
     /**
