@@ -79,13 +79,13 @@
                 <i @click="edit(item.id)" class="comment-item__icon fas fa-highlighter"></i>
                 <i @click="deleteComment(item.id)" class="comment-item__icon fas fa-times"></i>
             </div>
-            <a href="#" class="comment-item__link list-group-item list-group-item-action"> <small>#{{item.id}}</small>
+            <div class="comment-item__link list-group-item list-group-item-action"> <small>#{{item.id}}</small>
                 <span class="comment-item__changed" v-if="compareDate(item.updated_at, item.created_at)"><i class="fas fa-pencil-alt"></i></span>
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">Вы</h5>
                 </div>
                 <p class="mb-1">{{item.comment}}</p>
-            </a>
+            </div>
             <small class="comment-item__date">{{formatDate(item.updated_at)}}</small>
         </div>
 
@@ -134,12 +134,9 @@
                 else return false
             },
             compareDate(created, updated){
-
                 if(!moment(created).isSame(updated))
                     return true
             }
         }
-
-
     }
 </script>

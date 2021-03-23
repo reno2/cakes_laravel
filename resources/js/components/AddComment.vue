@@ -138,6 +138,7 @@
     export default {
         data() {
             return {
+                isDisabled: false,
                 answers: null,
                 comment: null,
                 comments: null,
@@ -192,7 +193,6 @@
             },
             removeById(id){
                 this.comments = this.comments.filter(item =>  item.id !== id)
-
             },
             editComment(id) {
                 this.$refs.commentForm.scrollIntoView({block: "center", behavior: "smooth"});
@@ -209,7 +209,6 @@
                 })
             },
             addItem(comment) {
-                console.log(comment)
                 const tmp = {
                     comment: comment.comment,
                     created_at: new Date(),
@@ -221,36 +220,38 @@
                 this.comments.push(tmp)
             },
             async submit() {
-              if(this.comment && this.comment.length < 150) {
-                  const data = {
-                      id: this.id,
-                      parent_id: this.commentId,
-                      comment: this.comment,
-                      article_id: this.ads,
-                      from_user_id: this.adsSender.user_id,
-                      user_id: this.adsRecipient.user_id
+                if(!this.isDisabled)
+                    if(this.comment && !this.comment.trim() == '' && this.comment.length < 150){
+                      const data = {
+                          id: this.id,
+                          parent_id: this.commentId,
+                          comment: this.comment,
+                          article_id: this.ads,
+                          from_user_id: this.adsSender.user_id,
+                          user_id: this.adsRecipient.user_id
+                      }
+                      let method, route
+                      if (this.event === 'save') {
+                          method = 'POST'
+                          route = this.routeCreate
+                      } else {
+                          method = 'PUT'
+                          route = this.routeUpdate
+                      }
+                      this.isDisabled = true
+                      const response = await this.sendRequest( route, method, data)
+                      if(response){
+                          if (this.event === 'save')
+                              this.addItem(response.comment)
+                          else
+                              this.updateComment(response.comment)
+                          this.comment = ''
+                          this.event = 'save'
+                      }
+                        this.isDisabled = false
+                  }else{
+                      this.error.status = true
                   }
-                  let method, route
-                  if (this.event === 'save') {
-                      method = 'POST'
-                      route = this.routeCreate
-                  } else {
-                      method = 'PUT'
-                      route = this.routeUpdate
-                  }
-                  const response = await this.sendRequest( route, method, data)
-                  if(response){
-                      if (this.event === 'save')
-                          this.addItem(response.comment)
-                      else
-                          this.updateComment(response.comment)
-                      this.comment = ''
-                      this.event = 'save'
-                  }
-              }else{
-                  this.error.status = true
-
-              }
             },
             sendRequest(url, method, data) {
                return axios({

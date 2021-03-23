@@ -38,7 +38,7 @@
                                             @if ($d->image)
                                                 <img class="i-comment__img" src="{{Storage::url($d->image)}}">
                                             @else
-                                                <img class="i-comment__img" src="{{asset('images/avatar/default.svg') }}">
+                                                <img class="i-comment__img" src="{{url('storage/images/avatar/default.svg') }}">
                                             @endif
                                         </a>
                                     </div>

@@ -2067,6 +2067,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      isDisabled: false,
       answers: null,
       comment: null,
       comments: null,
@@ -2186,7 +2187,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     addItem: function addItem(comment) {
-      console.log(comment);
       var tmp = {
         comment: comment.comment,
         created_at: new Date(),
@@ -2206,8 +2206,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(_this2.comment && _this2.comment.length < 150)) {
-                  _context2.next = 9;
+                if (_this2.isDisabled) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                if (!(_this2.comment && !_this2.comment.trim() == '' && _this2.comment.length < 150)) {
+                  _context2.next = 12;
                   break;
                 }
 
@@ -2228,10 +2233,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   route = _this2.routeUpdate;
                 }
 
-                _context2.next = 5;
+                _this2.isDisabled = true;
+                _context2.next = 7;
                 return _this2.sendRequest(route, method, data);
 
-              case 5:
+              case 7:
                 response = _context2.sent;
 
                 if (response) {
@@ -2240,13 +2246,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.event = 'save';
                 }
 
-                _context2.next = 10;
+                _this2.isDisabled = false;
+                _context2.next = 13;
                 break;
 
-              case 9:
+              case 12:
                 _this2.error.status = true;
 
-              case 10:
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -65555,11 +65562,10 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "a",
+            "div",
             {
               staticClass:
-                "comment-item__link list-group-item list-group-item-action",
-              attrs: { href: "#" }
+                "comment-item__link list-group-item list-group-item-action"
             },
             [
               _c("small", [_vm._v("#" + _vm._s(_vm.item.id))]),

@@ -92,15 +92,19 @@ class CommentController extends Controller
             ->get();
 
 
-        // Не прочитанные вопросы в которых текущий пользователь отправитель, а получатель не прочитал (recipient)
+        // Не прочитанные вопросы в которых текущий пользователь получатель и не владелец поста,
+        // Получатель (recipient) ответил заполнив поле sender_read_at null
         $fromAuthorNotReadAnswer = \DB::table('comments')
+            ->join('articles', 'articles.id', '=', 'comments.article_id')
             ->selectRaw('COUNT(comments.comment) AS count')
             ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
             ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
             ->where('comments.sender_read_at', null)
-            //->where('comments.from_user_id', Auth::id())
+            ->where('comments.user_id', Auth::id())
+            ->where('articles.user_id', "!=", Auth::id())
             ->groupBy('comments.article_id')
             ->get();
+
 
         if($fromAuthorNotReadAnswer){
             $fromAuthorNotReadAnswer =  collect($fromAuthorNotReadAnswer)->mapWithKeys(function($item){
@@ -109,7 +113,8 @@ class CommentController extends Controller
         }
        // dd($fromAuthorNotReadAnswer);
 
-        // Не прочитанные вопросы в которых текущий пользователь получатель, а получатель не прочитал (recipient)
+        // Не прочитанные вопросы в которых текущий пользователь получатель,
+        // а отправитель не прочитал (recipient)
         $toAuthorQuestionsNotAnswer = \DB::table('comments')
             ->selectRaw('COUNT(comments.comment) AS count')
             ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
@@ -176,7 +181,7 @@ class CommentController extends Controller
                    $query->where('comments.from_user_id', $owner)
                        ->orWhere('comments.user_id', $owner);
                })
-               ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at')
+               ->select('comments.from_user_id', 'comments.id', 'comments.user_id', 'comments.comment', 'comments.article_id', 'profiles.name', 'comments.created_at', 'comments.updated_at')
                ->orderBy('comments.created_at', 'ASC')
                ->get()
                ->toArray();
@@ -298,7 +303,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Добавляет комментарий с фронта
      *
      * @param Request $request
      *
@@ -306,15 +311,37 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $comment    = $request->toArray();
-        $newComment = Comment::create([
-            'from_user_id' => $comment['from_user_id'],
-            'parent_id'    => 0,
-            'user_id'      => $comment['user_id'],
-            'article_id'   => $comment['article_id'],
-            'comment'      => $comment['question']
+        $request    = $request->toArray();
+        $comment = \DB::table('comments')
+            ->where('comments.article_id', $request['article_id'])
+            ->where('comments.from_user_id', $request['from_user_id'])
+            ->select(\DB::raw('COUNT(comments.from_user_id) AS count'))
+            ->selectRaw('MAX(comments.created_at) AS last_date')
+            ->selectRaw('ANY_VALUE(comments.id) as id')
+            ->groupBy('comments.article_id')
+            ->orderBy('last_date', 'DESC')
+            ->first();
 
+
+        if(!$comment) {
+            $commentId = 0;
+            $read = Carbon::now();
+        }
+        else{
+            $commentId = $comment->id;
+            $read = null;
+        }
+
+
+        $newComment = Comment::create([
+            'from_user_id' => $request['from_user_id'],
+            'parent_id'    => $commentId,
+            'sender_read_at' => $read,
+            'user_id'      => $request['user_id'],
+            'article_id'   => $request['article_id'],
+            'comment'      => $request['question']
         ]);
+
         if ($newComment) {
             return response()->json(array('success' => true), 200);
         }
@@ -340,14 +367,14 @@ class CommentController extends Controller
 
     public function update(Request $request)
     {
-
         $commentData = $request->toArray();
         $comment = Comment::find($commentData['id']);
+
         if($comment){
             $commentToUpdate = [
                 'from_user_id' =>  $commentData['from_user_id'],
                 'parent_id' => $commentData['parent_id'],
-                'read_at'=> NULL,
+                'sender_read_at'=> NULL,
                 'user_id' => $commentData['user_id'],
                 'comment' => $commentData['comment'],
                 'approved' => $commentData['approved']?? 1
