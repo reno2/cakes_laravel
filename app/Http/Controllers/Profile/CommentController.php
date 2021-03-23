@@ -98,7 +98,7 @@ class CommentController extends Controller
             ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
             ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
             ->where('comments.sender_read_at', null)
-            ->where('comments.from_user_id', Auth::id())
+            //->where('comments.from_user_id', Auth::id())
             ->groupBy('comments.article_id')
             ->get();
 
@@ -107,7 +107,7 @@ class CommentController extends Controller
                 return [$item->article_id => $item];
             });
         }
-
+       // dd($fromAuthorNotReadAnswer);
 
         // Не прочитанные вопросы в которых текущий пользователь получатель, а получатель не прочитал (recipient)
         $toAuthorQuestionsNotAnswer = \DB::table('comments')

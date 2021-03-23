@@ -52,16 +52,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-{{--                                <div class="d-flex w-100 justify-content-between">--}}
-{{--                                    #{{$d->id}}--}}
-{{--                                    <h5 class="mb-1">{{$d->title}}</h5>--}}
-{{--                                    <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($d->last_date))->diffForHumans()}}</small>--}}
-{{--                                </div>--}}
-{{--                                <p class="mb-1">от пользователя <strong>{{$d->name}} - {{$d->from_user_id}}</strong></p>--}}
-{{--                                <p class="mb-1">Вопросы от пользователя {{$d->name}} ({{$d->from_user_id}})</p>--}}
-{{--                                <i class="fas fa-comment-alt"> </i> <small> перейти к вопросам</small>--}}
-                            </a>
                         @empty
                             <div>Никаких объявлений не отложенно</div>
                         @endforelse

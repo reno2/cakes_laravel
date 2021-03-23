@@ -88,6 +88,9 @@ trait UploadTrait
             ->toMediaCollection('cover');
     }
 
+
+
+
     // Удаляем файлы переданные в запросе
     public function deleteMediaItem($items)
     {

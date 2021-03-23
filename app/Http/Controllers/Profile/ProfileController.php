@@ -12,6 +12,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\CoreRepository;
 
 use App\Services\ProfileService;
+use App\Traits\UploadTrait;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,10 +23,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
 use Mockery\Exception;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\DiskDoesNotExist;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileDoesNotExist;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\FileIsTooBig;
 
 
 class ProfileController extends Controller
 {
+    use UploadTrait;
 
     protected $profileService;
 
@@ -139,13 +144,12 @@ class ProfileController extends Controller
         // Добавление файла на диск ресайз, и создание ссылки
         if ($request->hasFile('image')) {
             $uploadedImage = $request->file('image');
-            $path          = 'public/images/avatar/' . $profile->user_id . '.' . $uploadedImage->getClientOriginalExtension();
+            $path          = 'images/avatar/' . $profile->user_id . '.' . $uploadedImage->getClientOriginalExtension();
             $newImage      = Image::make($uploadedImage)->fit(200, 200, function ($constraint) {
                 $constraint->upsize();
             }, 'center');
             Storage::put($path, (string)$newImage->encode());
-            $url                  = Storage::url($path);
-
+            $url = Storage::url($path);
             $inputsArray['image'] = $path;
         }
 

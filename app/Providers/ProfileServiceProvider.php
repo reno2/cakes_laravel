@@ -21,6 +21,19 @@ class ProfileServiceProvider extends ServiceProvider
                 $profile = (new ProfileRepository)->getEdit($userId);
                 $notifications =  Auth::user()->unreadNotifications;
 
+                $comments =  \DB::table('comments')
+
+                    ->where(function($query) use ($userId) {
+                        $query->where('from_user_id', $userId)
+                            ->orWhere('user_id', $userId);
+                    })
+                    ->where(function($query) {
+                        $query->where('recipient_read_at', null)
+                            ->orWhere('user_id', null);
+                    })->count();
+
+
+
                 $favorites = \DB::table('favorites')
                     ->where('profile_id', $profile->id)
                     ->count();
