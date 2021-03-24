@@ -123,6 +123,8 @@ class CommentController extends Controller
             ->where('comments.user_id', Auth::id())
             ->groupBy('comments.article_id')
             ->get();
+
+        //dd($toAuthorQuestionsNotAnswer);
         $toAuthorQuestionsNotAnswer =  collect($toAuthorQuestionsNotAnswer)->mapWithKeys(function($item){
             return [$item->article_id => $item];
         });
@@ -186,19 +188,21 @@ class CommentController extends Controller
                ->get()
                ->toArray();
 
-
+           $comment = '';
+           if($comments)
+               $comment = $comments[0];
            $data = [
                'owner'     => json_encode($this->getOwner($article->id)),
                'sender'    => json_encode($this->getSender()),
                'recipient' => json_encode($this->getRecipient($article->user_id)),
-               'comment'   => $comments[0],
+               'comment'   => $comment,
                'ads'       => $article,
                'sub'       => json_encode($comments),
                'userId'    => $userId,
                'userName'  => $userName = $this->profileRepository->getProfileNameByUserId($userId)
            ];
 
-           $this->setAsReadSendersQuestions($article);
+           $this->setAsReadRecipient($article);
        }
 
         return view($view, $data);
@@ -214,7 +218,7 @@ class CommentController extends Controller
     public function comment(Request $request, $article_id, $user_id)
     {
 
-
+        // Владелей поста
         $userId   = Auth::id();
         $userName = $this->profileRepository->getProfileNameByUserId($userId);
         $article = \DB::table('articles')->where('id', $article_id)->first();
@@ -238,16 +242,21 @@ class CommentController extends Controller
 
 
 
+        //$this->setAsRead($article, $user_id);
         $this->setAsRead($article, $user_id);
 
         $profile = $this->profileRepository->getFirstProfileByUser($userId);
         $this->profileRepository->getProfileImg($profile);
 
+        $comment = '';
+        if($comments)
+            $comment = $comments[0];
+
         return view('profile.comments.comment', [
             'owner'    => json_encode($this->getOwner($article->id)),
             'sender' => json_encode($this->getSender()),
             'recipient' => json_encode($this->getRecipient($user_id)),
-            'comment'  => $comments[0],
+            'comment'  => $comment,
             'ads'      => $article,
             'sub'      => json_encode($comments),
             'userId'   => $userId,
@@ -294,7 +303,7 @@ class CommentController extends Controller
      * Помечаем сообщения пользователя который задавал вопрос и перешёл в ветку
      * как прочитыные
      */
-    public function setAsReadSendersQuestions($article){
+    public function setAsReadRecipient($article){
         $currentUserId = Auth::id();
         $comment = tap(\DB::table('comments')
         ->where('comments.article_id',  $article->id))
@@ -352,14 +361,25 @@ class CommentController extends Controller
     {
 
         $comment = $request->toArray();
-        //dd($comment);
-        $newComment = Comment::create([
+        $commentData = [
             'parent_id'    => $comment['parent_id'],
             'from_user_id' => Auth::id(),
             'comment'      => $comment['comment'],
             'article_id'   => $comment['article_id'],
             'user_id'      => $comment['user_id']
-        ]);
+        ];
+
+
+        $article = \DB::table('articles')->where('id', $comment['article_id'])->first();
+
+        // Если я владелец поста то ставим дату
+        if($article->user_id == Auth::id())
+            $commentData['recipient_read_at'] = Carbon::now();
+        else
+            $commentData['sender_read_at'] = Carbon::now();
+
+        //dd($comment);
+        $newComment = Comment::create( $commentData );
         if ($newComment) {
             return response()->json(array('success' => true, 'comment' => $newComment), 200);
         }

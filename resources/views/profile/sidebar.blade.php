@@ -30,7 +30,7 @@
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <a class="personal_a" href="{{route('comments.index')}}">Вопросы</a>
-            <span class="badge badge-primary badge-pill"></span>
+            <span class="info-badge blue">{{$commentsCount}}</span>
         </li>
 
         <li class="list-group-item d-flex justify-content-between align-items-center">

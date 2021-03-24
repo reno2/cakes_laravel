@@ -32,26 +32,38 @@ class ProfileServiceProvider extends ServiceProvider
                             ->orWhere('user_id', null);
                     })->count();
 
-
-
                 $favorites = \DB::table('favorites')
                     ->where('profile_id', $profile->id)
                     ->count();
 
+
+
                 $notReadComments = \DB::table('comments')
-                    ->select('from_user_id',\DB::raw('COUNT(from_user_id) AS cnt, article_id'))
-                    ->where([
-                        ['user_id', '=', 1],
-//                        ['read_at',  '=', null],
-                    ])
-                    ->groupby(['from_user_id', 'article_id'])
+                    ->select('id')
+                    //->select('from_user_id', \DB::raw('COUNT(from_user_id) AS cnt, article_id'))
+//                    ->where([
+//                        ['user_id', '=', $userId],
+//                        ['recipient_read_at',  '=', null],
+//                    ])
+                   // ->where('recipient_read_at', null)
+                    //->where('user_id', Auth::id())
+
+
+                    ->where('user_id', $userId)
+                    ->where(function($query) {
+                        $query->where('recipient_read_at', '=', null)
+                            ->orWhere('sender_read_at', '=', null);
+                    })
+
+
+                    //->groupby(['from_user_id', 'article_id'])
                     ->get()
                     ->count();
-
+               // dd($notReadComments);
                 $view
                     ->with('profile', $profile)
                     ->with('commentsCount', $notReadComments)
-                    ->with('notifications_count', $notifications->count())
+                    ->with('notifications_count', $notifications)
                     ->with('favorites', $favorites)
                     ->with('notifications', $notifications);
             }

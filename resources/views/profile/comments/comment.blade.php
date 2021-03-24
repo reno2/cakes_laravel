@@ -53,9 +53,9 @@
                 recipient="{{$recipient}}"
                 current-user-id="{{$userId}}"
                 subs="{{$sub}}"
-                comment-id="{{$comment->id}}"
-                route-create="{{route('comments.answer', $comment->id)}}"
-                route-update="{{route('comments.update', $comment->id)}}"
+                comment-id="{{$comment->id ?? ''}}"
+                route-create="{{route('comments.answer', $comment->id ?? '')}}"
+                route-update="{{route('comments.update', $comment->id ?? '')}}"
                 token="{{ csrf_token() }}">
             </addcomment>
         </div>
