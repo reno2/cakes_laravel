@@ -1,6 +1,8 @@
 .modal__wrap {
     display: none;
-
+    .modal__thanks{
+        display: none;
+    }
     &.open {
         width: 100%;
         height: 100%;

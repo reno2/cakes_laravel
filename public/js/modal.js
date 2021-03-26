@@ -25,14 +25,25 @@ function modalFormSubmit(event) {
             }
         }
     ).then(result => {
-        if(result.status) this.reset()
-        modalClose()
+        if(result.status === 200)
+            this.reset()
+
+        showMessage(result, this)
+        //modalClose()
     })
+}
+function showMessage(request, form) {
+    console.log(request)
+    if(request.status === 200){
+        const wrap = form.parentElement.parentElement
+        wrap.querySelector('.modal__main').style.display = 'none';
+        wrap.querySelector('.modal__thanks').style.display = 'block';
+        wrap.querySelector('.modal__thanks').querySelector('.modal__text').innerHTML = request.data.msg
+    }
 }
 
 function modalForm(event = null) {
     event.preventDefault();
-
     const modalTarget = this.getAttribute('data-modal')
     const userId = this.getAttribute('data-user-id')
     const userName = this.getAttribute('data-user-name')
@@ -49,5 +60,7 @@ function modalForm(event = null) {
 
 function modalClose() {
     const modalWrap = document.querySelector('.modal__wrap')
+    modalWrap.querySelector('.modal__main').style.display = '';
+    modalWrap.querySelector('.modal__thanks').style.display = '';
     modalWrap.classList.remove('open')
 }

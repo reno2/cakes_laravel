@@ -6373,6 +6373,10 @@ readers do not read off random characters that represent icons */
   display: none;
 }
 
+.modal__wrap .modal__thanks {
+  display: none;
+}
+
 .modal__wrap.open {
   width: 100%;
   height: 100%;
