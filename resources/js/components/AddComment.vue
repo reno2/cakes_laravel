@@ -5,14 +5,17 @@
         border-radius: 8px;
         margin-bottom: 16px;
     }
+
     .comments__list {
         margin-left: 24px;
         margin-top: 24px;
     }
+
     .comment-form {
         border-top: 2px solid #f5f6f7;
         display: flex;
     }
+
     .comment-form__btn {
         border-radius: 8px;
         background: #f5f6f7;
@@ -20,6 +23,7 @@
         display: block;
         margin-left: 8px;
     }
+
     .comment-form__edit {
         color: #48b0f7;
         border: none;
@@ -52,7 +56,8 @@
     .comment__submit i {
         color: #48b0f7;
     }
-    .comment__error{
+
+    .comment__error {
         color: #e3342f !important;
         position: absolute;
         width: fit-content;
@@ -60,7 +65,8 @@
         bottom: -21px;
         font-size: 12px;
     }
-/*transition*/
+
+    /*transition*/
     .comments-transition-enter-active,
     .comments-transition-leave-active,
     .comments-transition-move {
@@ -81,6 +87,7 @@
     .comments-transition-leave-active {
         transform: translateX(-50px);
     }
+
     .comments-transition-leave-to {
         opacity: 0;
         transform: translateX(50px) scaleY(0);
@@ -93,17 +100,17 @@
 
             <div v-if="comments" class="comments__wrap">
                 <transition-group name="comments-transition" tag="div" class="comments__list">
-                <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
-                    <CommentGuestItem
-                        :currentUserId="currentUserId"
-                        :sender="adsSender"
-                        :recipient="adsRecipient"
-                        :item="item"
-                        @onEdit="editComment($event)"
-                        @onDelete="deleteComment($event)"
-                    >
-                    </CommentGuestItem>
-                </div>
+                    <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
+                        <CommentGuestItem
+                            :currentUserId="currentUserId"
+                            :sender="adsSender"
+                            :recipient="adsRecipient"
+                            :item="item"
+                            @onEdit="editComment($event)"
+                            @onDelete="deleteComment($event)"
+                        >
+                        </CommentGuestItem>
+                    </div>
                 </transition-group>
             </div>
 
@@ -116,7 +123,8 @@
                                        placeholder="Введите текст">
                                 <button type="submit" class="btn comment__submit"><i class="fas fa-paper-plane"></i>
                                 </button>
-                                <span v-if="error.status" class="help-block comment__error text-danger">{{ error.msg }}</span>
+                                <span v-if="error.status"
+                                      class="help-block comment__error text-danger">{{ error.msg }}</span>
                             </div>
                             <div class="comment-form__btn" v-if="event==='update'">
                                 <button @click.prevent="exitEdit" class="comment-form__edit">
@@ -173,8 +181,8 @@
                 return this.comments
             }
         },
-        watch:{
-            comment(){
+        watch: {
+            comment() {
                 this.error.status = false
             }
         },
@@ -186,13 +194,13 @@
             async deleteComment(id) {
                 if (confirm('Удалить?')) {
                     const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE')
-                    if(status) this.removeById(id)
+                    if (status) this.removeById(id)
                 } else {
                     return false
                 }
             },
-            removeById(id){
-                this.comments = this.comments.filter(item =>  item.id !== id)
+            removeById(id) {
+                this.comments = this.comments.filter(item => item.id !== id)
             },
             editComment(id) {
                 this.$refs.commentForm.scrollIntoView({block: "center", behavior: "smooth"});
@@ -220,56 +228,61 @@
                 this.comments.push(tmp)
             },
             async submit() {
-                if(!this.isDisabled)
-                    if(this.comment && !this.comment.trim() == '' && this.comment.length < 150){
-                      const data = {
-                          id: this.id,
-                          parent_id: this.commentId,
-                          comment: this.comment,
-                          article_id: this.ads,
-                          from_user_id: this.adsSender.user_id,
-                          user_id: this.adsRecipient.user_id
-                      }
-                      let method, route
-                      if (this.event === 'save') {
-                          method = 'POST'
-                          route = this.routeCreate
-                      } else {
-                          method = 'PUT'
-                          route = this.routeUpdate
-                      }
-                      this.isDisabled = true
-                      const response = await this.sendRequest( route, method, data)
-                      if(response){
-                          if (this.event === 'save')
-                              this.addItem(response.comment)
-                          else
-                              this.updateComment(response.comment)
-                          this.comment = ''
-                          this.event = 'save'
-                      }
+                if (!this.isDisabled)
+                    if (this.comment && !this.comment.trim() == '' && this.comment.length < 150) {
+                        const data = {
+                            id: this.id,
+                            parent_id: this.commentId,
+                            comment: this.comment,
+                            article_id: this.ads,
+                            from_user_id: this.adsSender.user_id,
+                            user_id: this.adsRecipient.user_id
+                        }
+                        let method, route
+                        if (this.event === 'save') {
+                            method = 'POST'
+                            route = this.routeCreate
+                        } else {
+                            method = 'PUT'
+                            route = this.routeUpdate
+                        }
+                        this.isDisabled = true
+                        try {
+                            const response = await this.sendRequest(route, method, data)
+                            if (this.event === 'save')
+                                this.addItem(response.comment)
+                            else
+                                this.updateComment(response.comment)
+                            this.comment = ''
+                            this.event = 'save'
+                        } catch (e) {
+                            this.error.status = true
+                        }
                         this.isDisabled = false
-                  }else{
-                      this.error.status = true
-                  }
+
+
+                    } else {
+                        this.error.status = true
+                    }
             },
             sendRequest(url, method, data) {
-               return axios({
-                    method,
-                    url,
-                    data,
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": "Token " + this.token
-                    }
-                }).then( response => {
-                    if (response.status) {
-                        return response.data
-                    }
-                }).catch(function (error) {
-                    return error.message
-                });
+                let that = this
+                return new Promise(function (resolve, reject) {
+                    axios({
+                        method,
+                        url,
+                        data,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                            "Authorization": "Token " + that.token
+                        }
+                    }).then(response => {
+                        resolve(response.data)
+                    }).catch((error) => {
+                        reject(error)
+                    })
+                })
             }
         },
         mounted() {

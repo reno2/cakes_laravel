@@ -10953,3 +10953,11 @@ input:focus {
   border: none;
 }
 
+.svg_close {
+  width: 18px;
+  height: 18px;
+  fill: #1D2F3C;
+  cursor: pointer;
+  opacity: 0.54;
+}
+

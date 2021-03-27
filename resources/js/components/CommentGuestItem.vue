@@ -13,6 +13,16 @@
         background: #f5f6f7;
         color: #9b9b9b;
     }
+    .comment-item__noAuth .comment-item__changed{
+        position: absolute;
+        right: -25px;
+    }
+    .comment-item__noAuth .comment-item__changed i{
+        color: #d2d4d6;
+    }
+
+
+
     .comment-item__img {
         width: 70px;
         border-radius: 100px;
@@ -96,6 +106,7 @@
             </div>
             <div class="comment-item__comment">
                 <div class="comment-item__link list-group-item list-group-item-action">
+                    <span class="comment-item__changed" v-if="compareDate(item.updated_at, item.created_at)"><i class="fas fa-pencil-alt"></i></span>
                     <small>#{{item.id}}</small>
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{item.name}} ({{item.from_user_id}})</h5>

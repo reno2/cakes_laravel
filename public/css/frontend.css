@@ -6412,6 +6412,15 @@ readers do not read off random characters that represent icons */
   color: #1D2F3C;
 }
 
+.modal__wrap .modal__container .modal__small {
+  margin: 0 0 24px 0;
+  font-size: 19px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #1D2F3C;
+  font-family: Montserrat;
+}
+
 .modal__wrap .modal__container .modal__close {
   position: absolute;
   top: 8px;
@@ -6445,6 +6454,52 @@ readers do not read off random characters that represent icons */
   outline: none;
   min-height: 16px;
   width: 100%;
+}
+
+.modal__wrap .modal__info {
+  max-width: 444px;
+}
+
+.modal__wrap .modal__login {
+  border-bottom: 1px solid #8950fc;
+  color: #8950fc;
+}
+
+.select2 {
+  display: block;
+  width: 100% !important;
+}
+
+.js_error.show {
+  display: block;
+}
+
+.js_error {
+  display: none;
+}
+
+.onError {
+  border: 1px solid #e89d9d !important;
+}
+
+.onError + .js_error {
+  display: block;
+  text-align: left;
+}
+
+.js_formError {
+  display: none;
+}
+
+.js_formError.show {
+  display: block;
+}
+
+.form-error .form-error__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  fill: #000;
 }
 
 a {

@@ -6304,6 +6304,34 @@ readers do not read off random characters that represent icons */
   display: block;
 }
 
+.js_error {
+  display: none;
+}
+
+.onError {
+  border: 1px solid #e89d9d !important;
+}
+
+.onError + .js_error {
+  display: block;
+  text-align: left;
+}
+
+.js_formError {
+  display: none;
+}
+
+.js_formError.show {
+  display: block;
+}
+
+.form-error .form-error__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  fill: #000;
+}
+
 .info.info_admin {
   position: absolute;
   right: 3%;

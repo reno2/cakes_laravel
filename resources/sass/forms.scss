@@ -5,3 +5,31 @@
 .js_error.show{
     display: block;
 }
+.js_error{
+    display: none;
+}
+.onError{
+    border: 1px solid #e89d9d !important;
+}
+.onError + .js_error{
+    display: block;
+    text-align: left;
+}
+
+.js_formError{
+    display: none;
+    &.show{
+        display: block;
+    }
+}
+.form-error{
+    .form-error__msg{
+
+    }
+    .form-error__close{
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        fill: #000;
+    }
+}

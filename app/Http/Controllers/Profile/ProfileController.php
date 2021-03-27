@@ -43,7 +43,6 @@ class ProfileController extends Controller
     public function index(UserRepository $userRepository)
     {
         $user = Auth::user();
-
         return view('profile.index', [
             'user'    => $user,
             'profile' => $userRepository->getUserProfileEdit($user->id),

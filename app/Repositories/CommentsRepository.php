@@ -14,8 +14,9 @@ use App\Models\Profile;
 
 class CommentsRepository extends CoreRepository
 {
-    /*
+    /*  Создание нового комментария с фронта
      * @param array $request - Объект запроса
+     * @return Comment|Array - возвращает лтбо новый комментарий либо массив с ошибкой
      */
     public function create($request){
         try {
@@ -46,6 +47,12 @@ class CommentsRepository extends CoreRepository
             return ['error' => $e->getMessage(), 'code' => $e->getCode()];
         }
     }
+
+
+
+
+
+
 
     function fail($msg = 'Ошибка сохранения файла'){
         throw new \Exception($msg);

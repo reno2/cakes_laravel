@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Requests\AdsRequest;
+use App\Http\Requests\CommentsRequest;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Repositories\AdsRepository;
@@ -330,9 +331,9 @@ class CommentController extends Controller
      *
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(CommentsRequest $request)
     {
-        //return response()->json(array('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
+        $request->validated();
         $request    = $request->toArray();
         $newComment = $this->commentsRepository->create($request);
         if ($newComment['code'] != 200)
@@ -346,7 +347,9 @@ class CommentController extends Controller
 
     public function answer(Request $request)
     {
-
+        $validated = $request->validate([
+            'comment' => 'between:2,255',
+        ]);
         $comment = $request->toArray();
         $commentData = [
             'parent_id'    => $comment['parent_id'],

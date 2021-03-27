@@ -16,7 +16,6 @@
         -webkit-overflow-scrolling: touch;
         box-sizing: border-box;
     }
-
     .modal__container {
         padding: 40px 48px;
         background: #FFFFFF;
@@ -36,7 +35,14 @@
             font-weight: 700;
             color: #1D2F3C;
         }
-
+        .modal__small{
+            margin: 0 0 24px 0;
+            font-size: 19px;
+            line-height: 26px;
+            font-weight: 400;
+            color: #1D2F3C;
+            font-family: Montserrat;
+        }
         .modal__close {
             position: absolute;
             top: 8px;
@@ -47,7 +53,6 @@
             cursor: pointer;
             opacity: 0.54;
         }
-
         .modal__form {
             display: flex;
             flex-direction: column;
@@ -69,5 +74,12 @@
                 }
             }
         }
+    }
+    .modal__info{
+        max-width: 444px;
+    }
+    .modal__login{
+        border-bottom: 1px solid #8950fc;
+        color: #8950fc;
     }
 }

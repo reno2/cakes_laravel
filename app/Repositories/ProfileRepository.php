@@ -28,6 +28,11 @@ class ProfileRepository extends CoreRepository
 //        return Auth::user()->role == self::ROLES['author'];
 //    }
 
+
+    public function setProfileNameAfterRegister($id){
+        $profile = $this->getFirstProfileByUser($id)->update(['name'=>'Пользователь_'.$id]);
+    }
+
     /*
     * @return string
     */
@@ -97,7 +102,7 @@ class ProfileRepository extends CoreRepository
     }
 
     /*
-    * @param Ind $id
+    * @param Ind $id Пользовтеля
     * @return Model
     * Получаем связанный профиль
     */

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\User;
 use App\Notifications\NewUserNotification;
 use App\Notifications\PostCreatedNotification;
+use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Notification;
 
 class UserObserver
@@ -22,6 +23,7 @@ class UserObserver
             'name' => $user->name
         ];
         Notification::send($userTo, new NewUserNotification($data));
+        (new ProfileRepository())->setProfileNameAfterRegister($user->id);
     }
 
     /**

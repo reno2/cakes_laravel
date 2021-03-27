@@ -2063,6 +2063,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2207,12 +2215,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (_this2.isDisabled) {
-                  _context2.next = 13;
+                  _context2.next = 21;
                   break;
                 }
 
                 if (!(_this2.comment && !_this2.comment.trim() == '' && _this2.comment.length < 150)) {
-                  _context2.next = 12;
+                  _context2.next = 20;
                   break;
                 }
 
@@ -2234,49 +2242,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _this2.isDisabled = true;
-                _context2.next = 7;
+                _context2.prev = 5;
+                _context2.next = 8;
                 return _this2.sendRequest(route, method, data);
 
-              case 7:
+              case 8:
                 response = _context2.sent;
-
-                if (response) {
-                  if (_this2.event === 'save') _this2.addItem(response.comment);else _this2.updateComment(response.comment);
-                  _this2.comment = '';
-                  _this2.event = 'save';
-                }
-
-                _this2.isDisabled = false;
-                _context2.next = 13;
+                if (_this2.event === 'save') _this2.addItem(response.comment);else _this2.updateComment(response.comment);
+                _this2.comment = '';
+                _this2.event = 'save';
+                _context2.next = 17;
                 break;
 
-              case 12:
+              case 14:
+                _context2.prev = 14;
+                _context2.t0 = _context2["catch"](5);
                 _this2.error.status = true;
 
-              case 13:
+              case 17:
+                _this2.isDisabled = false;
+                _context2.next = 21;
+                break;
+
+              case 20:
+                _this2.error.status = true;
+
+              case 21:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[5, 14]]);
       }))();
     },
     sendRequest: function sendRequest(url, method, data) {
-      return axios({
-        method: method,
-        url: url,
-        data: data,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Authorization": "Token " + this.token
-        }
-      }).then(function (response) {
-        if (response.status) {
-          return response.data;
-        }
-      })["catch"](function (error) {
-        return error.message;
+      var that = this;
+      return new Promise(function (resolve, reject) {
+        axios({
+          method: method,
+          url: url,
+          data: data,
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Token " + that.token
+          }
+        }).then(function (response) {
+          resolve(response.data);
+        })["catch"](function (error) {
+          reject(error);
+        });
       });
     }
   },
@@ -2430,6 +2445,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7824,7 +7850,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n        background: #eeeeeeb0;\n        padding: 5px 10px;\n        border-radius: 8px;\n        margin-bottom: 16px;\n}\n.comments__list[data-v-2e098429] {\n        margin-left: 24px;\n        margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n        border-top: 2px solid #f5f6f7;\n        display: flex;\n}\n.comment-form__btn[data-v-2e098429] {\n        border-radius: 8px;\n        background: #f5f6f7;\n        height: -webkit-max-content;\n        height: -moz-max-content;\n        height: max-content;\n        display: block;\n        margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n        color: #48b0f7;\n        border: none;\n        background: none;\n        padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n        position: relative;\n        width: 500px;\n        margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n        background-color: #f5f6f7;\n        border: none;\n        padding: 16px;\n        border-radius: 8px;\n        width: 100%;\n        color: #b19b9b;\n}\n.comment__submit[data-v-2e098429] {\n        position: absolute;\n        top: 50%;\n        right: 8px;\n        transform: translateY(-50%);\n}\n.comment__submit i[data-v-2e098429] {\n        color: #48b0f7;\n}\n.comment__error[data-v-2e098429]{\n        color: #e3342f !important;\n        position: absolute;\n        width: -webkit-fit-content;\n        width: -moz-fit-content;\n        width: fit-content;\n        left: 0;\n        bottom: -21px;\n        font-size: 12px;\n}\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n    .comments-transition-leave-active[data-v-2e098429],\n    .comments-transition-move[data-v-2e098429] {\n        transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n        transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n        opacity: 0;\n        transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n        opacity: 1;\n        transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n        transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n        opacity: 0;\n        transform: translateX(50px) scaleY(0);\n        transform-origin: center bottom;\n}\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n}\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n", ""]);
 
 // exports
 
@@ -7862,7 +7888,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth .comment-item__link {\n    background: #48b0f7;\n    color: #fff;\n}\n.comment-item__actions{\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed{\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child{\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor:pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed{\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth .comment-item__link {\n    background: #48b0f7;\n    color: #fff;\n}\n.comment-item__actions{\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed{\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child{\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor:pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n", ""]);
 
 // exports
 
@@ -65604,6 +65630,12 @@ var render = function() {
                   "comment-item__link list-group-item list-group-item-action"
               },
               [
+                _vm.compareDate(_vm.item.updated_at, _vm.item.created_at)
+                  ? _c("span", { staticClass: "comment-item__changed" }, [
+                      _c("i", { staticClass: "fas fa-pencil-alt" })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("small", [_vm._v("#" + _vm._s(_vm.item.id))]),
                 _vm._v(" "),
                 _c(
