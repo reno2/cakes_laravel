@@ -18,7 +18,7 @@ class ProfileServiceProvider extends ServiceProvider
             'layouts.profile',
             function ($view) {
                 $userId  = Auth::user()->id;
-                $profile = (new ProfileRepository)->getEdit($userId);
+                $profile = (new ProfileRepository)->getFirstProfileByUser($userId);
                 $notifications =  Auth::user()->unreadNotifications;
 
                 $comments =  \DB::table('comments')

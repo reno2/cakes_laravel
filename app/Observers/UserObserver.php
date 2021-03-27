@@ -18,12 +18,15 @@ class UserObserver
      */
     public function created(User $user)
     {
+
         $userTo = User::find(1);
-        $data = [
-            'name' => $user->name
-        ];
-        Notification::send($userTo, new NewUserNotification($data));
-        (new ProfileRepository())->setProfileNameAfterRegister($user->id);
+        if($userTo) {
+            $data = [
+                'name' => $user->name
+            ];
+            Notification::send($userTo, new NewUserNotification($data));
+        }
+
     }
 
     /**
