@@ -176,15 +176,7 @@ class ProfileRepository extends CoreRepository
     */
     public function checkIfCanAddAds($user)
     {
-        $status = $this->startCondition()->find($user->id)->filled;
-        $rr     = '';
-//        if ($user instanceof \Illuminate\Database\Eloquent\Model) {
-//            $status =  $user->filled;
-//        }else {
-//            $status =  $this->startCondition()->find($user)->filled;
-//        }
-
-        return $status;
+        return $this->startCondition()->where('user_id', $user->id)->first()->filled;
     }
 
 

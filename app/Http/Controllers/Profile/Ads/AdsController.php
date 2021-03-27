@@ -37,7 +37,7 @@ class AdsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param UserRepository $userRepository
+     * @param ProfileRepository $profileRepository
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
