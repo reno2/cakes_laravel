@@ -64,8 +64,8 @@ class CommentsRequest extends FormRequest
             ],
             'question'   => [
                 'required',
-                'between:10,255',
-                'alpha_dash',
+                'between:6,255',
+                'regex:/[а-яА-Я0-9 -.]+/',
             ]
         ];
     }
@@ -75,7 +75,7 @@ class CommentsRequest extends FormRequest
     {
         return [
             'name.required' => 'Поле объязательное',
-            'question.alpha_dash' => 'Поле должно содержать только алфавитные символы, цифры, знаки подчёркивания (_) и дефисы (-).',
+            'question.regex' => 'Поле должно содержать только алфавитные символы, цифры, и дефисы (-).',
             'question.required' => 'Поле объязательное',
             'question.between' => 'Значение :attribute должно быть от :min и до :max. символов',
         ];
