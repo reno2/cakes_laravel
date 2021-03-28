@@ -6359,6 +6359,33 @@ readers do not read off random characters that represent icons */
   display: none;
 }
 
+.ad__img {
+  position: relative;
+}
+
+.ad__tags {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  z-index: 2;
+}
+
+.ad__tag {
+  background: #f1cb32;
+  padding: 0px 8px;
+  border-radius: 14px;
+  box-shadow: 0 0 0.875rem 0 rgba(41, 48, 66, 0.05);
+}
+
+.ad__tag:not(:first-child) {
+  margin-left: 8px;
+}
+
+.ad__tag__link {
+  font-weight: 600;
+}
+
 @media (max-width: 767px) {
   .ad__mobile {
     display: block;
@@ -6502,15 +6529,6 @@ readers do not read off random characters that represent icons */
   fill: #000;
 }
 
-a {
-  color: #3f4254;
-}
-
-a:hover {
-  color: #8950fc !important;
-  text-decoration: none;
-}
-
 .ava {
   position: relative;
   margin-bottom: 8px;
@@ -6609,5 +6627,16 @@ a:hover {
 .info-badge.blue:hover {
   color: #fff;
   background-color: #3699ff;
+}
+
+.info-small {
+  background: #f00;
+  color: #ffffff;
+  border-radius: 100px;
+  width: 15px;
+  font-size: 9px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
 }
 

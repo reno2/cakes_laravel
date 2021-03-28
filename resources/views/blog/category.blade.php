@@ -16,27 +16,24 @@
 {{--    @include('chunks.beadcrumbs')--}}
     <div class="container">
         <div class="row">
-          @if(isset($tag))
-            {{ Breadcrumbs::render('tag', $tag) }}
-            @else
-                {{ Breadcrumbs::render('category', $category) }}
-            @endif
+{{--          @if(isset($tag))--}}
+{{--            {{ Breadcrumbs::render('tag', $tag) }}--}}
+{{--            @else--}}
+{{--                {{ Breadcrumbs::render('category', $category) }}--}}
+{{--            @endif--}}
         </div>
     </div>
 
     <div class="container">
 
         <div class="row">
-        @forelse($articles as $article)
-
-
-                @include('chunks.listItem', ['article' => $article])
-
+            @forelse($ads as $key => $ad)
+                @include('ads.ad')
             @empty
-            <h2 class="text-center">Пусто</h2>
-        @endforelse
+                <div>Никаких объявлений не отложенно</div>
+            @endforelse
         </div>
-        {{$articles->links()}}
+        {{$ads->links()}}
     </div>
 
 @endsection

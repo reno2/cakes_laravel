@@ -20,19 +20,9 @@ class BlogController extends Controller
     public function front(Request $request)
     {
         $ads               = Article::orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);
-        $favorites_profile = null;
-        $profileRepository = new ProfileRepository();
-        if ($user = Auth::user()) {
-            $profile           = $profileRepository->getFirstProfileByUser(Auth::id());
-            $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
-        }
-        $rr = json_decode(Cookie::get('favorites'));
         return view('front', [
             'ads' => $ads,
-            'favorites_cookies' => json_decode(Cookie::get('favorites')),
-            'favorites_profile' => $favorites_profile
         ]);
-
     }
 
     public function favorites(Request $request, ProfileRepository $profileRepository)
@@ -41,15 +31,16 @@ class BlogController extends Controller
         $action = '';
 
         if (Auth::id()) {
+            $profile = $profileRepository->getFirstProfileByUser(Auth::id());
             if ($profileRepository->checkIfFavoritesIsSet($adsId)) {
-                $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->detach($adsId);
+                $profile->favoritePosts()->detach($adsId);
                 $action = 'del';
             } else {
-                $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->attach($adsId);
+                $profile->favoritePosts()->attach($adsId);
                 $action = 'add';
             }
-
-            return response($action, 200);
+            $count =  count($profileRepository->getFavoritesArray($profile->id));
+            return response(['action'=>$action, 'count' => $count], 200);
         } else {
 
             if (!json_decode(Cookie::get('favorites'))) {
@@ -66,11 +57,9 @@ class BlogController extends Controller
                     $action = 'del';
                 }
             }
-            $rrr = json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY);
-            $v = '';
+            $count = count($cookies);
             $cookies = cookie('favorites', json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY));
-
-            return response($action, 200)->cookie(
+            return response(['action'=>$action, 'count' => $count], 200)->cookie(
                 $cookies
             );
         }
@@ -78,14 +67,24 @@ class BlogController extends Controller
     }
 
 
+    public function favoritesList(){
 
+        if (Auth::check()) {
+            $ads = (new ProfileRepository)->favoritesListAuth();
+        }else{
+            $ads = (new ProfileRepository)->favoritesListNotAuth();
+        }
+        return view('blog.favorites', [
+            'ads' => $ads,
+            'favorites' => (new ProfileRepository)->getFavoritesIds()
+        ]);
+    }
 
 
     public function category($slug)
     {
-
-
         $category = Category::where('slug', $slug)->first();
+        $ads = $category->articles()->where('published', 0)->paginate(12);
         if (!$category) {
             abort(404);
         }
@@ -93,7 +92,7 @@ class BlogController extends Controller
 
         return view('blog.category', [
             'category' => $category,
-            'articles' => $category->articles()->where('published', 1)->paginate(12)
+            'ads' => $category->articles()->where('published', 1)->paginate(12)
         ]);
     }
 

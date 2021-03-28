@@ -14,12 +14,26 @@
                 @endforelse
             </div>
         @endif
+
+            <div class="ad__tags">
+                @if($ad->tags()->count())
+
+                        @foreach($ad->tags()->get()->toArray() as $tag)
+                            <div class="ad__tag">
+                            <a class="ad__tag__link" href="{{route('tag', $tag['name'])}}">{{$tag['name']}}</a>
+                            </div>
+                        @endforeach
+
+                @endif
+            </div>
     </div>
 
     <div class="ad__body card-body">
         <h5 class="ad__title card-title">{{$ad->title}}</h5>
-        <p class="ad__desc card-text">
-            Описание: </p>
+        <div class="category a-footer__el">
+            Категория: <a
+                href="{{route('category', $ad->categories->pluck('slug')->first())}}">{{$ad->categories->pluck('title')->first()}}</a>
+        </div>
         @if (isset($ads->tags))
             <p>Теги:
                 @foreach($ads->tags as $tag)
@@ -38,21 +52,19 @@
             <input type="hidden" name="id" value="{{$ad->id}}">
             <button type="submit" class="btn btn-default">
 
-                    @if(Auth::user() )
-                        @if($favorites_profile && in_array($ad->id, $favorites_profile))
-                            <i class="js_favoritesIcon fas fa-heart"></i>
-                        @else
-                            <i class="js_favoritesIcon far fa-heart"></i>
-                        @endif
+                @if(Auth::user() )
+                    @if($favorites && in_array($ad->id, $favorites))
+                        <i class="js_favoritesIcon fas fa-heart"></i>
                     @else
-                        @if($favorites_cookies && in_array($ad->id, $favorites_cookies))
-                            <i class="js_favoritesIcon fas fa-heart"></i>
-                        @else
-                            <i class="js_favoritesIcon far fa-heart"></i>
-                        @endif
-
+                        <i class="js_favoritesIcon far fa-heart"></i>
                     @endif
-
+                @else
+                    @if($favorites && in_array($ad->id, $favorites))
+                        <i class="js_favoritesIcon fas fa-heart"></i>
+                    @else
+                        <i class="js_favoritesIcon far fa-heart"></i>
+                    @endif
+                @endif
             </button>
         </form>
         @if($ad->user_id !== Auth::id())

@@ -5,7 +5,18 @@
         margin-right: 16px;
     }
 }
-
+.nav-item__logo{
+    width: 47%;
+}
+.favorites-block{}
+.favorites-block__link{
+    position: relative;
+}
+.favorites-block__info{
+    position: absolute;
+    top: 0;
+    right: -9px;
+}
 .i-svg{
     &.i-svg__sm{
         width:16px;

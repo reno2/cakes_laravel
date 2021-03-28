@@ -1,20 +1,13 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import "_variables";
 @import './forms_img';
 @import './comments';
 @import './ads';
 @import './modal';
 @import './forms';
 
-a{
-   color: rgb(63, 66, 84);
-
-}
-a:hover{
-    color: #8950fc!important;
-    text-decoration: none;
-}
 .ava{
     position: relative;
     margin-bottom: 8px;
@@ -98,7 +91,6 @@ a:hover{
 
 
 //block
-
 .block-title{
     margin-bottom: 24px;
     .block-title__main{
@@ -130,4 +122,15 @@ a:hover{
             background-color: #3699ff;
         }
     }
+}
+
+.info-small{
+    background: #f00;
+    color: #ffffff;
+    border-radius: 100px;
+    width: 15px;
+    font-size: 9px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
 }

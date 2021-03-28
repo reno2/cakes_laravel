@@ -53,7 +53,7 @@ class ProfileController extends Controller
     {
         $user              = Auth::user();
         $profile           = $userRepository->getUserProfileEdit($user->id);
-        $ads               = $profileRepository->getFavoritesWithPagination($user->id);
+        $ads               = $profileRepository->getFavoritesWithPagination($profile->id);
         $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
         //dd(count($favorites_profile));
         return view('profile.favorites', [
@@ -99,34 +99,6 @@ class ProfileController extends Controller
             ->route('profile.secure', ['user' => $newUser,])
             ->with(['message' => 'Данные пользователя изменены']);
 
-
-//        if (Hash::check($request->input('password'), $user->password)) {
-//            if (!Hash::check($request->input('new_password'), $user->password)) {
-//                try {
-//                    // Создаём пустой массив
-//                    $newUser = [];
-//                    // Проверяем если почта изменена, то добавляем в изменения
-//                    if ($request->input('email') !== $user->email) {
-//                        $newUser['email'] = $request->input('email');
-//                    }
-//                    // Создаём новый хеш
-//                    $newUser['password'] = Hash::make($request->input('new_password'));
-//                    $user->update($newUser);
-//                    // Сообщаем что всё гуд
-//                    return redirect()
-//                        ->route('profile.secure', ['user' => $user,])
-//                        ->with(['message' => 'Данные пользователя изменены']);
-//
-//                } catch (Exception $exception) {
-//                    session()->flash('message', $exception->getMessage());
-//                    return redirect()->route('profile.secure');
-//                }
-//            } else {
-//                return redirect()->back()->withInput()->withErrors(['password' => "Пароль не может бытьь равен текущему"]);
-//            }
-//        } else {
-//            return redirect()->back()->withInput()->withErrors(['password' => "Пароль не совпадает с текущим"]);
-//        }
     }
 
     public function update(
@@ -178,13 +150,14 @@ class ProfileController extends Controller
 
         if (Auth::id()) {
             if ($profileRepository->checkIfFavoritesIsSet($adsId)) {
-                $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->detach($adsId);
+                $count = $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->detach($adsId);
                 $action = 'del';
             } else {
-                $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->attach($adsId);
+                $count =$profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->attach($adsId);
                 $action = 'add';
-            }
 
+            }
+    $count->$count();
             return response($action, 200);
         } else {
 

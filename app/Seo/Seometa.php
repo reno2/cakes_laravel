@@ -1,7 +1,7 @@
 <?php
 namespace App\Seo;
 
-use App\Seo;
+use App\Models\Seo;
 use Illuminate\Support\Facades\DB;
 
 class Seometa{

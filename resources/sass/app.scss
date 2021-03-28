@@ -1,23 +1,35 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap');
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
 @import "header";
 
 button,
 input{
     outline: none;
 }
-
 button:focus,
 input:focus{
     outline: none;
 }
+*{
+    font-family: 'Open Sans', sans-serif;
+    color: #18191f;
+}
+a{
+    color: rgb(63, 66, 84);
+}
+a:hover{
+    color: $blue !important;
+    text-decoration: none;
+}
+
+
+
+
 .card{
     box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%);
     background: #fff;

@@ -18,11 +18,9 @@ class AdsRepository extends CoreRepository
     * Передаём id пользователя и
     * возвращаем коллекцию со связами
     */
-    public function getByCurrentProfileFavoritesAdsSortedDesc($id, $per = 9) {
-        $ids = (new ProfileRepository())->getFavoritesArray($id);
+    public function getByCurrentProfileFavoritesAdsSortedDesc($ids, $per = 9) {
+       // $ids = (new ProfileRepository())->getFavoritesArray($id);
         return $this->startCondition()->whereIn('id', $ids)->orderBy('created_at', 'desc')->paginate($per);
-
-
     }
 
     /*

@@ -6,31 +6,75 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\Profile as Model;
 use App\Repositories\CoreRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileRepository extends CoreRepository
 {
-//    /**
-//     * determins if the user role is Admin
-//     * @return bool
-//     */
-//    public function isAdmin(User $user)
-//    {
-//        return $user->role == self::ROLES['admin'];
-//    }
-//    /**
-//     * determins if the user role is Author
-//     * @return bool
-//     */
-//    public function isAuthor()
-//    {
-//        return Auth::user()->role == self::ROLES['author'];
-//    }
+
+    /*
+   * @return Collection - $ads возвращает коллекию отложенных объявлений
+   * Получаем связанный профиль пользователя
+   * Получаем из базы избранное
+   * Получаем из репозитория объявлений, коллекцию с пагинацией
+   */
+    public function favoritesListAuth()
+    {
+        $user     = Auth::user();
+        $profile  = (new userRepository)->getUserProfileEdit($user->id);
+        $ids      = $this->getFavoritesArray($profile->id);
+        return (new AdsRepository)->getByCurrentProfileFavoritesAdsSortedDesc($ids);
+    }
+
+    /*
+     * Получаем ид побъявлений из куки
+     * @return Collection - $ads возвращает коллекию отложенных объявлений
+     */
+    public function favoritesListNotAuth()
+    {
+        $ids = json_decode(Cookie::get('favorites'));
+        return (new AdsRepository)->getByCurrentProfileFavoritesAdsSortedDesc($ids);
+    }
+
+    public function getFavoritesIds(){
+        if (Auth::check()) {
+           $profileRepository = new ProfileRepository();
+           $profile           = $profileRepository->getFirstProfileByUser(Auth::id());
+           $adsIds = $profileRepository->getFavoritesArray($profile->id);
+        }else{
+           $adsIds =  json_decode(Cookie::get('favorites'));
+        }
+        return $adsIds;
+    }
+    /*
+    * @param model $user
+    * @return Array
+    * Получаем связанного пользователя
+    */
+    public function getFavoritesArray($id)
+    {
+        return DB::table('favorites')
+            ->select(array('article_id'))
+            ->where('profile_id', $id)
+            ->pluck('article_id')->toArray();
+
+    }
+    /*
+    * @param ind user id $id
+    * @return Collection
+    * Передаём id пользователя и
+    * возвращаем коллекцию со связами
+    */
+    public function getFavoritesWithPagination($ids, $per = 9)
+    {
+        return (new AdsRepository)->getByCurrentProfileFavoritesAdsSortedDesc($ids);
+    }
 
 
-    public function setProfileNameAfterRegister($id){
-        $profile = $this->getFirstProfileByUser($id)->update(['name'=>'Пользователь_'.$id]);
+    public function setProfileNameAfterRegister($id)
+    {
+        $profile = $this->getFirstProfileByUser($id)->update(['name' => 'Пользователь_' . $id]);
     }
 
     /*
@@ -70,7 +114,7 @@ class ProfileRepository extends CoreRepository
     public function getProfileImg($profile)
     {
         //dd($profile);
-        if ( Storage::exists($profile->image)) {
+        if (Storage::exists($profile->image)) {
             return (Storage::url($profile->image));
         } else {
             return Storage::url('images/avatar/default.svg');
@@ -133,34 +177,6 @@ class ProfileRepository extends CoreRepository
     public function getUserEdit($user)
     {
         return $this->startCondition()->user;
-    }
-
-    /*
-    * @param model $user
-    * @return Arra
-    * Получаем связанного пользователя
-    */
-    public function getFavoritesArray($id)
-    {
-        return  DB::table('favorites')
-            ->select(array('article_id'))
-            ->where('profile_id', $id)
-            ->pluck('article_id')->toArray();
-
-    }
-
-    /*
-    * @param ind user id $id
-    * @return Collection
-    * Передаём id пользователя и
-    * возвращаем коллекцию со связами
-    */
-    public function getFavoritesWithPagination($id, $per = 9 )
-    {
-       return (new AdsRepository)->getByCurrentProfileFavoritesAdsSortedDesc($id);
-//        return DB::table('articles')->where('user_id', $id)->orderBy('created_at', 'desc')->paginate($per);
-        //return  (new AdsRepository)->getByCurrentProfileAdsSortedDesc()
-
     }
 
     public function getTypes()

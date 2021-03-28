@@ -40,15 +40,6 @@ class ProfileServiceProvider extends ServiceProvider
 
                 $notReadComments = \DB::table('comments')
                     ->select('id')
-                    //->select('from_user_id', \DB::raw('COUNT(from_user_id) AS cnt, article_id'))
-//                    ->where([
-//                        ['user_id', '=', $userId],
-//                        ['recipient_read_at',  '=', null],
-//                    ])
-                   // ->where('recipient_read_at', null)
-                    //->where('user_id', Auth::id())
-
-
                     ->where('user_id', $userId)
                     ->where(function($query) {
                         $query->where('recipient_read_at', '=', null)

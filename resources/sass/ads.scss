@@ -6,7 +6,29 @@
     img{
 
     }
+    .ad__img{
+        position: relative;
+    }
+    .ad__tags{
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        display: flex;
+        z-index: 2;
+    }
+    .ad__tag{
 
+        background: #f1cb32;
+        padding: 0px 8px;
+        border-radius: 14px;
+        box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%);
+    }
+    .ad__tag:not(:first-child){
+        margin-left: 8px;
+    }
+    .ad__tag__link{
+        font-weight: 600;
+    }
 
 
 @media (max-width: 767px){

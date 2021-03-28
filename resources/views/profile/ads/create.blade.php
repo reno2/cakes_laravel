@@ -27,8 +27,8 @@
                 <label for="published" class="col-md-4 col-form-label text-md-right">Статус</label>
                 <div class="col-md-7">
                     <select name="published" class="form-control" id="published">
-                        <option value="0">Опубликовано</option>
-                        <option value="1">Не опубликовано</option>
+                        <option value="1">Опубликовано</option>
+                        <option value="0">Не опубликовано</option>
                     </select>
                 </div>
             </div>

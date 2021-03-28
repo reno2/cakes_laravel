@@ -85,13 +85,13 @@ Route::get('/autocomplete', "SearchController@autocomplete")->name('admin_autoco
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/', 'BlogController@front')->name('front');
-Route::get('/blog/category/{slug?}', 'BlogController@category')->name('category');
-Route::get('/blog/post/{slug?}/', 'BlogController@post')->name('post');
-
+Route::get('/category/{slug?}', 'BlogController@category')->name('category');
+Route::get('/post/{slug?}/', 'BlogController@post')->name('post');
+Route::get('/tag/{slug?}', 'BlogController@tag')->name('tag');
 
 Route::get('/', 'BlogController@front')->name('main');
 Route::post('/favorites', 'BlogController@favorites')->name('favorites');
-
+Route::get('/favorites', 'BlogController@favoritesList')->name('favorites_list');
 
 Route::get('/test-mail', function (){
 
