@@ -4,52 +4,11 @@
 @import "_variables";
 @import './forms_img';
 @import './comments';
-@import './ads';
+@import './ads_front';
 @import './modal';
 @import './forms';
 
-.ava{
-    position: relative;
-    margin-bottom: 8px;
-    .ava__block{
-        //margin: 16px 0;
-        //width:200px;
-        height: 250px;
-        overflow: hidden;
-        border-radius: 100%;
-        //border-radius: 9px;
-        border: 17px solid #eee;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #fff;
-        .ava__img{
-            //width: 134px;
-            width: 100%;
-        }
-    }
-    .ava__name{
-        //position: absolute;
-        font-weight: 900;
-        padding: 2px 10px;
-        font-size: 20px;
-        bottom: 0;
-        svg{
 
-        }
-    }
-}
-
-
-//Personal page
-.personal {
-    .personal_ul{
-        .personal_a{
-            font-size: 16px;
-            color:#252533;
-        }
-    }
-}
 
 
 // Form tags

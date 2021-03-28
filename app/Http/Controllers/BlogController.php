@@ -20,7 +20,7 @@ class BlogController extends Controller
     public function front(Request $request)
     {
         $ads               = Article::orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);
-        return view('front', [
+        return view('blog.front', [
             'ads' => $ads,
         ]);
     }

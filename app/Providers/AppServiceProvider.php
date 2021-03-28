@@ -50,6 +50,10 @@ class AppServiceProvider extends ServiceProvider
         {
             $view->with('favorites', $this->getIds()['ids']);
         });
+        view()->composer('ads.ad_front', function($view)
+        {
+            $view->with('favorites', $this->getIds()['ids']);
+        });
         view()->composer('layouts.app', function($view)
         {
             $view->with('favoritesCount', $this->getIds()['count']);

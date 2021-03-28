@@ -1,19 +1,22 @@
 // Fonts
-//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700:900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap');
 // Variables
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import "header";
-
+i,
 button,
 input{
     outline: none;
+    box-shadow:none;
 }
+i,
 button:focus,
 input:focus{
     outline: none;
+    box-shadow:none !important;
 }
 *{
     font-family: 'Open Sans', sans-serif;
@@ -23,29 +26,46 @@ a{
     color: rgb(63, 66, 84);
 }
 a:hover{
-    color: $blue !important;
+    color: $blue;
     text-decoration: none;
 }
-
-
-
-
-.card{
-    box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%);
-    background: #fff;
-    border:none;
-    .card-header{
-        background-color: none;
-        border:  none;
+h5, .h5 {
+    font-size: 18px;
+    margin: 0;
+}
+*{
+    box-sizing: border-box;
+}
+.container{
+    max-width: 1200px;
+    margin: auto;
+}
+@media (max-width: 1279px) {
+    .container {
+        margin: 0 24px;
     }
 }
-
-.svg_close{
-    width: 18px;
-    height: 18px;
-    fill: #1D2F3C;
-    cursor: pointer;
-    opacity: 0.54;
+@media (max-width: 767px) {
+    .container {
+        margin: 0 16px;
+    }
 }
+//.card{
+//    box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%);
+//    background: #fff;
+//    border:none;
+//    .card-header{
+//        background-color: none;
+//        border:  none;
+//    }
+//}
+
+//.svg_close{
+//    width: 18px;
+//    height: 18px;
+//    fill: #1D2F3C;
+//    cursor: pointer;
+//    opacity: 0.54;
+//}
 
 
