@@ -1,0 +1,25 @@
+.ad-author{
+    display: flex;
+    flex-wrap: wrap;
+    background: #f2f2f2;
+    align-items: flex-start;
+    border-radius: 10px;
+    padding: 16px;
+}
+.ad-author__ava{
+    width: 80px;
+}
+.ad-author__img{
+    width: 100%;
+    border-radius: 100px;
+    border: 4px solid $cream;
+}
+.ad-author__info {
+    margin-left: 16px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.ad-author__ads {
+
+}

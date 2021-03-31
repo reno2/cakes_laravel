@@ -6519,6 +6519,153 @@ readers do not read off random characters that represent icons */
   }
 }
 
+.ad-detail {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.ad-detail__left {
+  width: 60%;
+}
+
+.ad-detail__right {
+  width: 35%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10px;
+  height: 100%;
+  padding: 32px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.08), 0px 2px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+}
+
+.ad-detail__title {
+  font-size: 21px;
+  font-weight: 900;
+  justify-content: center;
+  width: 100%;
+}
+
+.ad-detail__price {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ffd5ad;
+  border-top: 1px solid #ffd5ad;
+  margin: 16px 0;
+  justify-content: center;
+}
+
+.ad-detail__pre {
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.ad-detail__amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: #e09392;
+}
+
+.ad-detail__symbol {
+  font-size: 25px;
+  font-weight: 700;
+  margin-left: 8px;
+  color: #e09392;
+}
+
+.ad-author {
+  display: flex;
+  flex-wrap: wrap;
+  background: #f2f2f2;
+  align-items: flex-start;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.ad-author__ava {
+  width: 80px;
+}
+
+.ad-author__img {
+  width: 100%;
+  border-radius: 100px;
+  border: 4px solid #f2f2f2;
+}
+
+.ad-author__info {
+  margin-left: 16px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.ask-question {
+  background: #0ec645;
+  height: 47px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #18191f;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ask-question.gray {
+  background: #f6f6f6;
+  color: #2e2e33;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.ask-question.gray i {
+  color: #2e2e33;
+}
+
+.ask-question.green {
+  background: #f24343;
+}
+
+.ask-question.light {
+  background: #ffd5ad;
+}
+
+.ask-question.light i,
+.ask-question.light span {
+  color: #9c0757;
+}
+
+.ask-question.dark {
+  background: #e09392;
+}
+
+.ask-question.dark i,
+.ask-question.dark span {
+  color: #ffd5ad;
+}
+
+.ask-question:hover {
+  box-shadow: 0 4px 8px rgba(254, 170, 89, 0.6);
+  background: #f2b604;
+  color: #fff;
+}
+
+.ask-question i {
+  margin-right: 8px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.ad__ask {
+  color: #2e2e33;
+  font-weight: 900;
+}
+
 .modal__wrap {
   display: none;
 }

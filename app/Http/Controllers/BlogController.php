@@ -96,7 +96,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function post($slug)
+    public function ads($slug)
     {
 
         $article = Article::where('slug', $slug)->first();
@@ -104,8 +104,8 @@ class BlogController extends Controller
 
         //MetaTag::setTags(['title'=> $article->title]);
         //dd($category->articles()->where('published', 0)->paginate(12));
-        return view('blog.post', [
-            'article' => $article,
+        return view('blog.ads', [
+            'ad' => $article,
             //'articles' => $category->articles()->where('published', 1)->paginate(12)
         ]);
     }

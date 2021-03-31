@@ -1,0 +1,47 @@
+.ad-detail{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+.ad-detail__left{
+    width: 60%;
+}
+.ad-detail__right{
+    width: 35%;
+    position: sticky;
+    top: 10px;
+    height: 100%;
+    padding: 32px;
+    @include shadow;
+}
+.ad-detail__title {
+    font-size: 21px;
+    font-weight: 900;
+    justify-content: center;
+    width: 100%;
+}
+.ad-detail__price{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $morkove;
+    border-top: 1px solid $morkove;
+
+    margin: 16px 0;
+    justify-content: center;
+}
+.ad-detail__pre{
+    font-size: 12px;
+    margin-right: 8px;
+}
+.ad-detail__amount{
+    font-size: 32px;
+    font-weight: 700;
+    color: $pink2;
+}
+.ad-detail__symbol{
+    font-size: 25px;
+    font-weight: 700;
+    margin-left: 8px;
+    color: $pink2;
+}
+

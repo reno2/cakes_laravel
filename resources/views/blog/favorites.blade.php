@@ -14,7 +14,7 @@
                 <div class="row justify-content-start ads">
 
                     @forelse($ads as $key => $ad)
-                        @include('ads.ad')
+                        @include('ads.ad_front')
                     @empty
                         <div>Никаких объявлений не отложенно</div>
                     @endforelse
