@@ -18,6 +18,10 @@ window.moment = require('moment');
 moment.locale('ru')
 moment().format()
 
+
+
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -48,3 +52,49 @@ Vue.component('addcomment', require('./components/AddComment.vue').default);
 const app = new Vue({
     el: '#app',
 });
+
+
+// import Swiper JS
+// import Swiper from 'swiper';
+//
+// import SwiperCore, { Navigation } from 'swiper';
+// SwiperCore.use([Navigation]);
+import Swiper from 'swiper/bundle';
+import 'swiper/swiper-bundle.css';
+
+const galleryThumbs = new Swiper('.ad-detail__navigation', {
+    loop: true,
+    slidesPerView: 5,
+    spaceBetween: 20,
+    observer: true,
+    observeParents: true,
+     freeMode: true,
+    loopedSlides: 3, //looped slides should be the same
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
+
+const swiper = new Swiper('.ad-detail__figure', {
+    direction: 'horizontal',
+    speed: 400,
+    spaceBetween: 100,
+    freeMode: true,
+    loopedSlides: 5,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    pagination: {
+        el: '.swiper-pagination',
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    thumbs: {
+        swiper: galleryThumbs,
+    },
+});
+

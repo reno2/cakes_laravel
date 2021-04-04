@@ -1,11 +1,15 @@
 // Fonts
 //@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700:900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700;900&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap');
 // Variables
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import "header";
+
+
 i,
 button,
 input{
@@ -19,8 +23,11 @@ input:focus{
     box-shadow:none !important;
 }
 *{
-    font-family: 'Open Sans', sans-serif;
+    //font-family: 'Open Sans', sans-serif;
     //font-family: 'Roboto', sans-serif;
+    //font-family: 'Fira Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+  //  font-family: 'Rubik', sans-serif;
     color: #18191f;
 }
 a{
@@ -68,5 +75,35 @@ h5, .h5 {
 //    cursor: pointer;
 //    opacity: 0.54;
 //}
+
+.btn-big{
+    font-size: 12px;
+    height: 55px;
+    padding: 0 10px;
+}
+.btn-main{
+    display: inline-flex;
+    align-items: center;
+    border-radius: 44px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    width: 100%;
+    justify-content: center;
+    background:  #82C831;
+    filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
+}
+.btn-second{
+    display: inline-flex;
+    align-items: center;
+    border-radius: 44px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    width: 100%;
+    justify-content: center;
+    background: #F8C6C6;
+    filter: drop-shadow(0px 4px 8px rgb(248 198 198 / 54%));
+}
 
 

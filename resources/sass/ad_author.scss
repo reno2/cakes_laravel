@@ -7,8 +7,20 @@
     padding: 16px;
 }
 .ad-author__ava{
-    width: 80px;
+    width: 55px;
 }
+.ad-author__name{
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+.ad-author__created{
+    color: $gray2;
+    line-height: 12px;
+}
+.ad-author__ads {
+    color: $gray2;
+ }
 .ad-author__img{
     width: 100%;
     border-radius: 100px;
@@ -20,6 +32,3 @@
     font-size: 12px;
 }
 
-.ad-author__ads {
-
-}

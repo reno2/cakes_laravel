@@ -1,0 +1,22 @@
+.tags{
+   display: flex;
+   margin-top: 24px;
+    align-content: center;
+}
+.tags__title{
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+}
+.tags__item{
+    display: inline-block;
+    font-size: 13px;
+    line-height: 18px;
+    color: #82C831;
+    text-transform: uppercase;
+    padding: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    background: rgba(130, 200, 49, 0.1);
+    border-radius: 24px;
+}
