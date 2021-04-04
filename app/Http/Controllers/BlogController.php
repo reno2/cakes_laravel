@@ -100,6 +100,7 @@ class BlogController extends Controller
     {
 
         $article = Article::where('slug', $slug)->first();
+        views($article)->record();
         SeometaFacade::setTags('article', $article->toArray());
 
         //MetaTag::setTags(['title'=> $article->title]);

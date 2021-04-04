@@ -1,47 +1,166 @@
 .ad-detail{
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-}
-.ad-detail__left{
-    width: 60%;
-}
-.ad-detail__right{
-    width: 35%;
-    position: sticky;
-    top: 10px;
-    height: 100%;
-    padding: 32px;
-    @include shadow;
+    //justify-content: space-between;
+    //height: 100%;
+    //flex-grow: 1;
+    //overflow: hidden;
+    //display: flex;
 }
 .ad-detail__title {
-    font-size: 21px;
-    font-weight: 900;
-    justify-content: center;
-    width: 100%;
+    font-size: 24px;
+    font-weight: 400;
 }
+.ad-detail__date{
+    margin: 0 0 16px 0;
+    color: #8A8A8A;
+    font-weight: 500;
+    font-size: 12px;
+}
+.ad-detail__head {
+    margin-top: 40px;
+}
+.ad-detail__top{
+    display: flex;
+}
+.ad-detail__right {
+    height: auto;
+}
+.ad-detail__form{
+    width: 390px;
+    position: sticky;
+    top: 10px;
+    padding: 32px;
+    @include block;
+}
+
 .ad-detail__price{
     display: flex;
     align-items: center;
-    border-bottom: 1px solid $morkove;
-    border-top: 1px solid $morkove;
-
-    margin: 16px 0;
-    justify-content: center;
+    margin: 0 0 24px 0;
+    justify-content: start;
 }
+
 .ad-detail__pre{
     font-size: 12px;
     margin-right: 8px;
 }
 .ad-detail__amount{
     font-size: 32px;
-    font-weight: 700;
-    color: $pink2;
+    font-weight: 500;
+    color: #000;
+    line-height: 100%;
 }
 .ad-detail__symbol{
-    font-size: 25px;
-    font-weight: 700;
+    font-size: 20px;
     margin-left: 8px;
-    color: $pink2;
+    line-height: unset;
+}
+.ad-detail__ask{
+    margin-bottom: 16px;
+}
+.ad-detail__phone{
+    margin-bottom: 16px;
+}
+//photos
+.ad-detail__left{
+    margin-right: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 730px;
+}
+.ad-detail__nav,
+.ad-detail__block{
+    padding: 24px;
+    box-sizing: content-box;
+    background: #fff;
+    @include block;
+    border-radius: 9px;
+    overflow: hidden;
+    display: flex;
+ }
+.ad-detail__nav{
+    margin-top: 24px;
+}
+//big
+.ad-detail__figure{
+    height: 100%;
+    width: 677px;
+    position: relative;
+}
+.ad-detail__cover{
+   width: 100%;
+    max-width: 100%;
+}
+.ad-detail__img{
+    width: 677px;
+    height: 100%;
+    object-fit: contain;
+}
+//small
+.ad-detail__navigation{
+    position: relative;
+
+}
+.ad-detail__small{
+    height: 150px;
+    width: 150px;
 }
 
+//form bottom
+.ad-detail__form__actions {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ad-detail__views{
+    font-size: 18px;
+    display: flex;
+    align-content: center;
+}
+.ad-detail__views__icon{
+    color: $pink;
+}
+.ad-detail__views__count{
+    margin-left: 8px;
+    color: $pink;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+}
+.ad-detail__favorites button{
+    font-size: 18px;
+}
+
+
+//bottom
+.ad-detail__bottom{
+    margin-top: 40px;
+    width: 730px;
+}
+.ad-detail__subtitle{
+    font-weight: 500;
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+.ad-detail__subtitle:not(:first-child){
+    margin-top: 24px;
+}
+//.ad-detail__figure{
+//    width: 620px;
+//    overflow: hidden;
+//    position: relative;
+//    height: 500px;
+//
+//}
+//
+//.ad-detail__block__thumb{
+//    margin-top: 24px;
+//}
+//.ad-detail__thumb{
+//    overflow: hidden;
+//}
+//.ad-detail__thumb .ad__img{
+//    width: 100px;
+//    height: 100px;
+//}

@@ -181,6 +181,7 @@ return [
         App\Providers\WidgetServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\ProfileServiceProvider::class,
+        CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
     ],
 
     /*

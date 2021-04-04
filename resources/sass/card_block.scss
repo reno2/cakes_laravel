@@ -1,0 +1,11 @@
+.card-block{
+    display: flex;
+    flex-direction: column;
+}
+.card-block__bottom{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $gray;
+    margin-top: 24px;
+    padding-top: 16px;
+}

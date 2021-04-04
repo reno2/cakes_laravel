@@ -24,9 +24,11 @@ class AppServiceProvider extends ServiceProvider
     {
 
     }
-
+    public $ids = null;
     public function getIds(){
-        $ids = (new ProfileRepository)->getFavoritesIds();
+        if(!$this->ids)
+            $ids = (new ProfileRepository)->getFavoritesIds();
+        else $ids = $this->ids;
         $count =  $ids ? count($ids) : 0;
         return ['ids' => $ids, 'count' => $count];
     }
@@ -46,6 +48,10 @@ class AppServiceProvider extends ServiceProvider
         Article::observe(ArticleObserver::class);
         User::observe(UserObserver::class);
 
+        view()->composer('ads.ad_detail', function($view)
+        {
+            $view->with('favorites', $this->getIds()['ids']);
+        });
         view()->composer('ads.ad', function($view)
         {
             $view->with('favorites', $this->getIds()['ids']);

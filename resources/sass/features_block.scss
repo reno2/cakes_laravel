@@ -1,0 +1,16 @@
+.ad-features{
+    display: flex;
+    flex-direction: column;
+}
+.ad-features__row{
+    display: flex;
+    margin-bottom: 8px;
+}
+.ad-features__name{
+    font-weight: 600;
+}
+.ad-feature__dote {
+    border-bottom: 1px dashed #D7DBDE;
+    flex-grow: 1;
+}
+.ad-features__value{}

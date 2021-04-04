@@ -12,9 +12,13 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\File;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model implements HasMedia
+
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+
+class Article extends Model implements HasMedia, Viewable
 {
-    use HasMediaTrait, Notifiable;
+    use HasMediaTrait, Notifiable, InteractsWithViews;
 
     // Mutators
 //    public function setSlugAttribute($value)
@@ -117,7 +121,14 @@ class Article extends Model implements HasMedia
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->fit('fill', 250, 250);
+                    ->fit('fill', 265, 265);
+            });
+        $this
+            ->addMediaCollection('cover')
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('detail')
+                    ->fit('fill', 677, 520);
             });
     }
 
