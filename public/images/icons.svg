@@ -1,5 +1,9 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
+        <symbol id="icon-arrow" viewBox="0 0 13 12">
+            <path d="M6.53125 2.71875L5.95293 3.29707L8.2416 5.58984L3.25 5.58984L3.25
+            6.41016L8.2416 6.41016L5.95293 8.70293L6.53125 9.28125L9.8125 6L6.53125 2.71875Z"/>
+        </symbol>
         <symbol id="icon-close" viewBox="0 0 32 32">
             <title>close</title>
             <path xmlns="http://www.w3.org/2000/svg"

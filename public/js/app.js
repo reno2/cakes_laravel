@@ -90551,15 +90551,15 @@ var galleryThumbs = new swiper_bundle__WEBPACK_IMPORTED_MODULE_1__["default"]('.
   watchSlidesVisibility: true,
   watchSlidesProgress: true,
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
+    nextEl: '.arrow__right',
+    prevEl: '.arrow__left'
   }
 });
 var swiper = new swiper_bundle__WEBPACK_IMPORTED_MODULE_1__["default"]('.ad-detail__figure', {
   direction: 'horizontal',
   speed: 400,
   spaceBetween: 100,
-  freeMode: true,
+  freeMode: false,
   loopedSlides: 5,
   watchSlidesVisibility: true,
   watchSlidesProgress: true,
@@ -90567,8 +90567,8 @@ var swiper = new swiper_bundle__WEBPACK_IMPORTED_MODULE_1__["default"]('.ad-deta
     el: '.swiper-pagination'
   },
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
+    nextEl: '.arrow__right',
+    prevEl: '.arrow__left'
   },
   thumbs: {
     swiper: galleryThumbs

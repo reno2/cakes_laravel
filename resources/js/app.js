@@ -73,8 +73,8 @@ const galleryThumbs = new Swiper('.ad-detail__navigation', {
     watchSlidesVisibility: true,
     watchSlidesProgress: true,
     navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.arrow__right',
+        prevEl: '.arrow__left',
     },
 });
 
@@ -82,7 +82,7 @@ const swiper = new Swiper('.ad-detail__figure', {
     direction: 'horizontal',
     speed: 400,
     spaceBetween: 100,
-    freeMode: true,
+    freeMode: false,
     loopedSlides: 5,
     watchSlidesVisibility: true,
     watchSlidesProgress: true,
@@ -90,8 +90,8 @@ const swiper = new Swiper('.ad-detail__figure', {
         el: '.swiper-pagination',
     },
     navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.arrow__right',
+        prevEl: '.arrow__left',
     },
     thumbs: {
         swiper: galleryThumbs,

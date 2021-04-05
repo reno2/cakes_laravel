@@ -19,8 +19,17 @@
                                      src="{{$cover->getUrl('detail')}}">
                             @endforeach
                         </div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
+                        <div class="arrow-big arrow__left">
+                            <svg class="arrow-big__direct svg_close">
+                                <use xlink:href="{{asset('images/icons.svg#icon-arrow')}}"></use>
+                            </svg>
+                        </div>
+                        <div class="arrow-big arrow__right">
+                            <svg class="arrow-big__direct svg_close">
+                                <use xlink:href="{{asset('images/icons.svg#icon-arrow')}}"></use>
+                            </svg>
+                        </div>
+
                     @endif
                 </div>
             </div>
@@ -34,8 +43,16 @@
                             @endforeach
                         </div>
 
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
+                        <div class="arrow-big arrow__left">
+                            <svg class="arrow-big__direct svg_close">
+                                <use xlink:href="{{asset('images/icons.svg#icon-arrow')}}"></use>
+                            </svg>
+                        </div>
+                        <div class="arrow-big arrow__right">
+                            <svg class="arrow-big__direct svg_close">
+                                <use xlink:href="{{asset('images/icons.svg#icon-arrow')}}"></use>
+                            </svg>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -59,8 +76,6 @@
                     <div class="ad-detail__amount">
                         {{$ad->price}} руб.
                     </div>
-                    {{--                    <div class="ad-detail__symbol">руб.</div>--}}
-                    {{--                    <i class="ad-detail__symbol fas fa-ruble-sign"></i>--}}
                 </div>
 
                 <a class="ad-detail__ask js_modal btn-main btn-big" href="#"
@@ -73,7 +88,6 @@
                    data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
                   показать номер
                 </a>
-
                 <div class="ad-detail__author ad-author">
                     <div class="ad-author__ava">
                         <img class="ad-author__img" src="{{Storage::url($ad->user->profiles->first()->image)}}">

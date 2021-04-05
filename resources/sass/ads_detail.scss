@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     margin: 0 0 24px 0;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .ad-detail__pre{
@@ -124,7 +124,7 @@
 .ad-detail__views__count{
     margin-left: 8px;
     color: $pink;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     font-size: 12px;
     font-weight: 600;
 }

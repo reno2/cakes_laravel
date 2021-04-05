@@ -40,8 +40,6 @@
                 <i class="fas fa-envelope"></i>
                 <span class="ad__ask">&#32 задать вопрос</span>
             </a>
-
-
                     <form action="{{route('profile.favorites')}}" method="post" class="@if(Auth::user()) auth @else guest @endif js_favorites">
                         {{csrf_field()}}
                         <input type="hidden" name="id" value="{{$ad->id}}">
