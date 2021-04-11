@@ -29,6 +29,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -54,7 +55,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
+                                <a href="{{ route('login.driver', 'google') }}"
+                                   class="btn btn-secondary">{{ __('Google Sign in') }}</a>
+                                <a href="{{ route('login.driver', 'vkontakte') }}"
+                                   class="btn btn-danger">{{ __('Vk Sign in') }}</a>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
@@ -63,6 +67,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

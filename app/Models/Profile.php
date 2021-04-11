@@ -20,6 +20,17 @@ class Profile extends Model implements HasMedia
         'company'=>'Компания'
     ];
 
+//    /**
+//     * Получаем аватарку пользователя
+//     *
+//     * @param  string  $image
+//     * @return string
+//     */
+//    public function getFirstNameAttribute($image)
+//    {
+//        return ucfirst($value);
+//    }
+
     public function user(){
         return $this->hasOne('App\Models\User');
     }

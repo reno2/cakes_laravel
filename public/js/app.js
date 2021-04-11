@@ -91652,10 +91652,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\OperServer\domains\lara-auth.loc\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! E:\OperServer\domains\lara-auth.loc\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! E:\OperServer\domains\lara-auth.loc\resources\sass\frontend.scss */"./resources/sass/frontend.scss");
-module.exports = __webpack_require__(/*! E:\OperServer\domains\lara-auth.loc\resources\sass\backend.scss */"./resources/sass/backend.scss");
+__webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\sass\frontend.scss */"./resources/sass/frontend.scss");
+module.exports = __webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\sass\backend.scss */"./resources/sass/backend.scss");
 
 
 /***/ })
