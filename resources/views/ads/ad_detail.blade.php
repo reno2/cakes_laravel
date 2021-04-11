@@ -90,7 +90,7 @@
                 </a>
                 <div class="ad-detail__author ad-author">
                     <div class="ad-author__ava">
-                        <img class="ad-author__img" src="{{Storage::url($ad->user->profiles->first()->image)}}">
+                        <img class="ad-author__img" src="{{$ad->user->profiles->first()->image}}">
                     </div>
                     <div class="ad-author__info">
                         <div class="ad-author__name">
