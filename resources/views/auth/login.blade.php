@@ -56,7 +56,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
+                                <a href="{{ route('login.driver', 'google') }}"
+                                   class="btn btn-secondary">{{ __('Google Sign in') }}</a>
+                                <a href="{{ route('login.driver', 'vkontakte') }}"
+                                   class="btn btn-danger">{{ __('Vk Sign in') }}</a>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
@@ -65,6 +68,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

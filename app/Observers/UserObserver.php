@@ -19,6 +19,9 @@ class UserObserver
     public function created(User $user)
     {
 
+//        $user->profiles()->create();
+//        (new ProfileRepository())->setProfileNameAfterRegister($user->id);
+
         $userTo = User::find(1);
         if($userTo) {
             $data = [

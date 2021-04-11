@@ -6514,12 +6514,6 @@ readers do not read off random characters that represent icons */
   color: #f279b1;
 }
 
-@media (max-width: 767px) {
-  .container {
-    margin: 0 16px;
-  }
-}
-
 .ad-detail__title {
   font-size: 24px;
   font-weight: 400;
@@ -6918,6 +6912,11 @@ readers do not read off random characters that represent icons */
   text-align: left;
 }
 
+.reg-form__row {
+  display: flex;
+  justify-content: space-between;
+}
+
 .js_formError {
   display: none;
 }
@@ -6931,6 +6930,132 @@ readers do not read off random characters that represent icons */
   top: 8px;
   right: 8px;
   fill: #000;
+}
+
+.form__label {
+  font-weight: 600;
+  font-size: 10px;
+  color: #6e7d97;
+}
+
+.form__input {
+  border: 1px solid #ebecf3;
+  border-radius: 5px;
+  height: 41px;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.reg-form {
+  width: 766px;
+  display: flex;
+  margin: 0 auto;
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border-radius: 9px;
+}
+
+.reg-form__left {
+  flex-grow: 1;
+  display: flex;
+  width: 50%;
+  background: #82c831;
+  justify-content: center;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  position: relative;
+}
+
+.reg-form__figure {
+  width: 84%;
+}
+
+.reg-form__right {
+  flex-shrink: 0;
+  width: 50%;
+  padding: 80px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.reg-form__sub {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #b1b2b9;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.reg-form__title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #344055;
+}
+
+.reg-form__login {
+  color: #b1b2b9;
+  font-size: 12px;
+}
+
+.reg-form_form {
+  margin-top: 32px;
+}
+
+.reg-form__group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.reg-form__subtitle {
+  color: #b1b2b9;
+  text-align: center;
+  margin: 0px 0 8px 0;
+  padding-bottom: 0px;
+  text-transform: uppercase;
+  font-size: 10px;
+  position: relative;
+  z-index: 99999;
+  background: #fff;
+}
+
+.login-form {
+  width: 450px;
+  display: flex;
+  margin: 0 auto;
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border-radius: 9px;
+  padding: 80px 40px 24px;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+}
+
+@media (max-width: 767px) {
+  .reg-form__left {
+    display: none;
+  }
+
+  .reg-form {
+    width: 100%;
+  }
+
+  .reg-form__right {
+    width: 100%;
+  }
+
+  .reg-form__title {
+    font-size: 24px;
+  }
+
+  .reg-form__sub {
+    font-size: 8px;
+  }
 }
 
 .ad-features {
@@ -7033,6 +7158,49 @@ readers do not read off random characters that represent icons */
   fill: #82c831;
   width: 24px;
   height: 24px;
+}
+
+.ava {
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border-radius: 9px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 9px;
+}
+
+.ava .ava__block {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.ava .ava__block .ava__img {
+  width: 100%;
+  border-radius: 7px;
+}
+
+.ava .ava__name {
+  font-weight: 500;
+  padding: 7px 10px;
+  font-size: 14px;
+  margin-top: 24px;
+  width: 100%;
+  border-radius: 9px;
+  text-align: center;
+  border: 2px solid #cbf0ff;
+  color: #868686;
+}
+
+.personal .personal_ul .personal_a {
+  font-size: 16px;
+  color: #252533;
 }
 
 .select2 {
