@@ -21,14 +21,6 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /*
-     * Переопределяем метод для вывода формы авторизации
-     */
-    public function showLoginForm()
-    {
-        return view('forms.form_half_login');
-    }
-
     /**
      * Where to redirect users after login.
      *

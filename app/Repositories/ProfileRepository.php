@@ -146,15 +146,13 @@ class ProfileRepository extends CoreRepository
     }
 
     /*
-    * @param Ind|Model $id или модель Пользовтеля
+    * @param Ind $id Пользовтеля
     * @return Model
     * Получаем связанный профиль
     */
-    public function getFirstProfileByUser($user)
+    public function getFirstProfileByUser($id)
     {
-        if(!is_object($user))
-            $user = \DB::table('users')->find($user);
-        return $this->startCondition()->where('user_id', $user->id)->first();
+        return $this->startCondition()->where('user_id', $id)->first();
     }
 
     /*

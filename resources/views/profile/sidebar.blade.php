@@ -1,14 +1,14 @@
 <div class="ava">
     <div class="ava__block">
         <img class="ava__img"
-             src="{{ (!empty($profile->image)) ? $profile->image :  '/storage/images/avatar/default.svg'}}"
+             src="{{ (!empty($profile->image)) ? Storage::url($profile->image) :  '/storage/images/avatar/default.svg'}}"
              alt="Card image cap">
     </div>
-
+    <a href="{{route('profile.edit')}}" class="ava__name">{{ $profile->name ?? ''}}
+         <svg class="i-svg i-svg__sm i-svg__bgLink"><use xlink:href="/images/icons.svg#icon-edit"></use></svg>
+    </a>
 </div>
-<a href="{{route('profile.edit')}}" class="ava__name">{{ $profile->name ?? ''}}
-    <svg class="i-svg i-svg__sm i-svg__bgLink"><use xlink:href="/images/icons.svg#icon-edit"></use></svg>
-</a>
+
 <div class="card personal">
     <div class="card-header">Меню - {{Auth::id()}}</div>
     <ul class="list-group list-group-flush personal_ul">

@@ -17,3 +17,22 @@
     top: 0;
     right: -9px;
 }
+.i-svg{
+    &.i-svg__sm{
+        width:16px;
+        height: 16px;
+    }
+    &.i-svg__md{
+        width:30px;
+        height: 30px;
+    }
+    &.i-svg__bgGrey{
+        fill: #808080;
+    }
+    &.i-svg__bgLink{
+        fill: #3490dc;
+    }
+    &.i-svg__bgDark{
+        fill: #a5a5a5;
+    }
+}

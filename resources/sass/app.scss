@@ -8,7 +8,6 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import "header";
-@import "modificators";
 
 
 i,
@@ -16,7 +15,6 @@ button,
 input{
     outline: none;
     box-shadow:none;
-    border: none;
 }
 i,
 button:focus,
@@ -51,74 +49,61 @@ h5, .h5 {
     margin: auto;
 }
 @media (max-width: 1279px) {
-
+    .container {
+        margin: 0 24px;
+    }
 }
 @media (max-width: 767px) {
     .container {
-        margin: auto ;
+        margin: 0 16px;
     }
 }
+//.card{
+//    box-shadow: 0 0 0.875rem 0 rgb(41 48 66 / 5%);
+//    background: #fff;
+//    border:none;
+//    .card-header{
+//        background-color: none;
+//        border:  none;
+//    }
+//}
 
-//===============================ICONS AND BTM===========================//
-.i-svg{
-    &.i-svg__sm{
-        width:16px;
-        height: 16px;
-    }
-    &.i-svg__md{
-        width:30px;
-        height: 30px;
-    }
-    &.i-svg__lg{
-        width:45px;
-        height: 45px;
-    }
-    &.i-svg__bgGrey{
-        fill: #808080;
-    }
-    &.i-svg__bgLink{
-        fill: #3490dc;
-    }
-    &.i-svg__bgDark{
-        fill: #a5a5a5;
-    }
-}
+//.svg_close{
+//    width: 18px;
+//    height: 18px;
+//    fill: #1D2F3C;
+//    cursor: pointer;
+//    opacity: 0.54;
+//}
+
 .btn-big{
     font-size: 12px;
     height: 55px;
     padding: 0 10px;
+}
+.btn-main{
     display: inline-flex;
     align-items: center;
     border-radius: 44px;
+    color: #fff;
+    text-transform: uppercase;
     letter-spacing: 0.8px;
     width: 100%;
     justify-content: center;
-    text-transform: uppercase;
-}
-.btn-half{
-    border-radius: 10px;
-}
-.btn-round{
-    border-radius: 100%;
-}
-//======= btn types
-.btn-shadow{
-    background: #ffffff;
-    @include block;
-    padding: 15px;
-}
-.btn-main{
-    color: #fff;
     background:  #82C831;
     filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
 }
 .btn-second{
+    display: inline-flex;
+    align-items: center;
+    border-radius: 44px;
     color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    width: 100%;
+    justify-content: center;
     background: #F8C6C6;
     filter: drop-shadow(0px 4px 8px rgb(248 198 198 / 54%));
 }
 
-.btn-def{
-    border: 1px solid #edeef4;
-    color: #657590 ;
-}
+

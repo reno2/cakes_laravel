@@ -101,11 +101,3 @@ Route::get('/test-mail', function (){
 
 
 });
-
-Route::get('login/{driver}', 'Auth\SocialController@redirect')
-    ->name('login.driver')
-    ->where('driver', implode('|', config('auth.socialite.drivers')));
-
-Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
-    ->name('login.callback')
-    ->where('driver', implode('|', config('auth.socialite.drivers')));

@@ -10924,13 +10924,26 @@ a.text-dark:focus {
   right: -9px;
 }
 
-.contentCenter {
-  display: flex;
-  justify-content: center;
+.i-svg.i-svg__sm {
+  width: 16px;
+  height: 16px;
 }
 
-.wideWidth {
-  width: 100%;
+.i-svg.i-svg__md {
+  width: 30px;
+  height: 30px;
+}
+
+.i-svg.i-svg__bgGrey {
+  fill: #808080;
+}
+
+.i-svg.i-svg__bgLink {
+  fill: #3490dc;
+}
+
+.i-svg.i-svg__bgDark {
+  fill: #a5a5a5;
 }
 
 i,
@@ -10938,7 +10951,6 @@ button,
 input {
   outline: none;
   box-shadow: none;
-  border: none;
 }
 
 i,
@@ -10977,84 +10989,49 @@ h5,
   margin: auto;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1279px) {
   .container {
-    margin: auto;
+    margin: 0 24px;
   }
 }
 
-.i-svg.i-svg__sm {
-  width: 16px;
-  height: 16px;
-}
-
-.i-svg.i-svg__md {
-  width: 30px;
-  height: 30px;
-}
-
-.i-svg.i-svg__lg {
-  width: 45px;
-  height: 45px;
-}
-
-.i-svg.i-svg__bgGrey {
-  fill: #808080;
-}
-
-.i-svg.i-svg__bgLink {
-  fill: #3490dc;
-}
-
-.i-svg.i-svg__bgDark {
-  fill: #a5a5a5;
+@media (max-width: 767px) {
+  .container {
+    margin: 0 16px;
+  }
 }
 
 .btn-big {
   font-size: 12px;
   height: 55px;
   padding: 0 10px;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 44px;
-  letter-spacing: 0.8px;
-  width: 100%;
-  justify-content: center;
-  text-transform: uppercase;
-}
-
-.btn-half {
-  border-radius: 10px;
-}
-
-.btn-round {
-  border-radius: 100%;
-}
-
-.btn-shadow {
-  background: #ffffff;
-  background: #FFFFFF;
-  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
-  border-radius: 9px;
-  padding: 15px;
 }
 
 .btn-main {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 44px;
   color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  width: 100%;
+  justify-content: center;
   background: #82C831;
   -webkit-filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
           filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
 }
 
 .btn-second {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 44px;
   color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  width: 100%;
+  justify-content: center;
   background: #F8C6C6;
   -webkit-filter: drop-shadow(0px 4px 8px rgba(248, 198, 198, 0.54));
           filter: drop-shadow(0px 4px 8px rgba(248, 198, 198, 0.54));
-}
-
-.btn-def {
-  border: 1px solid #edeef4;
-  color: #657590;
 }
 
