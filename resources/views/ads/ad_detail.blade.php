@@ -104,7 +104,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="ad-detail__form__actions">
                     <div class="ad-detail__views">
                         <i class="ad-detail__views__icon fas fa-eye"></i>
