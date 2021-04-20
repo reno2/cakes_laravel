@@ -119,8 +119,8 @@ class ProfileController extends Controller
             $newImage      = Image::make($uploadedImage)->fit(200, 200, function ($constraint) {
                 $constraint->upsize();
             }, 'center');
-            Storage::put($path, (string)$newImage->encode());
-            $url = Storage::url($path);
+            Storage::disk('public')->put($path, (string)$newImage->encode());
+            $url = Storage::disk('public')->url($path);
             $inputsArray['image'] = $url;
         }
 

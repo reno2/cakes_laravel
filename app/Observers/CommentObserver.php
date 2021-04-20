@@ -3,6 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Comment;
+use App\Models\User;
+use App\Notifications\CommentNotification;
+use Illuminate\Support\Facades\Notification;
 
 class CommentObserver
 {
@@ -14,7 +17,8 @@ class CommentObserver
      */
     public function created(Comment $comment)
     {
-        //
+        $userTo = User::find($comment);
+        Notification::send($userTo, new CommentNotification($comment));
     }
 
     /**

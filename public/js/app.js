@@ -2566,6 +2566,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -7907,7 +7913,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed{\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth .comment-item__link {\n    background: #48b0f7;\n    color: #fff;\n}\n.comment-item__actions{\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed{\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child{\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor:pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed{\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth h5,\n.comment-item__auth small,\n.comment-item__auth p {\n    color:#fff;\n}\n.comment-item__auth .comment-item__link {\n    background: #48b0f7;\n    color: #fff;\n}\n.comment-item__actions{\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed{\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child{\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor:pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n", ""]);
 
 // exports
 
@@ -91652,10 +91658,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\sass\frontend.scss */"./resources/sass/frontend.scss");
-module.exports = __webpack_require__(/*! E:\OperServer\domains\lara-auth.ru\resources\sass\backend.scss */"./resources/sass/backend.scss");
+__webpack_require__(/*! E:\OpenServer\domains\lara-auth.ru\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! E:\OpenServer\domains\lara-auth.ru\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\OpenServer\domains\lara-auth.ru\resources\sass\frontend.scss */"./resources/sass/frontend.scss");
+module.exports = __webpack_require__(/*! E:\OpenServer\domains\lara-auth.ru\resources\sass\backend.scss */"./resources/sass/backend.scss");
 
 
 /***/ })

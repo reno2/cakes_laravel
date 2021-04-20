@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('profile.index')}}">
+                            <a href="{{route('profile.notice.index')}}">
                                 <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
                                     <use xlink:href="/images/icons.svg#icon-msg"></use>
                                 </svg>

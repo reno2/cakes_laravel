@@ -61,6 +61,9 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/secure', 'ProfileController@secure')->name('profile.secure');
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
 
+        // Уведомления для пользователя
+        Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
+        Route::post('/notifications/read', 'ProfileNotificationsController@read')->name('profile.notice.read');
         // Comments
         Route::post('/comments/', 'CommentController@store')->name('comments.store');
         Route::post('/comments/{comment_id}', 'CommentController@answer')->name('comments.answer');

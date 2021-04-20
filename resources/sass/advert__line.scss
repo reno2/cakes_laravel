@@ -1,0 +1,22 @@
+.advert-line {
+  background: #fff;
+  margin-bottom: 8px;
+  display: flex;
+  padding: 16px;
+  @include block;
+}
+
+.advert-line__figure {
+  width: 100px;
+  margin-right: 24px;
+}
+
+.advert-line__img {
+  width: 100%;
+}
+
+.advert-line__title {
+  font-weight: 600;
+  font-size: 13px;
+  flex: 1 1 auto;
+}

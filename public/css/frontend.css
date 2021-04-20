@@ -7203,6 +7203,31 @@ readers do not read off random characters that represent icons */
   color: #252533;
 }
 
+.advert-line {
+  background: #fff;
+  margin-bottom: 8px;
+  display: flex;
+  padding: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border-radius: 9px;
+}
+
+.advert-line__figure {
+  width: 100px;
+  margin-right: 24px;
+}
+
+.advert-line__img {
+  width: 100%;
+}
+
+.advert-line__title {
+  font-weight: 600;
+  font-size: 13px;
+  flex: 1 1 auto;
+}
+
 .select2 {
   display: block;
   width: 100% !important;

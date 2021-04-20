@@ -51,6 +51,12 @@
         flex-direction: column;
         position: relative;
     }
+
+    .comment-item__auth h5,
+    .comment-item__auth small,
+    .comment-item__auth p {
+        color:#fff;
+    }
     .comment-item__auth .comment-item__link {
         background: #48b0f7;
         color: #fff;
