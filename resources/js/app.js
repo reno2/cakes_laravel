@@ -13,11 +13,13 @@ window.Vue = require('vue');
 import * as VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 
+import VueSocialSharing from 'vue-social-sharing'
+Vue.use(VueSocialSharing);
+
 require('./bootstrap');
 window.moment = require('moment');
 moment.locale('ru')
 moment().format()
-
 
 
 
@@ -42,6 +44,7 @@ Vue.component('filemultiinput-component', require('./components/FileMultiInputCo
 Vue.component('addresssearchstreet-component', require('./components/AddressSearchStreetComponent.vue').default);
 Vue.component('multifileupload-component', require('./components/MultiFileUploadComponent.vue').default);
 Vue.component('addcomment', require('./components/AddComment.vue').default);
+Vue.component('socialshare', require('./components/SocialShare.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

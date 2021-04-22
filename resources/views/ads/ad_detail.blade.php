@@ -180,10 +180,7 @@
         {{$ad->description}}
         <div class="card-block__bottom">
             <div class="card-block__social">
-                <a target="_blank"
-                   href="https://vk.com/share.php?url={{URL::current()}}&title={{$ad->title}}&noparse=true">
-                    <i class="fab fa-vk"></i>
-                </a>
+                <socialshare title="{{$ad->title}}" desc="{{$ad->description}}" url="{{$ad->slug}}"></socialshare>
             </div>
 
             <a class="card-block__report js_modal" href="">сообщить об ошибке</a>
@@ -257,5 +254,3 @@
 {{--        </div>--}}
 
 {{--    </div>--}}
-
-

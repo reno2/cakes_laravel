@@ -27,11 +27,13 @@
     },
     "dependencies": {
         "highlight.js": "^10.1.2",
+        "js-share": "^2.3.2",
         "md5": "^2.3.0",
         "moment": "^2.29.1",
         "select2": "^4.0.13",
         "sweetalert2": "^10.15.6",
         "swiper": "^6.5.3",
-        "vee-validate": "^3.4.5"
+        "vee-validate": "^3.4.5",
+        "vue-social-sharing": "^3.0.7"
     }
 }
