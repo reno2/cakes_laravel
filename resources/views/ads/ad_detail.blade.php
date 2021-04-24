@@ -86,7 +86,7 @@
                 <a class="ad-detail__phone js_modal btn-second btn-big" href="#"
                    data-user-name="{{$ad->user->profiles->first()->name}}"
                    data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
-                  показать номер
+                    показать номер
                 </a>
                 <div class="ad-detail__author ad-author">
                     <div class="ad-author__ava">
@@ -139,7 +139,6 @@
     </div>
 </div>
 <div class="ad-detail__bottom">
-
     <div class="ad-detail__subtitle">Характеристки</div>
     <div class="ad-detail__block ad-features">
         @if($ad->deal_address)
@@ -170,7 +169,7 @@
                 <div class="ad-features__name">Доставка</div>
                 <div class="ad-feature__dote"></div>
                 <div
-                    class="ad-features__value">{{($ad->delivery_self) ? "доставка возмодна" : "продавец не осуществляет доствку"}}</div>
+                        class="ad-features__value">{{($ad->delivery_self) ? "доставка возмодна" : "продавец не осуществляет доствку"}}</div>
             </div>
         @endif
     </div>
@@ -180,14 +179,18 @@
         {{$ad->description}}
         <div class="card-block__bottom">
             <div class="card-block__social">
-                <socialshare title="{{$ad->title}}" desc="{{$ad->description}}" url="{{$ad->slug}}"></socialshare>
+                <div class="card-block__social-title">Поделиться:</div>
+                <socialshare title="{{$ad->title}}"
+                             desc="{{$ad->description}}"
+                             url="{{config('app.url')}}/ads/{{$ad->slug}}"
+                             img="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
+                </socialshare>
             </div>
-
             <a class="card-block__report js_modal" href="">сообщить об ошибке</a>
-
         </div>
     </div>
 </div>
+
 
 {{--        @if($ad->getMedia('cover'))--}}
 {{--            <div class="ad__mobile">--}}

@@ -6516,7 +6516,7 @@ readers do not read off random characters that represent icons */
 
 .ad-detail__title {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .ad-detail__date {
@@ -6668,13 +6668,21 @@ readers do not read off random characters that represent icons */
 }
 
 .ad-detail__subtitle {
-  font-weight: 500;
-  font-size: 32px;
+  font-weight: 400;
+  font-size: 20px;
   margin-bottom: 16px;
 }
 
 .ad-detail__subtitle:not(:first-child) {
   margin-top: 24px;
+}
+
+.card-block__social {
+  display: flex;
+}
+
+.card-block__social-title {
+  margin-right: 8px;
 }
 
 .ad-author {
