@@ -21,7 +21,7 @@
     Vue.use(VueSocialSharing);
     export default {
         data: () => ({
-            networks: ['telegram', 'vk', 'facebook']
+            networks: ['telegram', 'vk', 'facebook', 'odnoklassniki']
         }),
         props: {
             title: '',
