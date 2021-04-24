@@ -3288,7 +3288,7 @@ Vue.use(vue_social_sharing__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      networks: ['telegram', 'vk', 'facebook']
+      networks: ['telegram', 'vk', 'facebook', 'odnoklassniki']
     };
   },
   props: {
