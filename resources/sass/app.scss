@@ -121,8 +121,20 @@ h5, .h5 {
     background: #F8C6C6;
     filter: drop-shadow(0px 4px 8px rgb(248 198 198 / 54%));
 }
-
+.btn-default{
+  background-color: #f6f6f6;
+  color: #198cff;
+  font-weight: 500;
+}
+.btn-default:hover{
+  background-color:#198cff33;
+  color: #198cff;
+}
 .btn-def{
     border: 1px solid #edeef4;
     color: #657590 ;
 }
+.marginLeftOne{
+  margin-left: 8px;
+}
+

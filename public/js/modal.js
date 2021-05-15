@@ -1,7 +1,10 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     // Обработка нажатия на кнопку открыть форму
     const formCreate = document.querySelectorAll('.js_modal')
     formCreate.forEach(formEl => formEl.addEventListener('click', modalForm))
+
+
 
     const questionForm = document.querySelector('.js_questionForm')
     if (questionForm) {
@@ -92,16 +95,20 @@ function showMessage(request, form) {
 function modalForm(event = null) {
     event.preventDefault();
     const modalTarget = this.getAttribute('data-modal')
-
     const modal = document.querySelector(`#${modalTarget}`)
-
+    if(this.getAttribute('data-url')){
+        modal.querySelector('input[name="url"]').value = this.getAttribute('data-url')
+    }
+    if(this.getAttribute('data-method')){
+        modal.querySelector('input[name="method"]').value = this.getAttribute('data-method')
+    }
     modal.classList.add('open')
+
 
 
     const userId = this.getAttribute('data-user-id')
     const userName = this.getAttribute('data-user-name')
     const adsId = this.getAttribute('data-ads-id')
-
     let user_id
     let article_id
     if (user_id = modal.querySelector('input[name="user_id"]'))

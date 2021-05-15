@@ -33,6 +33,7 @@
         "select2": "^4.0.13",
         "sweetalert2": "^10.15.6",
         "swiper": "^6.5.3",
+        "toastr": "^2.1.4",
         "vee-validate": "^3.4.5",
         "vue-social-sharing": "^3.0.7"
     }

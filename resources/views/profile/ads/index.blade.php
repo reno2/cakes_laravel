@@ -21,6 +21,27 @@
             </div>
             <div class="container">
                 <div class="profile-adverts__lines">
+                    <table cellpadding="16" class="profile-adverts__info">
+                        <tr>
+                            <td class="profile-adverts__item profile-adverts__img">Изображение</td>
+                            <td class="profile-adverts__item profile-adverts__title">Основное</td>
+                            <td class="profile-adverts__item profile-adverts__created">Создано</td>
+                            <td class="profile-adverts__item profile-adverts__updated">Изменено</td>
+                            <td class="profile-adverts__item profile-adverts__views">Просмотры</td>
+                            <td class="profile-adverts__item profile-adverts__favorites">Отложено</td>
+                            <td class="profile-adverts__item profile-adverts__actions">Действия</td>
+                        </tr>
+                    </table>
+
+{{--                    <div class="profile-adverts__info">--}}
+{{--                        <div class="profile-adverts__item profile-adverts__img">изображение</div>--}}
+{{--                        <div class="profile-adverts__item profile-adverts__title">основное</div>--}}
+{{--                        <div class="profile-adverts__item profile-adverts__created">создание</div>--}}
+{{--                        <div class="profile-adverts__item profile-adverts__updated">изменение</div>--}}
+{{--                        <div class="profile-adverts__item profile-adverts__views">просмотры</div>--}}
+{{--                        <div class="profile-adverts__item profile-adverts__favorites">отложено</div>--}}
+{{--                        <div class="profile-adverts__item profile-adverts__actions">действия</div>--}}
+{{--                    </div>--}}
                     @foreach($ads as $ad)
                         @include('ads.advert__line')
                     @endforeach
@@ -35,14 +56,8 @@
     </ul>
 @endsection
 {{--Тут подключаем нужные стили и скрипты для шаблонов форм--}}
+@include('forms.form_delete_ads')
 @section('page-script')
-    <link href="{{asset('css/libs/jQuery.Brazzers-Carousel.min.css')}}" rel="stylesheet"/>
-    <script src="{{asset('js/libs/jQuery.Brazzers-Carousel.min.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-            $(".ad__desc").brazzersCarousel();
-        })
-
-    </script>
+    <link rel="stylesheet" href="{{asset('css/b-toggle.css')}}">
 @stop
 

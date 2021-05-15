@@ -4,12 +4,11 @@
     @forelse($notifications as $notification)
         <div class="alert alert-success" role="alert">
             [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}] По Объявлению
-            <a href="{{ $notification->data['url'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.
+            <a href="/profile/comments/{{ $notification->data['all']['article_id']}}/{{ $notification->data['all']['from_user_id'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.
             <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
                 Прочитать
             </a>
         </div>
-
         @if($loop->last)
             <a href="#" id="mark-all">
                 Прочитать все

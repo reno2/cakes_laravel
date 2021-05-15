@@ -162,10 +162,12 @@ class ProfileRepository extends CoreRepository
     * @return Bool
     * Проверчем есть ли id поста в избранном
     */
-    public function checkIfFavoritesIsSet($id)
+    public function checkIfFavoritesIsSet($id, $userId)
     {
+        $profileId =  $this->getFirstProfileByUser($userId)->id;
         $res = DB::table('favorites')
             ->where('article_id', $id)
+            ->where('profile_id', $profileId)
             ->first();
 
         return !!$res;

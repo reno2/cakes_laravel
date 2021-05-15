@@ -49,13 +49,15 @@ class CommentNotification extends Notification implements ShouldQueue
     }
 
     public function prepareData(){
+
         $advert =  Article::find($this->data->article_id);
         $fromUserName = (new ProfileRepository)->getProfileNameByUserId($this->data->from_user_id);
         return [
             'advert' => $advert->title,
             'url' => $advert->slug,
             'from_user_name' => $fromUserName,
-            'comment' => $this->data->comment
+            'comment' => $this->data->comment,
+            'all' => $this->data
         ];
     }
 
@@ -67,7 +69,6 @@ class CommentNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        //dd($this->data);
-        return $this->prepareData();
+       return $this->prepareData();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ProfileRepository;
 use App\Seo\SeometaFacade;
+use CyrildeWit\EloquentViewable\Support\Period;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Article;
@@ -32,7 +33,7 @@ class BlogController extends Controller
 
         if (Auth::id()) {
             $profile = $profileRepository->getFirstProfileByUser(Auth::id());
-            if ($profileRepository->checkIfFavoritesIsSet($adsId)) {
+            if ($profileRepository->checkIfFavoritesIsSet($adsId, Auth::id())) {
                 $profile->favoritePosts()->detach($adsId);
                 $action = 'del';
             } else {
@@ -103,6 +104,11 @@ class BlogController extends Controller
         views($article)->record();
         SeometaFacade::setTags('article', $article->toArray());
 
+
+//        $rr = views($article)
+//            ->period(Period::pastDays(1))
+//            ->count();
+//        dd($rr);
         //MetaTag::setTags(['title'=> $article->title]);
         //dd($category->articles()->where('published', 0)->paginate(12));
         return view('blog.ads', [

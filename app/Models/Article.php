@@ -20,15 +20,7 @@ class Article extends Model implements HasMedia, Viewable
 {
     use HasMediaTrait, Notifiable, InteractsWithViews;
 
-    // Mutators
-//    public function setSlugAttribute($value)
-//    {
-//        if(isset($_REQUEST['slug__change']) && !empty($value)){
-//            $this->attributes['slug'] = Str::slug($value);
-//        }else{
-//            $this->attributes['slug'] = Str::slug($_REQUEST['title']);
-//        }
-//    }
+
 
     public function setTitleAttribute($value)
     {

@@ -6831,7 +6831,6 @@ readers do not read off random characters that represent icons */
   box-sizing: border-box;
   box-shadow: 0 4px 15px rgba(120, 160, 190, 0.3);
   border-radius: 10px;
-  max-width: 584px;
   margin: auto auto 24px;
   text-align: center;
   position: relative;
@@ -6896,6 +6895,14 @@ readers do not read off random characters that represent icons */
 .modal__wrap .modal__login {
   border-bottom: 1px solid #8950fc;
   color: #8950fc;
+}
+
+.modal__main {
+  max-width: 584px;
+}
+
+.modal__main {
+  max-width: 584px;
 }
 
 .select2 {
@@ -7211,6 +7218,31 @@ readers do not read off random characters that represent icons */
   color: #252533;
 }
 
+.profile-adverts__lines {
+  margin-top: 24px;
+}
+
+.profile-adverts__info {
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border-radius: 9px;
+  margin-bottom: 24px;
+}
+
+.profile-adverts__title {
+  width: 210px;
+}
+
+.profile-adverts__favorites,
+.profile-adverts__actions {
+  text-align: right;
+}
+
+.profile-adverts__item {
+  padding: 16px;
+  font-size: 12px;
+}
+
 .advert-line {
   background: #fff;
   margin-bottom: 8px;
@@ -7219,21 +7251,96 @@ readers do not read off random characters that represent icons */
   background: #FFFFFF;
   box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
   border-radius: 9px;
+  justify-content: flex-start;
 }
 
 .advert-line__figure {
   width: 100px;
-  margin-right: 24px;
+  margin-right: 16px;
 }
 
 .advert-line__img {
-  width: 100%;
+  width: 100px;
+}
+
+.advert-line__main {
+  width: 210px;
+  padding-left: 24px;
+}
+
+.advert-line__category {
+  font-size: 12px;
+}
+
+.advert-line__views {
+  flex-grow: 1;
+  justify-content: center;
+  display: flex;
+}
+
+.advert-line__views__inner {
+  display: flex;
+  align-items: center;
+}
+
+.advert-line__watches {
+  font-weight: 500;
+  font-size: 14px;
+  margin-right: 4px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  color: #989898;
+}
+
+.advert-line__today {
+  font-weight: 600;
+  color: #3699ff;
+  font-size: 14px;
+}
+
+.advert-line__favorites {
+  flex-grow: 1;
+  justify-content: center;
+  display: flex;
 }
 
 .advert-line__title {
   font-weight: 600;
   font-size: 13px;
-  flex: 1 1 auto;
+}
+
+.advert-line__created,
+.advert-line__updated {
+  font-size: 12px;
+  margin-right: 16px;
+}
+
+.advert-line__actions {
+  position: relative;
+  text-align: right;
+}
+
+.advert-line__actions .svg_menu {
+  fill: #8a8a8a;
+  cursor: pointer;
+}
+
+.advert-line__actions:hover .svg_menu {
+  fill: #04f2c6;
+}
+
+.advert-line__actions a {
+  font-size: 12px;
+}
+
+.advert-line__actions .btn {
+  padding: 0;
+  font-size: 12px;
+}
+
+table {
+  width: 100%;
 }
 
 .select2 {

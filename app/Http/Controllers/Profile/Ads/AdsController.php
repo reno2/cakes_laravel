@@ -180,7 +180,7 @@ class AdsController extends Controller
         }catch (\Exception $e){
             return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
         }
-        return redirect()->route('profile.ads.index')->with('success','Объявление полностью удалено');
+        return redirect()->route('profile.ads.index')->with('success', 'Объявление полностью удалено');
 
     }
 }

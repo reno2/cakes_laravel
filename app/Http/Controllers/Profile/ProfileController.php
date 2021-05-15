@@ -149,7 +149,7 @@ class ProfileController extends Controller
         $action = '';
 
         if (Auth::id()) {
-            if ($profileRepository->checkIfFavoritesIsSet($adsId)) {
+            if ($profileRepository->checkIfFavoritesIsSet($adsId, Auth::id())) {
                 $count = $profileRepository->getFirstProfileByUser(Auth::id())->favoritePosts()->detach($adsId);
                 $action = 'del';
             } else {
