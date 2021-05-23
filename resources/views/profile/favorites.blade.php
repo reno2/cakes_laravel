@@ -22,17 +22,14 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row justify-content-start ads">
-
+                <div class="row justify-content-start ads thirdWidth">
                     @forelse($ads as $key => $ad)
-                        @include('ads.ad')
+                        @include('ads.ad_front')
                     @empty
                         <div>Никаких объявлений не отложенно</div>
                     @endforelse
                 </div>
             </div>
-
-
         </div>
     </div>
     <ul class="pagination pull-right">
@@ -47,7 +44,6 @@
         $(document).ready(function () {
             $(".ad__desc").brazzersCarousel();
         })
-
     </script>
 @stop
 

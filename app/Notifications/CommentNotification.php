@@ -32,43 +32,45 @@ class CommentNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Отправляем на почту
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Создан новый пост')
-            ->line('Был создан новый материал с названием .' . $this->data['name']);
-    }
-
-    public function prepareData(){
-
-        $advert =  Article::find($this->data->article_id);
-        $fromUserName = (new ProfileRepository)->getProfileNameByUserId($this->data->from_user_id);
-        return [
-            'advert' => $advert->title,
-            'url' => $advert->slug,
-            'from_user_name' => $fromUserName,
-            'comment' => $this->data->comment,
-            'all' => $this->data
-        ];
+            ->subject($this->data['event_name'])
+            ->line('Вопрос к посту .' . $this->data['title'])
+            ->line('Ссылка .' . $this->data['url']);
     }
 
     /**
-     * Get the array representation of the notification.
+     * Записываем сообщение в базу
      *
      * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)
     {
-       return $this->prepareData();
+       return $this->data;
     }
+
+
+
+    //    public function prepareData(){
+    //        $advert =  Article::find($this->data->article_id);
+    //        $fromUserName = (new ProfileRepository)->getProfileNameByUserId($this->data->from_user_id);
+    //        return [
+    //            'event_name' => 'Задан вопрос',
+    //            'url' => '/ads/'.$advert->slug,
+    //            'title' => $advert->title,
+    //            'recipient' => $fromUserName,
+    //            'message' => $this->data->comment,
+    //        ];
+    //    }
 }

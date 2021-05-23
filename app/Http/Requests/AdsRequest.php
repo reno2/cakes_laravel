@@ -52,7 +52,7 @@ class AdsRequest extends FormRequest
             'price'   => "required|max:10|regex:/^\d+(\.\d{1,2})?$/",
             'categories'=> "required|array|not_in:0",
           //  'description'   => "required",
-            'image'   => "max:5",
+           'image'   => "max:5",
            'image.*' => "mimes:png,jpg,jpeg|max:20000",
         ];
     }

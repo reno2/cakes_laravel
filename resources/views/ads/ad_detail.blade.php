@@ -9,7 +9,7 @@
     </div>
     <div class="ad-detail__top">
         <div class="ad-detail__left">
-
+            @if(!$ad->getMedia('cover')->isEmpty())
             <div class="ad-detail__block">
                 <div class="ad-detail__figure swiper-container">
                     @if(!empty($ad->getMedia('cover')))
@@ -56,7 +56,9 @@
                     @endif
                 </div>
             </div>
-
+            @else
+                Пусто
+            @endif
             @if($ad->tags()->count())
                 <div class="tags">
                     <div class="tags__title">теги:</div>
@@ -183,7 +185,13 @@
                 <socialshare title="{{$ad->title}}"
                              desc="{{$ad->description}}"
                              url="{{config('app.url')}}/ads/{{$ad->slug}}"
-                             img="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
+                             img="
+                                    @if(!$ad->getMedia('cover')->isEmpty())
+                                     {{$ad->getMedia('cover')->first()->getUrl('thumb')}}
+                                     @else
+                                     {{url('storage/images/defaults/cake.svg')}}
+                                     @endif
+                                     ">
                 </socialshare>
             </div>
             <a class="card-block__report js_modal" href="">сообщить об ошибке</a>

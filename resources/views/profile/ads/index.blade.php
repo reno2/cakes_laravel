@@ -20,6 +20,11 @@
                 </div>
             </div>
             <div class="container">
+                <div class="profile-adverts__switch">
+                    <button class="btn-middle blue profile-adverts__link js_adsSwitcher active" data-status="published">Опубликованные</button>
+                    <button class="btn-middle blue profile-adverts__link js_adsSwitcher" data-status="not_published">Не опубликованные</button>
+                    <button class="btn-middle blue  profile-adverts__link js_adsSwitcher" data-status="moderate">Модерация</button>
+                </div>
                 <div class="profile-adverts__lines">
                     <table cellpadding="16" class="profile-adverts__info">
                         <tr>
@@ -33,18 +38,37 @@
                         </tr>
                     </table>
 
-{{--                    <div class="profile-adverts__info">--}}
-{{--                        <div class="profile-adverts__item profile-adverts__img">изображение</div>--}}
-{{--                        <div class="profile-adverts__item profile-adverts__title">основное</div>--}}
-{{--                        <div class="profile-adverts__item profile-adverts__created">создание</div>--}}
-{{--                        <div class="profile-adverts__item profile-adverts__updated">изменение</div>--}}
-{{--                        <div class="profile-adverts__item profile-adverts__views">просмотры</div>--}}
-{{--                        <div class="profile-adverts__item profile-adverts__favorites">отложено</div>--}}
-{{--                        <div class="profile-adverts__item profile-adverts__actions">действия</div>--}}
-{{--                    </div>--}}
-                    @foreach($ads as $ad)
-                        @include('ads.advert__line')
-                    @endforeach
+                    <div id="published" class="js_adsStatusGroups profile-adverts__block active">
+                        @if(isset($ads) && !empty($ads))
+                            <h4 class="profile-adverts__blockTitle">Опубликованные объявления</h4>
+                            @foreach($ads as $ad)
+
+                                @include('ads.advert__line')
+                            @endforeach
+                        @else
+                            <h4>Объявлений нет</h4>
+                        @endif
+                    </div>
+                    <div id="not_published" class="js_adsStatusGroups profile-adverts__block">
+                        @if(isset($adsNotPublished) && !empty($adsNotPublished))
+                            <h4 class="profile-adverts__blockTitle">Не опубликованные объявления</h4>
+                            @foreach($adsNotPublished as $ad)
+                                @include('ads.advert__line')
+                            @endforeach
+                        @else
+                            <h4>Объявлений нет</h4>
+                        @endif
+                    </div>
+                    <div id="moderate" class="js_adsStatusGroups profile-adverts__block">
+                        @if(isset($adsOnModerate) && !empty($adsOnModerate))
+                            <h4 class="profile-adverts__blockTitle">Объявления на модерации</h4>
+                            @foreach($adsOnModerate as $ad)
+                                @include('ads.advert__line')
+                            @endforeach
+                        @else
+                            <h4>Объявлений нет</h4>
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -56,7 +80,10 @@
     </ul>
 @endsection
 {{--Тут подключаем нужные стили и скрипты для шаблонов форм--}}
-@include('forms.form_delete_ads')
+@section('forms')
+    @include('forms.form_delete_ads')
+@endsection
+
 @section('page-script')
     <link rel="stylesheet" href="{{asset('css/b-toggle.css')}}">
 @stop

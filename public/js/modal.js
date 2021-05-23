@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Обработка нажатия на кнопку открыть форму
     const formCreate = document.querySelectorAll('.js_modal')
-    formCreate.forEach(formEl => formEl.addEventListener('click', modalForm))
+    formCreate.forEach(formEl => formEl.addEventListener('click', modalOpen))
 
 
 
@@ -83,19 +83,22 @@ function errorHandler(errors, form, showMainError = false) {
 }
 
 function showMessage(request, form) {
-    // console.log(request)
     if (request.status === 200) {
-        const wrap = form.parentElement.parentElement
-        wrap.querySelector('.modal__main').style.display = 'none';
-        wrap.querySelector('.modal__thanks').style.display = 'block';
-        wrap.querySelector('.modal__thanks').querySelector('.modal__text').innerHTML = request.data.msg
+        const wrap = form?.closest('.js_modalWrap')
+        wrap.querySelector('.js_modalContent').style.display = 'none';
+        wrap.querySelector('.js_modalThanks').style.display = 'block';
+        wrap.querySelector('.js_modalThanks').querySelector('.js_thanksText').innerHTML = request.data.msg
     }
 }
 
-function modalForm(event = null) {
+function modalOpen(event = null) {
     event.preventDefault();
     const modalTarget = this.getAttribute('data-modal')
     const modal = document.querySelector(`#${modalTarget}`)
+
+    if(this.getAttribute('data-id'))
+        modal.setAttribute('data-id', this.getAttribute('data-id'))
+
     if(this.getAttribute('data-url')){
         modal.querySelector('input[name="url"]').value = this.getAttribute('data-url')
     }
@@ -103,8 +106,6 @@ function modalForm(event = null) {
         modal.querySelector('input[name="method"]').value = this.getAttribute('data-method')
     }
     modal.classList.add('open')
-
-
 
     const userId = this.getAttribute('data-user-id')
     const userName = this.getAttribute('data-user-name')
@@ -116,12 +117,12 @@ function modalForm(event = null) {
 
     if (article_id = modal.querySelector('input[name="article_id"]'))
         article_id.value = adsId
-
-
 }
 
 function modalClose() {
-    const modalWrap = document.querySelector('.modal__wrap')
-    modalWrap.querySelector('.modal__container').style.display = '';
+    const modalWrap = document.querySelector('.js_modalWrap.open')
+    console.log(modalWrap);
+    modalWrap.querySelector('.js_modalContent').style.display = '';
+    modalWrap.querySelector('.js_modalThanks').style.display = 'none';
     modalWrap.classList.remove('open')
 }

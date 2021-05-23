@@ -1,4 +1,7 @@
-<div class="advert-line">
+<div class="advert-line js_adsWrap" data-id="{{$ad->id}}">
+{{--    <div class="advert-line__choose">--}}
+{{--        <input type="checkbox" name="ads_choose[]">--}}
+{{--    </div>--}}
     <div class="advert-line__figure">
         @if($ad->getMedia('cover'))
             @if(!empty($ad->getMedia('cover')->first()))
@@ -11,7 +14,7 @@
         @endif
     </div>
     <div class="advert-line__item advert-line__main">
-        <div class="advert-line__title">{{$ad->title}}</div>
+        <div class="advert-line__title"><a class="" href="{{route('profile.ads.edit', $ad)}}">{{$ad->title}}</a></div>
         <div class="advert-line__category">{{$ad->categories->pluck('title')->first()}}</div>
     </div>
     <div class="advert-line__item advert-line__created">

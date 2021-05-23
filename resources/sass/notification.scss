@@ -1,0 +1,20 @@
+.notification{
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgb(37 59 112 / 10%);
+  border: none;
+  border-radius: 9px;
+  margin-bottom: 16px;
+}
+.notification__name{
+  font-weight: 600;
+}
+.notification:after {
+  content: "";
+  width: 100%;
+  clear: both;
+  display: block;
+}
+.notification__read__all{
+  margin-top: 24px;
+  display: inline-flex;
+}

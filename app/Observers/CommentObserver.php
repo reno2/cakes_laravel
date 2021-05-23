@@ -2,23 +2,34 @@
 
 namespace App\Observers;
 
+use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 use App\Notifications\CommentNotification;
+use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Notification;
 
 class CommentObserver
 {
     /**
-     * Handle the comment "created" event.
+     * Отработает после добавления комментария
      *
-     * @param  \App\Comment  $comment
+     * @param Comment $comment
      * @return void
      */
     public function created(Comment $comment)
     {
-        $userTo = User::find($comment);
-        Notification::send($userTo, new CommentNotification($comment));
+        $userTo = User::find($comment->user_id);
+        $ads =  Article::find($comment->article_id);
+        $fromUserName = (new ProfileRepository)->getProfileNameByUserId($comment->user_id);
+        $data = [
+            'event_name' => 'Задан вопрос',
+            'url' => '/ads/'.$ads->slug,
+            'title' => $ads->title,
+            'recipient' => $fromUserName,
+            'message' => $comment->comment
+        ];
+        Notification::send($userTo, new CommentNotification($data));
     }
 
     /**

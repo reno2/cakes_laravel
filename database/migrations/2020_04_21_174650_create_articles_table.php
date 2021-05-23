@@ -35,8 +35,8 @@ class CreateArticlesTable extends Migration
                 $table->text('deal_address')->nullable();
                 $table->double('price')->default(0)->nullable();
                 $table->string('weight')->default(0)->nullable();
-                $table->unsignedMediumInteger('views')->default(0)->nullable();
-
+                $table->boolean('moderate')->default(0)->nullable();
+                $table->text('moderate_text')->default(0)->nullable();
                 $table->unsignedBigInteger('user_id')->nullable(false);
                 $table->timestamps();
 

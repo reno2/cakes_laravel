@@ -6371,6 +6371,10 @@ readers do not read off random characters that represent icons */
   margin-bottom: 24px;
 }
 
+.thirdWidth .ad {
+  width: calc(48% - 21px);
+}
+
 .ad:hover .ad__title {
   color: #419bbf;
 }
@@ -6685,6 +6689,22 @@ readers do not read off random characters that represent icons */
   margin-right: 8px;
 }
 
+.tmb-wrap-table {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.tmb-wrap .tmb-wrap-table div {
+  display: block;
+  flex-grow: 1;
+  border-bottom: 1px solid #0000001f;
+  margin: 0 2px;
+}
+
+.tmb-wrap .tmb-wrap-table div.active {
+  border-color: #3b9bff;
+}
+
 .ad-author {
   display: flex;
   flex-wrap: wrap;
@@ -6808,6 +6828,7 @@ readers do not read off random characters that represent icons */
 
 .modal__wrap .modal__thanks {
   display: none;
+  max-width: 440px;
 }
 
 .modal__wrap.open {
@@ -7073,6 +7094,12 @@ readers do not read off random characters that represent icons */
   }
 }
 
+/*=============Стили конкретных форм==================*/
+
+.ads-del__thanks {
+  max-width: 420px;
+}
+
 .ad-features {
   display: flex;
   flex-direction: column;
@@ -7243,6 +7270,14 @@ readers do not read off random characters that represent icons */
   font-size: 12px;
 }
 
+.profile-adverts__block {
+  display: none;
+}
+
+.profile-adverts__block.active {
+  display: block;
+}
+
 .advert-line {
   background: #fff;
   margin-bottom: 8px;
@@ -7341,6 +7376,71 @@ readers do not read off random characters that represent icons */
 
 table {
   width: 100%;
+}
+
+.advert-line__choose {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.btn-small {
+  padding: 7px 10px;
+  font-weight: 500;
+  font-size: 11px;
+  transition: all 0.15s ease;
+  border-radius: 5px;
+}
+
+.btn-middle {
+  padding: 8px 16px;
+  font-weight: 500;
+  font-size: 13px;
+  transition: all 0.15s ease;
+  border-radius: 5px;
+}
+
+.btn-large {
+  padding: 12px 28px;
+  font-size: 18rem;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.blue {
+  color: #3699ff;
+  background-color: #e1f0ff;
+}
+
+.blue.active,
+.blue:hover {
+  color: #fff;
+  background-color: #3699ff;
+}
+
+.notification {
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border: none;
+  border-radius: 9px;
+  margin-bottom: 16px;
+}
+
+.notification__name {
+  font-weight: 600;
+}
+
+.notification:after {
+  content: "";
+  width: 100%;
+  clear: both;
+  display: block;
+}
+
+.notification__read__all {
+  margin-top: 24px;
+  display: inline-flex;
 }
 
 .select2 {

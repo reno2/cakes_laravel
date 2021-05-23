@@ -138,6 +138,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 p-0 create-form__right">
+
                     <div class="js_postUpMsg post-up__msg"></div>
                     <button class="js_postUp btn btn-success btn-block post-update mb-3" data-id="{{$article->id}}">
                         Поднять

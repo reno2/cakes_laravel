@@ -14,11 +14,9 @@ class ProfileNotificationsController extends Controller
         return view('profile.notifications.index', compact('notifications'));
     }
     public function read(Request $request){
-        //dd( $request);
         auth()->user()
             ->unreadNotifications
             ->when($request->input('id'), function ($query) use ($request) {
-
                 return $query->where('id', $request->input('id'));
             })
             ->markAsRead();

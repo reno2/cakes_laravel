@@ -112,3 +112,13 @@ Route::get('login/{driver}', 'Auth\SocialController@redirect')
 Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
     ->name('login.callback')
     ->where('driver', implode('|', config('auth.socialite.drivers')));
+
+
+Route::get('queue', function (){
+
+    $userTo = User::find(1);
+    $data = [
+        'name' => "lkilili"
+    ];
+    Notification::send($userTo, new \App\Notifications\TestNotification($data));
+});

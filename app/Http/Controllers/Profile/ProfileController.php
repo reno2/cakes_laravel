@@ -53,9 +53,9 @@ class ProfileController extends Controller
     {
         $user              = Auth::user();
         $profile           = $userRepository->getUserProfileEdit($user->id);
-        $ads               = $profileRepository->getFavoritesWithPagination($profile->id);
+       // $ads               = $profileRepository->getFavoritesWithPagination($profile->id);
+        $ads               =  $ads = (new ProfileRepository)->favoritesListAuth();;
         $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
-        //dd(count($favorites_profile));
         return view('profile.favorites', [
             'user'              => $user,
             'ads'               => $ads,

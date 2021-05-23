@@ -11,6 +11,9 @@
     flex-direction: column;
     margin-bottom: 24px;
 }
+.thirdWidth .ad{
+  width: calc(48% - 21px);
+}
 .ad:hover .ad__title{
     color: $blue;
 }

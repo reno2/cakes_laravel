@@ -6463,6 +6463,12 @@ readers do not read off random characters that represent icons */
   }
 }
 
+/*=============Стили конкретных форм==================*/
+
+.ads-del__thanks {
+  max-width: 420px;
+}
+
 .info.info_admin {
   position: absolute;
   right: 3%;

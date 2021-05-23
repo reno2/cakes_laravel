@@ -152,21 +152,18 @@
 .card-block__social-title{
   margin-right: 8px;
 }
-//.ad-detail__figure{
-//    width: 620px;
-//    overflow: hidden;
-//    position: relative;
-//    height: 500px;
-//
-//}
-//
-//.ad-detail__block__thumb{
-//    margin-top: 24px;
-//}
-//.ad-detail__thumb{
-//    overflow: hidden;
-//}
-//.ad-detail__thumb .ad__img{
-//    width: 100px;
-//    height: 100px;
-//}
+
+
+.tmb-wrap-table{
+  display: flex !important;
+  justify-content: space-between;
+}
+.tmb-wrap .tmb-wrap-table div{
+  display: block;
+  flex-grow: 1;
+  border-bottom: 1px solid #0000001f;
+  margin: 0 2px;
+}
+.tmb-wrap .tmb-wrap-table div.active {
+  border-color: #3b9bff;
+}

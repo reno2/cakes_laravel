@@ -113,8 +113,8 @@ const validateRule =  {
         return true
     },
         size: (file, el) => {
-        let msg = 'Максимальный размер 5 мб';
-        if (file.size > 1024 * 1024 * 5) {
+        let msg = 'Максимальный размер 10 мб';
+        if (file.size > 1024 * 1024 * 10) {
             showNotice(el, msg)
             return false
         }

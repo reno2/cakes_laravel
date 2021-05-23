@@ -29,6 +29,14 @@
   font-size: 12px;
 }
 
+.profile-adverts__block {
+  display: none;
+}
+
+.profile-adverts__block.active {
+  display: block;
+}
+
 
 .advert-line {
   background: #fff;
@@ -116,4 +124,10 @@
 
 table{
   width: 100%;
+}
+
+.advert-line__choose {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
 }

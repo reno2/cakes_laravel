@@ -1,12 +1,12 @@
-<div class="modal__wrap" id="confirm_delete">
-    <div class="modal__container modal__thanks">
-        <h4 class="modal__small">Материал удалён</h4>
+<div class="js_modalWrap modal__wrap ads-del" id="confirm_delete" data-id>
+    <div class="js_modalThanks modal__container modal__thanks ads-del__thanks">
+        <h4 class="modal__small">Успех!</h4>
         <svg class="js_modalClose modal__close svg_close">
             <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
         </svg>
-        <div class="modal__text"></div>
+        <div class="js_thanksText modal__text"></div>
     </div>
-    <div class="modal__container modal__info">
+    <div class="js_modalContent modal__container modal__info ads-del__main">
         <h4 class="modal__small">Хотите удалить?</h4>
         <svg class="js_modalClose modal__close svg_close">
             <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
@@ -27,7 +27,6 @@
     btn.addEventListener('click', function () {
         const url = form.querySelector('.url')?.value;
         const token = form.querySelector('[name="_token"]').value;
-
         axios.post(url, {
            _method: 'DELETE',
             headers: {
@@ -36,8 +35,9 @@
                 'Authorization': 'Token ' + token
             }
         }).then(result => {
-            console.log(result);
             showMessage(result, form)
+            const toDelId = form.getAttribute('data-id')
+            document.querySelector(`.js_adsWrap[data-id="${toDelId}"]`).remove()
         }).catch(e => {
             console.log(e.message);
         });

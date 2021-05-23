@@ -1,16 +1,29 @@
 @extends('layouts.profile')
 
 @section('content')
+
     @forelse($notifications as $notification)
-        <div class="alert alert-success" role="alert">
-            [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}] По Объявлению
-            <a href="/profile/comments/{{ $notification->data['all']['article_id']}}/{{ $notification->data['all']['from_user_id'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.
-            <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
+        <div class="notification alert alert-success" role="alert">
+            <div class="notification__name">{{($notification["data"]["event_name"]) ?? 'Общее уведомление'}}</div>
+            [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}] -
+            @if(isset($notification["data"]["title"]) && isset($notification["data"]["url"]))
+                <a href="{{$notification["data"]["url"]}}">{{ $notification["data"]["title"] }}</a>
+            @elseif(isset($notification["data"]["title"]))
+                {{ $notification["data"]["title"] }}
+            @else
+            @endif
+            @isset($notification["data"]["message"])
+                <div class="notification__mess">
+                    {{$notification["data"]["message"]}}
+                </div>
+            @endif
+{{--            <a href="/profile/comments/{{ $notification->data['all']['article_id']}}/{{ $notification->data['all']['from_user_id'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.--}}
+            <a href="#" class="btn-middle blue float-right mark-as-read" data-id="{{ $notification->id }}">
                 Прочитать
             </a>
         </div>
         @if($loop->last)
-            <a href="#" id="mark-all">
+            <a class="btn-middle blue notification__read__all" href="#" id="mark-all">
                 Прочитать все
             </a>
         @endif

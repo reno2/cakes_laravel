@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 
 use App\Models\Category;
+use App\Models\User;
+use App\Notifications\PostCreatedNotification;
 use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Services\AdsService;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Repositories\AdsRepository;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Notification;
 use Spatie\MediaLibrary\Models\Media;
 
 class AdsController extends Controller
@@ -47,9 +50,25 @@ class AdsController extends Controller
         $user = Auth::user();
         $profile = $profileRepository->getFirstProfileByUser(Auth::id());
         $favorites_profile = $profileRepository->getFavoritesArray($profile->id);
+        $where = [
+            ['user_id', Auth::id()],
+            ['moderate', '=', 1],
+            ['published', '=', 1]
+        ];
+        $notPublished = [
+            ['user_id', Auth::id()],
+            ['moderate', '=', 1],
+            ['published', '=', 0]
+        ];
+        $adsOnModerate = [
+            ['user_id', Auth::id()],
+            ['moderate', '=', 0],
+        ];
         return view('profile.ads.index', [
             'user'    => $user,
-            'ads' => $this->adsRepository->getByCurrentProfileAdsSortedDesc(Auth::id()),
+            'ads' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($where),
+            'adsNotPublished' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($notPublished),
+            'adsOnModerate' =>  $this->adsRepository->getByCurrentProfileAdsSortedDesc($adsOnModerate),
             'favorites_cookies' => json_decode(Cookie::get('favorites')),
             'favorites_profile' => $favorites_profile
         ]);
@@ -165,22 +184,24 @@ class AdsController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     *
      * @param int
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         $ads = Article::find($id);
         try{
             $ads->favoritesProfiles()->detach();
            $this->adsService->removeAds($ads);
         }catch (\Exception $e){
+            if($request->ajax())
+                return response()->json(array('success' => false), 500);
             return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
         }
-        return redirect()->route('profile.ads.index')->with('success', 'Объявление полностью удалено');
+        if($request->ajax())
+            return response()->json(array('success' => true, 'msg' => 'Объявление полностью удалено'), 200);
 
+        return redirect()->route('profile.ads.index')->with('success', 'Объявление полностью удалено');
     }
+
 }

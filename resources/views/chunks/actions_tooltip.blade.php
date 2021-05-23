@@ -4,7 +4,7 @@
         <i class="fas fa-pen"></i>
         <span class="b-tooltip__name">изменить</span>
     </a>
-    <a class="b-tooltip__link js_modal" href="#" data-modal="confirm_delete" data-url="{{route('profile.ads.destroy', $ad)}}">
+    <a class="b-tooltip__link js_modal" href="#" data-modal="confirm_delete" data-id="{{$ad->id}}" data-url="{{route('profile.ads.destroy', $ad)}}">
         <i class="fas fa-trash"></i>
         <span class="b-tooltip__name">удалить</span>
     </a>

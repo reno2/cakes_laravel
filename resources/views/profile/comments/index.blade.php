@@ -39,7 +39,7 @@
                                                      src="{{asset('storage/media/'.$d->media_id.'/'.$d->file_name)}}">
                                             @else
                                                 <img class="i-comment__img"
-                                                     src="{{ url('storage/images/icons/cake.svg') }}">
+                                                     src="{{ url('storage/images/defaults/cake.svg') }}">
                                             @endif
                                         </a>
                                     </div>
@@ -86,7 +86,7 @@
                                                      src="{{asset('storage/media/'.$d->media_id.'/'.$d->file_name)}}">
                                             @else
                                                 <img class="i-comment__img"
-                                                     src="{{ url('storage/images/icons/cake.svg') }}">
+                                                     src="{{ url('storage/images/defaults/cake.svg') }}">
                                             @endif
                                         </a>
                                     </div>

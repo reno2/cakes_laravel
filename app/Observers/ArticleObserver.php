@@ -5,12 +5,14 @@ namespace App\Observers;
 use App\Models\Article;
 use App\Models\User;
 use App\Notifications\PostCreatedNotification;
+use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Notification;
 
 class ArticleObserver
 {
     /**
      * Handle the profile "created" event.
+     * Срабатывает после того как объявление создано
      *
      * @param Article $article
      *
@@ -18,13 +20,16 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-
+        // Отправляем уведомления пользователять о создании нового
         $userTo = User::find(1);
         $data = [
-            'name' => $article->title
+            'event_name' => 'Создано новое объявление',
+            'url' => '/admin/article/'. $article->id .'/edit',
+            'title' => $article->title,
+            'recipient' => (new ProfileRepository)->getProfileNameByUserId($article->user_id)
         ];
         Notification::send($userTo, new PostCreatedNotification($data));
-        //dd($userTo);
+
     }
 
     /**

@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PostCreatedNotification extends Notification implements ShouldQueue
+class TestNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     private $data;
-
     /**
      * Create a new notification instance.
      *
+     * @return void
      * @param $data
      */
     public function __construct($data)
     {
         $this->data = $data;
-        //$this->delay(now()->addSeconds(30));
+        $this->delay(now()->addSeconds(30));
     }
 
     /**
@@ -31,26 +31,22 @@ class PostCreatedNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Создан новый пост')
-//            ->view(
-//                'emails.adminPost', ['title' => $this->data['name']]
-//            );
-            ->line('Был создан новый материал с названием .' . $this->data['title']);
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
-
-
 
     /**
      * Get the array representation of the notification.
@@ -60,6 +56,8 @@ class PostCreatedNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return $this->data;
+        return [
+            'bill_id' => 'some test'
+        ];
     }
 }

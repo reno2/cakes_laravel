@@ -2,6 +2,7 @@
     display: none;
     .modal__thanks{
         display: none;
+        max-width: 440px;
     }
     &.open {
         width: 100%;

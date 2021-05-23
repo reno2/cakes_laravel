@@ -1,12 +1,12 @@
-<div class="modal__wrap" id="feedback__question">
-    <div class="modal__container modal__thanks">
+<div class="js_modalWrap modal__wrap" id="feedback__question">
+    <div class="js_modalThanks modal__container modal__thanks">
         <h4 class="modal__title">Успех!</h4>
         <svg class="js_modalClose modal__close svg_close">
             <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
         </svg>
-        <div class="modal__text"></div>
+        <div class="js_thanksText modal__text"></div>
     </div>
-    <div class="modal__container modal__main">
+    <div class="js_modalContent modal__container modal__main">
         <h4 class="modal__title">Задать вопрос</h4>
         <div role="alert" class="js_formError alert alert-danger form-error">
             <div class="js_errorMsg form-error__msg"></div>

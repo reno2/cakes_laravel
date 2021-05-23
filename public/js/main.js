@@ -2,54 +2,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
 
-
-
-    //b-toggle
-    // $(document).click(function (e) {
-    //     if (!$(e.target).is('.js_bToolContent') && !$(e.target).is('.js_bToggle') && !$(e.target).is('.js_bToggle use')) {
-    //         const $allTooltips = $('.js_bToggle.open').each((inx, elem) => {
-    //             $(elem).removeClass('open');
-    //             $(elem).closest('.t-tooltip').find('.b-toggle__content').removeClass('open');
-    //         });
-    //     }
-    // });
-    //
-    // $(document).on('click', '.js_bToggle, .js_bToggle use',
-    //     function () {
-    //         bToggle(this);
-    //     }
-    // );
-    const toggle = document.querySelectorAll('.js_bToggle')
-    toggle.forEach((el, inx)=>{
+    const toggle = document.querySelectorAll('.js_bToggle');
+    toggle.forEach((el, inx) => {
         el.addEventListener('click', function (e) {
             //e.stopPropagation()
-            bToggle(el)
-        })
-    })
+            bToggle(el);
+        });
+    });
 
+    // Обработчики на переключение табов объявлениях профиля
+    const adsSwitcher = document.querySelectorAll('.js_adsSwitcher');
 
-    // window.addEventListener('click', function (e) {
-    //     if(e.target.classList.contains('js_bToggle')){
-    //         console.log(this);
-    //     }
-    // })
-
+    if (adsSwitcher) {
+        adsSwitcher.forEach(btn => {
+            btn.addEventListener('click', (e) => profileAdsList(btn, e));
+        });
+    }
 });
 
 window.addEventListener('click', function (e) {
-    const targetClasses = e.target.classList
-    if(!targetClasses.contains('js_bToolContent') ){
-        document.querySelectorAll('.js_bToggle.open').forEach((el, inx)=>{
-            if(el !== e.target) {
-                el.parentElement.querySelector('.b-toggle__content').classList.remove('open')
-                el.classList.remove('open')
+    const targetClasses = e.target.classList;
+    if (!targetClasses.contains('js_bToolContent')) {
+        document.querySelectorAll('.js_bToggle.open').forEach((el, inx) => {
+            if (el !== e.target) {
+                el.parentElement.querySelector('.b-toggle__content').classList.remove('open');
+                el.classList.remove('open');
             }
-        })
+        });
     }
-})
+});
+
+
+function profileAdsList(element, e) {
+    const target = element.getAttribute('data-status');
+    const mainProfileBlock = element.closest?.('.profile-adverts');
+
+    element.closest?.('.profile-adverts__switch').querySelectorAll('.js_adsSwitcher')
+        .forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active')
+    mainProfileBlock.querySelectorAll('.js_adsStatusGroups')?.forEach(block => {
+        if (block.id === target) {
+            block.classList.add('active');
+        } else {
+            block.classList.remove('active');
+        }
+    });
+}
 
 function bToggle(element) {
-    console.log(element);
+
     if (!$(element).hasClass('open')) {
         const content = $(element).siblings(`.${$(element).data('toggle')}`);
         content.css({'left': (content.width() * -1) + 16 + 'px'}).addClass('open');

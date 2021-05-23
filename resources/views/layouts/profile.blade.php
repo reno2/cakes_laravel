@@ -47,7 +47,11 @@
                                         <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
                                             <use xlink:href="/images/icons.svg#icon-msg"></use>
                                         </svg>
+                                        @if($notifications->count() > 0)
+                                            <span class="nav-item__badge info-small blue"> {{$notifications->count()}}</span>
+                                        @endif
                                     </a>
+
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -87,6 +91,7 @@
                 </div>
             </main>
         </div>
+        @include('chunks.footer')
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/modal.js') }}"></script>
