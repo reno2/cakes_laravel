@@ -7213,7 +7213,7 @@ readers do not read off random characters that represent icons */
   align-items: center;
   background: #fff;
   padding: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   border-radius: 9px;
 }
 
@@ -7228,21 +7228,52 @@ readers do not read off random characters that represent icons */
   border-radius: 7px;
 }
 
-.ava .ava__name {
-  font-weight: 500;
+.ava__name {
+  font-weight: 600;
   padding: 7px 10px;
   font-size: 14px;
   margin-top: 24px;
   width: 100%;
   border-radius: 9px;
   text-align: center;
-  border: 2px solid #cbf0ff;
   color: #868686;
 }
 
 .personal .personal_ul .personal_a {
   font-size: 16px;
   color: #252533;
+}
+
+.ui-block__title {
+  margin: 16px 0;
+}
+
+.ui-block__menu {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ui-menu__li {
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  background: #fff;
+  margin: 8px 0;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 63px;
+  position: relative;
+}
+
+.ui-menu__li:hover .ui-menu__text {
+  color: #9e9e9e;
+}
+
+.ui-menu__text {
+  margin-left: 8px;
+  color: #868686;
+  font-weight: 600;
 }
 
 .profile-adverts__lines {

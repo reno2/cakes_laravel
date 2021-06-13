@@ -2973,16 +2973,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.data.success) {
                   document.querySelectorAll('.js_profileAva').forEach(function (el, i) {
-                    console.log(el);
                     el.src = _this.defaultAva;
-                    console.log(_this);
                     _this.hasAvatar = false;
                   });
                 }
 
-                console.log(response);
-
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }

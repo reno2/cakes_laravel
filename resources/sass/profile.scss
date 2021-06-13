@@ -7,7 +7,7 @@
     align-items: center;
     background: #fff;
     padding: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     border-radius: 9px;
     .ava__block{
         //margin: 16px 0;
@@ -21,22 +21,22 @@
             border-radius: 7px;
         }
     }
-    .ava__name{
-        font-weight: 500;
-        padding: 7px 10px;
-        font-size: 14px;
-        margin-top: 24px;
-        width: 100%;
-        border-radius: 9px;
-        text-align: center;
-        border: 2px solid #cbf0ff;
-        color: #868686;
-        svg{
 
-        }
-    }
 }
+.ava__name{
+  font-weight: 600;
+  padding: 7px 10px;
+  font-size: 14px;
+  margin-top: 24px;
+  width: 100%;
+  border-radius: 9px;
+  text-align: center;
+  //border: 2px solid #cbf0ff;
+  color: #868686;
+  svg{
 
+  }
+}
 
 //Personal page
 .personal {
@@ -48,4 +48,31 @@
     }
 }
 
-
+.ui-block__title{
+  margin: 16px 0;
+}
+.ui-block__menu{
+  list-style-type: none;
+  padding: 0;
+}
+.ui-menu__li{
+  box-shadow: 0 40px 60px 0 rgb(37 59 112 / 10%);
+  background: #fff;
+  margin: 8px 0;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 63px;
+  //border: 2px solid #cbf0ff;
+  position: relative;
+}
+.ui-menu__li:hover .ui-menu__text{
+  color: #9e9e9e;
+}
+.ui-menu__text{
+  margin-left: 8px;
+  color: #868686;
+  font-weight: 600;
+}
