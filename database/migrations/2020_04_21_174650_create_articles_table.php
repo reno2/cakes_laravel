@@ -36,7 +36,7 @@ class CreateArticlesTable extends Migration
                 $table->double('price')->default(0)->nullable();
                 $table->string('weight')->default(0)->nullable();
                 $table->boolean('moderate')->default(0)->nullable();
-                $table->text('moderate_text')->default(0)->nullable();
+                $table->text('moderate_text')->nullable();
                 $table->unsignedBigInteger('user_id')->nullable(false);
                 $table->timestamps();
 

@@ -51,14 +51,10 @@
                 );
                if(response.data.success){
                     document.querySelectorAll('.js_profileAva').forEach((el, i) =>{
-                        console.log(el);
                         el.src = this.defaultAva
-                        console.log(this);
                         this.hasAvatar = false
                     })
-
                }
-                console.log(response);
             },
             loadImg(event) {
                 let file = event.target.files[0]

@@ -25,7 +25,7 @@ class CreateProfilesTable extends Migration
             $table->string('contact1')->nullable();
             $table->string('contact2')->nullable();
             $table->bigInteger('rating')->default(0);
-            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });
         Schema::table('profiles', function(Blueprint $table) {
@@ -41,6 +41,9 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
+
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('profiles');
+
     }
 }

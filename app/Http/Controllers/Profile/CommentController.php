@@ -243,7 +243,7 @@ class CommentController extends Controller
             ->orderBy('comments.created_at', 'ASC')
             ->get()
             ->toArray();
-//dd($comments);
+
 
 
         //$this->setAsRead($article, $user_id);
