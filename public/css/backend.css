@@ -6518,3 +6518,16 @@ readers do not read off random characters that represent icons */
   margin-right: 16px;
 }
 
+.create-form__right__inner {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.moderate {
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+

@@ -26,6 +26,7 @@
             <th>#</th>
             <th>Наименование</th>
             <th>Публикация</th>
+            <th>Модерация</th>
             <th>Категории</th>
             <th>На главной</th>
             <th>Сортировка</th>
@@ -40,6 +41,7 @@
                     <td>{{$article->id}}</td>
                     <td>{{$article->title}}</td>
                     <td>{{$article->published}}</td>
+                    <td>{{$article->moderate}}</td>
                     <td>{{$article->categories->pluck('title')->first()}}</td>
                     <td>{{($article->on_front) ? "Да" : "Нет"}}</td>
                     <td>{{$article->sort}}</td>

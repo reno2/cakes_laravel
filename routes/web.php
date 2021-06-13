@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PostCreatedNotification;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,13 +28,14 @@ Auth::routes(['verify' => true]);
 
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified']],
-    function(){
-       Route::get('/', 'DashboardController@dashboard')->name('admin.index');
-        Route::resource('/category', 'CategoryController', ['as'=> 'admin']);
-        Route::resource('/tags', 'TagController', ['as'=> 'admin']);
-        Route::resource('/features', 'Features\FeaturesTypeController', ['as'=> 'admin']);
+    function () {
+        Route::get('/', 'DashboardController@dashboard')->name('admin.index');
+        Route::resource('/category', 'CategoryController', ['as' => 'admin']);
+        Route::resource('/tags', 'TagController', ['as' => 'admin']);
+        Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
+        Route::resource('/settings', 'SettingsController', ['as' => 'admin']);
         // Пост
-        Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
+        Route::resource('/article', 'ArticleController', ['as' => 'admin']);
         Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
         Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {
             Route::group(['prefix' => '/category'], function () {
@@ -45,21 +47,22 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 Route::post('/update', 'SeoPostController@updatePost')->name('seo.post.update');
             });
         });
-//        Route::group(['prefix' => 'user_managment', 'namespace' => 'UserManagment'], function(){
-//            Route::resource('/user', 'UserController', ['as'=> 'user_managment']);
-//        });
+        //        Route::group(['prefix' => 'user_managment', 'namespace' => 'UserManagment'], function(){
+        //            Route::resource('/user', 'UserController', ['as'=> 'user_managment']);
+        //        });
         Route::post('/upload/fileUpload', 'ImageController@upload')->name('ckeditor.upload');
         Route::post('/upload/image', 'ImageController@add')->name('img_add');
-       //Route::get('/search', "ArticleController@search")->name('admin_search');
+        //Route::get('/search', "ArticleController@search")->name('admin_search');
     });
 
-
+// ===== PROFILE ===============================
 Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => ['auth', 'verified']],
-    function(){
+    function () {
         Route::get('/', 'ProfileController@index')->name('profile.index');
         Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
         Route::get('/secure', 'ProfileController@secure')->name('profile.secure');
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
+        Route::delete('/avatar/remove/{profile_id}', 'ProfileController@removeAva')->name('profile.avatar.remove');
 
         // Уведомления для пользователя
         Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
@@ -77,10 +80,10 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');
         Route::put('/update/{profile}', 'ProfileController@update')->name('profile.update');
-        Route::group([ 'namespace' => 'Ads', 'middleware' => ['profile']], function () {
-            Route::resource('/ads', 'AdsController', ['as'=> 'profile']);
+        Route::group(['namespace' => 'Ads', 'middleware' => ['profile']], function () {
+            Route::resource('/ads', 'AdsController', ['as' => 'profile']);
         });
-});
+    });
 
 Route::get('/autocomplete', "SearchController@autocomplete")->name('admin_autocomplete');
 
@@ -96,29 +99,35 @@ Route::get('/', 'BlogController@front')->name('main');
 Route::post('/favorites', 'BlogController@favorites')->name('favorites');
 Route::get('/favorites', 'BlogController@favoritesList')->name('favorites_list');
 
-Route::get('/test-mail', function (){
+Route::get('/test-mail', function () {
 
 
-  //return  (new PostCreatedNotification(['name'=> 'efef']))->toMail('chedia@mail.ru');
-  return  (new NewUserNotification(['name'=> 'efef']))->toMail('chedia@mail.ru');
+    //return  (new PostCreatedNotification(['name'=> 'efef']))->toMail('chedia@mail.ru');
+    return (new NewUserNotification(['name' => 'efef']))->toMail('chedia@mail.ru');
 
 
 });
 
 Route::get('login/{driver}', 'Auth\SocialController@redirect')
-    ->name('login.driver')
-    ->where('driver', implode('|', config('auth.socialite.drivers')));
+     ->name('login.driver')
+     ->where('driver', implode('|', config('auth.socialite.drivers')));
 
 Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
-    ->name('login.callback')
-    ->where('driver', implode('|', config('auth.socialite.drivers')));
+     ->name('login.callback')
+     ->where('driver', implode('|', config('auth.socialite.drivers')));
 
 
-Route::get('queue', function (){
-
-    $userTo = User::find(1);
-    $data = [
-        'name' => "lkilili"
-    ];
-    Notification::send($userTo, new \App\Notifications\TestNotification($data));
+Route::get('queue', function () {
+    $ads = \App\Models\Article::find(1);
+    $moderate = \App\Models\Moderate::create([
+        "rules" => "32",
+        "message" => "derewrwr",
+    ]);
+    $ads->moderateComments()->save($moderate);
+    //dd($ads);
+    //    $userTo = User::find(1);
+    //    $data = [
+    //        'name' => "lkilili"
+    //    ];
+    //    Notification::send($userTo, new \App\Notifications\TestNotification($data));
 });

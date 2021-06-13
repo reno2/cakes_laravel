@@ -216,7 +216,6 @@
                     </div>
 
                     <div id="image-list" class="create-form__preview image-preview">
-{{--                       // @if($ads->getMedia('cover'))--}}
                         @if($mediaFiles)
                             @foreach($mediaFiles as $image)
                                 <div class="image-preview__item js_newImgItem

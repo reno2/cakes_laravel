@@ -88,6 +88,20 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function removeAva($profileId, ProfileRepository $profileRepository){
+        $profile = $profileRepository->getFirstProfileByUser(Auth::user());
+        try {
+           if($profile->image){
+               $profile->update(['image' => NULL]);
+               return response()->json(array('success' => true, 'msg' => 'Аватарка удалена'), 200);
+           }
+
+        }catch (Exception $exception) {
+            return response()->json(array('success' => false, 'error' => $exception->getMessage()), 500);
+        }
+    }
+
+
     public function secureUpdate( ProfileService $profileService, UserEditValidate $request) {
         $validated = $request->validated();
         try {

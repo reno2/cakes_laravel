@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 class Profile extends Model implements HasMedia
 {
     use HasMediaTrait;
-    protected $fillable = ['contact2', 'contact1', 'published', 'address', 'filled', 'type', 'image', 'favorites', 'name', 'created_by', 'modifierd_by', 'image', 'address', 'rating', 'user_id', 'filled'];
+    protected $fillable = ['contact2', 'contact1', 'published', 'address', 'filled', 'type', 'favorites', 'name', 'created_by', 'modifierd_by', 'image', 'address', 'rating', 'user_id', 'filled'];
     //protected $guarded = [];
     /*
      * @var array

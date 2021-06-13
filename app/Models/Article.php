@@ -44,7 +44,7 @@ class Article extends Model implements HasMedia, Viewable
         'image_show',
         'meta_title',
         'meta_description',
-        'viewed',
+        'moderate',
         'published',
         'created_by',
         'modifierd_by',
@@ -133,4 +133,9 @@ class Article extends Model implements HasMedia, Viewable
         return $this->hasMany(Comment::class);
     }
 
+    //plimorphe
+    public function moderateComments(){
+        // Первым параметром передаём модель, с которой связь, вторым приставку полей
+        return $this->morphToMany('App\Models\Moderate', 'moderatesable');
+    }
 }

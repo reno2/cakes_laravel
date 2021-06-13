@@ -62,9 +62,6 @@
         width: 200px;
         height: 200px;
         overflow: hidden;
-        border-radius: 100px;
-        border: 17px solid #eee;
-        padding: 14px;
         display: flex;
         align-items: center;
         justify-content: center;

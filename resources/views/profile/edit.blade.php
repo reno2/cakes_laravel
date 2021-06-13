@@ -1,8 +1,5 @@
 @extends('layouts.profile')
-
 @section('content')
-{{--    {{ dd($profile->favorites)}}--}}
-
                 <div class="card">
                     <div class="card-header">Редактировать профиль</div>
                     <div class="card-body">
@@ -22,7 +19,8 @@
                               enctype="multipart/form-data">
                             <input type="hidden" name="_method" value="put">
                             @csrf
-                            <fileinput-component img="{{Storage::url($profile->image) ?? ''}}"></fileinput-component>
+
+                            <fileinput-component has-avatar="{{($profile->image) ? 1 : 0}}" token="{{ csrf_token() }}" profile-id="{{$profile->id}}" img="{{($profile->image) ?? '/storage/images/defaults/cake.svg'}}"></fileinput-component>
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Имя</label>

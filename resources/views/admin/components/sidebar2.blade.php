@@ -49,6 +49,20 @@
                 </div>
             </li>
         </ul>
+        <hr>
+        <ul class="sidebar__ul sul">
+            <div class="sidebar-heading">
+                Общие
+            </div>
+            <li class="sul-link">
+                <a href="#" class="nav-link" id="dmenu" >Дополнительно</a>
+                <div class="dmenu">
+                    <a class="dropdown-item" href="{{route('admin.settings.index')}}">Настройки</a>
+                    <a class="dropdown-item" href="{{route('seo.post.index')}}">Страницы</a>
+                    <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
+                </div>
+            </li>
+        </ul>
         <div class="top__middle">
             <ul class="sidebar__ul sul">
                 <div class="sidebar-heading">

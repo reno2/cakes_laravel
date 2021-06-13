@@ -73,7 +73,16 @@ $fa-font-path:        "../webfonts";
     }
 }
 
-
+.create-form__right__inner {
+  position: sticky;
+  top: 0;
+}
+.moderate{
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
 
 
 

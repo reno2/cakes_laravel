@@ -2896,6 +2896,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
 //
 //
 //
@@ -2917,17 +2928,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
+    profileId: {
+      type: String
+    },
     img: {
+      type: String
+    },
+    token: {
+      type: String
+    },
+    hasAvatar: {
       type: String
     }
   },
   data: function data() {
     return {
+      defaultAva: '/storage/images/defaults/cake.svg',
       input: null,
       url: null
     };
   },
   methods: {
+    removeAva: function removeAva() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var that, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                that = _this;
+                _context.next = 3;
+                return axios["delete"]("/profile/avatar/remove/".concat(that.profileId), {
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token " + that.token
+                  }
+                });
+
+              case 3:
+                response = _context.sent;
+
+                if (response.data.success) {
+                  document.querySelectorAll('.js_profileAva').forEach(function (el, i) {
+                    console.log(el);
+                    el.src = _this.defaultAva;
+                    console.log(_this);
+                    _this.hasAvatar = false;
+                  });
+                }
+
+                console.log(response);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
     loadImg: function loadImg(event) {
       var file = event.target.files[0];
       this.url = URL.createObjectURL(file);
@@ -8017,7 +8079,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview{\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    border-radius: 100px;\n    border: 17px solid #eee;\n    padding: 14px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.file-preview__img{\n    width: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview{\n    border-radius: 8px;\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n}\n.file-preview__img{\n    -o-object-fit: cover;\n       object-fit: cover;\n    -o-object-position: top;\n       object-position: top;\n    height: 100%;\n}\n.file-preview__del {\n    width: 30px;\n    height: 30px;\n    fill: #bf4141;\n    position: absolute;\n    z-index: 9;\n    bottom: 0;\n    right: 0;\n    background: #fff;\n    padding: 3px;\n    cursor: pointer;\n    border-radius: 2px;\n}\n.file-preview__del:hover{\n    background: #eee;\n}\n\n", ""]);
 
 // exports
 
@@ -8036,7 +8098,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview{\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    border-radius: 100px;\n    border: 17px solid #eee;\n    padding: 14px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.file-preview__img{\n    width: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview{\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.file-preview__img{\n    width: 100%;\n}\n\n", ""]);
 
 // exports
 
@@ -78551,12 +78613,25 @@ var render = function() {
           ? _c("div", { staticClass: "file-preview" }, [
               _vm.url
                 ? _c("img", {
-                    staticClass: "file-preview__img",
+                    staticClass: "js_profileAva file-preview__img",
                     attrs: { src: _vm.url }
                   })
                 : _vm._e(),
               _vm._v(" "),
-              _c("span", { staticClass: "file-preview__del" })
+              _vm.hasAvatar == true
+                ? _c(
+                    "svg",
+                    {
+                      staticClass: "file-preview__del",
+                      on: { click: _vm.removeAva }
+                    },
+                    [
+                      _c("use", {
+                        attrs: { "xlink:href": "/images/icons.svg#icon-close" }
+                      })
+                    ]
+                  )
+                : _vm._e()
             ])
           : _vm._e()
       ])

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewUserNotification extends Notification implements ShouldQueue
+class ModerateNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     private $data;
@@ -20,6 +20,7 @@ class NewUserNotification extends Notification implements ShouldQueue
     public function __construct($data)
     {
         $this->data = $data;
+        //$this->delay(now()->addSeconds(30));
     }
 
     /**
@@ -30,7 +31,7 @@ class NewUserNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -42,9 +43,9 @@ class NewUserNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Новый пользователь ' . $this->data['name'])
-                    //->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line($this->data['event_name'])
+                    ->line($this->data['message'])
+                    ->action('Notification Action', url('/'));
     }
 
     /**
@@ -55,8 +56,6 @@ class NewUserNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return  $this->data;
     }
 }

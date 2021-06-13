@@ -138,44 +138,78 @@
                     </div>
                 </div>
                 <div class="col-md-3 p-0 create-form__right">
+                    <div class="create-form__right__inner">
 
-                    <div class="js_postUpMsg post-up__msg"></div>
-                    <button class="js_postUp btn btn-success btn-block post-update mb-3" data-id="{{$article->id}}">
-                        Поднять
-                    </button>
-                    <div class="p-3 create-form__item single-img">
-                        <div class="create-form__title">Основная картинка<br>
-                            Загрузите свои изображения<br>
-                            не более 5 файлов. (jpeg, png)
-                        </div>
-                        <div class="form-group single-img__group">
-                            <input multiple name="image[]" type="file" id="file_" value=""
-                                   data-count="{{(count($article->images)) ?? 0}}" class="single-img__input">
-                            <div class="create-form__error"></div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="main_image" id="main_image">
-                    <div id="image-list" class="create-form__preview image-preview">
-                        @if(isset($article->images))
-                            @foreach($article->images->sortByDesc('main') as $image)
-                                <div class="image-preview__item @if ($image->main) image_main @endif"
-                                     onclick="setAsMain(this, '{{$image->name}}')">
-                                    <img src="{{$image->image_path}}" alt="">
-                                    <input type="hidden" name="old_files[]" value="{{$image->image_path}}">
-                                    <span class="image-preview__name"></span>
-                                    <svg onclick="formsFile.removeFile(this)" data-name="" class="image-preview__del">
-                                        <use xlink:href="/images/icons.svg#icon-close"></use>
-                                    </svg>
+
+                        <div class="moderate">
+                            <div class="form-group">
+                                <label for="moderate">Модерация</label>
+                                <select name="moderate" class="form-control" id="moderate">
+                                    <option value="1" @if($article->moderate == 1) selected="" @endif>Пройдено
+                                    </option>
+                                    <option value="0" @if($article->moderate == 0) selected="" @endif>Не пройдено</option>
+                                </select>
+                            </div>
+
+                            @foreach($rules as $type)
+                                <div class="form-check">
+                                    <input type="checkbox" name="rule[]"
+                                           @if(isset($selectedRules['rule']))
+                                                 @if(in_array($type->id,  $selectedRules['rule']))checked @endif
+                                           @endif
+                                           value="{{$type->id}}" class="form-check-input" id="rule_{{$type->id}}">
+                                    <label class="form-check-label" for="rule_{{$type->id}}">{{$type->title}}</label>
                                 </div>
                             @endforeach
-                        @endif
-                        <div class="fake-upload">
-                            <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
+                            <hr>
+
+                            <div class="form-group">
+                                <label for="published">Комментарий</label>
+                                <textarea name="moderate_text" class="form-control"
+                                          id="moderate_text">{{ $selectedRules['moderate_text'] ?? '' }}</textarea>
+                            </div>
+                            <input type="hidden" name="moderate_id" value="{{ $selectedRules['id'] ?? ''}}">
+                        </div>
+
+
+
+
+                        <div class="js_postUpMsg post-up__msg"></div>
+                        <button class="js_postUp btn btn-success btn-block post-update mb-3" data-id="{{$article->id}}">
+                            Поднять
+                        </button>
+                        <div class="p-3 create-form__item single-img">
+                            <div class="create-form__title">Основная картинка<br>
+                                Загрузите свои изображения<br>
+                                не более 5 файлов. (jpeg, png)
+                            </div>
+                            <div class="form-group single-img__group">
+                                <input multiple name="image[]" type="file" id="file_" value=""
+                                       data-count="{{(count($article->images)) ?? 0}}" class="single-img__input">
+                                <div class="create-form__error"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="main_image" id="main_image">
+                        <div id="image-list" class="create-form__preview image-preview">
+                            @if(isset($article->images))
+                                @foreach($article->images->sortByDesc('main') as $image)
+                                    <div class="image-preview__item @if ($image->main) image_main @endif"
+                                         onclick="setAsMain(this, '{{$image->name}}')">
+                                        <img src="{{$image->image_path}}" alt="">
+                                        <input type="hidden" name="old_files[]" value="{{$image->image_path}}">
+                                        <span class="image-preview__name"></span>
+                                        <svg onclick="formsFile.removeFile(this)" data-name="" class="image-preview__del">
+                                            <use xlink:href="/images/icons.svg#icon-close"></use>
+                                        </svg>
+                                    </div>
+                                @endforeach
+                            @endif
+                            <div class="fake-upload">
+                                <img class="fake-upload__img" src="{{ asset('images/file-upload3.svg') }}" alt="">
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </form>
 

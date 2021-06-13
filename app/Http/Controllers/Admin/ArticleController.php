@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Moderate;
+use App\Models\Settings;
+use App\Models\User;
+use App\Notifications\ModerateNotification;
+use App\Notifications\PostCreatedNotification;
+use App\Repositories\ProfileRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -170,8 +177,16 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $allRules = \App\Models\Settings::where('type', 'moderate_rules')->get();
 
-//        $r = Carbon::create($article->up_post);
+        $moderateRules = [];
+        if($article->moderateComments()->exists()) {
+            $rule = $article->moderateComments()->first();
+            $moderateRules['rule'] = unserialize($rule->rules);
+            $moderateRules['moderate_text'] = $rule->message;
+            $moderateRules['id'] = $rule->id;
+        }
+
         $tags = \App\Models\Tag::all();
         $tags2 = [];
         foreach($tags as $tag){
@@ -183,6 +198,8 @@ class ArticleController extends Controller
             'tags'       => $tags,
             //'filter'     => $filters,
             'delimiter'  => '',
+            'rules' => $allRules,
+            'selectedRules' => $moderateRules
         ]);
 
     }
@@ -205,6 +222,7 @@ class ArticleController extends Controller
 
         $inputsArray             = $request->all();
         $inputsArray['on_front'] = ($request->input('on_front')) ? true : false;
+        $inputsArray['moderate'] = ($request->input('moderate')) ? true : false;
 
         $postImageAll = \App\Models\PostImage::where('article_id', $article->id)->get();
         $postImage  =  $postImageAll->pluck('image_path')->toArray();
@@ -293,6 +311,52 @@ class ArticleController extends Controller
         try {
             $update = $article->update($inputsArray);
 
+            /** ===========================================================
+             ===================Модерация================================
+             **/
+            if($inputsArray['moderate']){
+                $article->moderateComments()->detach();
+            }else {
+                $moderateNode = [];
+                if ($inputsArray['rule'] || $inputsArray['moderate_text']) {
+                    $moderateNode = [
+                        "rules" => serialize($inputsArray['rule']),
+                        "message" => $inputsArray['moderate_text'],
+                    ];
+                }
+                if (!empty($inputsArray['moderate_id'])) {
+                    $mod = Moderate::find($inputsArray['moderate_id']);
+                    $mod->update([
+                            "rules" => serialize($inputsArray['rule']),
+                            "message" => $inputsArray['moderate_text']
+                        ]
+                    );
+                    $mod = $mod->refresh();
+                } else {
+                    $mod = \App\Models\Moderate::create([
+                        "rules" => serialize($inputsArray['rule']),
+                        "message" => $inputsArray['moderate_text'],
+                    ])->fresh();
+                }
+                $ru = Settings::whereIn('id', $inputsArray['rule'])->get()->toArray();
+                $userTo = User::where('id', $article->user_id)->get();
+                $data = [
+                    'event_name' => 'Модерация',
+                    'url' => '/admin/article/'. $article->id .'/edit',
+                    'title' => 'Ответ от модератора',
+                    'message' => $inputsArray['moderate_text']
+                ];
+                Notification::send($userTo, new ModerateNotification($data));
+
+                $article->moderateComments()->sync($mod->id);
+
+            }
+
+            /** ================================================================
+            ===================Модерация=======================================
+             **/
+
+
             // FilterGroups
             if ($request->input('attrs')):
                 $article->filterGroups()->attach(array_keys($request->input('attrs')));
@@ -342,9 +406,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Article $article
+     * @param Article $article
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy( Article $article) {
         $article->categories()->detach();
@@ -386,16 +451,6 @@ class ArticleController extends Controller
             ->where('id', $articleId)
             ->first();
 
-
-//        $response = DB::table('articles')
-//            ->where('id', $articleId)
-//            ->update(['up_post' => Carbon::now()->addHours(24)]);
-
-//        $response = array(
-//            'from_article' => Carbon::parse($article->up_post),
-//            'now' => Carbon::now(),
-//            'between' => Carbon::parse($article->up_post)->diff(Carbon::now())->format('%h часов %i минут %s секунд')
-//        );
 
         if(Carbon::parse($article->up_post)->lt(Carbon::now())){
             DB::table('articles')

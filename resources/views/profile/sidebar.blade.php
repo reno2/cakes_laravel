@@ -1,8 +1,7 @@
 <div class="ava">
     <div class="ava__block">
-        <img class="ava__img"
-             src="{{ (!empty($profile->image)) ? $profile->image :  '/storage/images/avatar/default.svg'}}"
-             alt="Card image cap">
+        <img class="ava__img js_profileAva"
+             src="{{($profile->image) ?? '/storage/images/defaults/cake.svg'}}">
     </div>
 
 </div>
