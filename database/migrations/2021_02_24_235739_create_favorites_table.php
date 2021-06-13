@@ -16,8 +16,12 @@ class CreateFavoritesTable extends Migration
         Schema::create('favorites', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('article_id')->unsigned();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->integer('profile_id')->unsigned();
+
+        });
+
+        Schema::table('favorites', function(Blueprint $table) {
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
         });
     }
@@ -29,6 +33,6 @@ class CreateFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_profile');
+        Schema::dropIfExists('favorites');
     }
 }
