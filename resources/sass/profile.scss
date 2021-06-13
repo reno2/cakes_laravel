@@ -67,15 +67,17 @@
   min-height: 63px;
   //border: 2px solid #cbf0ff;
   position: relative;
+  border-left: 4px solid #fcddb3;
 }
 .ui-menu__li:hover .ui-menu__text{
   color: #9e9e9e;
 }
 .ui-block__menu .ui-menu__li svg{
-  fill: #3699ff;
+  fill: #9fb2c5;
 }
 .ui-menu__text{
   margin-left: 8px;
   color: #000;
   font-weight: 400;
+  font-size: 14px;
 }
