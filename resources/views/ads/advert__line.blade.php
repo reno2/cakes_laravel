@@ -18,10 +18,10 @@
         <div class="advert-line__category">{{$ad->categories->pluck('title')->first()}}</div>
     </div>
     <div class="advert-line__item advert-line__created">
-        {{Carbon\Carbon::parse($ad->created_at)->format('d.m.y H:i')}}
+        {{Carbon\Carbon::parse($ad->created_at)->format('d.m.y')}}
     </div>
     <div class="advert-line__item advert-line__updated">
-        {{Carbon\Carbon::parse($ad->updated_at)->format('d.m.y H:i')}}
+        {{Carbon\Carbon::parse($ad->updated_at)->format('d.m.y')}}
     </div>
     <div class="advert-line__item advert-line__views">
         <div class="advert-line__watches">{{views($ad)->unique()->count()}}</div>
