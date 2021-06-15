@@ -35,11 +35,9 @@
 
     <div class="advert-line__actions">
         <div class="t-tooltip">
-
             <svg class="i-svg i-svg__sm svg_menu b-toggle js_bToggle" data-toggle="b-toggle__content">
                 <use xlink:href="{{asset('images/icons.svg#icon-menu')}}"></use>
             </svg>
-
             <div class="js_bToolContent b-toggle__content">
                 @include('chunks.actions_tooltip')
             </div>

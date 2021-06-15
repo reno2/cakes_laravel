@@ -1,8 +1,9 @@
 @extends('layouts.profile')
 @section('content')
-                <div class="card">
-                    <div class="card-header">Редактировать профиль</div>
-                    <div class="card-body">
+                <h3>Редактировать профиль</h3>
+                <div class="card_ ui-card">
+
+                    <div class="ui-card__body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}

@@ -7157,6 +7157,23 @@ readers do not read off random characters that represent icons */
   padding-top: 16px;
 }
 
+h3 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.ui-card {
+  padding: 24px;
+  box-sizing: content-box;
+  background: #FFFFFF;
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .arrow-big {
   position: absolute;
   z-index: 1;

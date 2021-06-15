@@ -35,7 +35,9 @@ class ProfileRepository extends CoreRepository
     public function favoritesListNotAuth()
     {
         $ids = json_decode(Cookie::get('favorites'));
-        return (new AdsRepository)->getByCurrentProfileFavoritesAdsSortedDesc($ids);
+        if($ids) $response = (new AdsRepository)->getByCurrentProfileFavoritesAdsSortedDesc($ids);
+        else $response = '';
+        return $response;
     }
 
     public function getFavoritesIds(){

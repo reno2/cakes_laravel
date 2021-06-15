@@ -5,6 +5,7 @@
     </div>
 
 </div>
+
 <a href="{{route('profile.edit')}}" class="ui-menu__li ava__name">{{ $profile->name ?? ''}}
     <svg class="i-svg i-svg__sm i-svg__bgLink"><use xlink:href="/images/icons.svg#icon-edit"></use></svg>
 </a>
