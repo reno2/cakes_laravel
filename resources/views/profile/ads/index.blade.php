@@ -7,7 +7,7 @@
 
 
     <div class="profile-adverts">
-        <div class="profile-adverts__header">{{ __('Dashboard') }}</div>
+
         <div class="profile-adverts__body">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -15,9 +15,7 @@
                 </div>
             @endif
             <div class="container">
-                <div class="profile-adverts__actions">
-                    <a class="btn btn-success" href="{{route("profile.ads.create")}}">Добавить объявление</a>
-                </div>
+
             </div>
             <div class="container">
                 <div class="profile-adverts__switch">

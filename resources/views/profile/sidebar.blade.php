@@ -6,6 +6,15 @@
 
 </div>
 
+    <div class="ui-menu__li ava__name ui-menu__accent">
+        <a class="" href="{{route('profile.edit')}}">
+            <svg class="i-svg i-svg__tw i-svg__bgDark"><use xlink:href="/images/icons.svg#icon-profile"></use></svg>
+            <span class="ui-menu__text">Добавить объявление</span>
+        </a>
+    </div>
+
+
+
 <a href="{{route('profile.edit')}}" class="ui-menu__li ava__name">{{ $profile->name ?? ''}}
     <svg class="i-svg i-svg__sm i-svg__bgLink"><use xlink:href="/images/icons.svg#icon-edit"></use></svg>
 </a>

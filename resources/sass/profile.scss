@@ -56,6 +56,7 @@
   padding: 0;
 }
 .ui-menu__li{
+  transition: background-color .4s ease-in;
   box-shadow: 0 40px 60px 0 rgb(37 59 112 / 10%);
   background: #fff;
   margin: 8px 0;
@@ -67,7 +68,7 @@
   min-height: 63px;
   //border: 2px solid #cbf0ff;
   position: relative;
-  border-left: 4px solid #fcddb3;
+  border-left: 4px solid #82C831;
 }
 .ui-menu__li:hover .ui-menu__text{
   color: #9e9e9e;
@@ -80,4 +81,22 @@
   color: #000;
   font-weight: 400;
   font-size: 14px;
+}
+
+//accent
+.ui-menu__accent{
+  background: #82C831;
+}
+.ui-menu__accent svg.i-svg{
+  fill: #fff;
+}
+.ui-menu__accent .ui-menu__text{
+  font-weight: 600;
+  color: #ffffff;
+}
+.ui-menu__accent:hover{
+  background: #82c831bd;
+}
+.ui-menu__accent:hover .ui-menu__text{
+  color: #ffe;
 }

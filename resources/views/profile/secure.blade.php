@@ -3,9 +3,10 @@
 @section('content')
 
     @include('chunks.all_massages')
-    <div class="card">
-        <div class="card-header">Редактировать профиль</div>
-        <div class="card-body">
+
+        <h3 class="card-header_">Изменить пароль</h3>
+        <div class="ui-card">
+            <div class="ui-card__body">
             <form method="POST" id="post-image" action="{{route('profile.secure.update', $user)}}"
                   class="create-form"
                   enctype="multipart/form-data">

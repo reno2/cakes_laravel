@@ -7271,6 +7271,7 @@ h3 {
 }
 
 .ui-menu__li {
+  transition: background-color 0.4s ease-in;
   box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
   background: #fff;
   margin: 8px 0;
@@ -7281,7 +7282,7 @@ h3 {
   align-items: center;
   min-height: 63px;
   position: relative;
-  border-left: 4px solid #fcddb3;
+  border-left: 4px solid #82C831;
 }
 
 .ui-menu__li:hover .ui-menu__text {
@@ -7297,6 +7298,27 @@ h3 {
   color: #000;
   font-weight: 400;
   font-size: 14px;
+}
+
+.ui-menu__accent {
+  background: #82C831;
+}
+
+.ui-menu__accent svg.i-svg {
+  fill: #fff;
+}
+
+.ui-menu__accent .ui-menu__text {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.ui-menu__accent:hover {
+  background: #82c831bd;
+}
+
+.ui-menu__accent:hover .ui-menu__text {
+  color: #ffe;
 }
 
 .profile-adverts__lines {

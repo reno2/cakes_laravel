@@ -5,21 +5,21 @@
 
     @include('chunks.all_massages')
 
-
-    <div class="card">
-        <div class="card-header">{{ __('Dashboard') }}</div>
-        <div class="card-body">
-
-            @if (session('status'))
+    @if (session('status'))
+        <div class="ui-card">
+            <div class="ui-card__body">
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
                 </div>
-            @endif
+            </div>
+        </div>
+    @endif
 
+    <div class="ui-card">
+        <div class="ui-card__body">
             <div class="container">
                 <div class="row justify-content-start ads">
                     <div class="list-group  w-100 mt-3">
-
                         <div class="block">
                             <div class="block-title">
                                 <div class="block-title__main">
@@ -52,9 +52,9 @@
                                     </div>
                                     @if(isset($fromAuthorNotReadAnswer[$d->article_id]))
                                         <div class="i-comment__new">
-                                                <span class="info-badge blue">
-                                                    Новых {{$fromAuthorNotReadAnswer[$d->article_id]->count}}
-                                                </span>
+                                            <span class="info-badge blue">
+                                                Новых {{$fromAuthorNotReadAnswer[$d->article_id]->count}}
+                                            </span>
                                         </div>
                                     @endif
                                 </div>
@@ -65,7 +65,17 @@
                                 </div>
                             @endforelse
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="ui-card mt-4">
+        <div class="ui-card__body">
+            <div class="container">
+                <div class="row justify-content-start ads">
+                    <div class="list-group  w-100 mt-3">
                         <div class="block mt-4">
                             <div class="block-title">
                                 <div class="block-title__main">
@@ -101,9 +111,9 @@
                                     </div>
                                     @if(isset($toAuthorQuestionsNotAnswer[$d->article_id]))
                                         <div class="i-comment__new">
-                                                <span class="info-badge blue">
-                                                    Новых {{$toAuthorQuestionsNotAnswer[$d->article_id]->count}}
-                                                </span>
+                                            <span class="info-badge blue">
+                                                Новых {{$toAuthorQuestionsNotAnswer[$d->article_id]->count}}
+                                            </span>
                                         </div>
                                     @endif
                                 </div>
@@ -114,10 +124,9 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
+
     <ul class="pagination pull-right">
         {{--        {{$comments>links()}}--}}
     </ul>
