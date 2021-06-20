@@ -1,21 +1,38 @@
 .profile-adverts__lines {
   margin-top: 24px;
 }
-.profile-adverts__info{
+
+//===============================================
+//=========================END MARKUP============
+//===============================================
+.profile-adverts__markup{
   @include block;
+  display: flex;
   margin-bottom: 24px;
+  padding: 16px;
 }
-.profile-adverts__info div{
-
+.profile-adverts__markup div:not(:first-child){
+  //margin-left: 24px;
 }
-.profile-adverts__img{
-
+.profile-markup__img{
+  width: 132px;
 }
-.profile-adverts__title{
-  width: 210px;
+.profile-markup__title{
+  width: 186px;
 }
-.profile-adverts__views{
-
+.profile-markup__created,
+.profile-markup__updated{
+  width: 100px;
+}
+.profile-markup__favorites,
+.profile-markup__actions{
+  flex-grow: 1;
+  text-align: right;
+}
+.profile-markup__views {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
 }
 .profile-adverts__favorites{
 
@@ -24,10 +41,32 @@
 .profile-adverts__actions{
   text-align: right;
 }
+
 .profile-adverts__item{
-  padding: 16px;
   font-size: 12px;
 }
+
+
+.profile-markup__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+//===============================================
+//=========================END MARKUP============
+//===============================================
+@media (max-width: 767px) {
+  .profile-markup__created,
+  .profile-markup__updated,
+  .profile-markup__favorites,
+  .profile-markup__views{
+    display: none;
+  }
+  .profile-markup__title{
+    flex-grow: 1;
+  }
+}
+
+
 
 .profile-adverts__block {
   display: none;
@@ -38,14 +77,6 @@
 }
 
 
-.advert-line {
-  background: #fff;
-  margin-bottom: 8px;
-  display: flex;
-  padding: 16px;
-  @include block;
-  justify-content: flex-start;
-}
 
 
 .advert-line__figure {
@@ -98,32 +129,30 @@
 .advert-line__created,
 .advert-line__updated{
   font-size: 12px;
-  margin-right: 16px;
+  margin: 0 16px;
 }
-.advert-line__actions {
+
+
+.t-tooltip{
+
+}
+.profile-markup__actions {
   position: relative;
   text-align: right;
-  //display: flex;
-  //flex-direction: column;
-  //align-items: self-start;
 }
-.advert-line__actions .svg_menu{
+.profile-markup__actions .svg_menu{
   fill: $gray2;
   cursor: pointer;
 }
-.advert-line__actions:hover .svg_menu{
+.profile-markup__actions:hover .svg_menu{
   fill: $green;
 }
-.advert-line__actions a{
+.profile-markup__actions a{
   font-size: 12px;
 }
-.advert-line__actions .btn{
+.profile-markup__actions .btn{
   padding: 0;
   font-size: 12px;
-}
-
-table{
-  width: 100%;
 }
 
 .advert-line__choose {

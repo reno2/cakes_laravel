@@ -1,14 +1,14 @@
 <div class="ava">
     <div class="ava__block">
         <img class="ava__img js_profileAva"
-             src="{{($profile->image) ?? '/storage/images/defaults/cake.svg'}}">
+             src="{{($profile->image) ? $profile->image.'?v='.\Carbon\Carbon::parse($profile->updated_at)->timestamp :  '/storage/images/defaults/cake.svg'}}">
     </div>
 
 </div>
 
     <div class="ui-menu__li ava__name ui-menu__accent">
-        <a class="" href="{{route('profile.edit')}}">
-            <svg class="i-svg i-svg__tw i-svg__bgDark"><use xlink:href="/images/icons.svg#icon-profile"></use></svg>
+        <a class="" href="{{route("profile.ads.create")}}">
+            <svg class="i-svg i-svg__tw i-svg__bgDark"><use xlink:href="/images/icons.svg#icon-add"></use></svg>
             <span class="ui-menu__text">Добавить объявление</span>
         </a>
     </div>

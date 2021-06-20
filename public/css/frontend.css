@@ -7325,15 +7325,38 @@ h3 {
   margin-top: 24px;
 }
 
-.profile-adverts__info {
+.profile-adverts__markup {
   background: #FFFFFF;
   box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
   border-radius: 9px;
+  display: flex;
   margin-bottom: 24px;
+  padding: 16px;
 }
 
-.profile-adverts__title {
-  width: 210px;
+.profile-markup__img {
+  width: 132px;
+}
+
+.profile-markup__title {
+  width: 186px;
+}
+
+.profile-markup__created,
+.profile-markup__updated {
+  width: 100px;
+}
+
+.profile-markup__favorites,
+.profile-markup__actions {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.profile-markup__views {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .profile-adverts__favorites,
@@ -7342,8 +7365,25 @@ h3 {
 }
 
 .profile-adverts__item {
-  padding: 16px;
   font-size: 12px;
+}
+
+.profile-markup__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 767px) {
+  .profile-markup__created,
+  .profile-markup__updated,
+  .profile-markup__favorites,
+  .profile-markup__views {
+    display: none;
+  }
+
+  .profile-markup__title {
+    flex-grow: 1;
+  }
 }
 
 .profile-adverts__block {
@@ -7352,17 +7392,6 @@ h3 {
 
 .profile-adverts__block.active {
   display: block;
-}
-
-.advert-line {
-  background: #fff;
-  margin-bottom: 8px;
-  display: flex;
-  padding: 16px;
-  background: #FFFFFF;
-  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
-  border-radius: 9px;
-  justify-content: flex-start;
 }
 
 .advert-line__figure {
@@ -7424,34 +7453,30 @@ h3 {
 .advert-line__created,
 .advert-line__updated {
   font-size: 12px;
-  margin-right: 16px;
+  margin: 0 16px;
 }
 
-.advert-line__actions {
+.profile-markup__actions {
   position: relative;
   text-align: right;
 }
 
-.advert-line__actions .svg_menu {
+.profile-markup__actions .svg_menu {
   fill: #8a8a8a;
   cursor: pointer;
 }
 
-.advert-line__actions:hover .svg_menu {
+.profile-markup__actions:hover .svg_menu {
   fill: #04f2c6;
 }
 
-.advert-line__actions a {
+.profile-markup__actions a {
   font-size: 12px;
 }
 
-.advert-line__actions .btn {
+.profile-markup__actions .btn {
   padding: 0;
   font-size: 12px;
-}
-
-table {
-  width: 100%;
 }
 
 .advert-line__choose {

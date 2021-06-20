@@ -29,18 +29,15 @@
                         @if(isset($ads) && !empty($ads))
 
                             <h4 class="profile-adverts__blockTitle">Опубликованные объявления</h4>
-
-                            <table cellpadding="16" class="profile-adverts__info">
-                                <tr>
-                                    <td class="profile-adverts__item profile-adverts__img">Изображение</td>
-                                    <td class="profile-adverts__item profile-adverts__title">Основное</td>
-                                    <td class="profile-adverts__item profile-adverts__created">Создано</td>
-                                    <td class="profile-adverts__item profile-adverts__updated">Изменено</td>
-                                    <td class="profile-adverts__item profile-adverts__views">Просмотры</td>
-                                    <td class="profile-adverts__item profile-adverts__favorites">Отложено</td>
-                                    <td class="profile-adverts__item profile-adverts__actions">Действия</td>
-                                </tr>
-                            </table>
+                            <div class="profile-adverts__markup">
+                                    <div class="profile-adverts__item profile-markup__img">Изображение</div>
+                                    <div class="profile-adverts__item profile-markup__title">Основное</div>
+                                    <div class="profile-adverts__item profile-markup__created">Создано</div>
+                                    <div class="profile-adverts__item profile-markup__updated">Изменено</div>
+                                    <div class="profile-adverts__item profile-markup__views">Просмотры</div>
+                                    <div class="profile-adverts__item profile-markup__favorites">Отложено</div>
+                                    <div class="profile-adverts__item profile-markup__actions">Действия</div>
+                            </div>
                             @foreach($ads as $ad)
 
                                 @include('ads.advert__line')
@@ -52,17 +49,15 @@
                     <div id="not_published" class="js_adsStatusGroups profile-adverts__block">
                         @if(isset($adsNotPublished) && !empty($adsNotPublished))
                             <h4 class="profile-adverts__blockTitle">Не опубликованные объявления</h4>
-                            <table cellpadding="16" class="profile-adverts__info">
-                                <tr>
-                                    <td class="profile-adverts__item profile-adverts__img">Изображение</td>
-                                    <td class="profile-adverts__item profile-adverts__title">Основное</td>
-                                    <td class="profile-adverts__item profile-adverts__created">Создано</td>
-                                    <td class="profile-adverts__item profile-adverts__updated">Изменено</td>
-                                    <td class="profile-adverts__item profile-adverts__views">Просмотры</td>
-                                    <td class="profile-adverts__item profile-adverts__favorites">Отложено</td>
-                                    <td class="profile-adverts__item profile-adverts__actions">Действия</td>
-                                </tr>
-                            </table>
+                            <div class="profile-adverts__markup">
+                                <div class="profile-adverts__item profile-markup__img">Изображение</div>
+                                <div class="profile-adverts__item profile-markup__title">Основное</div>
+                                <div class="profile-adverts__item profile-markup__created">Создано</div>
+                                <div class="profile-adverts__item profile-markup__updated">Изменено</div>
+                                <div class="profile-adverts__item profile-markup__views">Просмотры</div>
+                                <div class="profile-adverts__item profile-markup__favorites">Отложено</div>
+                                <div class="profile-adverts__item profile-markup__actions">Действия</div>
+                            </div>
                             @foreach($adsNotPublished as $ad)
                                 @include('ads.advert__line')
                             @endforeach
@@ -73,17 +68,15 @@
                     <div id="moderate" class="js_adsStatusGroups profile-adverts__block">
                         @if(isset($adsOnModerate) && !empty($adsOnModerate))
                             <h4 class="profile-adverts__blockTitle">Объявления на модерации</h4>
-                            <table cellpadding="16" class="profile-adverts__info">
-                                <tr>
-                                    <td class="profile-adverts__item profile-adverts__img">Изображение</td>
-                                    <td class="profile-adverts__item profile-adverts__title">Основное</td>
-                                    <td class="profile-adverts__item profile-adverts__created">Создано</td>
-                                    <td class="profile-adverts__item profile-adverts__updated">Изменено</td>
-                                    <td class="profile-adverts__item profile-adverts__views">Просмотры</td>
-                                    <td class="profile-adverts__item profile-adverts__favorites">Отложено</td>
-                                    <td class="profile-adverts__item profile-adverts__actions">Действия</td>
-                                </tr>
-                            </table>
+                            <div class="profile-adverts__markup">
+                                <div class="profile-adverts__item profile-markup__img">Изображение</div>
+                                <div class="profile-adverts__item profile-markup__title">Основное</div>
+                                <div class="profile-adverts__item profile-markup__created">Создано</div>
+                                <div class="profile-adverts__item profile-markup__updated">Изменено</div>
+                                <div class="profile-adverts__item profile-markup__views">Просмотры</div>
+                                <div class="profile-adverts__item profile-markup__favorites">Отложено</div>
+                                <div class="profile-adverts__item profile-markup__actions">Действия</div>
+                            </div>
                             @foreach($adsOnModerate as $ad)
                                 @include('ads.advert__line')
                             @endforeach

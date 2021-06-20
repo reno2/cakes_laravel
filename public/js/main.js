@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
 
+    // Контекстное меню на странице профиля
     const toggle = document.querySelectorAll('.js_bToggle');
     toggle.forEach((el, inx) => {
         el.addEventListener('click', function (e) {
-            //e.stopPropagation()
             bToggle(el);
         });
     });
@@ -53,7 +53,8 @@ function bToggle(element) {
 
     if (!$(element).hasClass('open')) {
         const content = $(element).siblings(`.${$(element).data('toggle')}`);
-        content.css({'left': (content.width() * -1) + 16 + 'px'}).addClass('open');
+       // console.log(element );
+        content.css({'left': ($(content).width() * -1) + 16 + 'px'}).addClass('open');
         $(element).addClass('open');
     }
 }

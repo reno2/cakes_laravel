@@ -1,9 +1,8 @@
-<div class="card">
-    <div class="card-header">
-        Новое объявление
-    </div>
+<h3>   Новое объявление</h3>
+<div class="card_ ui-card">
 
-    <div class="card-body">
+
+    <div class="ui-card__body">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
