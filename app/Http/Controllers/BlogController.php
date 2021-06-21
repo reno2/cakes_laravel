@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CommentsRepository;
 use App\Repositories\ProfileRepository;
 use App\Seo\SeometaFacade;
 use CyrildeWit\EloquentViewable\Support\Period;
@@ -20,7 +21,7 @@ class BlogController extends Controller
 
     public function front(Request $request)
     {
-        $ads               = Article::orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);
+        $ads = Article::orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);
         return view('blog.front', [
             'ads' => $ads,
         ]);

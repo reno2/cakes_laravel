@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 use App\Notifications\CommentNotification;
+use App\Repositories\CommentsRepository;
 use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Notification;
 
@@ -24,7 +25,8 @@ class CommentObserver
         $fromUserName = (new ProfileRepository)->getProfileNameByUserId($comment->user_id);
         $data = [
             'event_name' => 'Задан вопрос',
-            'url' => '/ads/'.$ads->slug,
+            //'url' => '/ads/'.$ads->slug,
+            'url' => '/profile/comments/'.$comment->article_id .'/'. $comment->from_user_id,
             'title' => $ads->title,
             'recipient' => $fromUserName,
             'message' => $comment->comment

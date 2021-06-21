@@ -14,6 +14,20 @@ use App\Models\Profile;
 
 class CommentsRepository extends CoreRepository
 {
+    /**
+     *
+     * @param $user_from
+     * @param $article_id
+     */
+    public function getToUserFirstBranchId($user_from, $article_id){
+        return \DB::table('comments')
+            ->select('id')
+            ->where('comments.article_id', $article_id)
+            ->where('comments.from_user_id', $user_from)
+            ->where('comments.parent_id', 0)
+            ->first();
+    }
+
     /*  Создание нового комментария с фронта
      * @param array $request - Объект запроса
      * @return Comment|Array - возвращает лтбо новый комментарий либо массив с ошибкой
