@@ -72,7 +72,7 @@
 
 
                     <div class="dmenu">
-{{--                        <a class="dropdown-item" href="{{route('user_managment.user.index')}}">Список пользователей</a>--}}
+                        <a class="dropdown-item" href="{{route('admin.users.index')}}">Список пользователей</a>
 {{--                        <a class="dropdown-item" href="{{route('user_managment.user.create')}}">Создать</a>--}}
 {{--                        <a class="dropdown-item" href="{{route('user_managment.user.create')}}">Роли</a>--}}
 {{--                        <a class="dropdown-item" href="{{route('user_managment.user.create')}}">Создать роль</a>--}}

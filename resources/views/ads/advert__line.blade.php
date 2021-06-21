@@ -40,7 +40,7 @@
             </svg>
             <div class="js_bToolContent b-toggle__content">
                 @include('chunks.actions_tooltip')
-            </div>
+           </div>
         </div>
 
     </div>

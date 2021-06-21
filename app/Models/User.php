@@ -29,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id'
+        'name', 'email', 'password', 'provider', 'provider_id', 'is_admin', 'email_verified_at'
     ];
 
     /**
@@ -63,5 +63,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+
+
+    // Проверка пользователя на статус администратора
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
     }
 }

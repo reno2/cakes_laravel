@@ -2,14 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
 
-    // Контекстное меню на странице профиля
-    const toggle = document.querySelectorAll('.js_bToggle');
-    toggle.forEach((el, inx) => {
-        el.addEventListener('click', function (e) {
-            bToggle(el);
-        });
-    });
-
     // Обработчики на переключение табов объявлениях профиля
     const adsSwitcher = document.querySelectorAll('.js_adsSwitcher');
 
@@ -23,8 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('click', function (e) {
     const targetClasses = e.target.classList;
     if (!targetClasses.contains('js_bToolContent')) {
+       // console.log(e.target);
         document.querySelectorAll('.js_bToggle.open').forEach((el, inx) => {
             if (el !== e.target) {
+
                 el.parentElement.querySelector('.b-toggle__content').classList.remove('open');
                 el.classList.remove('open');
             }
@@ -32,6 +26,16 @@ window.addEventListener('click', function (e) {
     }
 });
 
+// Контекстное меню в списке постов
+window.addEventListener('click', function (e) {
+    //console.log(e);
+    if (e.target.classList.contains('js_bToggle')) {
+        return bToggle(e.target);
+    }
+    if ( e.target.closest('.js_bToggle') ) {
+       return bToggle(e.target.closest('.js_bToggle'));
+    }
+}, true)
 
 function profileAdsList(element, e) {
     const target = element.getAttribute('data-status');
@@ -52,10 +56,9 @@ function profileAdsList(element, e) {
 function bToggle(element) {
 
     if (!$(element).hasClass('open')) {
-        const content = $(element).siblings(`.${$(element).data('toggle')}`);
-       // console.log(element );
-        content.css({'left': ($(content).width() * -1) + 16 + 'px'}).addClass('open');
-        $(element).addClass('open');
+        const actionBlock = element.parentElement.querySelector('.js_bToolContent');
+        element.classList.add('open')
+        actionBlock.classList.add('open')
     }
 }
 
