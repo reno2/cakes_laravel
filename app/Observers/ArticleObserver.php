@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\User;
 use App\Notifications\PostCreatedNotification;
 use App\Repositories\ProfileRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class ArticleObserver
@@ -53,7 +54,6 @@ class ArticleObserver
      */
     public function updated(Article $article)
     {
-        //
     }
 
     /**
@@ -67,6 +67,8 @@ class ArticleObserver
     {
         $article->title = strip_tags($article->title);
         $article->description = strip_tags($article->description);
+        if($article->user_id == Auth::id())
+            $article->moderate =  0;
 
     }
     /**
