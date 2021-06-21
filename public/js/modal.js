@@ -123,6 +123,8 @@ function modalClose() {
     const modalWrap = document.querySelector('.js_modalWrap.open')
     console.log(modalWrap);
     modalWrap.querySelector('.js_modalContent').style.display = '';
-    modalWrap.querySelector('.js_modalThanks').style.display = 'none';
+    if(modalWrap.querySelector('.js_modalThanks'))
+        modalWrap.querySelector('.js_modalThanks').style.display = 'none';
+
     modalWrap.classList.remove('open')
 }

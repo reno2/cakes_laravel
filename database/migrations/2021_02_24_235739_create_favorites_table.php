@@ -16,8 +16,8 @@ class CreateFavoritesTable extends Migration
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('article_id')->nullable();
-            $table->unsignedBigInteger('profile_id')->nullable();
+            $table->bigInteger('article_id')->unsigned();
+            $table->bigInteger('profile_id')->unsigned();
 
         });
 

@@ -50,14 +50,14 @@ class TagController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
 
     {
         $this->validate($request, [
-            'name' => 'required|max:255'
+            'name' => 'required|max:255|unique:tags',
         ]);
         $tag = new Tag;
         $tag->name = $request->name;

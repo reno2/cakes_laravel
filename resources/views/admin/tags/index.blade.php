@@ -12,7 +12,6 @@
 
         <hr>
             <form action="{{route('admin.tags.store')}}" class="form-inline" method="post">
-
                 <div class="form-group mx-sm-3 mb-2">
                     <input class="form-control" type="text" name="name">
                 </div>
