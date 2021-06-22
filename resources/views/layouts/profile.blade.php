@@ -48,7 +48,7 @@
                                             <use xlink:href="/images/icons.svg#icon-msg"></use>
                                         </svg>
                                         @if($notifications->count() > 0)
-                                            <span class="nav-item__badge info-small blue"> {{$notifications->count()}}</span>
+                                            <span class="nav-item__badge info-small blue js_notificationsCount"> {{$notifications->count()}}</span>
                                         @endif
                                     </a>
 

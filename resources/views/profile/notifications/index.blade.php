@@ -18,7 +18,7 @@
                 </div>
             @endif
 {{--            <a href="/profile/comments/{{ $notification->data['all']['article_id']}}/{{ $notification->data['all']['from_user_id'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.--}}
-            <a href="#" class="btn-middle blue float-right mark-as-read" data-id="{{ $notification->id }}">
+            <a href="#" class="btn-middle blue float-right mark-as-read js_makeAsRead" data-id="{{ $notification->id }}" data-user="{{Auth::id()}}">
                 Прочитать
             </a>
         </div>
@@ -46,10 +46,14 @@
         }
 
         $(function () {
-            $('.mark-as-read').click(async function(){
+            $('.js_makeAsRead').click(async function(){
                 let request = await sendMarkRequest($(this).data('id'));
                 if(request.data) {
                     $(this).parents('div.alert').remove();
+                    const userId = $(this).data('user')
+                    document.dispatchEvent(new CustomEvent("noticeRead", {
+                        detail: { userId: userId }
+                    }));
                 }
             });
             $('#mark-all').click(async function () {

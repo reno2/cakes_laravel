@@ -67,6 +67,7 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
 
         // Уведомления для пользователя
         Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
+        Route::get('/notifications/personal/{user_id}', 'ProfileNotificationsController@personal')->name('profile.notice.personal');
         Route::post('/notifications/read', 'ProfileNotificationsController@read')->name('profile.notice.read');
         // Comments
         Route::post('/comments/', 'CommentController@store')->name('comments.store');

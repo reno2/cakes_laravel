@@ -22,7 +22,7 @@ class ArticleObserver
     public function created(Article $article)
     {
         // Отправляем уведомления пользователять о создании нового
-        $userTo = User::find(1);
+        $userTo = User::where('is_admin', 1)->get();
         $data = [
             'event_name' => 'Создано новое объявление',
             'url' => '/admin/article/'. $article->id .'/edit',

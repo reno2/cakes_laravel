@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\PostCreatedNotification;
 use App\Repositories\CommentsRepository;
 use App\Repositories\ProfileRepository;
 use App\Seo\SeometaFacade;
@@ -13,6 +15,7 @@ use App\Models\Tag;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
@@ -21,6 +24,7 @@ class BlogController extends Controller
 
     public function front(Request $request)
     {
+
         $ads = Article::orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);
         return view('blog.front', [
             'ads' => $ads,

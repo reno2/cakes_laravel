@@ -26,6 +26,30 @@ window.addEventListener('click', function (e) {
     }
 });
 
+
+//===================================================
+document.addEventListener("noticeRead", event => {
+    const userId = event.detail.userId
+     updateUserNotice(userId)
+});
+
+function updateUserNotice(userId){
+    axios.get('/profile/notifications/personal/'+userId)
+        .then((res)=>{
+            if(res.data.success){
+                const notificationsElement = document.querySelector('.js_notificationsCount')
+                if(notificationsElement){
+                    notificationsElement.innerHTML = res.data.notifications
+                }
+            }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+}
+
+//===================================================
+
 // Контекстное меню в списке постов
 window.addEventListener('click', function (e) {
     //console.log(e);

@@ -43,26 +43,31 @@
                     <span class="ad__ask">&#32 задать вопрос</span>
                 </a>
             @endif
-            <form action="{{route('profile.favorites')}}" method="post" class="@if(Auth::user()) auth @else guest @endif js_favorites">
-                {{csrf_field()}}
-                <input type="hidden" name="id" value="{{$ad->id}}">
-                <button type="submit" class="btn btn-default">
 
-                    @if(Auth::user() )
-                        @if($favorites && in_array($ad->id, $favorites))
-                            <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
+            @if( ( @auth()->check() && (@auth()->user()->id != $ad->user_id) ) || !@auth()->check())
+                <form action="{{route('profile.favorites')}}" method="post" class="@if(Auth::user()) auth @else guest @endif js_favorites">
+                    {{csrf_field()}}
+                    <input type="hidden" name="id" value="{{$ad->id}}">
+                    <button type="submit" class="btn btn-default">
+
+                        @if(Auth::user() )
+                            @if($favorites && in_array($ad->id, $favorites))
+                                <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
+                            @else
+                                <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                            @endif
                         @else
-                            <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                            @if($favorites && in_array($ad->id, $favorites))
+                                <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
+                            @else
+                                <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                            @endif
                         @endif
-                    @else
-                        @if($favorites && in_array($ad->id, $favorites))
-                            <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
-                        @else
-                            <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
-                        @endif
-                    @endif
-                </button>
-            </form>
+
+                    </button>
+                </form>
+            @endif
+
         </div>
 
     </div>
