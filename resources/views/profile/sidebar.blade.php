@@ -66,7 +66,7 @@
                 </svg>
                 <span class="ui-menu__text">Избранное</span>
             </a>
-            <span class="info-badge blue">{{$favorites}}</span>
+            <span class="info-badge blue js_favoritesMain">{{$favorites}}</span>
         </li>
     </ul>
 </div>

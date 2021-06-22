@@ -103,7 +103,8 @@ function favorites(e) {
     ).then(function (response) {
         if (response.status === 200) {
             const favoritesIcon = e.target.querySelector('.js_favoritesIcon');
-            document.querySelector('.js_favorites').innerHTML = response.data.count;
+            const mainFavoritesCount = document.querySelector('.js_favoritesMain')
+                if(mainFavoritesCount) mainFavoritesCount.innerHTML = response.data.count;
             if (response.data.action === 'del') {
                 favoritesIcon.classList.remove('fas');
                 favoritesIcon.classList.add('far');

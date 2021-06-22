@@ -6375,6 +6375,10 @@ readers do not read off random characters that represent icons */
   width: calc(48% - 21px);
 }
 
+.ads.treeColl .ad {
+  width: calc(32% - 21px);
+}
+
 .ad:hover .ad__title {
   color: #419bbf;
 }
@@ -6404,6 +6408,13 @@ readers do not read off random characters that represent icons */
      object-fit: cover;
   border-radius: 10px 10px 0 0;
   font-family: "object-fit: cover;";
+}
+
+.ad__head .ad__main_placeholder {
+  width: 63%;
+  text-align: center;
+  margin: 20% auto;
+  display: block;
 }
 
 .ad__tags {

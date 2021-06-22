@@ -6,7 +6,7 @@
     @include('chunks.all_massages')
 
 
-    <div class="ui-card">
+    <div class="ui-card_">
         <div class="ui-card__body">
 
             @if (session('status'))
@@ -14,9 +14,9 @@
                     {{ session('status') }}
                 </div>
             @endif
-
+            @if($ads) <h3>Отложенне объявления</h3>@endif
             <div class="container">
-                <div class="row justify-content-start ads thirdWidth">
+                <div class="row justify-content-start ads treeColl">
                     @forelse($ads as $key => $ad)
                         @include('ads.ad_front')
                     @empty

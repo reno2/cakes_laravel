@@ -13,6 +13,14 @@
 }
 .thirdWidth .ad{
   width: calc(48% - 21px);
+
+}
+.ads.treeColl {
+
+}
+.ads.treeColl .ad{
+  width: calc(32% - 21px);
+
 }
 .ad:hover .ad__title{
     color: $blue;
@@ -37,6 +45,12 @@
     object-fit: cover;
     border-radius: 10px 10px 0 0;
     font-family: 'object-fit: cover;';
+}
+.ad__head .ad__main_placeholder{
+  width: 63%;
+  text-align: center;
+  margin: 20% auto;
+  display: block;
 }
 .ad__tags{
     position: absolute;
