@@ -1,9 +1,32 @@
-.d-menu__content{
+.sidebar__ul{
+  list-style-type: none;
+  padding-left: 0;
+}
+.d-menu__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.d-menu__arrow{
+  transition: all .3s ease;
+  position: relative;
+  font-size: 10px;
+  color: #757575;
+}
+.menu_isOpen .d-menu__arrow {
+  transform: rotate(90deg);
+}
+
+.d-menu__content {
   max-height: 0;
   transition: all 0.5s;
   overflow: hidden;
+  opacity: 0;
 }
-.d-menu.menu_isOpen .d-menu__content{
+
+.d-menu.menu_isOpen .d-menu__content {
   max-height: 600px;
   height: auto;
+  opacity: 1;
 }

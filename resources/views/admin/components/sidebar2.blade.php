@@ -20,7 +20,9 @@
         <div class="top__middle">
             <ul class="sidebar__ul sul">
                 <li class="sul-link d-menu js_menuWrap">
-                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >Контент</a>
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu"><span>Контент
+                        </span>
+                        <i class="d-menu__arrow fas fa-chevron-right"></i></a>
                     <div class="d-menu__content js_menuContent">
                         <a class="dropdown-item d-menu__item" href="{{route('admin.category.index')}}">Категории</a>
                         <a class="dropdown-item d-menu__item" href="{{route('admin.article.index')}}">Материалы</a>
@@ -29,7 +31,9 @@
                     </div>
                 </li>
                 <li class="sul-link d-menu js_menuWrap">
-                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >SEO</a>
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" ><span>SEO
+                        </span>
+                        <i class="d-menu__arrow fas fa-chevron-right"></i></a>
                     <div class="d-menu__content js_menuContent">
                         <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
                         <a class="dropdown-item" href="{{route('seo.post.index')}}">Материалы</a>
@@ -37,7 +41,10 @@
                     </div>
                 </li>
                 <li class="sul-link d-menu js_menuWrap">
-                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">Дополнительно</a>
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
+                        <span>Дополнительно</span>
+                        <i class="d-menu__arrow fas fa-chevron-right"></i>
+                    </a>
                     <div class="d-menu__content js_menuContent">
                         <a class="dropdown-item" href="{{route('admin.settings.index')}}">Настройки</a>
                         <a class="dropdown-item" href="{{route('seo.post.index')}}">Страницы</a>
@@ -45,7 +52,11 @@
                     </div>
                 </li>
                 <li class="sul-link d-menu js_menuWrap">
-                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">Пользователи</a>
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
+                        <span>Пользователи
+                        </span>
+                        <i class="d-menu__arrow fas fa-chevron-right"></i>
+                    </a>
                     <div class="d-menu__content js_menuContent">
                         <a class="dropdown-item" href="{{route('admin.users.index')}}">Список пользователей</a>
                     </div>
