@@ -6469,6 +6469,17 @@ readers do not read off random characters that represent icons */
   max-width: 420px;
 }
 
+.d-menu__content {
+  max-height: 0;
+  transition: all 0.5s;
+  overflow: hidden;
+}
+
+.d-menu.menu_isOpen .d-menu__content {
+  max-height: 600px;
+  height: auto;
+}
+
 .info.info_admin {
   position: absolute;
   right: 3%;

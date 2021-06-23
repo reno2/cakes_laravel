@@ -19,35 +19,45 @@
         <hr>
         <div class="top__middle">
             <ul class="sidebar__ul sul">
-                <div class="sidebar-heading">
-                    Interface
-                </div>
-                <li class="sul-link">
-                    <a href="#" class="nav-link" id="dmenu" >Блог</a>
-
-                    <div class="dmenu">
-                        <a class="dropdown-item" href="{{route('admin.category.index')}}">Категории</a>
-                        <a class="dropdown-item" href="{{route('admin.article.index')}}">Материалы</a>
+                <li class="sul-link d-menu js_menuWrap">
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >Контент</a>
+                    <div class="d-menu__content js_menuContent">
+                        <a class="dropdown-item d-menu__item" href="{{route('admin.category.index')}}">Категории</a>
+                        <a class="dropdown-item d-menu__item" href="{{route('admin.article.index')}}">Материалы</a>
+                        <a class="dropdown-item d-menu__item" href="{{route('admin.tags.index')}}">Теги</a>
+                        <a class="dropdown-item d-menu__item" href="{{route('admin.features.index')}}">Характеристики</a>
+                    </div>
+                </li>
+                <li class="sul-link d-menu js_menuWrap">
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >SEO</a>
+                    <div class="d-menu__content js_menuContent">
+                        <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
+                        <a class="dropdown-item" href="{{route('seo.post.index')}}">Материалы</a>
                         <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
-                        <a class="dropdown-item" href="{{route('admin.features.index')}}">Характеристики</a>
+                    </div>
+                </li>
+                <li class="sul-link d-menu js_menuWrap">
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">Дополнительно</a>
+                    <div class="d-menu__content js_menuContent">
+                        <a class="dropdown-item" href="{{route('admin.settings.index')}}">Настройки</a>
+                        <a class="dropdown-item" href="{{route('seo.post.index')}}">Страницы</a>
+                        <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
+                    </div>
+                </li>
+                <li class="sul-link d-menu js_menuWrap">
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">Пользователи</a>
+                    <div class="d-menu__content js_menuContent">
+                        <a class="dropdown-item" href="{{route('admin.users.index')}}">Список пользователей</a>
                     </div>
                 </li>
             </ul>
         </div>
         <hr>
+        @if(false)
         <ul class="sidebar__ul sul">
             <div class="sidebar-heading">
                 SEO
             </div>
-            <li class="sul-link">
-                <a href="#" class="nav-link" id="dmenu" >Настройки</a>
-
-                <div class="dmenu">
-                    <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
-                    <a class="dropdown-item" href="{{route('seo.post.index')}}">Материалы</a>
-                    <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>
-                </div>
-            </li>
         </ul>
         <hr>
         <ul class="sidebar__ul sul">
@@ -81,6 +91,7 @@
                 </li>
             </ul>
         </div>
+        @endif
     </div>
     <!-- Collapsed Hamburger -->
 

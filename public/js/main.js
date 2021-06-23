@@ -118,5 +118,30 @@ function favorites(e) {
 }
 
 
+// =============================MENUS===================================
+const menusToggles = document.querySelectorAll('.js_menuToggle');
+
+
+if(menusToggles.length){
+    menusToggles.forEach((el, inx) =>{
+        el.addEventListener('click', toggleDMenu.bind(null, el))
+    })
+}
+function toggleDMenu(el){
+    const actionBlock = el.parentElement.querySelector('.js_menuContent')
+    const menuWrap = el.closest('.js_menuWrap')
+    menuWrap?.classList.contains('menu_isOpen') ? menuWrap.classList.remove('menu_isOpen') : menuWrap.classList.add('menu_isOpen')
+    //actionBlock.classList.contains('menu_isOpen') ? actionBlock.classList.remove('menu_isOpen') : actionBlock.classList.add('menu_isOpen')
+}
+
+//const menusToggle = document.querySelector('.js_menuToggle');
+// Закрытие меню при клике вне элемента
+// document.addEventListener('click', function(event) {
+//     if (event.target !== menusToggle && !menusToggle.contains(event.target)) {
+//         document.querySelectorAll('.js_menuContent').forEach((el, inx)=> el.classList.remove('menu_isOpen'));
+//     }
+// });
+// =============================MENUS===================================
+
 
 

@@ -47,6 +47,7 @@
 @yield('page-script')
 
 <script src="{{ asset('js/forms.js')}}"></script>
+<script src="{{ asset('js/main.js')}}"></script>
 <!-- Scripts -->
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <link href="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css') }}" rel="stylesheet">

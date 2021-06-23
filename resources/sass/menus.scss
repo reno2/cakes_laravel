@@ -1,0 +1,9 @@
+.d-menu__content{
+  max-height: 0;
+  transition: all 0.5s;
+  overflow: hidden;
+}
+.d-menu.menu_isOpen .d-menu__content{
+  max-height: 600px;
+  height: auto;
+}
