@@ -20,8 +20,8 @@
         <div class="top__middle">
             <ul class="sidebar__ul sul">
                 <li class="sul-link d-menu js_menuWrap">
-                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu"><span>Контент
-                        </span>
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
+                        <span class="d-menu__title">Контент</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i></a>
                     <div class="d-menu__content js_menuContent">
                         <a class="dropdown-item d-menu__item" href="{{route('admin.category.index')}}">Категории</a>
@@ -31,8 +31,8 @@
                     </div>
                 </li>
                 <li class="sul-link d-menu js_menuWrap">
-                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" ><span>SEO
-                        </span>
+                    <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >
+                        <span class="d-menu__title">SEO</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i></a>
                     <div class="d-menu__content js_menuContent">
                         <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
@@ -42,7 +42,7 @@
                 </li>
                 <li class="sul-link d-menu js_menuWrap">
                     <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
-                        <span>Дополнительно</span>
+                        <span class="d-menu__title">Дополнительно</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i>
                     </a>
                     <div class="d-menu__content js_menuContent">
@@ -53,8 +53,7 @@
                 </li>
                 <li class="sul-link d-menu js_menuWrap">
                     <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
-                        <span>Пользователи
-                        </span>
+                        <span class="d-menu__title">Пользователи</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i>
                     </a>
                     <div class="d-menu__content js_menuContent">

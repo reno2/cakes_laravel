@@ -21,10 +21,8 @@
 <div id="app" class="admin">
 
     <div class="d-flex justify-content-start admin-apage">
-        <div class="apage">
-            <div class="sidebar">
-                @include('admin.components.sidebar2')
-            </div>
+        <div class="admin-page__sidebar">
+            @include('admin.components.sidebar2')
         </div>
         <div class="apage marea flex-fill">
 {{--            @include('admin.components.top')--}}

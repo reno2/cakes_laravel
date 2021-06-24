@@ -6502,6 +6502,17 @@ readers do not read off random characters that represent icons */
   max-height: 600px;
   height: auto;
   opacity: 1;
+  background: #f9f9f9;
+}
+
+.d-menu__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5e5e5e;
+}
+
+.sul-link.d-menu.menu_isOpen {
+  background: #f9f9f9;
 }
 
 .info.info_admin {
@@ -6518,6 +6529,10 @@ readers do not read off random characters that represent icons */
 .info.hide {
   transition: all 900ms;
   right: -100%;
+}
+
+.admin-page__sidebar {
+  background: #fff;
 }
 
 .admin .marea .marea-top {
