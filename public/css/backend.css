@@ -6480,11 +6480,18 @@ readers do not read off random characters that represent icons */
   justify-content: space-between;
 }
 
+.d-menu__toggle:hover {
+  background: #f9f9f9;
+}
+
 .d-menu__arrow {
   transition: all 0.3s ease;
   position: relative;
   font-size: 10px;
-  color: #757575;
+  color: #949494;
+  background: #e9ecef;
+  padding: 4px 6px;
+  border-radius: 4px;
 }
 
 .menu_isOpen .d-menu__arrow {
