@@ -105,13 +105,16 @@ class ProfileController extends Controller
     public function secureUpdate( ProfileService $profileService, UserEditValidate $request) {
         $validated = $request->validated();
         try {
+
             $newUser = $profileService->changePassword($request, Auth::user());
+            session()->flash('notice', "Пароль успешно изменен");
+            return redirect()
+                ->route('profile.secure', ['user' => $newUser,]);
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
-        return redirect()
-            ->route('profile.secure', ['user' => $newUser,])
-            ->with(['message' => 'Данные пользователя изменены']);
+
+            //->with(['message' => 'Данные пользователя изменены']);
 
     }
 
@@ -141,7 +144,8 @@ class ProfileController extends Controller
         try {
             $update = $profile->update($inputsArray);
 
-            //return back()->withInput();
+
+            session()->flash('notice', "Профиль успешно отредактирован");
             return redirect()->route('profile.edit')->with([
                 'user'         => $profileRepository->getUserEdit($profile),
                 'profile'      => $profile,

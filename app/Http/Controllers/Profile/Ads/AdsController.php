@@ -104,10 +104,11 @@ class AdsController extends Controller
         $article = Article::create(array_merge($request->except('image'), ['user_id' => Auth::id()]));
         try{
             $this->adsService->chain($inputs, $article);
+            session()->flash('notice', "Объявление создано и отправлено на модерацию");
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();
         }
-        return redirect()->route('profile.ads.index');
+        return redirect()->to(route('profile.ads.index').'#linkd');
 
     }
 
@@ -174,6 +175,7 @@ class AdsController extends Controller
 
         try{
             $this->adsService->uploadChain($inputs, $ads);
+            session()->flash('notice', "Объявление обновленно и отправлено на модерацию");
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();
         }
@@ -191,7 +193,7 @@ class AdsController extends Controller
     {
         $ads = Article::find($id);
         try{
-            $ads->favoritesProfiles()->detach();
+           $ads->favoritesProfiles()->detach();
            $this->adsService->removeAds($ads);
         }catch (\Exception $e){
             if($request->ajax())

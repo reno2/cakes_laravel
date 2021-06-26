@@ -1,3 +1,7 @@
+//==================================
+//====================ПОДКЛЮЧЁН ТОЛЬКО В АДМИНКЕ
+
+
 document.addEventListener("DOMContentLoaded", () => {
 //window.onload=function(){
     let imgInput = document.querySelector('.single-img__input')

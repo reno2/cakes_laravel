@@ -17,6 +17,8 @@ function formSubmit(e){
                     throw new Error();
 
         })
+        document.querySelector('.js_fullLoader')?.classList.add('open')
+
     }catch (error) {
         e.preventDefault();
         alert('Исправте ошибки')

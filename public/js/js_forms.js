@@ -200,3 +200,13 @@ const postUp = (e) => {
 }
 
 
+//=========================================================
+//======================PRELOADER ON CREATE FORM===========
+//=========================================================
+// const createFormSubmit = (form, e) => {
+//     e.preventDefault()
+//
+// }
+// const createForm = document.querySelector('.js_adsCreate')
+// createForm?.addEventListener('submit', createFormSubmit.bind(null, form))
+

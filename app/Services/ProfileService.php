@@ -21,7 +21,7 @@ class ProfileService
      */
     public function changePassword($request, $user)
     {
-        $this->fail('Пароль не совпадает с текущим"');
+        //->fail('Пароль не совпадает с текущим"');
         if (Hash::check($request->input('password'), $user->password)) {
             if (!Hash::check($request->input('new_password'), $user->password)) {
                 // Создаём пустой массив

@@ -6529,6 +6529,18 @@ readers do not read off random characters that represent icons */
   color: #f279b1;
 }
 
+@media (max-width: 1279px) {
+  .ad {
+    width: 46%;
+  }
+}
+
+@media (max-width: 767px) {
+  .ad {
+    width: 100%;
+  }
+}
+
 .ad-detail__title {
   font-size: 24px;
   font-weight: 500;
@@ -7552,6 +7564,54 @@ h3 {
 .notification__read__all {
   margin-top: 24px;
   display: inline-flex;
+}
+
+.preloader {
+  display: none;
+}
+
+.preloader.open {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: #00000017;
+  z-index: 1001;
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preloader__image {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  -webkit-animation: preloader-rotate 2s infinite linear;
+          animation: preloader-rotate 2s infinite linear;
+}
+
+@-webkit-keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loaded_hiding .preloader {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
+
+.loaded .preloader {
+  display: none;
 }
 
 .select2 {

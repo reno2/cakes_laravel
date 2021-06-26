@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "highlight.js": "^10.1.2",
+        "izitoast": "^1.4.0",
         "js-share": "^2.3.2",
         "md5": "^2.3.0",
         "moment": "^2.29.1",

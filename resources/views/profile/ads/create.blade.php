@@ -1,6 +1,12 @@
-<h3>   Новое объявление</h3>
+<h3> Новое объявление</h3>
 <div class="card_ ui-card">
-
+    <div class="js_fullLoader preloader">
+        <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path fill="currentColor"
+                  d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+            </path>
+        </svg>
+    </div>
 
     <div class="ui-card__body">
         @if (session('status'))
@@ -13,11 +19,11 @@
                 {{ session('danger') }}
             </div>
         @endif
-            @if($errors->any())
-                <div class="alert alert-danger" role="alert">
-               {{$errors->first()}}
-                </div>
-            @endif
+        @if($errors->any())
+            <div class="alert alert-danger" role="alert">
+                {{$errors->first()}}
+            </div>
+        @endif
 
         <form method="post" id="post-image" action="{{ route('profile.ads.store')}}" class="js_adsCreate create-form"
               enctype="multipart/form-data" class="js_adsCreate">
@@ -33,11 +39,12 @@
             </div>
 
             <addresssearchstreet-component
-                target="street"
-                user-city="{{$profile->address}}"
-                value="{{ old('deal_address') }}"
-                message="@error('deal_address') {{$message}} @enderror">
-                ></addresssearchstreet-component>
+                    target="street"
+                    user-city="{{$profile->address}}"
+                    value="{{ old('deal_address') }}"
+                    message="@error('deal_address') {{$message}} @enderror">
+                >
+            </addresssearchstreet-component>
 
             <div class="form-group row">
                 <label for="delivery_self" class="col-md-4 col-form-label text-md-right">Возможна доставка</label>
@@ -50,7 +57,7 @@
                         </small>
                         @error('delivery_self')
                         <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                            <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
@@ -67,7 +74,7 @@
                     </select>
                     @error('product_type')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
@@ -81,7 +88,7 @@
                            value="{{old('title')}}">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
@@ -95,11 +102,11 @@
                            value="{{old('price')}}">
                     @error('price')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                     <span class="invalid-feedback js_error js_numbersPoint" role="alert">
-                          <strong>Возможно только цифры и точка</strong>
+                        <strong>Возможно только цифры и точка</strong>
                     </span>
                 </div>
             </div>
@@ -111,11 +118,11 @@
                            value="{{old('weight')}}">
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                     <span class="invalid-feedback js_error js_numbersPoint" role="alert">
-                          <strong>Возможно только цифры</strong>
+                        <strong>Возможно только цифры</strong>
                     </span>
                 </div>
             </div>
@@ -126,7 +133,7 @@
                               id="description">{{old('description')}}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
@@ -154,7 +161,7 @@
                     </select>
                     @error('categories')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>

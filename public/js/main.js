@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
 
-    // Обработчики на переключение табов объявлениях профиля
+    //===========Обработчики на переключение=========================
+    //===========табов объявлениях профиля==========================
+    //===============================================================
+    tabSwitcher()
     const adsSwitcher = document.querySelectorAll('.js_adsSwitcher');
-
     if (adsSwitcher) {
         adsSwitcher.forEach(btn => {
             btn.addEventListener('click', (e) => profileAdsList(btn, e));
@@ -62,6 +64,7 @@ window.addEventListener('click', function (e) {
 }, true)
 
 function profileAdsList(element, e) {
+    //e.preventDefault()
     const target = element.getAttribute('data-status');
     const mainProfileBlock = element.closest?.('.profile-adverts');
 
@@ -134,14 +137,58 @@ function toggleDMenu(el){
     //actionBlock.classList.contains('menu_isOpen') ? actionBlock.classList.remove('menu_isOpen') : actionBlock.classList.add('menu_isOpen')
 }
 
-//const menusToggle = document.querySelector('.js_menuToggle');
-// Закрытие меню при клике вне элемента
-// document.addEventListener('click', function(event) {
-//     if (event.target !== menusToggle && !menusToggle.contains(event.target)) {
-//         document.querySelectorAll('.js_menuContent').forEach((el, inx)=> el.classList.remove('menu_isOpen'));
-//     }
-// });
-// =============================MENUS===================================
 
+
+
+//========================Проверяем что в урле есть якорь
+//========================И переключаем таб
+function tabSwitcher() {
+
+    if(location.href.includes('not_published')) {
+        const  oo= document.querySelector("[href='#not_published']")
+        oo.click()
+        //?.click()
+    }
+
+}
+
+
+
+
+
+const form = document.querySelector('#confirm_delete');
+const btn = document.querySelector('.js_deleteSubmit');
+btn?.addEventListener('click', function () {
+    const url = form.querySelector('.url')?.value;
+    const token = form.querySelector('[name="_token"]').value;
+    axios.post(url, {
+        _method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Token ' + token
+        }
+    }).then(result => {
+        //showMessage(result, form)
+        modalClose()
+
+        const toDelId = form.getAttribute('data-id')
+        document.querySelector(`.js_adsWrap[data-id="${toDelId}"]`).remove()
+        iziToast.success({
+            position: 'topRight',
+            title: 'Уведомление',
+            message: result.data.msg
+        })
+
+    }).catch(e => {
+        iziToast.warning({
+            position: 'topRight',
+            title: 'Уведомление',
+            message: e.message
+        })
+        console.log(e.message);
+    });
+
+});
 
 

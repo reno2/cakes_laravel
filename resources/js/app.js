@@ -63,8 +63,11 @@ const app = new Vue({
 // import SwiperCore, { Navigation } from 'swiper';
 // SwiperCore.use([Navigation]);
 
-import 'toastr/build/toastr.css'
-window.toastr = require('toastr');
+// import 'toastr/build/toastr.css'
+// window.toastr = require('toastr');
+
+import 'iziToast/dist/css/iziToast.css'
+window.iziToast = require('iziToast');
 
 
 import Swiper from 'swiper/bundle';
