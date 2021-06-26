@@ -108,7 +108,7 @@ class AdsController extends Controller
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();
         }
-        return redirect()->to(route('profile.ads.index').'#linkd');
+        return redirect()->to(route('profile.ads.index').'#moderate');
 
     }
 

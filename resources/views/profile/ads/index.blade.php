@@ -19,9 +19,9 @@
             </div>
             <div class="container">
                 <div class="profile-adverts__switch">
-                    <a href="#published" class="btn-middle blue profile-adverts__link js_adsSwitcher active" data-status="published">Опубликованные</a>
-                    <a href="#not_published" class="btn-middle blue profile-adverts__link js_adsSwitcher" data-status="not_published">Не опубликованные</a>
-                    <a href="#moderate"class="btn-middle blue  profile-adverts__link js_adsSwitcher" data-status="moderate">Модерация</a>
+                    <button class="btn-middle blue profile-adverts__link js_adsSwitcher active" data-status="published">Опубликованные</button>
+                    <button  class="btn-middle blue profile-adverts__link js_notPublished js_adsSwitcher" data-status="not_published">Не опубликованные</button>
+                    <button  class="btn-middle blue profile-adverts__link js_onModerate js_adsSwitcher" data-status="moderate">Модерация</button>
                 </div>
                 <div class="profile-adverts__lines">
 
@@ -101,8 +101,5 @@
 
 @section('page-script')
     <link rel="stylesheet" href="{{asset('css/b-toggle.css')}}">
-    <script>
-        console.log(location.href)
-    </script>
 @stop
 

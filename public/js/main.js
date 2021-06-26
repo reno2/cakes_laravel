@@ -1,11 +1,24 @@
+window.onload = function() {
+    //========================Проверяем что в урле есть якорь
+    //========================И переключаем таб
+    tabSwitcher()
+}
+
+function tabSwitcher() {
+    if(location.href.includes('#moderate')) {
+        //  console.log(document.querySelector("[href='#not_published']"));
+        //document.querySelector("[href='#not_published']")?.click()
+        document.querySelector(".js_onModerate")?.dispatchEvent(new MouseEvent('click'));
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
-
-    //===========Обработчики на переключение=========================
-    //===========табов объявлениях профиля==========================
-    //===============================================================
-    tabSwitcher()
+    //===================Обработчики на переключение=========================
+    //====================табов объявлениях профиля==========================
+    //=======================================================================
     const adsSwitcher = document.querySelectorAll('.js_adsSwitcher');
     if (adsSwitcher) {
         adsSwitcher.forEach(btn => {
@@ -64,7 +77,7 @@ window.addEventListener('click', function (e) {
 }, true)
 
 function profileAdsList(element, e) {
-    //e.preventDefault()
+    e.preventDefault()
     const target = element.getAttribute('data-status');
     const mainProfileBlock = element.closest?.('.profile-adverts');
 
@@ -140,17 +153,7 @@ function toggleDMenu(el){
 
 
 
-//========================Проверяем что в урле есть якорь
-//========================И переключаем таб
-function tabSwitcher() {
 
-    if(location.href.includes('not_published')) {
-        const  oo= document.querySelector("[href='#not_published']")
-        oo.click()
-        //?.click()
-    }
-
-}
 
 
 
