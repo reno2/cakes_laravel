@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\ProfileRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 
@@ -35,6 +36,7 @@ class SocialController extends Controller
             $newUser->provider_id       = $user->getId();
             $newUser->name              = $user->getName();
             $newUser->email             = $user->getEmail();
+            $newUser->password             = Hash::make('lara');
             $newUser->email_verified_at = now();
             $newUser->save();
 
