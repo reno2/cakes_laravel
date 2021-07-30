@@ -10904,6 +10904,10 @@ a.text-dark:focus {
   }
 }
 
+.navbar .navbar-brand {
+  width: 300px;
+}
+
 .navbar-nav .nav-item {
   display: flex;
   align-items: center;

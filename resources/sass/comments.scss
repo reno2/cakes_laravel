@@ -4,10 +4,7 @@
     align-items: flex-start;
     position: relative;
 }
-.i-comment__img {
-     width: 80px;
-    border-radius: 8px;
- }
+
 .i-comment__title{
     font-weight: 600;
     color: #0a0a0e;
@@ -28,8 +25,23 @@
 .i-comment__new {
     align-self: center;
 }
-
-
+.i-comment__link{
+  width: 100%;
+  border-radius: 8px;
+  height: 80px;
+  object-fit: cover;
+  object-position: center;
+  display: flex;
+}
+.i-comment__img {
+  width: 80px;
+  border-radius: 8px;
+  height: 80px;
+  object-fit: cover;
+  object-position: center;
+  //width: 80px;
+  //border-radius: 8px;
+}
 .p-comment{
     background: #f5f6f7;
     padding: 24px;

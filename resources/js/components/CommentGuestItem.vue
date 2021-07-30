@@ -31,7 +31,28 @@
     }
     .comment-item__ava {
         margin-right: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
+
+    .comment-item__online{
+        margin-top: 8px;
+        font-size: 10px;
+        background: #82c831;
+        padding: 0px 4px;
+        border-radius: 4px;
+        color: #fff;
+    }
+    .comment-item__offline{
+        margin-top: 8px;
+        font-size: 10px;
+        background: #afafaf;
+        padding: 0px 4px;
+        border-radius: 4px;
+        color: #fff;
+    }
+
     .comment-item__comment {
         flex-grow: 1;
     }
@@ -90,7 +111,7 @@
     <div class="comment-item">
 
 
-        <div class="comment-item__auth" v-if="checkSender(item.from_user_id)">
+        <div class="comment-item__auth" v-if="Number(item.from_user_id) === me.user_id">
             <div class="comment-item__actions">
                 <i @click="edit(item.id)" class="comment-item__icon fas fa-highlighter"></i>
                 <i @click="deleteComment(item.id)" class="comment-item__icon fas fa-times"></i>
@@ -108,7 +129,9 @@
 
         <div class="comment-item__noAuth" v-else>
             <div class="comment-item__ava">
-                <img class="comment-item__img" :src="recipient.ava" alt="">
+                <img class="comment-item__img" :src="`${you.image}?v=3`" alt="">
+                <div class="comment-item__online" v-if="isUserOnline">в чате</div>
+                <div class="comment-item__offline" v-else>не в чате</div>
             </div>
             <div class="comment-item__comment">
                 <div class="comment-item__link list-group-item list-group-item-action">
@@ -129,10 +152,11 @@
     export default {
         data: () => ({}),
         props: {
-            recipient: {type: Object},
-            currentUserId: {type: String},
+            you: {type: Object},
+            me: {type: Object},
+            ownerId: {type: String},
             item: {type: Object},
-            sender: {type: Object}
+            usersOnline: {type: Array}
         },
         methods: {
             edit(id){
@@ -148,11 +172,17 @@
                 if (id == this.sender.user_id){
                     return true
                 }
-                else return false
+                return false
             },
             compareDate(created, updated){
                 if(!moment(created).isSame(updated))
                     return true
+            }
+        },
+        computed: {
+            isUserOnline() {
+                const onlineUsers = this.usersOnline.filter(user => this.you.user_id == user)
+                return !!onlineUsers.length;
             }
         }
     }

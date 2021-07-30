@@ -21,9 +21,11 @@ use App\Notifications\PostCreatedNotification;
 */
 Auth::routes(['verify' => true]);
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+// Route::get('/t', function () {
+//    $rr = \App\Models\Room::find(1);
+//    $rr->users()->attach([1,2]);
+//    dd($rr);
+// });
 
 
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
@@ -69,15 +71,19 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
         Route::get('/notifications/personal/{user_id}', 'ProfileNotificationsController@personal')->name('profile.notice.personal');
         Route::post('/notifications/read', 'ProfileNotificationsController@read')->name('profile.notice.read');
+       
+       
         // Comments
         Route::post('/comments/', 'CommentController@store')->name('comments.store');
         Route::post('/comments/{comment_id}', 'CommentController@answer')->name('comments.answer');
         Route::put('/comments/{comment_id}', 'CommentController@update')->name('comments.update');
         Route::delete('/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
 
+
+
         Route::get('/comments', 'CommentController@index')->name('comments.index');
-        Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');
-        Route::get('/comments/{article_id}/{user_id}', 'CommentController@comment')->name('comments.comment');
+        //Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');
+        Route::get('/comments/{room}', 'CommentController@comment')->name('comments.comment');
 
         Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');

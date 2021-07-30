@@ -45,14 +45,14 @@
         width: 100%;
         color: #b19b9b;
     }
-
+    .comment__loading,
     .comment__submit {
         position: absolute;
         top: 50%;
         right: 8px;
         transform: translateY(-50%);
     }
-
+    .comment__loading i,
     .comment__submit i {
         color: #48b0f7;
     }
@@ -93,6 +93,9 @@
         transform: translateX(50px) scaleY(0);
         transform-origin: center bottom;
     }
+    .comment__typing{
+        font-size: 12px;
+    }
 </style>
 <template>
     <div class="container">
@@ -102,9 +105,10 @@
                 <transition-group name="comments-transition" tag="div" class="comments__list">
                     <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
                         <CommentGuestItem
-                            :currentUserId="currentUserId"
-                            :sender="adsSender"
-                            :recipient="adsRecipient"
+                            :usersOnline="usersOnline"
+                            :ownerId="adsOwner"
+                            :you="youTo"
+                            :me="meTo"
                             :item="item"
                             @onEdit="editComment($event)"
                             @onDelete="deleteComment($event)"
@@ -119,12 +123,19 @@
                     <form @submit.prevent="submit">
                         <div class="form-row align-items-center">
                             <div class="comment__row">
-                                <input type="text" name="comment" class="comment__input" id="comment" v-model="comment"
+                                <input type="text" name="comment" class="comment__input" id="comment" @keydown="actionUser" v-model="comment"
                                        placeholder="Введите текст">
-                                <button type="submit" class="btn comment__submit"><i class="fas fa-paper-plane"></i>
+                                <button v-if="!isDisabled" type="submit" class="btn comment__submit">
+                                    <i class="fas fa-paper-plane"></i>
                                 </button>
+                                <span v-else class="btn comment__loading">
+                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                </span>
                                 <span v-if="error.status"
                                       class="help-block comment__error text-danger">{{ error.msg }}</span>
+                            </div>
+                            <div class="comment__row">
+                                <span class="comment__typing" v-if="isUserTyping">{{isUserTyping.name}} печатает....</span>
                             </div>
                             <div class="comment-form__btn" v-if="event==='update'">
                                 <button @click.prevent="exitEdit" class="comment-form__edit">
@@ -150,36 +161,35 @@
                 answers: null,
                 comment: null,
                 comments: null,
-                adsOwner: null,
-                adsSender: null,
-                adsRecipient: null,
-
                 event: 'save',
                 id: null,
                 error: {
                     status: false,
                     msg: 'Не корректный ввод'
-                }
+                },
+                adsOwner: null,
+                meTo: null,
+                youTo: null,
+                isUserTyping: false,
+                typingTimer: false,
+                usersOnline: []
             }
         },
         components: {
             CommentGuestItem
         },
         props: {
-            currentUserId: {type: String},
-            recipient: {type: String},
-            sender: {type: String},
+
+            me: {type: String},
+            you: {type: String},
             ads: {type: String},
             subs: {type: String},
             commentId: {type: String},
             routeCreate: {type: String},
             routeUpdate: {type: String},
-            token: {type: String}
-        },
-        computed: {
-            renderComments() {
-                return this.comments
-            }
+            token: {type: String},
+            room: {type: String},
+            owner: {type: String}
         },
         watch: {
             comment() {
@@ -193,7 +203,7 @@
             },
             async deleteComment(id) {
                 if (confirm('Удалить?')) {
-                    const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE')
+                    const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE', {room: this.room})
                     if (status) this.removeById(id)
                 } else {
                     return false
@@ -211,8 +221,7 @@
             },
             updateComment(comment) {
                 this.comments = this.comments.map(item => {
-                    if (item.id === comment.id)
-                        item = comment
+                    if (item.id === comment.id) item = comment
                     return item
                 })
             },
@@ -235,10 +244,12 @@
                             parent_id: this.commentId,
                             comment: this.comment,
                             article_id: this.ads,
-                            from_user_id: this.adsSender.user_id,
-                            user_id: this.adsRecipient.user_id
+                            from_user_id: this.meTo.user_id,
+                            user_id: this.youTo.user_id,
+                            room: this.room
                         }
-                        let method, route
+                        let method
+                        let route
                         if (this.event === 'save') {
                             method = 'POST'
                             route = this.routeCreate
@@ -283,18 +294,74 @@
                         reject(error)
                     })
                 })
+            },
+            actionUser(){
+                this.channel
+                .whisper('typing', {
+                    name: this.meTo.name
+                })
+            }
+
+        },
+        computed: {
+            renderComments() {
+                return this.comments
+            },
+            channel(){
+                return window.Echo.join(`room.20.1.2`)
             }
         },
         mounted() {
-            if (this.recipient) {
-                this.adsRecipient = JSON.parse(this.recipient)
+            if (this.me) {
+                this.meTo = JSON.parse(this.me)
             }
-            if (this.sender) {
-                this.adsSender = JSON.parse(this.sender)
+            if (this.you) {
+                this.youTo = JSON.parse(this.you)
             }
             if (this.subs) {
                 this.comments = JSON.parse(this.subs)
             }
+            if (this.owner) {
+                this.adsOwner = this[this.owner].user_id
+            }
+
+
+            // Init chat
+            this.channel
+                .here(users => {
+                    this.usersOnline = users
+                })
+                .joining(user => {
+                    this.usersOnline.push(user)
+                })
+                .leaving( user => {
+                    this.usersOnline.splice(this.usersOnline.indexOf(user))
+                })
+                .listen('.questions', ({data}) => {
+
+                    if(data.event === 'delete') {
+                        return this.comments = this.comments.filter(item => item.id !== data.id)
+                    }
+                    if(data.event === 'updated') {
+                        return this.updateComment(data)
+                    }
+
+
+
+
+                    this.isUserTyping = false
+                    this.comments.push({...data})
+                })
+                .listenForWhisper('typing', (e) => {
+                    this.isUserTyping = e
+
+                    if(this.typingTimer) clearTimeout(this.typingTimer)
+
+                    this.typingTimer = setTimeout(() => {
+                        this.isUserTyping = false
+                    }, 2000)
+                })
+
         }
     }
 </script>

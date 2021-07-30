@@ -134,7 +134,7 @@ function favorites(e) {
 }
 
 
-// =============================MENUS===================================
+// =============================TOGGLES MENUS===================================
 const menusToggles = document.querySelectorAll('.js_menuToggle');
 
 
