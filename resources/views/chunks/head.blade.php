@@ -9,7 +9,7 @@
 
 @yield('title')
 
-{{--    {!! SeometaFacade::renderTag('title') !!}--}}
+    {!! SeometaFacade::renderTag('title') !!}
 {{--    {!! SeometaFacade::renderTag('keywords') !!}--}}
 {{--    {!! SeometaFacade::renderTag('description') !!}--}}
 <!-- Scripts -->

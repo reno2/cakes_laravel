@@ -96,6 +96,20 @@
     .comment__typing{
         font-size: 12px;
     }
+    @media (max-width: 1279px){
+        .comment-form .comment__row{
+            flex-grow: 1;
+            width: inherit;
+            margin-left: 0;
+        }
+        .comment-form .comment-form__btn{
+            max-width: 56px;
+        }
+    }
+
+
+
+
 </style>
 <template>
     <div class="container">
@@ -106,9 +120,8 @@
                     <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
                         <CommentGuestItem
                             :usersOnline="usersOnline"
-                            :ownerId="adsOwner"
-                            :you="youTo"
-                            :me="meTo"
+                            :user="user"
+                            :users="usersObj"
                             :item="item"
                             @onEdit="editComment($event)"
                             @onDelete="deleteComment($event)"
@@ -134,8 +147,8 @@
                                 <span v-if="error.status"
                                       class="help-block comment__error text-danger">{{ error.msg }}</span>
                             </div>
-                            <div class="comment__row">
-                                <span class="comment__typing" v-if="isUserTyping">{{isUserTyping.name}} печатает....</span>
+                            <div class="comment__row" v-if="isUserTyping">
+                                <span class="comment__typing">{{isUserTyping.user}} печатает....</span>
                             </div>
                             <div class="comment-form__btn" v-if="event==='update'">
                                 <button @click.prevent="exitEdit" class="comment-form__edit">
@@ -167,21 +180,21 @@
                     status: false,
                     msg: 'Не корректный ввод'
                 },
-                adsOwner: null,
-                meTo: null,
-                youTo: null,
+
+                usersObj: null,
                 isUserTyping: false,
                 typingTimer: false,
-                usersOnline: []
+                usersOnline: [],
+
+                updatedComment: []
             }
         },
         components: {
             CommentGuestItem
         },
         props: {
-
-            me: {type: String},
-            you: {type: String},
+            user: {type: String},
+            commentUsers: {type: String},
             ads: {type: String},
             subs: {type: String},
             commentId: {type: String},
@@ -189,14 +202,22 @@
             routeUpdate: {type: String},
             token: {type: String},
             room: {type: String},
-            owner: {type: String}
+           // owner: {type: String}
         },
         watch: {
             comment() {
                 this.error.status = false
+            },
+            updatedComment(){
+                console.log(this.updatedComment);
             }
         },
         methods: {
+            notMe(){
+                return Object.keys(this.usersObj).filter(u => {
+                    return this.user !== u
+                })
+            },
             exitEdit() {
                 this.event = 'save'
                 this.comment = ''
@@ -221,9 +242,22 @@
             },
             updateComment(comment) {
                 this.comments = this.comments.map(item => {
-                    if (item.id === comment.id) item = comment
+                    if (item.id === comment.id){
+                        comment.isUpdate =  true
+                        item = comment
+
+                       this.removeUpdatedClass()
+                    }
                     return item
                 })
+            },
+            removeUpdatedClass(){
+                setTimeout(() => {
+                    this.comments = this.comments.map(comment => {
+                        if(comment.isUpdate) comment.isUpdate = false
+                        return comment
+                     })
+                },8000)
             },
             addItem(comment) {
                 const tmp = {
@@ -237,6 +271,8 @@
                 this.comments.push(tmp)
             },
             async submit() {
+                //return console.log(this.notMe())
+
                 if (!this.isDisabled)
                     if (this.comment && !this.comment.trim() == '' && this.comment.length < 150) {
                         const data = {
@@ -244,8 +280,8 @@
                             parent_id: this.commentId,
                             comment: this.comment,
                             article_id: this.ads,
-                            from_user_id: this.meTo.user_id,
-                            user_id: this.youTo.user_id,
+                            from_user_id: this.user,
+                            user_id: this.notMe()[0],
                             room: this.room
                         }
                         let method
@@ -298,31 +334,27 @@
             actionUser(){
                 this.channel
                 .whisper('typing', {
-                    name: this.meTo.name
-                })
+                    user: this.usersObj[this.user].name
+                    })
             }
 
         },
+
         computed: {
             renderComments() {
                 return this.comments
             },
             channel(){
-                return window.Echo.join(`room.20.1.2`)
+                return window.Echo.join(`room.${this.room}`)
             }
         },
         mounted() {
-            if (this.me) {
-                this.meTo = JSON.parse(this.me)
-            }
-            if (this.you) {
-                this.youTo = JSON.parse(this.you)
+
+            if (this.commentUsers) {
+                this.usersObj = JSON.parse(this.commentUsers)
             }
             if (this.subs) {
                 this.comments = JSON.parse(this.subs)
-            }
-            if (this.owner) {
-                this.adsOwner = this[this.owner].user_id
             }
 
 
@@ -338,7 +370,6 @@
                     this.usersOnline.splice(this.usersOnline.indexOf(user))
                 })
                 .listen('.questions', ({data}) => {
-
                     if(data.event === 'delete') {
                         return this.comments = this.comments.filter(item => item.id !== data.id)
                     }
@@ -353,6 +384,7 @@
                     this.comments.push({...data})
                 })
                 .listenForWhisper('typing', (e) => {
+                    //console.log(e);
                     this.isUserTyping = e
 
                     if(this.typingTimer) clearTimeout(this.typingTimer)

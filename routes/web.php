@@ -83,7 +83,7 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
 
         Route::get('/comments', 'CommentController@index')->name('comments.index');
         //Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');
-        Route::get('/comments/{room}', 'CommentController@comment')->name('comments.comment');
+        Route::get('/comments/{room}', 'CommentController@comment')->name('comments.comment')->middleware('room_access');
 
         Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');

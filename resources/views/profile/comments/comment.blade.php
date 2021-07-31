@@ -34,8 +34,7 @@
                                     <h5 class="p-comment__title mb-1">
                                         {{$ads['title']}}
                                     </h5>
-
-                                    <p class="p-comment__desc mb-1">Вопрос от {{$asked['name']}} ({{$comment['from_user_id']}})</p>
+                                    <p class="p-comment__desc mb-1">Вопрос от {{$profile['name']}} ({{$comment['from_user_id']}})</p>
                                 </div>
                             </div>
                         @else
@@ -50,18 +49,14 @@
             </div>
             <addcomment
                 ads="{{$ads['id']}}"
-                me="{{$me}}"
-                you="{{$you}}"
-                owner="{{$owner}}"
-{{--                sender="{{$sender}}"--}}
-{{--                getter="{{$getter}}"--}}
-{{--                current-user-id="{{$userId}}"--}}
+                comment-users="{{$users}}"
+                user="{{$user}}"
+
                 subs="{{$sub}}"
                 comment-id="{{$comment['id'] ?? ''}}"
                 route-create="{{route('comments.answer', $comment['id'] ?? '')}}"
                 route-update="{{route('comments.update', $comment['id'] ?? '')}}"
                 token="{{ csrf_token() }}"
-{{--                user-name="{{$userName}}"--}}
                 room="{{$room}}"
                 >
             </addcomment>

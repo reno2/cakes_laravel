@@ -7630,6 +7630,39 @@ h3 {
   display: none;
 }
 
+.blink .comment-item__link {
+  -webkit-animation: blink 8s infinite;
+          animation: blink 8s infinite;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    background: #f5f6f7;
+  }
+
+  50% {
+    background: #82C831;
+  }
+
+  100% {
+    background: #f5f6f7;
+  }
+}
+
+@keyframes blink {
+  0% {
+    background: #f5f6f7;
+  }
+
+  50% {
+    background: #82C831;
+  }
+
+  100% {
+    background: #f5f6f7;
+  }
+}
+
 .select2 {
   display: block;
   width: 100% !important;

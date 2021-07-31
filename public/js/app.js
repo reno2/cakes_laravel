@@ -2167,6 +2167,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2181,22 +2194,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         status: false,
         msg: 'Не корректный ввод'
       },
-      adsOwner: null,
-      meTo: null,
-      youTo: null,
+      usersObj: null,
       isUserTyping: false,
       typingTimer: false,
-      usersOnline: []
+      usersOnline: [],
+      updatedComment: []
     };
   },
   components: {
     CommentGuestItem: _CommentGuestItem__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
-    me: {
+    user: {
       type: String
     },
-    you: {
+    commentUsers: {
       type: String
     },
     ads: {
@@ -2219,23 +2231,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     room: {
       type: String
-    },
-    owner: {
-      type: String
-    }
+    } // owner: {type: String}
+
   },
   watch: {
     comment: function comment() {
       this.error.status = false;
+    },
+    updatedComment: function updatedComment() {
+      console.log(this.updatedComment);
     }
   },
   methods: {
+    notMe: function notMe() {
+      var _this = this;
+
+      return Object.keys(this.usersObj).filter(function (u) {
+        return _this.user !== u;
+      });
+    },
     exitEdit: function exitEdit() {
       this.event = 'save';
       this.comment = '';
     },
     deleteComment: function deleteComment(id) {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var status;
@@ -2249,13 +2269,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context.next = 3;
-                return _this.sendRequest("/profile/comments/".concat(id), 'DELETE', {
-                  room: _this.room
+                return _this2.sendRequest("/profile/comments/".concat(id), 'DELETE', {
+                  room: _this2.room
                 });
 
               case 3:
                 status = _context.sent;
-                if (status) _this.removeById(id);
+                if (status) _this2.removeById(id);
                 _context.next = 8;
                 break;
 
@@ -2288,10 +2308,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.event = 'update';
     },
     updateComment: function updateComment(comment) {
+      var _this3 = this;
+
       this.comments = this.comments.map(function (item) {
-        if (item.id === comment.id) item = comment;
+        if (item.id === comment.id) {
+          comment.isUpdate = true;
+          item = comment;
+
+          _this3.removeUpdatedClass();
+        }
+
         return item;
       });
+    },
+    removeUpdatedClass: function removeUpdatedClass() {
+      var _this4 = this;
+
+      setTimeout(function () {
+        _this4.comments = _this4.comments.map(function (comment) {
+          if (comment.isUpdate) comment.isUpdate = false;
+          return comment;
+        });
+      }, 8000);
     },
     addItem: function addItem(comment) {
       var tmp = {
@@ -2305,7 +2343,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.comments.push(tmp);
     },
     submit: function submit() {
-      var _this2 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var data, method, route, response;
@@ -2313,59 +2351,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (_this2.isDisabled) {
+                if (_this5.isDisabled) {
                   _context2.next = 21;
                   break;
                 }
 
-                if (!(_this2.comment && !_this2.comment.trim() == '' && _this2.comment.length < 150)) {
+                if (!(_this5.comment && !_this5.comment.trim() == '' && _this5.comment.length < 150)) {
                   _context2.next = 20;
                   break;
                 }
 
                 data = {
-                  id: _this2.id,
-                  parent_id: _this2.commentId,
-                  comment: _this2.comment,
-                  article_id: _this2.ads,
-                  from_user_id: _this2.meTo.user_id,
-                  user_id: _this2.youTo.user_id,
-                  room: _this2.room
+                  id: _this5.id,
+                  parent_id: _this5.commentId,
+                  comment: _this5.comment,
+                  article_id: _this5.ads,
+                  from_user_id: _this5.user,
+                  user_id: _this5.notMe()[0],
+                  room: _this5.room
                 };
 
-                if (_this2.event === 'save') {
+                if (_this5.event === 'save') {
                   method = 'POST';
-                  route = _this2.routeCreate;
+                  route = _this5.routeCreate;
                 } else {
                   method = 'PUT';
-                  route = _this2.routeUpdate;
+                  route = _this5.routeUpdate;
                 }
 
-                _this2.isDisabled = true;
+                _this5.isDisabled = true;
                 _context2.prev = 5;
                 _context2.next = 8;
-                return _this2.sendRequest(route, method, data);
+                return _this5.sendRequest(route, method, data);
 
               case 8:
                 response = _context2.sent;
-                if (_this2.event === 'save') _this2.addItem(response.comment);else _this2.updateComment(response.comment);
-                _this2.comment = '';
-                _this2.event = 'save';
+                if (_this5.event === 'save') _this5.addItem(response.comment);else _this5.updateComment(response.comment);
+                _this5.comment = '';
+                _this5.event = 'save';
                 _context2.next = 17;
                 break;
 
               case 14:
                 _context2.prev = 14;
                 _context2.t0 = _context2["catch"](5);
-                _this2.error.status = true;
+                _this5.error.status = true;
 
               case 17:
-                _this2.isDisabled = false;
+                _this5.isDisabled = false;
                 _context2.next = 21;
                 break;
 
               case 20:
-                _this2.error.status = true;
+                _this5.error.status = true;
 
               case 21:
               case "end":
@@ -2396,7 +2434,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     actionUser: function actionUser() {
       this.channel.whisper('typing', {
-        name: this.meTo.name
+        user: this.usersObj[this.user].name
       });
     }
   },
@@ -2405,56 +2443,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.comments;
     },
     channel: function channel() {
-      return window.Echo.join("room.20.1.2");
+      return window.Echo.join("room.".concat(this.room));
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this6 = this;
 
-    if (this.me) {
-      this.meTo = JSON.parse(this.me);
-    }
-
-    if (this.you) {
-      this.youTo = JSON.parse(this.you);
+    if (this.commentUsers) {
+      this.usersObj = JSON.parse(this.commentUsers);
     }
 
     if (this.subs) {
       this.comments = JSON.parse(this.subs);
-    }
-
-    if (this.owner) {
-      this.adsOwner = this[this.owner].user_id;
     } // Init chat
 
 
     this.channel.here(function (users) {
-      _this3.usersOnline = users;
+      _this6.usersOnline = users;
     }).joining(function (user) {
-      _this3.usersOnline.push(user);
+      _this6.usersOnline.push(user);
     }).leaving(function (user) {
-      _this3.usersOnline.splice(_this3.usersOnline.indexOf(user));
+      _this6.usersOnline.splice(_this6.usersOnline.indexOf(user));
     }).listen('.questions', function (_ref) {
       var data = _ref.data;
 
       if (data.event === 'delete') {
-        return _this3.comments = _this3.comments.filter(function (item) {
+        return _this6.comments = _this6.comments.filter(function (item) {
           return item.id !== data.id;
         });
       }
 
       if (data.event === 'updated') {
-        return _this3.updateComment(data);
+        return _this6.updateComment(data);
       }
 
-      _this3.isUserTyping = false;
+      _this6.isUserTyping = false;
 
-      _this3.comments.push(_objectSpread({}, data));
+      _this6.comments.push(_objectSpread({}, data));
     }).listenForWhisper('typing', function (e) {
-      _this3.isUserTyping = e;
-      if (_this3.typingTimer) clearTimeout(_this3.typingTimer);
-      _this3.typingTimer = setTimeout(function () {
-        _this3.isUserTyping = false;
+      //console.log(e);
+      _this6.isUserTyping = e;
+      if (_this6.typingTimer) clearTimeout(_this6.typingTimer);
+      _this6.typingTimer = setTimeout(function () {
+        _this6.isUserTyping = false;
       }, 2000);
     });
   }
@@ -2745,18 +2776,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      online: 'fa-eye',
+      offline: 'fa-eye-slash'
+    };
   },
   props: {
-    you: {
+    users: {
       type: Object
     },
-    me: {
-      type: Object
-    },
-    ownerId: {
+    user: {
       type: String
     },
     item: {
@@ -2776,15 +2843,13 @@ __webpack_require__.r(__webpack_exports__);
     formatDate: function formatDate(dateStr) {
       return moment(dateStr).fromNow();
     },
-    checkSender: function checkSender(id) {
-      if (id == this.sender.user_id) {
-        return true;
-      }
-
-      return false;
+    checkSender: function checkSender() {// console.log(this.users)
+      // return this.users.filter(elem => {console.log(elem)})
     },
     compareDate: function compareDate(created, updated) {
-      if (!moment(created).isSame(updated)) return true;
+      if (!moment(created).isSame(updated)) {
+        return true;
+      }
     }
   },
   computed: {
@@ -2792,10 +2857,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var onlineUsers = this.usersOnline.filter(function (user) {
-        return _this.you.user_id == user;
+        return _this.item.from_user_id == user;
       });
       return !!onlineUsers.length;
     }
+  },
+  mounted: function mounted() {
+    this.checkSender();
   }
 });
 
@@ -10667,7 +10735,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429]{\n    font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429]{\n    font-size: 12px;\n}\n@media (max-width: 1279px){\n.comment-form .comment__row[data-v-2e098429]{\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429]{\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -10705,7 +10773,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed{\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.comment-item__online{\n    margin-top: 8px;\n    font-size: 10px;\n    background: #82c831;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #fff;\n}\n.comment-item__offline{\n    margin-top: 8px;\n    font-size: 10px;\n    background: #afafaf;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #fff;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth h5,\n.comment-item__auth small,\n.comment-item__auth p {\n    color:#fff;\n}\n.comment-item__auth .comment-item__link {\n    background: #48b0f7;\n    color: #fff;\n}\n.comment-item__actions{\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed{\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i{\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child{\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor:pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed {\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i {\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.comment-item__online {\n    margin-top: 8px;\n    font-size: 10px;\n    background: #82c831;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #ffffff;\n}\n.comment-item__offline {\n    margin-top: 8px;\n    font-size: 10px;\n    background: #afafaf;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #ffffff;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth h5,\n.comment-item__auth small,\n.comment-item__auth p {\n    color: #ffffff;\n}\n.comment-item__auth .comment-item__link {\n    /*transition: background-color 2s ease-out;*/\n    background: #48b0f7;\n    color: #ffffff;\n}\n.comment-item__actions {\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed {\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i {\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child {\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor: pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n.comment-item__status{\n    display: none;\n}\n.comment-item__status i{\n    color:#04f2c6;\n}\n@media (max-width: 768px) {\n.comment-item__name{\n        font-size: 14px;\n        display: flex;\n}\n}\n@media (max-width: 560px) {\n.comment-item__ava {\n        display: none;\n}\n.comment-item__status{\n        display: block;\n        margin-left: 8px;\n}\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -89062,9 +89130,8 @@ var render = function() {
                       _c("CommentGuestItem", {
                         attrs: {
                           usersOnline: _vm.usersOnline,
-                          ownerId: _vm.adsOwner,
-                          you: _vm.youTo,
-                          me: _vm.meTo,
+                          user: _vm.user,
+                          users: _vm.usersObj,
                           item: item
                         },
                         on: {
@@ -89162,15 +89229,15 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "comment__row" }, [
-                    _vm.isUserTyping
-                      ? _c("span", { staticClass: "comment__typing" }, [
+                  _vm.isUserTyping
+                    ? _c("div", { staticClass: "comment__row" }, [
+                        _c("span", { staticClass: "comment__typing" }, [
                           _vm._v(
-                            _vm._s(_vm.isUserTyping.name) + " печатает...."
+                            _vm._s(_vm.isUserTyping.user) + " печатает...."
                           )
                         ])
-                      : _vm._e()
-                  ]),
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.event === "update"
                     ? _c("div", { staticClass: "comment-form__btn" }, [
@@ -89329,7 +89396,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "comment-item" }, [
-    Number(_vm.item.from_user_id) === _vm.me.user_id
+    Number(_vm.item.from_user_id) === Number(_vm.user)
       ? _c("div", { staticClass: "comment-item__auth" }, [
           _c("div", { staticClass: "comment-item__actions" }, [
             _c("i", {
@@ -89378,64 +89445,81 @@ var render = function() {
             _vm._v(_vm._s(_vm.formatDate(_vm.item.updated_at)))
           ])
         ])
-      : _c("div", { staticClass: "comment-item__noAuth" }, [
-          _c("div", { staticClass: "comment-item__ava" }, [
-            _c("img", {
-              staticClass: "comment-item__img",
-              attrs: { src: _vm.you.image + "?v=3", alt: "" }
-            }),
+      : _c(
+          "div",
+          {
+            staticClass: "comment-item__noAuth",
+            class: { blink: _vm.item.isUpdate }
+          },
+          [
+            _c("div", { staticClass: "comment-item__ava" }, [
+              _c("img", {
+                staticClass: "comment-item__img",
+                attrs: {
+                  src: _vm.users[_vm.item.from_user_id].image + "?v=3",
+                  alt: ""
+                }
+              }),
+              _vm._v(" "),
+              _vm.isUserOnline
+                ? _c("div", { staticClass: "comment-item__online" }, [
+                    _vm._v("в чате")
+                  ])
+                : _c("div", { staticClass: "comment-item__offline" }, [
+                    _vm._v("не в чате")
+                  ])
+            ]),
             _vm._v(" "),
-            _vm.isUserOnline
-              ? _c("div", { staticClass: "comment-item__online" }, [
-                  _vm._v("в чате")
-                ])
-              : _c("div", { staticClass: "comment-item__offline" }, [
-                  _vm._v("не в чате")
-                ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "comment-item__comment" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "comment-item__link list-group-item list-group-item-action"
-              },
-              [
-                _vm.compareDate(_vm.item.updated_at, _vm.item.created_at)
-                  ? _c("span", { staticClass: "comment-item__changed" }, [
-                      _c("i", { staticClass: "fas fa-pencil-alt" })
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("small", [_vm._v("#" + _vm._s(_vm.item.id))]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "d-flex w-100 justify-content-between" },
-                  [
-                    _c("h5", { staticClass: "mb-1" }, [
-                      _vm._v(
-                        _vm._s(_vm.item.name) +
-                          " (" +
-                          _vm._s(_vm.item.from_user_id) +
-                          ")"
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("p", { staticClass: "mb-1" }, [
-                  _vm._v(_vm._s(_vm.item.comment))
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("small", { staticClass: "comment-item__date" }, [
-              _vm._v(_vm._s(_vm.formatDate(_vm.item.updated_at)))
+            _c("div", { staticClass: "comment-item__comment" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "comment-item__link list-group-item list-group-item-action"
+                },
+                [
+                  _vm.compareDate(_vm.item.updated_at, _vm.item.created_at)
+                    ? _c("span", { staticClass: "comment-item__changed" }, [
+                        _c("i", { staticClass: "fas fa-pencil-alt" })
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("small", [_vm._v("#" + _vm._s(_vm.item.id))]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "d-flex w-100 justify-content-between" },
+                    [
+                      _c("h5", { staticClass: "comment-item__name mb-1" }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.users[_vm.item.from_user_id].name) +
+                            " (" +
+                            _vm._s(_vm.item.from_user_id) +
+                            ")\n                        "
+                        ),
+                        _c("span", { staticClass: "comment-item__status" }, [
+                          _c("i", {
+                            staticClass: "fas",
+                            class: [_vm.isUserOnline ? _vm.online : _vm.offline]
+                          })
+                        ])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mb-1" }, [
+                    _vm._v(_vm._s(_vm.item.comment))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("small", { staticClass: "comment-item__date" }, [
+                _vm._v(_vm._s(_vm.formatDate(_vm.item.updated_at)))
+              ])
             ])
-          ])
-        ])
+          ]
+        )
   ])
 }
 var staticRenderFns = [

@@ -99,7 +99,7 @@ class CommentsRepository extends CoreRepository
                 });
             }
         }
-        return $rooms->isNotEmpty() ? $rooms : NULL;
+        return $rooms->isNotEmpty() ? $rooms : [];
     }
 
 
@@ -151,7 +151,7 @@ class CommentsRepository extends CoreRepository
                 });
             }
         }
-        return $rooms->isNotEmpty() ? $rooms : NULL;
+        return $rooms->isNotEmpty() ? $rooms : [];
     }
 
 

@@ -235,36 +235,39 @@ class CommentController extends Controller
      *
      * @return Factory|View
      */
-    //public function comment ($article_id, $user_id, $from_user_id) {
-    public function comment ($room_id) {
 
-        // Получаем Id владельца посте
+    public function comment ($room_id) {
+        // Получаем Id владельца поста
         $userId = Auth::id();
 
-        $room = Room::find($room_id);
-        $data = $room->with(['adsOwner.profiles', 'adsAsked.profiles', 'ads'])->first()->toArray();
-        $comments = $room->comments->toArray();
 
-        $persons = [];
-        if ($userId == $data['ads']['user_id']) {
-            $persons['me'] = $data['ads_owner']['profiles'][0];
-            $persons['you'] = $data['ads_asked']['profiles'][0];
-            $persons['owner'] = 'me';
-        } else {
-            $persons['me'] = $data['ads_owner']['profiles'][0];
-            $persons['you'] = $data['ads_asked']['profiles'][0];
-            $persons['owner'] = 'you';
-        }
+        $data = Room::with(['adsOwner.profiles', 'adsAsked.profiles', 'ads'])->where('id', $room_id)->first()->toArray();
+        $comments = Room::find($room_id)->comments->toArray();
+
+
+        $users = [
+            $data['owner_id'] => array_merge(
+                $data["ads_owner"],
+                [
+                    'name' => $data["ads_owner"]['profiles'][0]['name'],
+                    'image' => $data["ads_owner"]['profiles'][0]['image']
+                ]),
+            $data['asked_id'] => array_merge(
+                $data["ads_asked"],
+                [
+                    'name' => $data["ads_asked"]['profiles'][0]['name'],
+                    'image' => $data["ads_asked"]['profiles'][0]['image']
+                ])
+        ];
 
         return view('profile.comments.comment', [
-            'asked' => $data['ads_asked']['profiles'][0],
-            'me' => json_encode($persons['me']),
-            'you' => json_encode($persons['you']),
-            'owner' => $persons['owner'],
+            'profile' => $data['ads_asked'],
+            'users' => json_encode($users),
+            'user' => $userId,
             'comment' => $comments[0],
             'ads' =>  $data['ads'],
             'sub' => json_encode($comments),
-            'room' => $room->id,
+            'room' => $room_id,
         ]);
 
     }
