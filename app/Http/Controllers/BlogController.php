@@ -109,7 +109,9 @@ class BlogController extends Controller
 
         $article = Article::where('slug', $slug)->first();
         views($article)->record();
-        SeometaFacade::setTags('article', $article->toArray());
+
+        SeometaFacade::setData('post', $article->toArray());
+//        SeometaFacade::setTags('article', $article->toArray());
 
 
 //        $rr = views($article)

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @yield('title')
-
+{{ SeometaFacade::getData() }}
 {{--    {!! SeometaFacade::renderTag('title') !!}--}}
 {{--    {!! SeometaFacade::renderTag('keywords') !!}--}}
 {{--    {!! SeometaFacade::renderTag('description') !!}--}}
