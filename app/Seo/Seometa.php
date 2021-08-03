@@ -3,6 +3,7 @@ namespace App\Seo;
 
 use App\Models\Seo;
 use App\Seo\Creators\SeoArticleCreator;
+use App\Seo\SeoFabricClass;
 use Barryvdh\Debugbar\Facade;
 use Illuminate\Support\Facades\DB;
 
@@ -23,21 +24,29 @@ class Seometa{
      */
     public function setData($type, $data){
 
+        // Вызвать статичческий метод.
+        // Внём проверить тип
+        // Она проверяет тип и создаёт экземпляр нужного класса
+        //
 
 
         try {
-            $classTypeCreator = "App\Seo\Creators\Seo".ucfirst($type)."Creator";
-            $res = new $classTypeCreator($type, $data);
-            $newDa = $res->getSeoMeta();
-            $this->newData = $newDa->setData();
+            $this->newData = SeoFabricClass::build($type, $data);
+          //  $instance = new SeoFabricClass();
+//            $classTypeCreator = "App\Seo\Creators\Seo".ucfirst($type)."Creator";
+//            $res = new $classTypeCreator($type, $data);
+//            $newDa = $res->getSeoMeta();
+//            $this->newData = $newDa->setData();
+
         }catch (\Exception  $e){
-            return  $e->getMessage();
+            echo $e->getMessage();
         }
 
     }
 
-    public function getData(){
-        \Debugbar::info($this->newData);
+    public function getData($type){
+        if(isset($this->newData[$type]))
+        \Debugbar::info($this->newData[$type]);
     }
 
     public function callSeoCreator(SeoFabricClass $seo){

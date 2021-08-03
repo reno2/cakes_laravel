@@ -8,4 +8,5 @@ interface SeoMetaRender
    // public function getTpl();
 
     public function returnMeta();
+   // public function fieldBuilder();
 }
