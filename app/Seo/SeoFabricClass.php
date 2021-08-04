@@ -6,6 +6,14 @@ use App\Seo\Contracts\SeoMetaRender;
 
 abstract class SeoFabricClass
 {
+    private $data = [];
+    private $type;
+
+    public function __construct($type, array $data)
+    {
+        $this->data = $data;
+        $this->type = $type;
+    }
 
     public static function build($type, $data){
         // Здесь нам нужно создать нужный продукт
@@ -36,7 +44,7 @@ abstract class SeoFabricClass
 
     abstract public function getSeoMeta(): SeoMetaRender;
 
-
+    abstract public function getHtml($r) : SeoMetaRender;
 
 
 }

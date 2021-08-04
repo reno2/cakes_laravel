@@ -24,8 +24,8 @@ abstract class SeoAbstractController
     public function update(Request $request){
        $id=  $request->input('id');
        $r = $this->model::where('id', $id)->update($request->except('_token'));
-
-        return redirect()->route('seo.category.index');
+        $route = implode('.', ['seo', $request->type, 'index']);
+        return redirect()->route($route);
     }
 
     public function delete(){

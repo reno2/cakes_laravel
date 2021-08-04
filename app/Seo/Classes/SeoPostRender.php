@@ -39,7 +39,19 @@ class SeoPostRender implements SeoMetaRender
     }
 
 
-    private function isSeoVars(){
+    /**
+     * @param $field string Название шалона подсканоки
+     * @param null $fieldTpl Значенеи шаблона подстановки
+     * @return mixed
+     */
+    public function getDescription ($field, $fieldTpl = null) {
+        // Если шаблон пустой возвращает значение из модели
+        if(!$fieldTpl) return $this->data[$fieldTpl];
+
+        return preg_replace('/#' . $field . '#/', $this->data[$field], $fieldTpl);
+    }
+
+    private function prepareData(){
 
         $rawData = DB::table('seo')->where('type', 'post')->first();
         $rawData = ((array)$rawData) ?: [];
@@ -71,14 +83,11 @@ class SeoPostRender implements SeoMetaRender
 
 
     public function returnMeta () {
-       $this->prepareData();
-        return [
-            'title' => 'some title',
-            'description' => 'description'
-        ];
+       return $this->prepareData();
     }
 
-    private function prepareData () {
-        $this->isSeoVars();
+    public function getHtml($dta){
+        return '<title>uuu</title>';
     }
+
 }
