@@ -9,6 +9,8 @@
 
 @yield('title')
 {{--{{ SeometaFacade::getData('title') }}--}}
+
+    <title>some title</title>
 {{--    {!! SeometaFacade::renderTag('title') !!}--}}
 {{--    {!! SeometaFacade::renderTag('keywords') !!}--}}
 {{--    {!! SeometaFacade::renderTag('description') !!}--}}
