@@ -16,13 +16,6 @@ class Seometa{
     protected $categoryTplValues = ['title', 'description'];
 
     protected $newData = [];
-
-    public function __construct($type, array $data)
-    {
-        $this->data = $data;
-        $this->type = $type;
-    }
-
     /**
      * Вызывает нужный класс для заполнения
      * @param $type
@@ -36,8 +29,15 @@ class Seometa{
         // Она проверяет тип и создаёт экземпляр нужного класса
         //
 
+
         try {
             $this->newData = SeoFabricClass::build($type, $data);
+          //  $instance = new SeoFabricClass();
+//            $classTypeCreator = "App\Seo\Creators\Seo".ucfirst($type)."Creator";
+//            $res = new $classTypeCreator($type, $data);
+//            $newDa = $res->getSeoMeta();
+//            $this->newData = $newDa->setData();
+
         }catch (\Exception  $e){
             echo $e->getMessage();
         }
@@ -46,8 +46,7 @@ class Seometa{
 
     public function getData($type){
         if(isset($this->newData[$type]))
-            return SeoFabricClass::getHtml($this->newData[$type]);
-        //\Debugbar::info($this->newData[$type]);
+        \Debugbar::info($this->newData[$type]);
     }
 
     public function callSeoCreator(SeoFabricClass $seo){
