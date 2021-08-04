@@ -1,166 +1,76 @@
 <?php
 namespace App\Seo;
 
-use App\Models\Seo;
-use App\Seo\Creators\SeoArticleCreator;
-use App\Seo\SeoFabricClass;
-use Barryvdh\Debugbar\Facade;
-use Illuminate\Support\Facades\DB;
+
+use App\Seo\Classes\SeoCategoryRender;
+use App\Seo\Classes\SeoPostRender;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 class Seometa{
+
     protected $type;
     protected $data = [];
-    protected $renderArray = [];
-    protected $needle = ['title', 'description', 'keywords', 'h1'];
-    protected $post;
-    protected $categoryTplValues = ['title', 'description'];
+    protected $seoEntity = null;
+    protected $staticTags = [];
 
-    protected $newData = [];
+
     /**
-     * Вызывает нужный класс для заполнения
+     * Вызывает нужный класс для заполнения |
+     * Простая фабрика
      * @param $type
      * @param $data
+     * @return array|void
      * @throws \Exception
      */
     public function setData($type, $data){
+        // Здесь нам нужно создать нужный продукт
+        switch($type)
+        {
+            case 'post':
+                $entity = new SeoPostRender($data);
+                break;
 
-        // Вызвать статичческий метод.
-        // Внём проверить тип
-        // Она проверяет тип и создаёт экземпляр нужного класса
-        //
-
-
-        try {
-            $this->newData = SeoFabricClass::build($type, $data);
-          //  $instance = new SeoFabricClass();
-//            $classTypeCreator = "App\Seo\Creators\Seo".ucfirst($type)."Creator";
-//            $res = new $classTypeCreator($type, $data);
-//            $newDa = $res->getSeoMeta();
-//            $this->newData = $newDa->setData();
-
-        }catch (\Exception  $e){
-            echo $e->getMessage();
+            case 'category':
+                $entity = new SeoCategoryRender($data);
+                break;
+            default:
+                throw new \Exception('Не верный тип объекта');
         }
+        $this->seoEntity = $entity;
+        $this->seoEntity->setData();
 
     }
-
-    public function getData($type){
-        if(isset($this->newData[$type]))
-        \Debugbar::info($this->newData[$type]);
-    }
-
-    public function callSeoCreator(SeoFabricClass $seo){
-        $seo->fill();
-    }
-
 
     /**
-     * Вызывает нужный класс для заполнения
-     * @param $type
-     * @param $data
+     * Сохраняем в массиве тег и значение для
+     * Статического вывода
+     * @param $tag
+     * @param $tagValue
      */
-    public function setTags($type, $data) : void {
-        // Сделать Вызываем нужный контроллер
-        // Пока метод
-        $this->type = $type;
-        $this->getTplValues($data);
-        $this->setCategoryTags();
-
-
-
-
+    public function setTag($tag, $tagValue){
+        $this->staticTags[$tag] = $tagValue;
     }
-
-    public function getTplValues($post){
-        $result = [];
-        if(is_array($post))
-            foreach ($post as $key => $val){
-                //$newKey = str_replace( "meta_", "", $key);
-                if(in_array($key, $this->categoryTplValues))
-                    $result[$key] = $val;
-            }
-        else{
-            $result[$this->type] = $post;
-        }
-        $this->post =  $result;
-    }
-
 
     /**
-     * Заполняем класс полями из базы
-     * и значениями текущей категории
-     *
+     * Выводим теги без шаблонов
+     * @param $field
+     * @return Factory|View
      */
-    public function setCategoryTags() : void {
-        $category = $this->post;
-        $tags = DB::table('seo')->where('type', 'category')->first();
-        $r = [];
-        if($tags) {
-            foreach ($tags as $key => $seoTpl) {
+    public function getStaticTag($field){
+        return view("seo." . $field, ['tag' => $this->staticTags[$field]]);
+    }
 
-                if (!in_array($key, $this->needle) || !$seoTpl) {
-                    continue;
-                }
-                $this::$tpl = $seoTpl;
-                $method     = 'set' . $key;
-                if (method_exists($this, $method)) {
-                    // прогоняем шаблон сео поля через доступные переменные поста
-                    foreach ($this->post as $varName => $varVal) {
-                        $seoTpl = preg_replace('/#' . $varName . '#/', $varVal, $seoTpl);
-                        //$this->_setKeywords($key, $seoTpl, $varName, $varVal);
-                    }
-                    $this->renderArray[$key] = $seoTpl;
-                    $t                       = '';
-                    // $mainTpl = $this->$method($key, $mainTpl, $varName, $varVal);
-                }
-            }
+    /**
+     * Передаём в представление по имени тега.
+     * Представление должно быть создано
+     * @param $field
+     * @return Factory|View
+     */
+    public function getData($field){
+        if($this->seoEntity && $this->seoEntity->returnMeta($field)) {
+            $data = $this->seoEntity->returnMeta($field);
+            return view("seo." . $field, ['tag' => $data]);
         }
     }
-    static $tpl;
-    public function setKeywords($key, $seoTpl, $needleName, $toValue){
-
-        $this::$tpl = $value = str_replace( "#".$needleName."#", $toValue, $seoTpl);
-        $this->renderArray[$key] = $value;
-
-    }
-
-    public function setTitle($key, $seoTpl, $needleName, $toValue){
-        $value = str_replace( "#".$needleName."#", $toValue, $seoTpl);
-        $this->renderArray[$key] = $value;
-    }
-
-    public function setH1($key, $seoTpl, $needleName, $toValue){
-        $value = str_replace( "#".$needleName."#", $toValue, $seoTpl);
-        $this->renderArray[$key] = $value;
-    }
-
-    public function setDescription($key, $seoTpl, $needleName, $toValue){
-        $value = str_replace( "#".$needleName."#", $toValue, $seoTpl);
-        $this->renderArray[$key] = $value;
-    }
-
-    public function render()
-    {
-        $tag = Seo::where('type', $this->type)->first();
-
-        return view('seo.title', ['tags'=> $tag, 'data'=> $this->data]);
-    }
-
-
-    public function renderTag($name){
-
-        if(isset($this->renderArray[$name]) && !empty($this->renderArray[$name])){
-
-            return view("seo.".$name, ['tag'=> $this->renderArray[$name]]);
-        }
-    }
-
-
-
-
-
-
-
-
-
 }

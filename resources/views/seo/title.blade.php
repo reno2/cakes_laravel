@@ -1,3 +1,3 @@
-<title>{{dd($tag)}}</title>
+<title>{{$tag}}</title>
 
 

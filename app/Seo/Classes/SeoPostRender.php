@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Этот Конкретный Продукт реализует API Facebook.
  */
-class SeoPostRender implements SeoMetaRender
+class SeoPostRender  //implements SeoMetaRender
 {
     private $data;
     private $fillable = [
@@ -16,14 +16,28 @@ class SeoPostRender implements SeoMetaRender
     ];
     private $virtual = ['h1'=> 'title'];
 
+    private $toRender = [];
+
+    /**
+     * SeoPostRender constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->data = $data;
     }
 
-    public function setData () {
-        return [1,3,6];
-        // TODO: Implement getFields() method.
+
+    /**
+     * @param $field string Название шалона подсканоки
+     * @param null $fieldTpl Значенеи шаблона подстановки
+     * @return mixed
+     */
+    public function getDescription ($field, $fieldTpl = null) {
+        // Если шаблон пустой возвращает значение из модели
+        if(!$fieldTpl) return $this->data[$fieldTpl];
+
+        return preg_replace('/#' . $field . '#/', $this->data[$field], $fieldTpl);
     }
 
     /**
@@ -38,9 +52,11 @@ class SeoPostRender implements SeoMetaRender
         return preg_replace('/#' . $field . '#/', $this->data[$field], $fieldTpl);
     }
 
-
-    private function isSeoVars(){
-
+    /**
+     * Основной метод по подготовке данных и передачи их в нужные геттеры.
+     * Если Геттера нет то возвращает значение из даты
+     */
+    private function prepareData() : void {
         $rawData = DB::table('seo')->where('type', 'post')->first();
         $rawData = ((array)$rawData) ?: [];
         $metaResult = [];
@@ -63,22 +79,17 @@ class SeoPostRender implements SeoMetaRender
            $metaTpl = $this->data[$field];
            $metaResult[$field] = $metaTpl;
          }
-        //dd($metaResult);
-        return $metaResult;
-
+        $this->toRender =  $metaResult;
     }
 
 
-
-    public function returnMeta () {
-       $this->prepareData();
-        return [
-            'title' => 'some title',
-            'description' => 'description'
-        ];
+    public function setData () {
+      $this->prepareData();
     }
 
-    private function prepareData () {
-        $this->isSeoVars();
+
+    public function returnMeta ($field) {
+      return $this->toRender[$field];
     }
+
 }

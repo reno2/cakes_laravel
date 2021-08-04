@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     //Dashboard
     public function dashboard(){
-        SeometaFacade::setTags('title', 'Админ панель');
+        SeometaFacade::setTag('title', 'Админ панель');
         return view('admin.dashboard', [
             'categories' => Category::LastCategories(5),
             //'articles' => Article::LastArticles(5),
