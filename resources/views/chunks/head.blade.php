@@ -9,9 +9,9 @@
 
 @yield('title')
 
-{{--{{ SeometaFacade::getData('title') }}--}}
-{{ SeometaFacade::getData('title') }}
 
+    {{ SeometaFacade::getData('title') }}
+    {!! SeometaFacade::getData('description') !!}
 {{--    {!! SeometaFacade::renderTag('title') !!}--}}
 {{--    {!! SeometaFacade::renderTag('keywords') !!}--}}
 {{--    {!! SeometaFacade::renderTag('description') !!}--}}
@@ -25,4 +25,3 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
 </head>
-{!! SeometaFacade::getData('description') !!}

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin\Seo;
 
 use App\Models\Seo;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 abstract class SeoAbstractController
@@ -18,14 +19,15 @@ abstract class SeoAbstractController
 
     public function create(Request $request){
         $this->model::create($request->except('_token'));
-        return redirect()->route('seo.category.index');
+        $type = $request->input('type');
+        return redirect()->route("seo.{$type}.index");
     }
 
     public function update(Request $request){
        $id=  $request->input('id');
-       $r = $this->model::where('id', $id)->update($request->except('_token'));
-
-        return redirect()->route('seo.category.index');
+       $type = $request->input('type');
+       $this->model::where('id', $id)->update($request->except('_token'));
+       return redirect()->route("seo.{$type}.index");
     }
 
     public function delete(){

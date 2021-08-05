@@ -35,9 +35,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
         Route::resource('/settings', 'SettingsController', ['as' => 'admin']);
         Route::resource('/users', 'UserController', ['as' => 'admin']);
+
         // Пост
         Route::resource('/article', 'ArticleController', ['as' => 'admin']);
         Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+
+        // Насройки сео
         Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {
             Route::group(['prefix' => '/category'], function () {
                 Route::get('/', 'SeoCategoryController@get')->name('seo.category.index');
@@ -47,10 +50,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 Route::get('/', 'SeoPostController@get')->name('seo.post.index');
                 Route::post('/update', 'SeoPostController@updatePost')->name('seo.post.update');
             });
+            Route::group(['prefix' => '/front'], function () {
+                Route::get('/', 'SeoFrontController@get')->name('seo.front.index');
+                Route::post('/update', 'SeoFrontController@updateFront')->name('seo.front.update');
+            });
         });
-        //        Route::group(['prefix' => 'user_managment', 'namespace' => 'UserManagment'], function(){
-        //            Route::resource('/user', 'UserController', ['as'=> 'user_managment']);
-        //        });
+
         Route::post('/upload/fileUpload', 'ImageController@upload')->name('ckeditor.upload');
         Route::post('/upload/image', 'ImageController@add')->name('img_add');
         //Route::get('/search', "ArticleController@search")->name('admin_search');

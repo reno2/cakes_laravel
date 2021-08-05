@@ -19,7 +19,7 @@
         <hr>
         <div class="top__middle">
             <ul class="sidebar__ul sul">
-                <li class="sul-link d-menu js_menuWrap">
+                <li class="sul-link d-menu js_menuWrap @if(str_contains(Request::segment(2) , 'category')) menu_isOpen @endif">
                     <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
                         <span class="d-menu__title">Контент</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i></a>
@@ -30,11 +30,12 @@
                         <a class="dropdown-item d-menu__item" href="{{route('admin.features.index')}}">Характеристики</a>
                     </div>
                 </li>
-                <li class="sul-link d-menu js_menuWrap">
+                <li class="sul-link d-menu js_menuWrap @if(str_contains(Request::segment(2) , 'seo')) menu_isOpen @endif">
                     <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >
                         <span class="d-menu__title">SEO</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i></a>
                     <div class="d-menu__content js_menuContent">
+                        <a class="dropdown-item" href="{{route('seo.front.index')}}">Главная</a>
                         <a class="dropdown-item" href="{{route('seo.category.index')}}">Категории</a>
                         <a class="dropdown-item" href="{{route('seo.post.index')}}">Материалы</a>
                         <a class="dropdown-item" href="{{route('admin.tags.index')}}">Теги</a>

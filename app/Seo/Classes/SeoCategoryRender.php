@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\DB;
 /**
  * Этот Конкретный Продукт реализует API Facebook.
  */
-class SeoPostRender implements SeoRender
-{
+class SeoCategoryRender implements SeoRender{
+
     private $data;
     private $fillable = [
         'title', 'h1', 'description'
     ];
     private $virtual = ['h1'=> 'title'];
-
     private $toRender = [];
-    private $type = 'post';
+
+    private $type = 'category';
 
     /**
      * @param $field string Название шалона подсканоки
@@ -60,25 +60,24 @@ class SeoPostRender implements SeoRender
             }
 
             // Если есть сео шаблон для поля
-           if($rawData[$field]){
-               $method = 'get'.ucfirst($field);
-               if(method_exists($this, $method)) {
-                   $metaResult[$field] = $this->$method($field, $rawData[$field]);
-                   continue;
-               }
-           }
+            if($rawData[$field]){
+                $method = 'get'.ucfirst($field);
+                if(method_exists($this, $method)) {
+                    $metaResult[$field] = $this->$method($field, $rawData[$field]);
+                    continue;
+                }
+            }
 
-           $metaTpl = $this->data[$field];
-           $metaResult[$field] = $metaTpl;
-         }
+            $metaTpl = $this->data[$field];
+            $metaResult[$field] = $metaTpl;
+        }
         $this->toRender =  $metaResult;
     }
 
 
-
     public function setData ($data) {
-      $this->data = $data;
-      $this->prepareData();
+        $this->data = $data;
+        $this->prepareData();
     }
 
     public function renderTag ($field) {

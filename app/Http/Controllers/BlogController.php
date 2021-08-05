@@ -96,7 +96,7 @@ class BlogController extends Controller
         if (!$category) {
             abort(404);
         }
-        SeometaFacade::setTags('category', $category->toArray());
+        SeometaFacade::setData('category', $category->toArray());
 
         return view('blog.category', [
             'category' => $category,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Profile;
+namespace App\Notifications;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;

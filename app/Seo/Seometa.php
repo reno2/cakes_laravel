@@ -4,6 +4,9 @@ namespace App\Seo;
 
 use App\Seo\Classes\SeoCategoryRender;
 use App\Seo\Classes\SeoPostRender;
+use App\Seo\Classes\SeoStaticRender;
+use App\Seo\Interfaces\SeoRender;
+use App\Seo\Interfaces\SeoStaticInterface;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -28,17 +31,17 @@ class Seometa{
         switch($type)
         {
             case 'post':
-                $entity = new SeoPostRender($data);
+                $entity = new SeoPostRender;
                 break;
 
             case 'category':
-                $entity = new SeoCategoryRender($data);
+                $entity = new SeoCategoryRender;
                 break;
             default:
                 throw new \Exception('Не верный тип объекта');
         }
         $this->seoEntity = $entity;
-        $this->seoEntity->setData();
+        $this->seoEntity->setData($data);
 
     }
 
@@ -48,9 +51,15 @@ class Seometa{
      * @param $tag
      * @param $tagValue
      */
-    public function setTag($tag, $tagValue){
-        $this->staticTags[$tag] = $tagValue;
+    public function setStaticTag($tag, $tagValue)  {
+
+        if (!$this->seoEntity || !($this->seoEntity instanceof SeoStaticInterface) )
+            $this->seoEntity = new SeoStaticRender;
+
+        $this->seoEntity->setData([$tag, $tagValue]);
     }
+
+
 
     /**
      * Выводим теги без шаблонов
@@ -58,8 +67,12 @@ class Seometa{
      * @return Factory|View
      */
     public function getStaticTag($field){
-        return view("seo." . $field, ['tag' => $this->staticTags[$field]]);
+        if($this->seoEntity && $this->seoEntity->renderTag($field)) {
+            $data = $this->seoEntity->renderTag($field);
+            return view("seo." . $field, ['tag' => $data]);
+        }
     }
+
 
     /**
      * Передаём в представление по имени тега.
@@ -68,8 +81,8 @@ class Seometa{
      * @return Factory|View
      */
     public function getData($field){
-        if($this->seoEntity && $this->seoEntity->returnMeta($field)) {
-            $data = $this->seoEntity->returnMeta($field);
+        if($this->seoEntity && $this->seoEntity->renderTag($field)) {
+            $data = $this->seoEntity->renderTag($field);
             return view("seo." . $field, ['tag' => $data]);
         }
     }
