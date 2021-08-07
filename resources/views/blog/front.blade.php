@@ -1,5 +1,14 @@
 @extends('layouts.app')
+@section('title')
+    {{ SeometaFacade::getData('title') }}
+    {!! SeometaFacade::getData('description') !!}
+@endsection
 @section('content')
+
+    <div class="container">
+        {!!  SeometaFacade::getData('h1')  !!}
+    </div>
+
     @include('chunks.all_massages')
     <div class="container">
         @if (session('status'))

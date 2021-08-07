@@ -3,6 +3,7 @@ namespace App\Seo;
 
 
 use App\Seo\Classes\SeoCategoryRender;
+use App\Seo\Classes\SeoFrontRender;
 use App\Seo\Classes\SeoPostRender;
 use App\Seo\Classes\SeoStaticRender;
 use App\Seo\Interfaces\SeoRender;
@@ -37,6 +38,11 @@ class Seometa{
             case 'category':
                 $entity = new SeoCategoryRender;
                 break;
+
+            case 'front':
+                $entity = new SeoFrontRender;
+                break;
+
             default:
                 throw new \Exception('Не верный тип объекта');
         }

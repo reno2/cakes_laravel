@@ -24,7 +24,7 @@ class BlogController extends Controller
 
     public function front(Request $request)
     {
-
+        SeometaFacade::setData('front', config('seo'));
         $ads = Article::where('published', 1)
                       ->where('moderate', 1)
                       ->orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);

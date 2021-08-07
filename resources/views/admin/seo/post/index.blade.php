@@ -27,14 +27,14 @@
                                  <label for="h1">Тег h1 для поста</label>
                                  <input type="text" name="h1" class="form-control" id="h1" value="{{$post->h1 ?? ''}}">
                              </div>
-                             <div class="form-group">
-                                 <label for="keywords">Тег meta-keywords для поста</label>
-                                 <input type="text" name="keywords" class="form-control" id="keywords" value="{{$post->keywords ?? ''}}">
-                             </div>
+{{--                             <div class="form-group">--}}
+{{--                                 <label for="keywords">Тег meta-keywords для поста</label>--}}
+{{--                                 <input type="text" name="keywords" class="form-control" id="keywords" value="{{$post->keywords ?? ''}}">--}}
+{{--                             </div>--}}
                              <div class="form-group">
                                  <label for="description">Тег meta-description для поста</label>
                                  <textarea name="description" class="form-control" id="description">
-{{$category->description ?? ''}}
+{{$post->description ?? ''}}
                                  </textarea>
                              </div>
 

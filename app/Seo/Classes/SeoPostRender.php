@@ -2,86 +2,27 @@
 
 namespace App\Seo\Classes;
 
-use App\Seo\Contracts\SeoMetaRender;
-use App\Seo\Interfaces\SeoRender;
+use App\Seo\Abstracts\SeoAbstractRender;
+use App\Seo\Interfaces\SeoStaticInterface;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Этот Конкретный Продукт реализует API Facebook.
+ * Этот обработчик страницы объявления.
  */
-class SeoPostRender implements SeoRender
+class SeoPostRender extends SeoAbstractRender implements SeoStaticInterface
 {
-    private $data;
-    private $fillable = [
-        'title', 'h1', 'description'
-    ];
-    private $virtual = ['h1'=> 'title'];
 
-    private $toRender = [];
-    private $type = 'post';
-
-    /**
-     * @param $field string Название шалона подсканоки
-     * @param null $fieldTpl Значенеи шаблона подстановки
-     * @return mixed
-     */
-    public function getDescription ($field, $fieldTpl = null) {
-        // Если шаблон пустой возвращает значение из модели
-        if(!$fieldTpl) return $this->data[$fieldTpl];
-
-        return preg_replace('/#' . $field . '#/', $this->data[$field], $fieldTpl);
+    public function __construct () {
+        $this->type = 'post';
     }
-
-    /**
-     * @param $field string Название шалона подсканоки
-     * @param null $fieldTpl Значенеи шаблона подстановки
-     * @return mixed
-     */
-    public function getTitle ($field, $fieldTpl = null) {
-        // Если шаблон пустой возвращает значение из модели
-        if(!$fieldTpl) return $this->data[$fieldTpl];
-
-        return preg_replace('/#' . $field . '#/', $this->data[$field], $fieldTpl);
-    }
-
-    /**
-     * Основной метод по подготовке данных и передачи их в нужные геттеры.
-     * Если Геттера нет то возвращает значение из даты
-     */
-    private function prepareData() : void {
-        $rawData = DB::table('seo')->where('type', $this->type)->first();
-        $rawData = ((array)$rawData) ?: [];
-        $metaResult = [];
-        foreach ($this->fillable as $field){
-            // Если нет шаблона и виртуальное поле
-            if(array_key_exists($field, $this->virtual) && !$rawData[$field]) {
-                $metaResult[$field] = $this->data[$this->virtual[$field]];
-                continue;
-            }
-
-            // Если есть сео шаблон для поля
-           if($rawData[$field]){
-               $method = 'get'.ucfirst($field);
-               if(method_exists($this, $method)) {
-                   $metaResult[$field] = $this->$method($field, $rawData[$field]);
-                   continue;
-               }
-           }
-
-           $metaTpl = $this->data[$field];
-           $metaResult[$field] = $metaTpl;
-         }
-        $this->toRender =  $metaResult;
-    }
-
-
 
     public function setData ($data) {
-      $this->data = $data;
-      $this->prepareData();
+        $this->data = $data;
+        $this->prepareData();
     }
 
     public function renderTag ($field) {
         return $this->toRender[$field];
     }
+
 }

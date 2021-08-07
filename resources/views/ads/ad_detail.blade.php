@@ -1,7 +1,7 @@
 <div class="ad-detail">
     <div class="ad-detail__head">
         <div class="ad-detail__title">
-            {{$ad->title}}
+            {!! SeometaFacade::getData('h1') !!}
         </div>
         <div class="ad-detail__date">
             {{ Date::parse($ad->created_at)->format('j F Y г.') }}

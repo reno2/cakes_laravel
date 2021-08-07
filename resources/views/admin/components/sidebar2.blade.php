@@ -12,14 +12,14 @@
         </div>
         <hr>
         <div class="top__dashboard">
-{{--            <a class="nav-link" href="{{route('admin.index')}}">--}}
+            <a class="nav-link" href="{{route('admin.index')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Панель</span></a>
         </div>
         <hr>
         <div class="top__middle">
             <ul class="sidebar__ul sul">
-                <li class="sul-link d-menu js_menuWrap @if(str_contains(Request::segment(2) , 'category')) menu_isOpen @endif">
+                <li class="sul-link d-menu js_menuWrap @if (Str::contains(URL::current(), 'content')) menu_isOpen @endif">
                     <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu">
                         <span class="d-menu__title">Контент</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i></a>
@@ -30,7 +30,7 @@
                         <a class="dropdown-item d-menu__item" href="{{route('admin.features.index')}}">Характеристики</a>
                     </div>
                 </li>
-                <li class="sul-link d-menu js_menuWrap @if(str_contains(Request::segment(2) , 'seo')) menu_isOpen @endif">
+                <li class="sul-link d-menu js_menuWrap @if (Str::contains(URL::current(), 'seo')) menu_isOpen @endif">
                     <a href="#" class="nav-link d-menu__toggle js_menuToggle" id="dmenu" >
                         <span class="d-menu__title">SEO</span>
                         <i class="d-menu__arrow fas fa-chevron-right"></i></a>

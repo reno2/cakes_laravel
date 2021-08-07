@@ -106,14 +106,7 @@ Route::get('/', 'BlogController@front')->name('main');
 Route::post('/favorites', 'BlogController@favorites')->name('favorites');
 Route::get('/favorites', 'BlogController@favoritesList')->name('favorites_list');
 
-Route::get('/test-mail', function () {
 
-
-    //return  (new PostCreatedNotification(['name'=> 'efef']))->toMail('chedia@mail.ru');
-    return (new NewUserNotification(['name' => 'efef']))->toMail('chedia@mail.ru');
-
-
-});
 
 Route::get('login/{driver}', 'Auth\SocialController@redirect')
      ->name('login.driver')
@@ -123,18 +116,3 @@ Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
      ->name('login.callback')
      ->where('driver', implode('|', config('auth.socialite.drivers')));
 
-
-Route::get('queue', function () {
-    $ads = \App\Models\Article::find(1);
-    $moderate = \App\Models\Moderate::create([
-        "rules" => "32",
-        "message" => "derewrwr",
-    ]);
-    $ads->moderateComments()->save($moderate);
-    //dd($ads);
-    //    $userTo = User::find(1);
-    //    $data = [
-    //        'name' => "lkilili"
-    //    ];
-    //    Notification::send($userTo, new \App\Notifications\TestNotification($data));
-});

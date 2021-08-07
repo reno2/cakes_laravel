@@ -7,13 +7,13 @@ use App\Seo\Interfaces\SeoStaticInterface;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Этот обработчик страницы категорий.
+ * Этот обработчик главной страницы.
  */
-class SeoCategoryRender extends SeoAbstractRender implements SeoStaticInterface{
-
+class SeoFrontRender extends SeoAbstractRender implements SeoStaticInterface
+{
 
     public function __construct () {
-        $this->type = 'category';
+        $this->type = 'front';
     }
 
     public function setData ($data) {
