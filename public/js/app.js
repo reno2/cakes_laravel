@@ -92139,42 +92139,96 @@ var app = new Vue({
 
 window.iziToast = __webpack_require__(/*! iziToast */ "./node_modules/iziToast/dist/js/iziToast.js");
 
+ // const slideItems = document.querySelectorAll('.ad-detail__small');
+// const thumbSlider = document.querySelector('.ad-detail__navigation');
+// console.log(thumbSlider);
+// const thumbArrows = thumbSlider.querySelector('.js_swiperNavigate');
+//
+// thumbArrows.style.display = 'none'
+// const options = {
+//     loop: true,
+//     slidesPerView: 4,
+//     spaceBetween: 30,
+//     // observer: true,
+//     // observeParents: true,
+//     freeMode: false,
+//     height: 100,
+//     //  loopedSlides: 3, //looped slides should be the same
+//     // watchSlidesVisibility: true,
+//     // watchSlidesProgress: true,
+//     navigation: {
+//         nextEl: '.arrow__right',
+//         prevEl: '.arrow__left',
+//     },
+// }
+// const galleryThumbs = new Swiper('.ad-detail__navigation', options);
+//
+// const galleryTop = new Swiper('.ad-detail__figure', {
+//     freeMode: false,
+//     loop: true,
+//     loopedSlides: 4,
+//     // watchSlidesVisibility: true,
+//     // watchSlidesProgress: true,
+//     pagination: {
+//         el: '.swiper-pagination',
+//     },
+//     navigation: {
+//         nextEl: '.arrow__right',
+//         prevEl: '.arrow__left',
+//     },
+//     // thumbs: {
+//     //     swiper: galleryThumbs,
+//     // },
+// });
 
 var galleryThumbs = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-detail__navigation', {
-  loop: true,
-  slidesPerView: 5,
-  spaceBetween: 20,
-  observer: true,
-  observeParents: true,
-  freeMode: true,
-  loopedSlides: 3,
-  //looped slides should be the same
+  spaceBetween: 10,
+  slidesPerView: 'auto',
+  freeMode: false,
+  slideToClickedSlide: true,
+  loopedSlides: 4,
   watchSlidesVisibility: true,
   watchSlidesProgress: true,
   navigation: {
-    nextEl: '.arrow__right',
-    prevEl: '.arrow__left'
+    nextEl: '.js_swiperNavigate .arrow__left',
+    prevEl: '.js_swiperNavigate .arrow__right'
   }
 });
-var swiper = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-detail__figure', {
-  direction: 'horizontal',
-  speed: 400,
-  spaceBetween: 100,
+var galleryTop = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-detail__figure', {
+  spaceBetween: 10,
   freeMode: false,
-  loopedSlides: 5,
-  watchSlidesVisibility: true,
-  watchSlidesProgress: true,
-  pagination: {
-    el: '.swiper-pagination'
-  },
+  centeredSlides: true,
   navigation: {
-    nextEl: '.arrow__right',
-    prevEl: '.arrow__left'
+    nextEl: '.arrow__left',
+    prevEl: '.arrow__right'
   },
   thumbs: {
     swiper: galleryThumbs
   }
-});
+}); // galleryTop.controller.control = galleryThumbs;
+// galleryThumbs.controller.control = galleryTop;
+// galleryThumbs.init();
+//
+// galleryThumbs.on('init', function(swiper){
+//     if(swiper.activeIndex < 4){
+//         swiper.prependSlide([
+//             '<div class="swiper-slide swiper__fake"></div>',
+//             '<div class="swiper-slide swiper__fake"></div>',
+//         ]);
+//
+//         galleryThumbs.params.loop = false
+//         swiper.allowSlideNext = false
+//         swiper.allowSlidePrev = false
+//         swiper.allowTouchMove = false
+//         document.querySelector('.swiper-container').classList.add('swiper-no-swiping')
+//         swiper.update()
+//     }
+// })
+// galleryThumbs.on('resize', function(swiper){
+//     console.log(this);
+// })
+// if(slideItems.length > 4)
+// galleryThumbs.init();
 
 /***/ }),
 

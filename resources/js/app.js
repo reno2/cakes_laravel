@@ -11,15 +11,19 @@ require('./bootstrap');
 window.md5 = require('md5');
 window.Vue = require('vue');
 import * as VeeValidate from 'vee-validate';
+
+
 Vue.use(VeeValidate);
 
-import VueSocialSharing from 'vue-social-sharing'
+import VueSocialSharing from 'vue-social-sharing';
+
+
 Vue.use(VueSocialSharing);
 
 require('./bootstrap');
 window.moment = require('moment');
-moment.locale('ru')
-moment().format()
+moment.locale('ru');
+moment().format();
 
 
 
@@ -66,46 +70,116 @@ const app = new Vue({
 // import 'toastr/build/toastr.css'
 // window.toastr = require('toastr');
 
-import 'iziToast/dist/css/iziToast.css'
+import 'iziToast/dist/css/iziToast.css';
+
+
 window.iziToast = require('iziToast');
 
 
 import Swiper from 'swiper/bundle';
 import 'swiper/swiper-bundle.css';
 
-const galleryThumbs = new Swiper('.ad-detail__navigation', {
-    loop: true,
-    slidesPerView: 5,
-    spaceBetween: 20,
-    observer: true,
-    observeParents: true,
-     freeMode: true,
-    loopedSlides: 3, //looped slides should be the same
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true,
-    navigation: {
-        nextEl: '.arrow__right',
-        prevEl: '.arrow__left',
-    },
-});
 
-const swiper = new Swiper('.ad-detail__figure', {
-    direction: 'horizontal',
-    speed: 400,
-    spaceBetween: 100,
+// const slideItems = document.querySelectorAll('.ad-detail__small');
+// const thumbSlider = document.querySelector('.ad-detail__navigation');
+// console.log(thumbSlider);
+// const thumbArrows = thumbSlider.querySelector('.js_swiperNavigate');
+//
+// thumbArrows.style.display = 'none'
+
+
+// const options = {
+//     loop: true,
+//     slidesPerView: 4,
+//     spaceBetween: 30,
+//     // observer: true,
+//     // observeParents: true,
+//     freeMode: false,
+//     height: 100,
+//     //  loopedSlides: 3, //looped slides should be the same
+//     // watchSlidesVisibility: true,
+//     // watchSlidesProgress: true,
+//     navigation: {
+//         nextEl: '.arrow__right',
+//         prevEl: '.arrow__left',
+//     },
+// }
+// const galleryThumbs = new Swiper('.ad-detail__navigation', options);
+//
+// const galleryTop = new Swiper('.ad-detail__figure', {
+//     freeMode: false,
+//     loop: true,
+//     loopedSlides: 4,
+//     // watchSlidesVisibility: true,
+//     // watchSlidesProgress: true,
+//     pagination: {
+//         el: '.swiper-pagination',
+//     },
+//     navigation: {
+//         nextEl: '.arrow__right',
+//         prevEl: '.arrow__left',
+//     },
+//     // thumbs: {
+//     //     swiper: galleryThumbs,
+//     // },
+// });
+
+const galleryThumbs = new Swiper('.ad-detail__navigation', {
+    spaceBetween: 10,
+    slidesPerView: 'auto',
     freeMode: false,
-    loopedSlides: 5,
+    slideToClickedSlide: true,
+    loopedSlides: 4,
     watchSlidesVisibility: true,
     watchSlidesProgress: true,
-    pagination: {
-        el: '.swiper-pagination',
-    },
     navigation: {
-        nextEl: '.arrow__right',
-        prevEl: '.arrow__left',
+        nextEl: '.js_swiperNavigate .arrow__left',
+        prevEl: '.js_swiperNavigate .arrow__right',
+    },
+
+});
+const galleryTop = new Swiper('.ad-detail__figure', {
+    spaceBetween: 10,
+    freeMode: false,
+    centeredSlides: true,
+    navigation: {
+        nextEl: '.arrow__left',
+        prevEl: '.arrow__right',
     },
     thumbs: {
-        swiper: galleryThumbs,
+        swiper: galleryThumbs
     },
+
+
 });
+// galleryTop.controller.control = galleryThumbs;
+// galleryThumbs.controller.control = galleryTop;
+
+// galleryThumbs.init();
+
+
+
+//
+// galleryThumbs.on('init', function(swiper){
+//     if(swiper.activeIndex < 4){
+//         swiper.prependSlide([
+//             '<div class="swiper-slide swiper__fake"></div>',
+//             '<div class="swiper-slide swiper__fake"></div>',
+//         ]);
+//
+//         galleryThumbs.params.loop = false
+//         swiper.allowSlideNext = false
+//         swiper.allowSlidePrev = false
+//         swiper.allowTouchMove = false
+//         document.querySelector('.swiper-container').classList.add('swiper-no-swiping')
+//         swiper.update()
+//     }
+// })
+
+// galleryThumbs.on('resize', function(swiper){
+//     console.log(this);
+// })
+// if(slideItems.length > 4)
+// galleryThumbs.init();
+
 
