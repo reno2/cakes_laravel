@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AdsModerate;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Moderate;
@@ -307,16 +308,21 @@ class ArticleController extends Controller
             }
         }
 
-        //dd($r);
+
         try {
             $update = $article->update($inputsArray);
 
             /** ===========================================================
              ===================Модерация================================
              **/
+
+
+
             if($inputsArray['moderate']){
                 $article->moderateComments()->detach();
+                event(new AdsModerate($article, []));
             }else {
+
                 $moderateNode = [];
                 if ($inputsArray['rule'] || $inputsArray['moderate_text']) {
                     $moderateNode = [
@@ -338,16 +344,18 @@ class ArticleController extends Controller
                         "message" => $inputsArray['moderate_text'],
                     ])->fresh();
                 }
-                $ru = Settings::whereIn('id', $inputsArray['rule'])->get()->toArray();
-                $userTo = User::where('id', $article->user_id)->get();
+
+
+                $r = Settings::whereIn('id', $inputsArray['rule'])->get()->toJson();
+
                 $data = [
-                    'event_name' => 'Модерация',
-                    'url' => '/admin/article/'. $article->id .'/edit',
-                    'title' => 'Ответ от модератора',
+                    'status' => false,
+                    'rules' => Settings::whereIn('id', $inputsArray['rule'])->get()->toJson(),
                     'message' => $inputsArray['moderate_text']
                 ];
-                Notification::send($userTo, new ModerateNotification($data));
 
+                //Notification::send($userTo, new ModerateNotification($data));
+                event(new AdsModerate($article, $data));
                 $article->moderateComments()->sync($mod->id);
 
             }

@@ -2,9 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\AdsProcessed;
+use App\Events\AdsModerate;
+use App\Models\User;
+use App\Notifications\ModerateNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Notification;
 
 class SendModerateNotifications
 {
@@ -21,11 +24,14 @@ class SendModerateNotifications
     /**
      * Handle the event.
      *
-     * @param  AdsProcessed  $event
+     * @param AdsModerate $event
+     * @param $data
      * @return void
      */
-    public function handle(AdsProcessed $event)
+    public function handle(AdsModerate $event)
     {
-        //
+
+        $userTo = User::find($event->ads->user_id);
+        Notification::send($userTo, new ModerateNotification($event->data));
     }
 }

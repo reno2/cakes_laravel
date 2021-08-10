@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Notifications\ModerateNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\ProfileRepository;
@@ -20,8 +21,7 @@ class ProfileServiceProvider extends ServiceProvider
                 $user =  Auth::user();
                 $userId  = $user->id;
                 $profile = (new ProfileRepository)->getFirstProfileByUser($user);
-                $notifications =  Auth::user()->unreadNotifications;
-
+                $moderateNotifications =  (new App\Repositories\UserRepository())->getNotReadModerateNotice();
                 $comments =  \DB::table('comments')
 
                     ->where(function($query) use ($userId) {
@@ -55,9 +55,9 @@ class ProfileServiceProvider extends ServiceProvider
                 $view
                     ->with('profile', $profile)
                     ->with('commentsCount', $notReadComments)
-                    ->with('notifications_count', $notifications)
+                    ->with('notifications_count', $moderateNotifications)
                     ->with('favorites', $favorites)
-                    ->with('notifications', $notifications);
+                    ->with('notifications', $moderateNotifications);
             }
         );
     }

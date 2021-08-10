@@ -70,10 +70,17 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
         Route::delete('/avatar/remove/{profile_id}', 'ProfileController@removeAva')->name('profile.avatar.remove');
 
+
+        // Уведомления о модерации
+        Route::get('/moderate/', 'ProfileNotificationsController@moderate')->name('profile.moderate.index');
+        Route::get('/moderate/personal/{user_id}', 'ProfileNotificationsController@moderatePersonal')->name('profile.moderate.personal');
+        Route::post('/moderate/read', 'ProfileNotificationsController@moderateRead')->name('profile.moderate.read');
         // Уведомления для пользователя
         Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
         Route::get('/notifications/personal/{user_id}', 'ProfileNotificationsController@personal')->name('profile.notice.personal');
         Route::post('/notifications/read', 'ProfileNotificationsController@read')->name('profile.notice.read');
+
+
         // Comments
         Route::post('/comments/', 'CommentController@store')->name('comments.store');
         Route::post('/comments/{comment_id}', 'CommentController@answer')->name('comments.answer');

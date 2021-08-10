@@ -4,17 +4,40 @@
   border: none;
   border-radius: 9px;
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  padding: 16px;
 }
-.notification__name{
+.notification__meta{
   font-weight: 600;
 }
-.notification:after {
-  content: "";
-  width: 100%;
-  clear: both;
-  display: block;
-}
+
 .notification__read__all{
   margin-top: 24px;
   display: inline-flex;
+}
+
+.notification__top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.notification__action a{
+  margin-top: 0;
+}
+.notification__col{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.notification__message{
+  flex-shrink: 0;
+}
+.notification__figure{
+  margin-right: 24px;
+}
+.notification__img{
+  width: 80px;
+  height: 80px;
 }
