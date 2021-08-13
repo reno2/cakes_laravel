@@ -167,7 +167,7 @@
                             <div class="form-group">
                                 <label for="published">Комментарий</label>
                                 <textarea name="moderate_text" class="form-control"
-                                          id="moderate_text">{{ $selectedRules['moderate_text'] ?? '' }}</textarea>
+                                          id="moderate_text">{{@old('moderate_text', $selectedRules['moderate_text'])}}</textarea>
                             </div>
                             <input type="hidden" name="moderate_id" value="{{ $selectedRules['id'] ?? ''}}">
                         </div>

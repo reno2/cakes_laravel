@@ -54,6 +54,10 @@ class AdsRequest extends FormRequest
           //  'description'   => "required",
            'image'   => "max:5",
            'image.*' => "mimes:png,jpg,jpeg|max:20000",
+           'meta_description' => 'max:155',
+
+            // Модерация
+            'moderate_text' => 'max:155',
         ];
     }
 

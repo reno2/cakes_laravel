@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\AdsModerate;
+use App\Http\Requests\AdsRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Moderate;
@@ -212,14 +213,14 @@ class ArticleController extends Controller
      * @param \App\Article             $article
      *
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Article $article)
+    public function update(AdsRequest $request, Article $article)
     {
-        $this->validate($request, [
-            'slug'  => Rule::unique('articles')->ignore($article->id, 'id'),
-            'title' => 'required'
-        ]);
+//        $this->validate($request, [
+//            'slug'  => Rule::unique('articles')->ignore($article->id, 'id'),
+//            'title' => 'required'
+//        ]);
+        $validated = $request->validated();
 
         $inputsArray             = $request->all();
         $inputsArray['on_front'] = ($request->input('on_front')) ? true : false;
