@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label for="title">Заголовок</label>
-                            <input type="text" name="title" class="form-control" id="name"
+                            <input type="text" name="title" class="form-control" id="title"
                                    value="{{($article->title)??old('title')}}">
                             @if($errors->has('title'))
                                 <span class="help-block text-danger">{{ $errors->first('title') }}</span>

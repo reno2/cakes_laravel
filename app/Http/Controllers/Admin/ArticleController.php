@@ -214,14 +214,14 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AdsRequest $request, Article $article)
+    public function update(AdsRequest $request, $id)
     {
 //        $this->validate($request, [
 //            'slug'  => Rule::unique('articles')->ignore($article->id, 'id'),
 //            'title' => 'required'
 //        ]);
         $validated = $request->validated();
-
+        $article = Article::find($id);
         $inputsArray             = $request->all();
         $inputsArray['on_front'] = ($request->input('on_front')) ? true : false;
         $inputsArray['moderate'] = ($request->input('moderate')) ? true : false;
