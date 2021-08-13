@@ -34,7 +34,6 @@ class SendModerateNotifications
                 'slug' => $ads->slug
             ];
         };
-        $ff = $moderate->settings;
          foreach($moderate->settings as $rr){
             $data['rules'][] = $rr->title;
         };

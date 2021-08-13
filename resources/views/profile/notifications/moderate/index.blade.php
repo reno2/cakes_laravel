@@ -30,17 +30,17 @@
                                 @endif
                             </span>
                         </div>
-
-                        <div class="notification__ads">{{$notification->data['ads']['title']}}</div>
+                        <div class="notification__ads">{{$notification->data['ads']['title'] ?? $notification->data['ads']}}</div>
                         @if(count($notification['data']))
                             <div class="notification__data toggle-block js_toggleBlock">
                                 <div class="js_toggleBlockContent toggle-block__content" data-max-height="100">
-                                    @if($notification->data['message'])
+
+                                    @isset($notification->data['message'])
                                         <div class="notification__admin">Комментарий:</div>
                                         <div class="notification__mess">
                                             {{$notification->data['message']}}
                                         </div>
-                                    @endif
+                                    @endisset
 
                                     @isset($notification->data['rules'])
                                         <ul class="notification__rules">
