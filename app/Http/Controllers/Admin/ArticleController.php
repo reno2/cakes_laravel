@@ -182,9 +182,10 @@ class ArticleController extends Controller
 
         $moderateRules = [];
         if($article->moderateComments()->exists()) {
-            $rule = $article->moderateComments()->first();
-            $moderateRules['rule'] = unserialize($rule->rules);
-            $moderateRules['moderate_text'] = $rule->message;
+
+            $rule = $article->moderateComments->first();
+            $moderateRules['moderate_text'] = $rule['message'] ?? '';
+            $moderateRules['rule'] = $rule->settings->pluck('id')->toArray();
             $moderateRules['id'] = $rule->id;
         }
 
@@ -197,7 +198,6 @@ class ArticleController extends Controller
             'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
-            //'filter'     => $filters,
             'delimiter'  => '',
             'rules' => $allRules,
             'selectedRules' => $moderateRules
@@ -315,51 +315,20 @@ class ArticleController extends Controller
             /** ===========================================================
              ===================Модерация================================
              **/
-
-
-
             if($inputsArray['moderate']){
-                $article->moderateComments()->detach();
-                event(new AdsModerate($article, []));
+                if($article->moderateComments()->exists()){
+                    $article->moderateComments()->first()->settings()->detach();
+                    $article->moderateComments()->detach();
+                    event(new AdsModerate($article, []));
+                }
             }else {
-
-                $moderateNode = [];
-                if ($inputsArray['rule'] || $inputsArray['moderate_text']) {
-                    $moderateNode = [
-                        "rules" => serialize($inputsArray['rule']),
-                        "message" => $inputsArray['moderate_text'],
-                    ];
-                }
-                if (!empty($inputsArray['moderate_id'])) {
-                    $mod = Moderate::find($inputsArray['moderate_id']);
-                    $mod->update([
-                            "rules" => serialize($inputsArray['rule']),
-                            "message" => $inputsArray['moderate_text']
-                        ]
-                    );
-                    $mod = $mod->refresh();
-                } else {
-                    $mod = \App\Models\Moderate::create([
-                        "rules" => serialize($inputsArray['rule']),
-                        "message" => $inputsArray['moderate_text'],
-                    ])->fresh();
-                }
-
-
-                $r = Settings::whereIn('id', $inputsArray['rule'])->get()->toJson();
-
-                $data = [
-                    'status' => false,
-                    'rules' => Settings::whereIn('id', $inputsArray['rule'])->get()->toJson(),
-                    'message' => $inputsArray['moderate_text']
-                ];
-
-                //Notification::send($userTo, new ModerateNotification($data));
-                event(new AdsModerate($article, $data));
-                $article->moderateComments()->sync($mod->id);
-
+                $moderateItem = Moderate::updateOrCreate([
+                    'id' => $inputsArray['moderate_id']
+                    ],["message" => $inputsArray['moderate_text']]);
+                $moderateItem->settings()->sync($inputsArray['rule']??[]);
+                event(new AdsModerate($article, $moderateItem));
+                $article->moderateComments()->sync($moderateItem->id);
             }
-
             /** ================================================================
             ===================Модерация=======================================
              **/
@@ -421,6 +390,7 @@ class ArticleController extends Controller
      */
     public function destroy( Article $article) {
         $article->categories()->detach();
+        $article->tags()->detach();
         $article->delete();
 
         return redirect()->route('admin.article.index');

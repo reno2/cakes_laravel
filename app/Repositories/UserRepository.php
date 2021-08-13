@@ -19,18 +19,18 @@ class UserRepository extends CoreRepository{
                    ->whereNull('read_at')
                    ->paginate(4);
 
-        $itemsTransformed = $notices
-            ->getCollection()
-            ->map(function($item) {
-                if(isset($item->data['rules']) && !is_array($item->data['rules'])) {
-                    $data = $item->data;
-                    $data['rules'] = json_decode($item->data['rules']);
-                    $item->data = $data;
-                }
-                return [
-                    $item
-                ];
-            })->toArray();
+//        $itemsTransformed = $notices
+//            ->getCollection()
+//            ->map(function($item) {
+//                if(isset($item->data['rules']) && !is_array($item->data['rules'])) {
+//                    $data = $item->data;
+//                    $data['rules'] = json_decode($item->data['rules']);
+//                    $item->data = $data;
+//                }
+//                return [
+//                    $item
+//                ];
+//            })->toArray();
 
           return ($notices->isNotEmpty()) ? $notices : null;
     }

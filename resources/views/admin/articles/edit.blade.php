@@ -152,6 +152,7 @@
                             </div>
 
                             @foreach($rules as $type)
+
                                 <div class="form-check">
                                     <input type="checkbox" name="rule[]"
                                            @if(isset($selectedRules['rule']))

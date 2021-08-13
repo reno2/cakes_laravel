@@ -7,11 +7,34 @@
   display: flex;
   align-items: center;
   padding: 16px;
+  width: 100%;
+}
+.notification__content{
+  display: flex;
+  width: 100%;
+}
+.notification__date{
+  font-size: 12px;
 }
 .notification__meta{
   font-weight: 600;
 }
-
+.notification__ads{
+  font-weight: 900;
+  font-size: 16px;
+  margin-top: 8px;
+}
+.notification__admin {
+  margin-top: 9px;
+  font-weight: 900;
+  font-size: 12px;
+  color: #4456;
+  border-bottom: 1px solid #44445517;
+  margin-bottom: 8px;
+}
+.notification__rules{
+  margin-top: 8px;
+}
 .notification__read__all{
   margin-top: 24px;
   display: inline-flex;
@@ -26,13 +49,13 @@
 .notification__action a{
   margin-top: 0;
 }
-.notification__col{
+.notification__info{
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  flex-grow: 1;
 }
 .notification__message{
-  flex-shrink: 0;
+  width: 100%;
 }
 .notification__figure{
   margin-right: 24px;

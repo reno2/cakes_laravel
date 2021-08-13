@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Article;
+use App\Models\Moderate;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -16,16 +17,17 @@ class AdsModerate
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $ads;
-    public $data;
+    public $mess;
+
     /**
      * Create a new event instance.
      *
      * @param Article $ads
-     * @param $data
+     * @param  $mess
      */
-    public function __construct(Article $ads, $data)
+    public function __construct(Article $ads, $mess = null)
     {
-        $this->data = $data;
+        $this->mess = $mess;
         $this->ads = $ads;
     }
 

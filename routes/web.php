@@ -29,16 +29,24 @@ Auth::routes(['verify' => true]);
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'is_admin']],
     function () {
+
+        // Меню контента
+        Route::group(['prefix' => 'content'], function () {
+            Route::resource('/category', 'CategoryController', ['as' => 'admin']);
+            Route::resource('/tags', 'TagController', ['as' => 'admin']);
+            Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
+            Route::resource('/article', 'ArticleController', ['as' => 'admin']);
+            Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+        });
+
+
         Route::get('/', 'DashboardController@dashboard')->name('admin.index');
-        Route::resource('/category', 'CategoryController', ['as' => 'admin']);
-        Route::resource('/tags', 'TagController', ['as' => 'admin']);
-        Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
+
         Route::resource('/settings', 'SettingsController', ['as' => 'admin']);
         Route::resource('/users', 'UserController', ['as' => 'admin']);
 
         // Пост
-        Route::resource('/article', 'ArticleController', ['as' => 'admin']);
-        Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+
 
         // Насройки сео
         Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {

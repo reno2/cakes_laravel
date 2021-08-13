@@ -16,49 +16,60 @@
     @forelse($notifications as $notification)
 
         <div class="notification js_notificationItem">
-            <div class="notification__figure">
-                <img class="notification__img" src="/storage/images/defaults/cake.svg" alt="">
-            </div>
-            <div class="notification__col">
-                <div class="notification__message">
-                    <div class="notification__from">Администрация
-                        [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}]
-                    </div>
-                    <div class="notification__name">
+            <div class="notification__content">
+                <div class="notification__figure">
+                    <img class="notification__img" src="/storage/images/defaults/cake.svg" alt="">
+                </div>
+                <div class="notification__info">
+                    <div class="notification__message">
+                        <div class="notification__date">
+                            [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}] -
+                            <span class="notification__status">
+                                @if(count($notification['data'])) {{$notification->data['title']}}
+                                @else   Ваше объявление прошло модерацию
+                                @endif
+                            </span>
+                        </div>
+
+                        <div class="notification__ads">{{$notification->data['ads']['title']}}</div>
                         @if(count($notification['data']))
-                            <div class="notification__status">Ваше объявление прошло модерацию</div>
-                            @if($notification['data']['message'])
-                                <div class="notification__mess">
-                                    {{$notification["data"]["message"]}}
-                                </div>
-                            @endif
+                            <div class="notification__data toggle-block js_toggleBlock">
+                                <div class="js_toggleBlockContent toggle-block__content" data-max-height="100">
+                                    @if($notification->data['message'])
+                                        <div class="notification__admin">Комментарий:</div>
+                                        <div class="notification__mess">
+                                            {{$notification->data['message']}}
+                                        </div>
+                                    @endif
 
-                            @isset($notification->data['rules'])
-                                <ul>
-                                @foreach($notification->data['rules'] as $key => $rule)
-                                    @isset($rule['title'])
-                                    <li>{{$key}} - {{$rule['title']}}</li>
+                                    @isset($notification->data['rules'])
+                                        <ul class="notification__rules">
+                                            @foreach($notification->data['rules'] as $key => $rule)
+                                                <li>{{$rule}}</li>
+                                            @endforeach
+                                        </ul>
                                     @endisset
-                                @endforeach
-                                </ul>
-                            @endisset
-
-                        @else
-                            <div class="notification__status">Ваше объявление прошло модерацию</div>
+                                </div>
+                                <div class="toggle-block__gradient"></div>
+                                <div class="js_toggleBlockToggler toggle-block__btn">
+                                    <div class="js_toggleBlockText toggle-block__text" data-text="Скрыть">Далее</div>
+                                    <svg class="toggle-block__svg">
+                                        <use xlink:href="/images/icons.svg#icon-more"></use>
+                                    </svg>
+                                </div>
+                            </div>
                         @endif
+
                     </div>
-
+                    <div class="notification__link">
+                        <a href="#" class="btn-middle blue float-right mark-as-read js_makeAsRead" data-id="{{ $notification['id'] }}" data-user="{{Auth::id()}}">
+                            Прочитать
+                        </a>
+                    </div>
+                    {{--            <a href="/profile/comments/{{ $notification->data['all']['article_id']}}/{{ $notification->data['all']['from_user_id'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.--}}
 
                 </div>
-                <div class="notification__link">
-                    <a href="#" class="btn-middle blue float-right mark-as-read js_makeAsRead" data-id="{{ $notification['id'] }}" data-user="{{Auth::id()}}">
-                        Прочитать
-                    </a>
-                </div>
-                {{--            <a href="/profile/comments/{{ $notification->data['all']['article_id']}}/{{ $notification->data['all']['from_user_id'] }}">{{ $notification->data['advert'] }}</a>  был задан вопрос.--}}
-
             </div>
-
         </div>
     @empty
 
