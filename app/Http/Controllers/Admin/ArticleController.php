@@ -216,10 +216,7 @@ class ArticleController extends Controller
      */
     public function update(AdsRequest $request, $id)
     {
-//        $this->validate($request, [
-//            'slug'  => Rule::unique('articles')->ignore($article->id, 'id'),
-//            'title' => 'required'
-//        ]);
+
         $validated = $request->validated();
         $article = Article::find($id);
         $inputsArray             = $request->all();
