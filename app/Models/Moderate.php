@@ -16,4 +16,14 @@ class Moderate extends Model
         // Первым параметром передаём модель, с которой связь, вторым приставку полей
         return $this->morphToMany('App\Models\Article', 'moderatesable');
     }
+
+    public function settings(){
+        return $this->belongsToMany(
+            Settings::class,
+            'moderate_settings',
+            'moderate_id',
+            'settings_id'
+        );
+    }
+
 }

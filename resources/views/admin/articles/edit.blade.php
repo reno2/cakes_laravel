@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label for="title">Заголовок</label>
-                            <input type="text" name="title" class="form-control" id="name"
+                            <input type="text" name="title" class="form-control" id="title"
                                    value="{{($article->title)??old('title')}}">
                             @if($errors->has('title'))
                                 <span class="help-block text-danger">{{ $errors->first('title') }}</span>
@@ -152,6 +152,7 @@
                             </div>
 
                             @foreach($rules as $type)
+
                                 <div class="form-check">
                                     <input type="checkbox" name="rule[]"
                                            @if(isset($selectedRules['rule']))
@@ -166,7 +167,7 @@
                             <div class="form-group">
                                 <label for="published">Комментарий</label>
                                 <textarea name="moderate_text" class="form-control"
-                                          id="moderate_text">{{ $selectedRules['moderate_text'] ?? '' }}</textarea>
+                                          id="moderate_text">{{@old('moderate_text', $selectedRules['moderate_text'])}}</textarea>
                             </div>
                             <input type="hidden" name="moderate_id" value="{{ $selectedRules['id'] ?? ''}}">
                         </div>

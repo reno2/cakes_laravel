@@ -6,9 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Repositories\UserRepository;
 
 class ProfileNotificationsController extends Controller
 {
+
+    public function moderate()
+    {
+        $notifications = (new UserRepository)->getNotReadModerateNotice();
+        return view('profile.notifications.moderate.index', compact('notifications'));
+    }
+
     public function index()
     {
         $notifications = auth()->user()->unreadNotifications;

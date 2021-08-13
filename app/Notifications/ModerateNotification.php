@@ -11,7 +11,6 @@ class ModerateNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     private $data;
-
     /**
      * Create a new notification instance.
      *
@@ -20,8 +19,10 @@ class ModerateNotification extends Notification implements ShouldQueue
     public function __construct($data)
     {
         $this->data = $data;
-        //$this->delay(now()->addSeconds(30));
+       // $this->data = $data['rules'];
+        $rr = '';
     }
+
 
     /**
      * Get the notification's delivery channels.
@@ -31,7 +32,7 @@ class ModerateNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**

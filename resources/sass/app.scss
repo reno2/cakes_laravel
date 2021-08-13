@@ -4,6 +4,18 @@
 //@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700;900&display=swap');
 //@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap');
 // Variables
+
+@font-face {
+  font-family: "GothamProRegular";
+  src: url("/fonts/GothamProRegular/GothamProRegular.woff") format("woff"),
+       url("/fonts/GothamProRegular/GothamProRegular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "GothamProBold";
+  src: url("/fonts/GothamProBold/GothamProBold.woff") format("woff"),
+       url("/fonts/GothamProBold/GothamProBold.ttf") format("opentype");
+}
+
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -28,7 +40,8 @@ input:focus{
     //font-family: 'Open Sans', sans-serif;
     //font-family: 'Roboto', sans-serif;
     //font-family: 'Fira Sans', sans-serif;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'GothamProRegular', sans-serif;
+    //font-family: 'Montserrat', sans-serif;
   //  font-family: 'Rubik', sans-serif;
     color: #18191f;
 }

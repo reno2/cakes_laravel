@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: "GothamProRegular";
+  src: url("/fonts/GothamProRegular/GothamProRegular.woff") format("woff"), url("/fonts/GothamProRegular/GothamProRegular.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: "GothamProBold";
+  src: url("/fonts/GothamProBold/GothamProBold.woff") format("woff"), url("/fonts/GothamProBold/GothamProBold.ttf") format("opentype");
+}
+
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
@@ -10959,7 +10969,7 @@ input:focus {
 }
 
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: "GothamProRegular", sans-serif;
   color: #18191f;
 }
 

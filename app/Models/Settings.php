@@ -10,6 +10,7 @@ class Settings extends Model
     protected $fillable = [
         'title', 'type', 'value', 'number'
     ];
+
     public static $types = [
         'moderate_rules' => 'Правила размещения',
         'regist_rules' => 'Правила регистрации',
@@ -19,5 +20,15 @@ class Settings extends Model
     ];
     public function nodes(){
         return $this->morphToMany('App\Models\Nodes', 'moderatesable');
+    }
+
+    public function moderates()
+    {
+        return $this->belongsToMany(
+            Moderate::class,
+            'moderate_settings',
+            'settings_id',
+            'moderate_id'
+        );
     }
 }

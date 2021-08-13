@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AdsModerate;
+use App\Http\Requests\AdsRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Moderate;
@@ -181,9 +183,10 @@ class ArticleController extends Controller
 
         $moderateRules = [];
         if($article->moderateComments()->exists()) {
-            $rule = $article->moderateComments()->first();
-            $moderateRules['rule'] = unserialize($rule->rules);
-            $moderateRules['moderate_text'] = $rule->message;
+
+            $rule = $article->moderateComments->first();
+            $moderateRules['moderate_text'] = $rule['message'] ?? '';
+            $moderateRules['rule'] = $rule->settings->pluck('id')->toArray();
             $moderateRules['id'] = $rule->id;
         }
 
@@ -196,7 +199,6 @@ class ArticleController extends Controller
             'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
-            //'filter'     => $filters,
             'delimiter'  => '',
             'rules' => $allRules,
             'selectedRules' => $moderateRules
@@ -211,15 +213,15 @@ class ArticleController extends Controller
      * @param \App\Article             $article
      *
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Article $article)
+    public function update(AdsRequest $request, $id)
     {
-        $this->validate($request, [
-            'slug'  => Rule::unique('articles')->ignore($article->id, 'id'),
-            'title' => 'required'
-        ]);
-
+//        $this->validate($request, [
+//            'slug'  => Rule::unique('articles')->ignore($article->id, 'id'),
+//            'title' => 'required'
+//        ]);
+        $validated = $request->validated();
+        $article = Article::find($id);
         $inputsArray             = $request->all();
         $inputsArray['on_front'] = ($request->input('on_front')) ? true : false;
         $inputsArray['moderate'] = ($request->input('moderate')) ? true : false;
@@ -307,7 +309,7 @@ class ArticleController extends Controller
             }
         }
 
-        //dd($r);
+
         try {
             $update = $article->update($inputsArray);
 
@@ -315,43 +317,19 @@ class ArticleController extends Controller
              ===================Модерация================================
              **/
             if($inputsArray['moderate']){
-                $article->moderateComments()->detach();
+                if($article->moderateComments()->exists()){
+                    $article->moderateComments()->first()->settings()->detach();
+                    $article->moderateComments()->detach();
+                    event(new AdsModerate($article, []));
+                }
             }else {
-                $moderateNode = [];
-                if ($inputsArray['rule'] || $inputsArray['moderate_text']) {
-                    $moderateNode = [
-                        "rules" => serialize($inputsArray['rule']),
-                        "message" => $inputsArray['moderate_text'],
-                    ];
-                }
-                if (!empty($inputsArray['moderate_id'])) {
-                    $mod = Moderate::find($inputsArray['moderate_id']);
-                    $mod->update([
-                            "rules" => serialize($inputsArray['rule']),
-                            "message" => $inputsArray['moderate_text']
-                        ]
-                    );
-                    $mod = $mod->refresh();
-                } else {
-                    $mod = \App\Models\Moderate::create([
-                        "rules" => serialize($inputsArray['rule']),
-                        "message" => $inputsArray['moderate_text'],
-                    ])->fresh();
-                }
-                $ru = Settings::whereIn('id', $inputsArray['rule'])->get()->toArray();
-                $userTo = User::where('id', $article->user_id)->get();
-                $data = [
-                    'event_name' => 'Модерация',
-                    'url' => '/admin/article/'. $article->id .'/edit',
-                    'title' => 'Ответ от модератора',
-                    'message' => $inputsArray['moderate_text']
-                ];
-                Notification::send($userTo, new ModerateNotification($data));
-
-                $article->moderateComments()->sync($mod->id);
-
+                $moderateItem = Moderate::updateOrCreate([
+                    'id' => $inputsArray['moderate_id']
+                    ],["message" => $inputsArray['moderate_text']]);
+                $moderateItem->settings()->sync($inputsArray['rule']??[]);
+                event(new AdsModerate($article, $moderateItem));
+                $article->moderateComments()->sync($moderateItem->id);
             }
-
             /** ================================================================
             ===================Модерация=======================================
              **/
@@ -413,6 +391,7 @@ class ArticleController extends Controller
      */
     public function destroy( Article $article) {
         $article->categories()->detach();
+        $article->tags()->detach();
         $article->delete();
 
         return redirect()->route('admin.article.index');

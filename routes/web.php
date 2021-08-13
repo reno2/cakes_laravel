@@ -29,16 +29,24 @@ Auth::routes(['verify' => true]);
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'is_admin']],
     function () {
+
+        // Меню контента
+        Route::group(['prefix' => 'content'], function () {
+            Route::resource('/category', 'CategoryController', ['as' => 'admin']);
+            Route::resource('/tags', 'TagController', ['as' => 'admin']);
+            Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
+            Route::resource('/article', 'ArticleController', ['as' => 'admin']);
+            Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+        });
+
+
         Route::get('/', 'DashboardController@dashboard')->name('admin.index');
-        Route::resource('/category', 'CategoryController', ['as' => 'admin']);
-        Route::resource('/tags', 'TagController', ['as' => 'admin']);
-        Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
+
         Route::resource('/settings', 'SettingsController', ['as' => 'admin']);
         Route::resource('/users', 'UserController', ['as' => 'admin']);
 
         // Пост
-        Route::resource('/article', 'ArticleController', ['as' => 'admin']);
-        Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+
 
         // Насройки сео
         Route::group(['prefix' => 'seo', 'namespace' => 'Seo'], function () {
@@ -70,10 +78,17 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
         Route::delete('/avatar/remove/{profile_id}', 'ProfileController@removeAva')->name('profile.avatar.remove');
 
+
+        // Уведомления о модерации
+        Route::get('/moderate/', 'ProfileNotificationsController@moderate')->name('profile.moderate.index');
+        Route::get('/moderate/personal/{user_id}', 'ProfileNotificationsController@moderatePersonal')->name('profile.moderate.personal');
+        Route::post('/moderate/read', 'ProfileNotificationsController@moderateRead')->name('profile.moderate.read');
         // Уведомления для пользователя
         Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
         Route::get('/notifications/personal/{user_id}', 'ProfileNotificationsController@personal')->name('profile.notice.personal');
         Route::post('/notifications/read', 'ProfileNotificationsController@read')->name('profile.notice.read');
+
+
         // Comments
         Route::post('/comments/', 'CommentController@store')->name('comments.store');
         Route::post('/comments/{comment_id}', 'CommentController@answer')->name('comments.answer');

@@ -9,6 +9,12 @@ use Illuminate\Validation\Rule;
 class AdsRequest extends FormRequest
 {
 
+    public function stripTags($fields, $validationData){
+        foreach ($fields as $field){
+            $validationData[$field] = strip_tags( $validationData[$field] );
+        }
+        return $validationData;
+    }
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +28,7 @@ class AdsRequest extends FormRequest
 
     public function validationData()
     {
-        $rr = parent::validationData();
-        $rr['title'] = "strip_tags(rr['title'])";
-        $gg = '';
-        return $rr;
+        return $this->stripTags(['title'], parent::validationData());
     }
     /**
      * Get the validation rules that apply to the request.
@@ -36,16 +39,17 @@ class AdsRequest extends FormRequest
      */
     public function rules()
     {
-        //$this->route('ad');
-        $rr = '';
-        return [
+        $i = $this->route()->uri;
 
+        $adsObj  = (strpos( (string)$this->route()->uri, 'admin') === false) ? 'ad' : 'article';
+        $adsId = (!is_object($this->route($adsObj))) ? $this->route($adsObj) : $this->route($adsObj)->id;
+        return [
             'title'   => [
                 'required',
                 'max:155',
-                Rule::unique('articles', 'title')->ignore($this->route('ad')),
+                Rule::unique('articles', 'title')->ignore($adsId),
             ],
-            'deal_address' => "required|regex:/[а-яА-Я0-9 -]+/",
+         // 'deal_address' => "required|regex:/[а-яА-Я0-9 -]+/",
             'tags' => 'required',
             'description'   => "required|max:1000",
             'weight' => 'regex:/^(\d+){0,2}(\.){0,1}(\d){1,3}$/i',
@@ -54,6 +58,10 @@ class AdsRequest extends FormRequest
           //  'description'   => "required",
            'image'   => "max:5",
            'image.*' => "mimes:png,jpg,jpeg|max:20000",
+           'meta_description' => 'max:155',
+
+            // Модерация
+            'moderate_text' => 'max:155',
         ];
     }
 
@@ -73,13 +81,13 @@ class AdsRequest extends FormRequest
             'price.regex'   => 'Не верный формат',
             'weight.regex' => 'Не корректный ввод',
             'deal_address.regex' => 'Не корректный ввод',
-            'deal_address.required' => 'Название объязательно',
+            'deal_address.required' => 'Адрес сделки объязательно',
             'tags.required' => 'Необходимо выбрать один тег',
             'tags.regex' => 'Необходимо выбрать один тег',
 //            'title.unique' => 'Название уже существует',
             'image.max'      => 'Не более 5 файлов',
             'image.required' => 'Загрузка файла объязательна',
-            'image.*.mimes'  => 'Только разрешённые форматы'
+            'image.*.mimes'  => 'Только разрешённые форматы',
         ];
     }
 }

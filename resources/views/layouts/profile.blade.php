@@ -36,6 +36,13 @@
                                 @endif
                             @else
                                 <li class="nav-item">
+                                    <a href="{{route('profile.moderate.index')}}">
+                                        <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
+                                            <use xlink:href="/images/icons.svg#icon-warning"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{route('profile.index')}}">
                                         <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
                                             <use xlink:href="/images/icons.svg#icon-user"></use>
@@ -47,8 +54,8 @@
                                         <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
                                             <use xlink:href="/images/icons.svg#icon-msg"></use>
                                         </svg>
-                                        @if($notifications->count() > 0)
-                                            <span class="nav-item__badge info-small blue js_notificationsCount"> {{$notifications->count()}}</span>
+                                        @if($notifications)
+                                            <span class="nav-item__badge info-small blue js_notificationsCount"> {{count($notifications)}}</span>
                                         @endif
                                     </a>
 
@@ -98,6 +105,7 @@
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/modal.js') }}"></script>
+        <script src="{{ asset('js/toggleBlock.js')}}"></script>
         {{--    <script src="public/js/forms.js"></script>--}}
 
         @yield('page-script')
