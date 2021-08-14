@@ -14,25 +14,10 @@ class UserRepository extends CoreRepository{
      *  или null
      */
     public function getNotReadModerateNotice(){
-         $notices = Auth::user()->notifications()
-                   ->where('type', 'App\Notifications\ModerateNotification')
-                   ->whereNull('read_at')
-                   ->paginate(4);
-
-//        $itemsTransformed = $notices
-//            ->getCollection()
-//            ->map(function($item) {
-//                if(isset($item->data['rules']) && !is_array($item->data['rules'])) {
-//                    $data = $item->data;
-//                    $data['rules'] = json_decode($item->data['rules']);
-//                    $item->data = $data;
-//                }
-//                return [
-//                    $item
-//                ];
-//            })->toArray();
-
-          return ($notices->isNotEmpty()) ? $notices : null;
+        return   $notices = Auth::user()->notifications()
+                                ->where('type', 'App\Notifications\ModerateNotification')
+                                ->whereNull('read_at')
+                                ->paginate(4);
     }
 
 
