@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Notification;
 class SendModerateNotifications
 {
 
-    private $titleBad = 'Ваше объявление не прошло модерацию';
-    private $titleGood = 'Ваше объявление прошло модерацию';
+    private $titleBad = 'Объявление не прошло модерацию';
+    private $titleGood = 'Объявление прошло модерацию';
     /**
      * Create the event listener.
      *
