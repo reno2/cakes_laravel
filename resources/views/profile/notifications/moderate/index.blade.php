@@ -50,9 +50,9 @@
                                         @endisset
 
                                         @isset($notification->data['rules'])
-                                                @isset($notification->data['message'])
-                                                    <div class="notification__admin">Нарушенны правила:</div>
-                                                @endisset
+                                            @isset($notification->data['rules'])
+                                                <div class="notification__admin">Нарушенны правила:</div>
+                                            @endisset
                                             <ul class="notification__rules">
                                                 @foreach($notification->data['rules'] as $key => $rule)
                                                     <li>{{$rule}}</li>
