@@ -24,32 +24,44 @@
                     <div class="notification__message">
                         <div class="notification__date">
                             [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}] -
-                            <span class="notification__status">
-                                @if(count($notification['data'])) {{$notification->data['title']}}
-                                @else   Ваше объявление прошло модерацию
+
+                                @if(isset($notification->data['message']))
+                                    <span class="notification__status notification__status_bad"> {{$notification->data['title']}}</span>
+                                @else
+                                    <span class="notification__status notification__status_good"> {{$notification->data['title']}} </span>
                                 @endif
-                            </span>
+
                         </div>
                         <div class="notification__ads">{{$notification->data['ads']['title'] ?? $notification->data['ads']}}</div>
                         @if(count($notification['data']))
                             <div class="notification__data toggle-block js_toggleBlock">
-                                <div class="js_toggleBlockContent toggle-block__content" data-max-height="100">
+
+
+                                <div class="js_toggleBlockContent toggle-block__content" data-max-height="20">
 
                                     @isset($notification->data['message'])
                                         <div class="notification__admin">Комментарий:</div>
-                                        <div class="notification__mess">
-                                            {{$notification->data['message']}}
-                                        </div>
                                     @endisset
+                                    <div class="notification__body">
+                                        @isset($notification->data['message'])
+                                            <div class="notification__mess">
+                                                {{$notification->data['message']}}
+                                            </div>
+                                        @endisset
 
-                                    @isset($notification->data['rules'])
-                                        <ul class="notification__rules">
-                                            @foreach($notification->data['rules'] as $key => $rule)
-                                                <li>{{$rule}}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endisset
+                                        @isset($notification->data['rules'])
+                                                @isset($notification->data['message'])
+                                                    <div class="notification__admin">Нарушенны правила:</div>
+                                                @endisset
+                                            <ul class="notification__rules">
+                                                @foreach($notification->data['rules'] as $key => $rule)
+                                                    <li>{{$rule}}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endisset
+                                    </div>
                                 </div>
+
                                 <div class="toggle-block__gradient"></div>
                                 <div class="js_toggleBlockToggler toggle-block__btn">
                                     <div class="js_toggleBlockText toggle-block__text" data-text="Скрыть">Далее</div>
