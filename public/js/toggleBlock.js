@@ -16,7 +16,6 @@ const toggleBlock = {
         })
         // перебераем элементы
         $(this.blockSelector).each(function(){
-            console.log(this);
             toggleBlock.initBlock($(this))
         })
         // Обрабатываем событие ресайз

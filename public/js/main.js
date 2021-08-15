@@ -186,9 +186,19 @@ btn?.addEventListener('click', function () {
         });
         console.log(e.message);
     });
-
 });
 
+function togglePreloader(state) {
+    const element = document.querySelector('.js_ajaxPreloader')
+    if(state) {
+        element.classList.add('loading')
+        return  element.insertAdjacentHTML('afterbegin', "<div class='lds-ellipsis__wrap'><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div></div>")
+    }
+    element.classList.remove('loading')
+    element.querySelector('.lds-ellipsis__wrap').remove()
+}
 
+function setDataFromRequest(){
 
+}
 
