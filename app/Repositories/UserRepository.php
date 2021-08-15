@@ -17,7 +17,7 @@ class UserRepository extends CoreRepository{
         return   $notices = Auth::user()->notifications()
                                 ->where('type', 'App\Notifications\ModerateNotification')
                                 ->whereNull('read_at')
-                                ->paginate(4);
+                                ->simplePaginate(15);
     }
 
 

@@ -1,0 +1,9 @@
+.pagination .pagination__li .pagination__not-active{
+    background-color: #F0F0F0 !important;
+}
+.pagination__not-active svg{
+  fill: #D7DBDE;
+}
+.pagination__active svg{
+  fill: #82C831;
+}

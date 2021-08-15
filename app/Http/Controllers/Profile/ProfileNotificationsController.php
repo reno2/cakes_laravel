@@ -22,6 +22,8 @@ class ProfileNotificationsController extends Controller
         $notifications = auth()->user()->unreadNotifications;
         return view('profile.notifications.index', compact('notifications'));
     }
+
+
     public function personal($id){
 
         if(!$id) return response()->json(array('success' => false), 400 );
@@ -29,14 +31,22 @@ class ProfileNotificationsController extends Controller
         $notifications = User::find($id)->unreadNotifications->count();
         return response()->json(array('success' => true, 'notifications' => $notifications), 200);
     }
-    public function read(Request $request){
+
+
+
+    public function read(Request $request, $id = false){
+
+        //dd($id);
         auth()->user()
             ->unreadNotifications
-            ->when($request->input('id'), function ($query) use ($request) {
-                return $query->where('id', $request->input('id'));
+            ->when($id, function ($query) use ($id) {
+                return $query->where('id', $id);
             })
             ->markAsRead();
+//
 
-        return response(true, 200);
+        $notifications = (new UserRepository)->getNotReadModerateNotice();
+        $notifications->setPath('');
+        return view('chunks.notice_moderate', compact('notifications'))->render();
     }
 }
