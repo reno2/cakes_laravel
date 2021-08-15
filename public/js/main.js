@@ -188,6 +188,8 @@ btn?.addEventListener('click', function () {
     });
 });
 
+
+
 function togglePreloader(state) {
     const element = document.querySelector('.js_ajaxPreloader')
     if(state) {
@@ -202,3 +204,23 @@ function setDataFromRequest(){
 
 }
 
+
+
+const wSize = function getWindowSizeName () {
+    let currentSizeName = window.SIZENAME;
+    if (window.innerWidth <= 767) {
+        window.SIZENAME = "mobile";
+        if (window.STARTWIDTH > 767) $(window).trigger('sizeNameChanged', [currentSizeName, "mobile"]);
+    } else if (window.innerWidth <= 1279) {
+        window.SIZENAME = "tablet";
+        if (window.STARTWIDTH <= 767 || window.STARTWIDTH > 1279) $(window).trigger('sizeNameChanged', [currentSizeName, "tablet"]);
+    } else {
+        window.SIZENAME = "desktop";
+        if (window.STARTWIDTH <= 1279) $(window).trigger('sizeNameChanged', [currentSizeName, "desktop"]);
+    }
+    window.STARTWIDTH = window.innerWidth;
+};
+wSize();
+$(window).on('resize', function () {
+    wSize();
+});

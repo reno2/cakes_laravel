@@ -49,6 +49,7 @@
                     togglePreloader(false);
                     $('.js_notificationUpdate').html(request.data);
                     toggleBlock.init();
+
                     const userId = $(this).data('user');
                     document.dispatchEvent(new CustomEvent('noticeRead', {
                         detail: {userId: userId}
