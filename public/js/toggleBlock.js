@@ -11,6 +11,7 @@ const toggleBlock = {
         // кешируем this
         const th = this
         // Вешаем обработчики на селектор и передаём в метод родительский блок target - а
+        $(document).off('click', this.toggleSelector);
         $(document).on('click', this.toggleSelector, function(){
             th.toggle($(this).closest(th.blockSelector), $(this))
         })
@@ -68,10 +69,12 @@ const toggleBlock = {
         })
     },
     initBlock($block){
+
         // Инициализируем элемент и либо скрываем управление скрытия/раскрытия
         // либо показзываем
         const $blockContent = $block.find( this.contentSelector)
-
+        //console.log($block);
+        console.log($blockContent.outerHeight());
 
         if(($blockContent.outerHeight() > this.getMaxBlockHeight($blockContent)) && this.isToggle($blockContent)){
             $blockContent.css('max-height', this.getMaxBlockHeight($blockContent))
@@ -105,11 +108,13 @@ const toggleBlock = {
             closest = $mainBlock.closest(`.${extraClass}`)
 
         const $contentBlock = $mainBlock.find(this.contentSelector)
+
         if($mainBlock.hasClass('js_toggleClose')) {
+        //    console.log($contentBlock[0].scrollHeight);
             // Полностью раскрываем элемент
             $contentBlock.css('max-height',$contentBlock[0].scrollHeight);
             $mainBlock.removeClass('js_toggleClose').addClass('js_toggleOpen');
-
+          //  debugger
             // Меняем текс кнопки либо из дата(data-text-close) атрибута либо из значения по умолчанию
             $target.find(this.textSelector).text($target.find(this.textSelector).data('text-close') || this.closeText);
             if(closest) closest.addClass('js_textOpen')

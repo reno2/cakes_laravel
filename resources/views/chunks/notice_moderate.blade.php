@@ -1,5 +1,5 @@
 <div class="notification__count">
-{{--    Всего уведомлений: {{$notifications->count()}}--}}
+    {{--    Всего уведомлений: {{$notifications->count()}}--}}
 </div>
 @forelse($notifications as $notification)
 
@@ -72,8 +72,14 @@
         </div>
     </div>
 @empty
-
-    Нет не прочитанных уведомлений
+    <div class="no-results">
+        <div class="no-results__figure">
+            <svg class="no-results__icon">
+                <use xlink:href="/images/icons.svg#icon-notification_empty"></use>
+            </svg>
+        </div>
+        <div class="no-results__title">У вас нет уведимлений</div>
+    </div>
 @endforelse
 <div class="notification__bottom">
     <div class="notification__pagination">
