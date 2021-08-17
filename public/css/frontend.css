@@ -7723,8 +7723,19 @@ h3 {
 }
 
 .notification__img {
-  width: 80px;
-  height: 80px;
+  width: 81px;
+  height: 68px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.notification__link {
+  display: block;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .notification__count {
