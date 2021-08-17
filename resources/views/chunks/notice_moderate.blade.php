@@ -6,8 +6,8 @@
     <div class="notification js_notificationItem">
         <div class="notification__content">
             <div class="notification__figure">
-                <a class="notification__link" href="{{$notification['data']['link']}}">
-                <img class="notification__img" src="{{$notification['data']['img']}}">
+                <a class="notification__link-edit" href="{{$notification['data']['link']}}">
+                    <img class="notification__img" src="{{$notification['data']['img']}}">
                 </a>
             </div>
             <div class="notification__info">

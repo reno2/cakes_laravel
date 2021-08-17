@@ -7729,7 +7729,7 @@ h3 {
      object-fit: cover;
 }
 
-.notification__link {
+.notification__link-edit {
   display: block;
   height: -webkit-max-content;
   height: -moz-max-content;
