@@ -77,8 +77,16 @@
   margin-right: 24px;
 }
 .notification__img{
-  width: 80px;
-  height: 80px;
+  width: 81px;
+  height: 68px;
+  object-fit: cover;
+
+}
+.notification__link{
+  display: block;
+  height: max-content;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .notification__bottom{

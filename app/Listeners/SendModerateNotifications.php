@@ -40,6 +40,8 @@ class SendModerateNotifications
         $data['message'] = $moderate->message;
         $data['title'] = $this->titleBad;
         $data['ads'] = $ads;
+        $data['img'] = (!empty($ads->getMedia('cover')->first())) ? $ads->getMedia('cover')->first()->getUrl('thumb') : "/storage/images/defaults/cake.svg"  ;
+        $data['link'] = route('profile.ads.edit', $ads->id);
 
         return $data;
     }

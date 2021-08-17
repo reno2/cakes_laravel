@@ -32,6 +32,7 @@ class AdsController extends Controller
 
     public function __construct(AdsService $adsService, AdsRepository $adsRepository, UserRepository $userRepository)
     {
+        $this->middleware('preventBackHistory');
         $this->adsService = $adsService;
         $this->adsRepository = $adsRepository;
         $this->userRepository = $userRepository;
@@ -175,7 +176,7 @@ class AdsController extends Controller
 
         try{
             $this->adsService->uploadChain($inputs, $ads);
-            session()->flash('notice', "Объявление обновленно и отправлено на модерацию");
+            $request->session()->flash('notice', "Объявление обновленно и отправлено на модерацию");
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();
         }
