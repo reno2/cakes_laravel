@@ -26,22 +26,26 @@ class SendModerateNotifications
 
 
     private function dataHandler($moderate, $ads){
-
+        $title = ($ads->moderate) ? $this->titleGood : $this->titleBad;
+        $image = (!empty($ads->getMedia('cover')->first())) ? $ads->getMedia('cover')->first()->getUrl('thumb') : "/storage/images/defaults/cake.svg"  ;
+        $link = route('profile.ads.edit', $ads->id);
         if(empty($moderate)) {
             return  [
-                'title' => $this->titleGood,
+                'title' => $title,
                 'ads' => $ads->title,
-                'slug' => $ads->slug
+                'slug' => $ads->slug,
+                'img' => $image,
+                'link' => $link
             ];
         };
          foreach($moderate->settings as $rr){
             $data['rules'][] = $rr->title;
         };
         $data['message'] = $moderate->message;
-        $data['title'] = $this->titleBad;
+        $data['title'] = $title;
         $data['ads'] = $ads;
-        $data['img'] = (!empty($ads->getMedia('cover')->first())) ? $ads->getMedia('cover')->first()->getUrl('thumb') : "/storage/images/defaults/cake.svg"  ;
-        $data['link'] = route('profile.ads.edit', $ads->id);
+        $data['img'] = $image;
+        $data['link'] = $link;
 
         return $data;
     }

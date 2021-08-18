@@ -320,8 +320,8 @@ class ArticleController extends Controller
                 if($article->moderateComments()->exists()){
                     $article->moderateComments()->first()->settings()->detach();
                     $article->moderateComments()->detach();
-                    event(new AdsModerate($article, []));
                 }
+                event(new AdsModerate($article, []));
             }else {
                 $moderateItem = Moderate::updateOrCreate([
                     'id' => $inputsArray['moderate_id']
