@@ -35,7 +35,8 @@ class SendModerateNotifications
                 'ads' => $ads->title,
                 'slug' => $ads->slug,
                 'img' => $image,
-                'link' => $link
+                'link' => $link,
+                'moderate' => true
             ];
         };
          foreach($moderate->settings as $rr){
@@ -46,7 +47,7 @@ class SendModerateNotifications
         $data['ads'] = $ads;
         $data['img'] = $image;
         $data['link'] = $link;
-
+        $data['moderate'] = false;
         return $data;
     }
     /**
