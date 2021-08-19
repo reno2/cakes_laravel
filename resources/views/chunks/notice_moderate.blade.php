@@ -14,13 +14,11 @@
                 <div class="notification__message">
                     <div class="notification__date">
                         [{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->toFormattedDateString()}}] -
-
-                        @if(isset($notification->data['message']))
-                            <span class="notification__status notification__status_bad"> {{$notification->data['title']}}</span>
+                        @if(isset($notification->data['moderate']) && $notification->data['moderate'])
+                            <span class="notification__status notification__status_good">{{$notification->data['title']}} </span>
                         @else
-                            <span class="notification__status notification__status_good"> {{$notification->data['title']}} </span>
+                            <span class="notification__status notification__status_bad">{{$notification->data['title']}} </span>
                         @endif
-
                     </div>
                     <div class="notification__ads">{{$notification->data['ads']['title'] ?? $notification->data['ads']}}</div>
                     @if(count($notification['data']))
