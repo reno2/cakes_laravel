@@ -4,7 +4,9 @@
     align-items: flex-start;
     position: relative;
 }
+.i-comment__col{
 
+}
 .i-comment__title{
     font-weight: 600;
     color: #0a0a0e;
@@ -39,8 +41,6 @@
   height: 80px;
   object-fit: cover;
   object-position: center;
-  //width: 80px;
-  //border-radius: 8px;
 }
 .p-comment{
     background: #f5f6f7;
@@ -60,4 +60,17 @@
     color:#b5b5c3;
     right: 24px;
     top: 16px;
+}
+.i-comment__from{
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.i-comment__to .i-comment__user{
+  font-weight: 600;
+}
+.i-comment__to .i-comment__title{
+  color: #b5b5c3;
+  font-weight: 400;
 }

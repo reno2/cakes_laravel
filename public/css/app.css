@@ -10947,6 +10947,21 @@ a.text-dark:focus {
   width: 100%;
 }
 
+.rotateLeft {
+  transform: rotate(180deg);
+}
+
+.comment_isNew {
+  height: 8px;
+  width: 8px;
+  border-radius: 10px;
+  background: #82c831;
+  display: block;
+  position: absolute;
+  top: 6px;
+  right: 11px;
+}
+
 i,
 button,
 input {
@@ -11098,5 +11113,9 @@ h5,
 
 .marginLeftOne {
   margin-left: 8px;
+}
+
+.back-block {
+  margin-bottom: 24px;
 }
 

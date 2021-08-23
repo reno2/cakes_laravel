@@ -40,27 +40,6 @@ class CommentObserver
 
 
 
-        // Есть есть только один вопрос и нет комноты
-//        if ($userCommentsCount === 1 && !$isRoomExists) {
-//            try {
-//                // Создаём комнаты и обновляем комментарий
-//                $room = Room::create([
-//                    'name' => "{$comment->article_id}.{$commentOwner['owner']}.{$commentOwner['asking']}",
-//                    'owner_id' => $commentOwner['owner'],
-//                    'asked_id' => $commentOwner['asking'],
-//                ]);
-//                $comment->update(['room' => $room->name]);
-//            } catch (\Throwable $e) {
-//                Log::error('Комната чата не создана ' . $e->getMessage() . __FILE__);
-//
-//            }
-//        } else {
-//            $comment->update([
-//                'room' => "{$comment->article_id}.{$commentOwner['owner']}.{$commentOwner['asking']}"
-//            ]);
-//        }
-
-
         $ads = Article::find($comment->article_id);
         $fromUserName = (new ProfileRepository)->getProfileNameByUserId($comment->user_id);
         $data = [

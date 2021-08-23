@@ -48,110 +48,37 @@ class CommentController extends Controller
      * @return Factory|View
      */
     public function index () {
-
         $user = Auth::user();
 
-        //dd($this->commentsRepository->toMeComments());
 
-
-        $toUserQuestions = \DB::table('comments')
-                              ->join('articles', 'articles.id', '=', 'comments.article_id')
-                              ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
-                              ->leftJoin('media', 'media.model_id', '=', 'comments.article_id')
-                              ->select('articles.title',
-                                  \DB::raw('COUNT(comments.from_user_id) AS count'))
-                              ->selectRaw('MAX(comments.created_at) AS last_date')
-                              ->selectRaw('ANY_VALUE(comments.id) as id')
-                              ->selectRaw('ANY_VALUE(articles.id) as article_id')
-                              ->selectRaw('ANY_VALUE(comments.parent_id ) as parent_id')
-                              ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
-                              ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
-                              ->selectRaw('ANY_VALUE(profiles.name) as name')
-                              ->where('comments.user_id', Auth::id())
-                              ->selectRaw('ANY_VALUE(media.file_name) as file_name')
-                              ->selectRaw('ANY_VALUE(media.id) as media_id')
-                              ->where('articles.user_id', Auth::id())
-                              ->groupBy('comments.article_id')
-                              ->orderBy('last_date', 'DESC')
-                              ->get();
-
-        // dd($toUserQuestions);
-
-        // нужно получить все поля
-        // from_user_id = мой и recipient = null
-        $userQuestions = \DB::table('comments')
-                            ->join('articles', 'articles.id', '=', 'comments.article_id')
-                            ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
-                            ->leftJoin('media', 'media.model_id', '=', 'comments.article_id')
-                            ->select('articles.title', 'comments.article_id',
-                                \DB::raw('COUNT(comments.article_id) AS article_id'))
-                            ->selectRaw('MAX(comments.created_at) AS last_date')
-                            ->selectRaw('ANY_VALUE(comments.id) as id')
-                            ->selectRaw('ANY_VALUE(comments.parent_id ) as parent_id')
-                            ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
-                            ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
-                            ->selectRaw('ANY_VALUE(profiles.name) as name')
-                            ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
-                            ->selectRaw('ANY_VALUE(media.file_name) as file_name')
-                            ->selectRaw('ANY_VALUE(media.id) as media_id')
-                            ->where('comments.parent_id', 0)->where('comments.from_user_id', Auth::id())
-                            ->groupBy('article_id')
-                            ->orderBy('last_date', 'DESC')
-                            ->get();
-
-
-        // Не прочитанные вопросы в которых текущий пользователь получатель и не владелец поста,
-        // Получатель (recipient) ответил заполнив поле sender_read_at null
-        $fromAuthorNotReadAnswer = \DB::table('comments')
-                                      ->join('articles', 'articles.id', '=', 'comments.article_id')
-                                      ->selectRaw('COUNT(comments.comment) AS count')
-                                      ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
-                                      ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
-                                      ->where('comments.sender_read_at', NULL)
-                                      ->where('comments.user_id', Auth::id())
-                                      ->where('articles.user_id', "!=", Auth::id())
-                                      ->groupBy('comments.article_id')
-                                      ->get();
-
-
-        if ($fromAuthorNotReadAnswer) {
-            $fromAuthorNotReadAnswer = collect($fromAuthorNotReadAnswer)->mapWithKeys(function ($item) {
-                return [$item->article_id => $item];
-            });
-        }
-        // dd($fromAuthorNotReadAnswer);
-
-        // Не прочитанные вопросы в которых текущий пользователь получатель,
-        // а отправитель не прочитал (recipient)
-        $toAuthorQuestionsNotAnswer = \DB::table('comments')
-                                         ->selectRaw('COUNT(comments.comment) AS count')
-                                         ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
-                                         ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
-                                         ->where('comments.recipient_read_at', NULL)
-                                         ->where('comments.user_id', Auth::id())
-                                         ->groupBy('comments.article_id')
-                                         ->get();
-
-        //dd($toAuthorQuestionsNotAnswer);
-        $toAuthorQuestionsNotAnswer = collect($toAuthorQuestionsNotAnswer)->mapWithKeys(function ($item) {
-            return [$item->article_id => $item];
-        });
-
-
+       // dd($this->commentsRepository->getNotRead(Auth::id(), 'sender_read_at'));
         return view('profile.comments.index', [
+//            $notReadToMe = $this->commentsRepository->getNotRead(
+//                $room_id,
+//                ($data['owner_id'] === Auth::id())
+//                    ? 'recipient_read_at'
+//                    : 'sender_read_at'
+//            );
+//
+//        $notReadFromMe = $this->commentsRepository->getNotRead(
+//            $room_id,
+//            ($data['owner_id'] === Auth::id())
+//                ? 'sender_read_at'
+//                : 'recipient_read_at'
+//        );
+
 
             // Новый метод
             'toUserQuestions' => $this->commentsRepository->toMeComments(),
-
-
             'user' => $user,
             'userQuestions' => $this->commentsRepository->myComments(),
-            // 'toUserQuestions'            => $toUserQuestions,
-            //'toUserQuestions' => $this->commentsRepository->getQuestionsToAuthor($user),
-            //'toAuthorQuestionsNotAnswer' => $this->commentsRepository->myComments(),
-            //'toAuthorQuestionsNotAnswer' => $toAuthorQuestionsNotAnswer,
-            //'fromAuthorNotReadAnswer' => $fromAuthorNotReadAnswer,
-
+            'notReadQuestions' => $this->commentsRepository->notReadQuestions(Auth::id()),
+            'notReadAnswers' => $this->commentsRepository->notReadAnswers(Auth::id()),
+//            'not_read' => [
+//                'not_read_to_me'   => $notReadToMe,
+//                'not_read_from_me' => $notReadFromMe,
+//                'not_read_count'   => $notReadToMe + $notReadFromMe
+//            ]
 
         ]);
     }
@@ -239,10 +166,14 @@ class CommentController extends Controller
     public function comment ($room_id) {
         // Получаем Id владельца поста
         $userId = Auth::id();
-
-
-        $data = Room::with(['adsOwner.profiles', 'adsAsked.profiles', 'ads'])->where('id', $room_id)->first()->toArray();
+        $data = $this->commentsRepository->getRoomWithRelations($room_id);
         $comments = Room::find($room_id)->comments->toArray();
+
+
+        $this->commentsRepository->murkAsRead($room_id,
+            ($data['owner_id'] === Auth::id()) ? 'recipient_read_at' : 'sender_read_at');
+
+
 
 
         $users = [

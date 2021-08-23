@@ -43,12 +43,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('profile.notice.index')}}">
+                                    <a href="{{route('comments.index')}}">
                                         <svg data-name="" class="i-svg i-svg__sm i-svg__bgGrey">
                                             <use xlink:href="/images/icons.svg#icon-msg"></use>
                                         </svg>
-                                        @if($notifications->count() > 0)
-                                            <span class="nav-item__badge info-small blue js_notificationsCount"> {{$notifications->count()}}</span>
+                                        @if(($notReadQuestions + $notReadAnswers) > 0)
+                                            <span class="nav-item__badge info-small js_notificationsCount">{{$notReadQuestions + $notReadAnswers}}</span>
                                         @endif
                                     </a>
 

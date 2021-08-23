@@ -22,6 +22,8 @@ class ProfileServiceProvider extends ServiceProvider
                 $profile = (new ProfileRepository)->getFirstProfileByUser($user);
                 $notifications =  Auth::user()->unreadNotifications;
 
+                $commentsRepository = new App\Repositories\CommentsRepository();
+
                 $comments =  \DB::table('comments')
 
                     ->where(function($query) use ($userId) {
@@ -51,10 +53,13 @@ class ProfileServiceProvider extends ServiceProvider
                     //->groupby(['from_user_id', 'article_id'])
                     ->get()
                     ->count();
-               // dd($notReadComments);
+
+
                 $view
+                    ->with('notReadQuestions', $commentsRepository->notReadQuestions(Auth::id()))
+                    ->with('notReadAnswers', $commentsRepository->notReadAnswers(Auth::id()))
                     ->with('profile', $profile)
-                    ->with('commentsCount', $notReadComments)
+                    //->with('commentsCount', $notReadComments)
                     ->with('notifications_count', $notifications)
                     ->with('favorites', $favorites)
                     ->with('notifications', $notifications);

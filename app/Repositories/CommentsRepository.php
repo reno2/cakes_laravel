@@ -19,26 +19,61 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CommentsRepository extends CoreRepository
 {
-
-    public function getQuestionsToAuthor (User $user) {
-        return \DB::table('comments')
-                  ->join('articles', 'articles.id', '=', 'comments.article_id')
-                  ->join('profiles', 'profiles.user_id', '=', 'comments.from_user_id')
-                  ->leftJoin('media', 'media.model_id', '=', 'comments.article_id')
-                  ->select(\DB::raw('COUNT(comments.comment) AS count'))
-                  ->selectRaw('ANY_VALUE(comments.user_id) as user_id')
-                  ->selectRaw('ANY_VALUE(comments.from_user_id) as from_user_id')
-                  ->selectRaw('ANY_VALUE(comments.article_id) as article_id')
-                  ->selectRaw('ANY_VALUE(profiles.name) as name')
-                  ->selectRaw('ANY_VALUE(articles.title) as title')
-                  ->selectRaw('MAX(comments.created_at) AS last_date')
-                  ->selectRaw('ANY_VALUE(media.file_name) as file_name')
-                  ->selectRaw('ANY_VALUE(media.id) as media_id')
-                  ->where('comments.user_id', $user->id)
-                  ->groupBy('comments.article_id', 'comments.from_user_id')
-                  ->orderBy('last_date', 'DESC')
-                  ->get();
+    /**
+     * @param $room_id
+     * @return array
+     * Возвращаем компанты со связями
+     * Профилем владельца
+     * Профилем отправителя
+     * Объявлением
+     */
+    public function getRoomWithRelations($room_id){
+       return Room::with(['adsOwner.profiles', 'adsAsked.profiles', 'ads'])
+            ->where('id', $room_id)
+            ->first()
+            ->toArray();
     }
+
+    /**
+     * @param $room_id
+     * @param $field
+     */
+    public function murkAsRead($room_id, $field){
+        $comment = tap(\DB::table('comments')
+            ->where('comments.room', $room_id))
+            ->update([$field => Carbon::now()]);
+    }
+
+
+    /**
+     * @param $userId
+     * @param $field
+     * @return  $count
+     */
+    public function notReadQuestions($userId){
+        return \DB::table('comments')
+            ->select('comments.id')
+            ->leftJoin('rooms', 'rooms.id', '=', 'comments.room')
+            ->where('rooms.owner_id', $userId)
+            ->whereNull("comments.recipient_read_at")
+            ->count();
+    }
+
+
+    /**
+     * @param $userId
+     * @param $field
+     * @return  $count
+     */
+    public function notReadAnswers($userId){
+        return \DB::table('comments')
+            ->select('comments.id')
+            ->leftJoin('rooms', 'rooms.id', '=', 'comments.room')
+            ->where('rooms.asked_id', $userId)
+            ->whereNull("comments.sender_read_at")
+            ->count();
+    }
+
 
     /**
      * Todo:
@@ -54,7 +89,6 @@ class CommentsRepository extends CoreRepository
      */
 
     public function toMeComments () {
-
         $rooms = \DB::table('comments')
                     ->select(\DB::raw('COUNT(comments.comment) AS count'), 'articles.id')
                     ->selectRaw('ANY_VALUE(rooms.id) as room_id')
@@ -75,29 +109,15 @@ class CommentsRepository extends CoreRepository
                     ->groupBy('rooms.article_id', 'rooms.asked_id')
                     ->paginate(10);
 
+        //Не прочитанные сообщения владельцу поста
         if ($rooms->isNotEmpty()) {
-            //Не прочитанные сообщения владельцу поста
-            $notRead = array ();
-            array_map(function ($item) use (&$notRead) {
-                $notRead["{$item->id}_{$item->asked_id}"] = (Array)$item; // object to array
-            }, \DB::table('comments')
-                  ->select(\DB::raw('COUNT(comments.id) AS not_read'), 'articles.id as id')
-                  ->selectRaw('ANY_VALUE(rooms.asked_id) AS asked_id')
-                  ->selectRaw('ANY_VALUE(articles.id) AS article_id')
-                  ->join('rooms', 'comments.room', '=', 'rooms.id')
-                  ->join('articles', 'articles.id', 'rooms.article_id')
-                  ->where('rooms.owner_id', Auth::id())
-                  ->whereNull('comments.recipient_read_at')
-                  ->groupBy('rooms.asked_id', 'rooms.article_id')
-                  ->get()->toArray()
-            );
-
-            if (count($notRead)) {
-                $rooms->each(function ($item, $key) use ($notRead) {
-                    $item->not_read = (array_key_exists("{$item->id}_{$item->asked_id}", $notRead)) ?
-                        $notRead["{$item->id}_{$item->asked_id}"]["not_read"] : NULL;
-                });
-            }
+            $rooms->each(function ($item, $key) {
+                $item->not_read = \DB::table('comments')
+                                     ->select('comments.id')
+                                     ->whereNull('comments.recipient_read_at')
+                                     ->where('comments.room', $item->room_id)
+                                     ->count();
+            });
         }
         return $rooms->isNotEmpty() ? $rooms : [];
     }
@@ -124,32 +144,21 @@ class CommentsRepository extends CoreRepository
                     ->where('rooms.asked_id', Auth::id())
                     ->orderBy('last_date', 'desc')
                     ->groupBy('rooms.article_id', 'rooms.owner_id')
-                   // ->get();
                     ->paginate(10);
 
         if ($rooms->isNotEmpty()) {
             //Не прочитанные сообщения владельцу поста
-            $notRead = array ();
-            array_map(function ($item) use (&$notRead) {
-                $notRead["{$item->id}_{$item->owner_id}"] = (Array)$item; // object to array
-            }, \DB::table('comments')
-                  ->select(\DB::raw('COUNT(comments.id) AS not_read'), 'articles.id as id')
-                  ->selectRaw('ANY_VALUE(rooms.owner_id) AS owner_id')
-                  ->selectRaw('ANY_VALUE(articles.id) AS article_id')
-                  ->join('rooms', 'comments.room', '=', 'rooms.id')
-                  ->join('articles', 'articles.id', 'rooms.article_id')
-                  ->where('rooms.owner_id', Auth::id())
-                  ->whereNull('comments.sender_read_at')
-                  ->groupBy('rooms.asked_id', 'rooms.article_id')
-                  ->get()->toArray()
-            );
-
-            if (count($notRead)) {
-                $rooms->each(function ($item, $key) use ($notRead) {
-                    $item->not_read = (array_key_exists("{$item->id}_{$item->owner_id}", $notRead)) ?
-                        $notRead["{$item->id}_{$item->owner_id}"]["not_read"] : NULL;
+            if ($rooms->isNotEmpty()) {
+                $rooms->each(function ($item, $key) {
+                    $item->not_read = \DB::table('comments')
+                                         ->select('comments.id')
+                                         ->whereNull('comments.sender_read_at')
+                                         ->where('comments.room', $item->room_id)
+                                         ->count();
                 });
             }
+
+
         }
         return $rooms->isNotEmpty() ? $rooms : [];
     }
@@ -235,87 +244,6 @@ class CommentsRepository extends CoreRepository
                     'comment_id' => $newComment->id,
                 ]);
             }
-
-
-
-
-            //            $newComment = new Comment([
-            //                'from_user_id' => $request['from_user_id'],
-            //                'parent_id'    => ($room->comment_id) ??  0,
-            //                'sender_read_at' => Carbon::now(),
-            //                'user_id'      => $request['user_id'],
-            //                'article_id'   => $request['article_id'],
-            //                'comment'      => $request['question'],
-            //            ]);
-            //
-            //
-            //            if(!$room->id){
-            //              $room = $room->save();
-            //              $newComment->room = $room->id;
-            //              $newComment = $newComment->save();
-            //
-            //            }
-            //
-            //            //$room->comment_id =
-            //
-            //            if(!$room){
-            //                $room = Room::create([
-            //                    'name' => 'some',
-            //                    'owner_id' => $commentOwner['owner'],
-            //                    'asked_id' => $commentOwner['asking']
-            //                ]);
-            //                $commentId = 0;
-            //            }else{
-            //                $commentId = $this->getToUserFirstBranchId($request['user_id'], $request['article_id']);
-            //            }
-
-
-
-            //$room = new Room(['name' => 'some', 'owner_id' => $commentOwner['owner'], 'asked_id' => $commentOwner['asking']]);
-            //
-            //            $comment = \DB::table('comments')
-            //                ->where('comments.article_id', $request['article_id'])
-            //                ->where('comments.from_user_id', $request['from_user_id'])
-            //                ->select(\DB::raw('COUNT(comments.from_user_id) AS count'))
-            //                ->selectRaw('MAX(comments.created_at) AS last_date')
-            //                ->selectRaw('ANY_VALUE(comments.id) as id')
-            //                ->selectRaw('ANY_VALUE(comments.room) as room')
-            //                ->groupBy('comments.article_id')
-            //                ->orderBy('last_date', 'DESC')
-            //                ->first();
-            //
-            //            if(!$comment) {
-            //                $commentId = 0;
-            //
-            //            }
-            //            else $commentId = $comment->id;
-            //
-            //            $newComment = Comment::create([
-            //                'from_user_id' => $request['from_user_id'],
-            //                'parent_id'    => $commentId,
-            //                'sender_read_at' => Carbon::now(),
-            //                'user_id'      => $request['user_id'],
-            //                'article_id'   => $request['article_id'],
-            //                'comment'      => $request['question']
-            //            ]);
-
-
-            //
-            //            if(!$comment){
-            //                $adsAuthor = \DB::table('articles')->select('user_id')->where('id', $request['article_id'])->first();
-            //                $commentOwner = helper_comment_owner_asked($adsAuthor->user_id, $request['user_id'], $request['from_user_id']);
-            //                $room = new Room(['name' => 'some', 'owner_id' => $commentOwner['owner'], 'asked_id' => $commentOwner['asking']]);
-            //                $newComment->rooms()->save($room);
-            //                $newComment->update([
-            //                    'room' =>$room->id
-            //                ]);
-            //
-            //            }else{
-            //
-            //                $newComment->update([
-            //                    'room' => $comment->room
-            //                ]);
-            //            }
 
 
 

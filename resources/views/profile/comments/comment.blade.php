@@ -5,22 +5,26 @@
 
     @include('chunks.all_massages')
 
+    <div class="back-block">
+        <a class="btn btn-middle blue" href="{{route('comments.index')}}">
+            <svg class="rotateLeft i-svg i-svg__tw">
+                <use xlink:href="/images/icons.svg#icon-arrow"></use>
+            </svg>
+            Назад к вопросам
+        </a>
+    </div>
 
-    <div class="card">
-        <div class="card-header">{{ __('Dashboard') }}</div>
-        <div class="card-body">
 
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
+
+        <div class="_card ui-card">
+            <div class="card-body">
+
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
                 </div>
             @endif
 
-            <div class="container">
-                <div class="row justify-content-start">
-                    <a class="btn btn-success" href="{{route("profile.ads.create")}}">Добавить объявление</a>
-                </div>
-            </div>
             <div class="container">
                 <div class="row justify-content-start ads">
                     <div class="list-group  w-100 mt-3">

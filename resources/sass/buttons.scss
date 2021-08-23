@@ -1,3 +1,8 @@
+.btn{
+  display: inline-flex;
+  align-items: center;
+}
+
 .btn-small{
   padding: 7px 10px;
   font-weight: 500;
@@ -19,13 +24,20 @@
   font-weight: 600;
   transition: all 0.15s ease;
 }
+.blue svg{
+  fill: #3699ff;
+}
 .blue{
   color: #3699ff;
   background-color: #e1f0ff;
+  position: relative;
 }
 
 .blue.active,
 .blue:hover{
   color: #fff;
   background-color: #3699ff;
+}
+.blue:hover svg{
+  fill: #fff;
 }

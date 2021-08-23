@@ -6371,6 +6371,21 @@ readers do not read off random characters that represent icons */
   top: 16px;
 }
 
+.i-comment__from {
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.i-comment__to .i-comment__user {
+  font-weight: 600;
+}
+
+.i-comment__to .i-comment__title {
+  color: #b5b5c3;
+  font-weight: 400;
+}
+
 .ads {
   display: flex;
   flex-wrap: wrap;
@@ -7213,6 +7228,10 @@ h3 {
   flex-direction: column;
 }
 
+.ui-card_no-radius {
+  border-radius: 0px;
+}
+
 .arrow-big {
   position: absolute;
   z-index: 1;
@@ -7523,6 +7542,11 @@ h3 {
   margin-right: 8px;
 }
 
+.btn {
+  display: inline-flex;
+  align-items: center;
+}
+
 .btn-small {
   padding: 7px 10px;
   font-weight: 500;
@@ -7547,15 +7571,24 @@ h3 {
   transition: all 0.15s ease;
 }
 
+.blue svg {
+  fill: #3699ff;
+}
+
 .blue {
   color: #3699ff;
   background-color: #e1f0ff;
+  position: relative;
 }
 
 .blue.active,
 .blue:hover {
   color: #fff;
   background-color: #3699ff;
+}
+
+.blue:hover svg {
+  fill: #fff;
 }
 
 .notification {
@@ -7661,6 +7694,46 @@ h3 {
   100% {
     background: #f5f6f7;
   }
+}
+
+.ui-tabs__head {
+  display: flex;
+  gap: 8px;
+}
+
+.ui-tabs__content {
+  position: relative;
+  overflow: hidden;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+
+.ui-tabs__content-item:not(.active) {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: #fff;
+  width: 100%;
+}
+
+.ui-tabs__content-item.active {
+  transition: opacity ease-in-out 0.5s;
+  opacity: 1;
+}
+
+.ui-tabs__head-item {
+  cursor: pointer;
+}
+
+.ui-tabs__tab {
+  color: #3699ff;
+}
+
+.ui-tabs__head-item .ui-tabs__tab:hover,
+.ui-tabs__head-item.active .ui-tabs__tab {
+  color: #fff;
 }
 
 .select2 {
