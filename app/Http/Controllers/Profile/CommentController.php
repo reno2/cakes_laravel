@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Spatie\MediaLibrary\Models\Media;
@@ -53,20 +54,6 @@ class CommentController extends Controller
 
        // dd($this->commentsRepository->getNotRead(Auth::id(), 'sender_read_at'));
         return view('profile.comments.index', [
-//            $notReadToMe = $this->commentsRepository->getNotRead(
-//                $room_id,
-//                ($data['owner_id'] === Auth::id())
-//                    ? 'recipient_read_at'
-//                    : 'sender_read_at'
-//            );
-//
-//        $notReadFromMe = $this->commentsRepository->getNotRead(
-//            $room_id,
-//            ($data['owner_id'] === Auth::id())
-//                ? 'sender_read_at'
-//                : 'recipient_read_at'
-//        );
-
 
             // Новый метод
             'toUserQuestions' => $this->commentsRepository->toMeComments(),
@@ -262,19 +249,24 @@ class CommentController extends Controller
     public function store (CommentsRequest $request) {
         $request->validated();
         $request = $request->toArray();
-        $newComment = $this->commentsRepository->create($request);
-        if ($newComment['code'] != 200) {
-            return response()->json(array ('success' => false), 500);
-        } else {
+       try{
+            $newComment = $this->commentsRepository->create($request);
             return response()->json(array ('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
+        } catch (\Throwable $e) {
+           Log::debug($e->getMessage());
+            return response()->json(array ('success' => false, 'msg' => 'Ваш вопрос не отправлен'), 500);
         }
     }
 
 
-
+    /**
+     * Создание комментария из комнаты
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function answer (Request $request) {
         $validated = $request->validate([
-            'comment' => 'between:2,255|regex:/[а-яa-z0-9 -.]+/i',
+            'comment' => 'between:2,255|regex:/^[а-яa-z0-9 .]+$/i',
         ]);
         $comment = $request->toArray();
         $commentData = [

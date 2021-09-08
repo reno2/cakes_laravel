@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileValidate;
 use App\Http\Requests\UserEditValidate;
 use App\Models\Profile;
 use App\Models\User;
+use App\Repositories\AdsRepository;
 use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CoreRepository;
@@ -33,17 +34,29 @@ class ProfileController extends Controller
     use UploadTrait;
 
     protected $profileService;
+    protected $adsRepository;
 
-    public function __construct(ProfileService $profileService)
+    public function __construct(AdsRepository $adsRepository, ProfileService $profileService)
     {
+        $this->adsRepository = $adsRepository;
         $this->profileService = $profileService;
         $this->middleware('auth');
     }
 
     public function index(UserRepository $userRepository)
     {
+
+
         $user = Auth::user();
+        $where = [
+            ['user_id', Auth::id()],
+            ['moderate', '=', 1],
+            ['published', '=', 1]
+        ];
+
+
         return view('profile.index', [
+            'ads' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($where),
             'user'    => $user,
             'profile' => $userRepository->getUserProfileEdit($user->id),
         ]);
