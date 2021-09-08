@@ -25,7 +25,9 @@ class ProfileValidate extends FormRequest
     {
 
         return [
-            'address'   => "required",
+            'name' => 'regex:/^[а-яёa-z0-9 ]+$/i',
+            'address' => 'required|regex:/^[а-я -]+$/i'
+
         ];
     }
 
@@ -33,7 +35,9 @@ class ProfileValidate extends FormRequest
     public function messages()
     {
         return [
+            'name.regex' => 'Только буквы или числа',
             'address.required' => 'Название объязательно',
+            'address.regex' => 'Только буквы',
         ];
     }
 }

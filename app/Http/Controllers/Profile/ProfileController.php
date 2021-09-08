@@ -124,6 +124,14 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * Страница изменить профиль
+     * @param Profile $profile
+     * @param ProfileValidate $request
+     * @param UserRepository $userRepository
+     * @param ProfileRepository $profileRepository
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(
         Profile $profile,
         ProfileValidate $request,
