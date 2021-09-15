@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Spatie\MediaLibrary\Models\Media;
 use App\Events\CommentEvent;
-
+use Throwable;
 
 class CommentController extends Controller
 {
@@ -252,9 +252,9 @@ class CommentController extends Controller
        try{
             $newComment = $this->commentsRepository->create($request);
             return response()->json(array ('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
-        } catch (\Throwable $e) {
+        } catch (\Exception  $e) {
            Log::debug($e->getMessage());
-            return response()->json(array ('success' => false, 'msg' => 'Ваш вопрос не отправлен'), 500);
+            return response()->json(array ('success' => false, 'msg' => $e->getMessage()), 200);
         }
     }
 

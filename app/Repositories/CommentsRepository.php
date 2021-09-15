@@ -7,7 +7,7 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Repositories\CoreRepository;
 use Carbon\Carbon;
-use http\Exception;
+
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Article as Model;
 
@@ -17,6 +17,7 @@ use App\Models\Profile;
 use App\Models\User;
 use App\Models\Room;
 use Illuminate\Database\Eloquent\Builder;
+use Throwable;
 
 class CommentsRepository extends CoreRepository
 {
@@ -250,8 +251,8 @@ class CommentsRepository extends CoreRepository
 
 
             return ['comment' => $newComment, 'code' => 200];
-        } catch (\Throwable $e) {
-            throw new Throwable('Ошибка: ', $e->getMessage());
+        } catch (Throwable $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 
