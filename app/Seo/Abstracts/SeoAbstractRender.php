@@ -72,26 +72,28 @@ abstract class SeoAbstractRender{
         $rawData = DB::table('seo')->where('type', $this->type)->first();
         $rawData = ((array)$rawData) ?: [];
         $metaResult = [];
-        foreach ($this->fillable as $field){
 
-            // Если нет шаблона и виртуальное поле
-            if(array_key_exists($field, $this->virtual) && !$rawData[$field]) {
-                $metaResult[$field] = $this->data[$this->virtual[$field]];
-                continue;
-            }
+            foreach ($this->fillable as $field) {
 
-            // Если есть сео шаблон для поля
-            if($rawData[$field]){
-                $method = 'get'.ucfirst($field);
-                if(method_exists($this, $method)) {
-                    $metaResult[$field] = $this->$method($field, $rawData[$field]);
+                // Если нет шаблона и виртуальное поле
+                if (array_key_exists($field, $this->virtual) && !$rawData[$field]) {
+                    $metaResult[$field] = $this->data[$this->virtual[$field]];
                     continue;
                 }
+
+                // Если есть сео шаблон для поля
+                if ($rawData && $rawData[$field]) {
+                    $method = 'get' . ucfirst($field);
+                    if (method_exists($this, $method)) {
+                        $metaResult[$field] = $this->$method($field, $rawData[$field]);
+                        continue;
+                    }
+                }
+
+                $metaTpl = ($this->data[$field]) ?? $field;
+                $metaResult[$field] = $metaTpl;
             }
 
-            $metaTpl = ($this->data[$field]) ?? $field;
-            $metaResult[$field] = $metaTpl;
-        }
         $this->toRender =  $metaResult;
     }
 
