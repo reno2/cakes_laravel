@@ -5,22 +5,26 @@
 
     @include('chunks.all_massages')
 
+    <div class="back-block">
+        <a class="btn btn-middle blue" href="{{route('comments.index')}}">
+            <svg class="rotateLeft i-svg i-svg__tw">
+                <use xlink:href="/images/icons.svg#icon-arrow"></use>
+            </svg>
+            Назад к вопросам
+        </a>
+    </div>
 
-    <div class="card">
-        <div class="card-header">{{ __('Dashboard') }}</div>
-        <div class="card-body">
 
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
+
+        <div class="_card ui-card">
+            <div class="card-body">
+
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
                 </div>
             @endif
 
-            <div class="container">
-                <div class="row justify-content-start">
-                    <a class="btn btn-success" href="{{route("profile.ads.create")}}">Добавить объявление</a>
-                </div>
-            </div>
             <div class="container">
                 <div class="row justify-content-start ads">
                     <div class="list-group  w-100 mt-3">
@@ -28,13 +32,13 @@
                         @if($comment)
                             <div class="p-comment">
                                 <div class="p-comment__date">
-                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans()}}
+                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment['created_at']))->diffForHumans()}}
                                 </div>
                                 <div class="">
                                     <h5 class="p-comment__title mb-1">
-                                        {{$ads->title}}
+                                        {{$ads['title']}}
                                     </h5>
-                                    <p class="p-comment__desc mb-1">Вопрос от {{$comment->name}} ({{$comment->from_user_id}})</p>
+                                    <p class="p-comment__desc mb-1">Вопрос от {{$profile['name']}} ({{$comment['from_user_id']}})</p>
                                 </div>
                             </div>
                         @else
@@ -48,15 +52,17 @@
 
             </div>
             <addcomment
-                ads="{{$ads->id}}"
-                sender="{{$sender}}"
-                recipient="{{$recipient}}"
-                current-user-id="{{$userId}}"
+                ads="{{$ads['id']}}"
+                comment-users="{{$users}}"
+                user="{{$user}}"
+
                 subs="{{$sub}}"
-                comment-id="{{$comment->id ?? ''}}"
-                route-create="{{route('comments.answer', $comment->id ?? '')}}"
-                route-update="{{route('comments.update', $comment->id ?? '')}}"
-                token="{{ csrf_token() }}">
+                comment-id="{{$comment['id'] ?? ''}}"
+                route-create="{{route('comments.answer', $comment['id'] ?? '')}}"
+                route-update="{{route('comments.update', $comment['id'] ?? '')}}"
+                token="{{ csrf_token() }}"
+                room="{{$room}}"
+                >
             </addcomment>
         </div>
     </div>

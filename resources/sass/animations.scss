@@ -1,0 +1,16 @@
+//Blinking animation
+.blink .comment-item__link{
+  animation: blink 8s infinite
+}
+@keyframes blink {
+  0% {
+    background: #f5f6f7;
+  }
+  50%{
+    background: #82C831;
+  }
+  100% {
+    background: #f5f6f7;
+  }
+
+}

@@ -65,7 +65,7 @@ class CommentsRequest extends FormRequest
             'question'   => [
                 'required',
                 'between:6,255',
-                'regex:/[а-яА-Я0-9 -<>.]+/',
+                'regex:/[а-яА-Яa-zA-Z0-9 -<>.]+/',
             ]
         ];
     }

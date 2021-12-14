@@ -121,7 +121,7 @@ class ProfileRepository extends CoreRepository
         if (Storage::exists($profile->image)) {
             return (Storage::url($profile->image));
         } else {
-            return Storage::url('images/avatar/default.svg');
+            return Storage::url('/images/defaults/cake.svg');
         }
     }
 
@@ -158,7 +158,10 @@ class ProfileRepository extends CoreRepository
     {
         if(!is_object($user))
             $user = \DB::table('users')->find($user);
-        return $this->startCondition()->where('user_id', $user->id)->first();
+        $profile = $this->startCondition()->where('user_id', $user->id)->first();
+        if($profile->image) return $profile;
+        $profile->image = Storage::url('/images/defaults/cake.svg');
+        return $profile;
     }
 
     /*

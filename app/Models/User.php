@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Room;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomEmailNotification;
 use Illuminate\Support\Facades\Auth;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -61,14 +63,12 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new CustomEmailNotification);
     }
 
-    public function comments(){
-        return $this->hasMany(Comment::class);
-    }
-
 
     // Проверка пользователя на статус администратора
     public function isAdmin()
     {
         return $this->is_admin === 1;
     }
+
+
 }

@@ -1,0 +1,35 @@
+.ui-tabs__head{
+  display: flex;
+  gap: 8px;
+}
+.ui-tabs__content{
+  position: relative;
+  overflow: hidden;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+.ui-tabs__content-item:not(.active){
+  opacity: 0;
+  visibility: hidden;
+  //display: none;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: #fff;
+  width: 100%;
+}
+.ui-tabs__content-item.active{
+  transition: opacity ease-in-out .5s;
+  opacity: 1;
+
+}
+.ui-tabs__head-item{
+  cursor: pointer;
+}
+.ui-tabs__tab{
+  color: #3699ff;
+}
+.ui-tabs__head-item .ui-tabs__tab:hover,
+.ui-tabs__head-item.active .ui-tabs__tab{
+  color: #fff;
+}

@@ -63,7 +63,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 Route::post('/update', 'SeoFrontController@updateFront')->name('seo.front.update');
             });
         });
-
+        //        Route::group(['prefix' => 'user_managment', 'namespace' => 'UserManagment'], function(){
+        //            Route::resource('/user', 'UserController', ['as'=> 'user_managment']);
+        //        });
         Route::post('/upload/fileUpload', 'ImageController@upload')->name('ckeditor.upload');
         Route::post('/upload/image', 'ImageController@add')->name('img_add');
         //Route::get('/search', "ArticleController@search")->name('admin_search');
@@ -96,8 +98,8 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::delete('/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
 
         Route::get('/comments', 'CommentController@index')->name('comments.index');
-        Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');
-        Route::get('/comments/{article_id}/{user_id}', 'CommentController@comment')->name('comments.comment');
+        //Route::get('/comments/{article_id}', 'CommentController@article')->name('comments.article');
+        Route::get('/comments/{room}', 'CommentController@comment')->name('comments.comment')->middleware('room_access');
 
         Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');

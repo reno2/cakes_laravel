@@ -45,14 +45,14 @@
         width: 100%;
         color: #b19b9b;
     }
-
+    .comment__loading,
     .comment__submit {
         position: absolute;
         top: 50%;
         right: 8px;
         transform: translateY(-50%);
     }
-
+    .comment__loading i,
     .comment__submit i {
         color: #48b0f7;
     }
@@ -93,6 +93,23 @@
         transform: translateX(50px) scaleY(0);
         transform-origin: center bottom;
     }
+    .comment__typing{
+        font-size: 12px;
+    }
+    @media (max-width: 1279px){
+        .comment-form .comment__row{
+            flex-grow: 1;
+            width: inherit;
+            margin-left: 0;
+        }
+        .comment-form .comment-form__btn{
+            max-width: 56px;
+        }
+    }
+
+
+
+
 </style>
 <template>
     <div class="container">
@@ -102,9 +119,9 @@
                 <transition-group name="comments-transition" tag="div" class="comments__list">
                     <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
                         <CommentGuestItem
-                            :currentUserId="currentUserId"
-                            :sender="adsSender"
-                            :recipient="adsRecipient"
+                            :usersOnline="usersOnline"
+                            :user="user"
+                            :users="usersObj"
                             :item="item"
                             @onEdit="editComment($event)"
                             @onDelete="deleteComment($event)"
@@ -119,12 +136,19 @@
                     <form @submit.prevent="submit">
                         <div class="form-row align-items-center">
                             <div class="comment__row">
-                                <input type="text" name="comment" class="comment__input" id="comment" v-model="comment"
+                                <input type="text" name="comment" class="comment__input" id="comment" @keydown="actionUser" v-model="comment"
                                        placeholder="Введите текст">
-                                <button type="submit" class="btn comment__submit"><i class="fas fa-paper-plane"></i>
+                                <button v-if="!isDisabled" type="submit" class="btn comment__submit">
+                                    <i class="fas fa-paper-plane"></i>
                                 </button>
+                                <span v-else class="btn comment__loading">
+                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                </span>
                                 <span v-if="error.status"
                                       class="help-block comment__error text-danger">{{ error.msg }}</span>
+                            </div>
+                            <div class="comment__row" v-if="isUserTyping">
+                                <span class="comment__typing">{{isUserTyping.user}} печатает....</span>
                             </div>
                             <div class="comment-form__btn" v-if="event==='update'">
                                 <button @click.prevent="exitEdit" class="comment-form__edit">
@@ -150,50 +174,57 @@
                 answers: null,
                 comment: null,
                 comments: null,
-                adsOwner: null,
-                adsSender: null,
-                adsRecipient: null,
-
                 event: 'save',
                 id: null,
                 error: {
                     status: false,
                     msg: 'Не корректный ввод'
-                }
+                },
+
+                usersObj: null,
+                isUserTyping: false,
+                typingTimer: false,
+                usersOnline: [],
+
+                updatedComment: []
             }
         },
         components: {
             CommentGuestItem
         },
         props: {
-            currentUserId: {type: String},
-            recipient: {type: String},
-            sender: {type: String},
+            user: {type: String},
+            commentUsers: {type: String},
             ads: {type: String},
             subs: {type: String},
             commentId: {type: String},
             routeCreate: {type: String},
             routeUpdate: {type: String},
-            token: {type: String}
-        },
-        computed: {
-            renderComments() {
-                return this.comments
-            }
+            token: {type: String},
+            room: {type: String},
+           // owner: {type: String}
         },
         watch: {
             comment() {
                 this.error.status = false
+            },
+            updatedComment(){
+                console.log(this.updatedComment);
             }
         },
         methods: {
+            notMe(){
+                return Object.keys(this.usersObj).filter(u => {
+                    return this.user !== u
+                })
+            },
             exitEdit() {
                 this.event = 'save'
                 this.comment = ''
             },
             async deleteComment(id) {
                 if (confirm('Удалить?')) {
-                    const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE')
+                    const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE', {room: this.room})
                     if (status) this.removeById(id)
                 } else {
                     return false
@@ -211,10 +242,22 @@
             },
             updateComment(comment) {
                 this.comments = this.comments.map(item => {
-                    if (item.id === comment.id)
+                    if (item.id === comment.id){
+                        comment.isUpdate =  true
                         item = comment
+
+                       this.removeUpdatedClass()
+                    }
                     return item
                 })
+            },
+            removeUpdatedClass(){
+                setTimeout(() => {
+                    this.comments = this.comments.map(comment => {
+                        if(comment.isUpdate) comment.isUpdate = false
+                        return comment
+                     })
+                },8000)
             },
             addItem(comment) {
                 const tmp = {
@@ -228,6 +271,8 @@
                 this.comments.push(tmp)
             },
             async submit() {
+                //return console.log(this.notMe())
+
                 if (!this.isDisabled)
                     if (this.comment && !this.comment.trim() == '' && this.comment.length < 150) {
                         const data = {
@@ -235,10 +280,12 @@
                             parent_id: this.commentId,
                             comment: this.comment,
                             article_id: this.ads,
-                            from_user_id: this.adsSender.user_id,
-                            user_id: this.adsRecipient.user_id
+                            from_user_id: this.user,
+                            user_id: this.notMe()[0],
+                            room: this.room
                         }
-                        let method, route
+                        let method
+                        let route
                         if (this.event === 'save') {
                             method = 'POST'
                             route = this.routeCreate
@@ -283,18 +330,70 @@
                         reject(error)
                     })
                 })
+            },
+            actionUser(){
+                this.channel
+                .whisper('typing', {
+                    user: this.usersObj[this.user].name
+                    })
+            }
+
+        },
+
+        computed: {
+            renderComments() {
+                return this.comments
+            },
+            channel(){
+                return window.Echo.join(`room.${this.room}`)
             }
         },
         mounted() {
-            if (this.recipient) {
-                this.adsRecipient = JSON.parse(this.recipient)
-            }
-            if (this.sender) {
-                this.adsSender = JSON.parse(this.sender)
+
+            if (this.commentUsers) {
+                this.usersObj = JSON.parse(this.commentUsers)
             }
             if (this.subs) {
                 this.comments = JSON.parse(this.subs)
             }
+
+
+            // Init chat
+            this.channel
+                .here(users => {
+                    this.usersOnline = users
+                })
+                .joining(user => {
+                    this.usersOnline.push(user)
+                })
+                .leaving( user => {
+                    this.usersOnline.splice(this.usersOnline.indexOf(user))
+                })
+                .listen('.questions', ({data}) => {
+                    if(data.event === 'delete') {
+                        return this.comments = this.comments.filter(item => item.id !== data.id)
+                    }
+                    if(data.event === 'updated') {
+                        return this.updateComment(data)
+                    }
+
+
+
+
+                    this.isUserTyping = false
+                    this.comments.push({...data})
+                })
+                .listenForWhisper('typing', (e) => {
+                    //console.log(e);
+                    this.isUserTyping = e
+
+                    if(this.typingTimer) clearTimeout(this.typingTimer)
+
+                    this.typingTimer = setTimeout(() => {
+                        this.isUserTyping = false
+                    }, 2000)
+                })
+
         }
     }
 </script>

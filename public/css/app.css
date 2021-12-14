@@ -10914,6 +10914,10 @@ a.text-dark:focus {
   }
 }
 
+.navbar .navbar-brand {
+  width: 300px;
+}
+
 .navbar-nav .nav-item {
   display: flex;
   align-items: center;
@@ -10951,6 +10955,21 @@ a.text-dark:focus {
 
 .wideWidth {
   width: 100%;
+}
+
+.rotateLeft {
+  transform: rotate(180deg);
+}
+
+.comment_isNew {
+  height: 8px;
+  width: 8px;
+  border-radius: 10px;
+  background: #82c831;
+  display: block;
+  position: absolute;
+  top: 6px;
+  right: 11px;
 }
 
 i,
@@ -11104,5 +11123,9 @@ h5,
 
 .marginLeftOne {
   margin-left: 8px;
+}
+
+.back-block {
+  margin-bottom: 24px;
 }
 

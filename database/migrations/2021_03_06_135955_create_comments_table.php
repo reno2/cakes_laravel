@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string('from_user_id')->nullable();
             $table->string('from_user_email')->nullable();
+            $table->string('room')->nullable();
             $table->integer('parent_id')->nullable();
             $table->timestamp('recipient_read_at')->nullable();
             $table->timestamp('sender_read_at')->nullable();

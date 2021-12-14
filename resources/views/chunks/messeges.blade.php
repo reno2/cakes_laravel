@@ -8,7 +8,8 @@
     <script>
         iziToast.success({
             position: 'topRight',
-            title: 'Уведомление',
+            // title: 'Уведомление',
+            timeout: 1500,
             message: "{{$flash}}"
         });
     </script>
