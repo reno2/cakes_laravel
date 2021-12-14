@@ -69,7 +69,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'profile' => \App\Http\Middleware\FilledProfileValid::class,
         'is_admin' => IsAdminMiddleware::class,
-        'room_access' => EnsureRoomAccess::class
+        'room_access' => EnsureRoomAccess::class,
         'is_admin' => IsAdminMiddleware::class,
         'preventBackHistory' => \App\Http\Middleware\PreventBackHistory::class,
     ];
