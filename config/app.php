@@ -182,7 +182,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\ProfileServiceProvider::class,
         CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
-
         //Laravel\Socialite\SocialiteServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class
     ],
