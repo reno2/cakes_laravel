@@ -113,14 +113,16 @@ class Article extends Model implements HasMedia, Viewable
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->fit('fill', 265, 265);
+                    ->fit('fill', 265, 265)
+                    ->nonQueued();
             });
         $this
             ->addMediaCollection('cover')
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('detail')
-                    ->fit('fill', 677, 520);
+                    ->fit('fill', 677, 520)
+                    ->nonQueued();
             });
     }
 
