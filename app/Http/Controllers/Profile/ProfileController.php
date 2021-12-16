@@ -12,6 +12,7 @@ use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CoreRepository;
 
+use App\Seo\SeometaFacade;
 use App\Services\ProfileService;
 use App\Traits\UploadTrait;
 use Illuminate\Contracts\Validation\Validator;
