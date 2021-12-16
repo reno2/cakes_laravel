@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Requests\FileValidate;
 use App\Http\Requests\ProfileValidate;
 use App\Http\Requests\UserEditValidate;
-use App\Models\Article;
 use App\Models\Profile;
 use App\Models\User;
 use App\Repositories\AdsRepository;
@@ -13,7 +12,6 @@ use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CoreRepository;
 
-use App\Seo\SeometaFacade;
 use App\Services\ProfileService;
 use App\Traits\UploadTrait;
 use Illuminate\Contracts\Validation\Validator;

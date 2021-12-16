@@ -200,8 +200,28 @@ function togglePreloader(state) {
     element.querySelector('.lds-ellipsis__wrap').remove()
 }
 
-function setDataFromRequest(){
+const tabsLink = document.querySelectorAll('.js_tabLink');
 
+if (tabsLink.length) {
+    tabsLink.forEach((el, inx) => {
+        tabsLink[inx].mynum = inx;
+        tabsLink[inx].addEventListener('click', toggleTab, false);
+    });
+}
+
+function setDataFromRequest(){}
+
+function toggleTab() {
+    const tabChange = this.mynum
+    const tabs = this.closest('.js_tabs').querySelectorAll('.js_tabContent')
+    tabs.forEach((el, inx) => {
+        if(tabs[inx].classList.contains('active')) {
+            tabs[inx].classList.remove('active')
+        }
+        tabsLink[inx].classList.remove('active')
+    })
+    tabs[tabChange].classList.add('active')
+    this.classList.add('active');
 }
 
 
@@ -223,4 +243,18 @@ const wSize = function getWindowSizeName () {
 wSize();
 $(window).on('resize', function () {
     wSize();
+});
+
+
+
+//=========================END SIMPLE TABS===========================
+
+window.addEventListener( "pageshow", function ( event ) {
+    const  historyTraversal = event.persisted ||
+        ( typeof window.performance != "undefined" &&
+            window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+        // Handle page restore.
+        window.location.reload();
+    }
 });
