@@ -1,12 +1,12 @@
 {
-	"authHost": "http://lara-auth.ru",
+	"authHost": "http://nginx",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [],
 	"database": "redis",
 	"databaseConfig": {
       "redis": {
         "port": "6379",
-        "host": "localhost"
+        "host": "redis"
       },
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
