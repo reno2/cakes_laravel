@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AdsModerate;
+use App\Http\Requests\AdsRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Moderate;
