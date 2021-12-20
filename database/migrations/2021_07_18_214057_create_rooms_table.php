@@ -17,9 +17,9 @@ class CreateRoomsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->timestamps();
-            $table->bigIncrements('comment_id')->nullable();
-            $table->bigIncrements('owner_id')->nullable();
-            $table->bigIncrements('asked_id')->nullable();
+            $table->integer('comment_id')->nullable();
+            $table->integer('owner_id')->nullable();
+            $table->integer('asked_id')->nullable();
             $table->integer('article_id')->nullable();
         });
     }
