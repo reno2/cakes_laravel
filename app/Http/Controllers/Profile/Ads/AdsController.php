@@ -144,7 +144,6 @@ class AdsController extends Controller
         }
         $mediaItem =  Media::where('model_id', $ads->id)->whereJsonContains('custom_properties->main', true)->first();
 
-        //$mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
 
 
         return view('profile.ads.switch_article', [

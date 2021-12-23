@@ -2,15 +2,30 @@ window.onload = function () {
     //========================Проверяем что в урле есть якорь
     //========================И переключаем таб
     tabSwitcher()
+    urlTabs()
 }
 
 function tabSwitcher() {
+
     if (location.href.includes('#moderate')) {
         //  console.log(document.querySelector("[href='#not_published']"));
         //document.querySelector("[href='#not_published']")?.click()
         document.querySelector('.js_onModerate')?.dispatchEvent(new MouseEvent('click'));
     }
 }
+
+function urlTabs(){
+    let searchParams = new URLSearchParams(window.location.search)
+    if (searchParams.get('tab')) {
+        const tabData = searchParams.get('tab')
+        const activeTab = document.querySelector('[data-tab="'+tabData+'"]')
+        if(activeTab){
+          activeTab.click()
+        }
+    }
+}
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -77,6 +92,7 @@ window.addEventListener('click', function (e) {
 }, true);
 
 function profileAdsList(element, e) {
+
     e.preventDefault();
     const target = element.getAttribute('data-status');
     const mainProfileBlock = element.closest?.('.profile-adverts');
@@ -85,13 +101,26 @@ function profileAdsList(element, e) {
         .forEach(btn => btn.classList.remove('active'));
     element.classList.add('active');
     mainProfileBlock.querySelectorAll('.js_adsStatusGroups')?.forEach(block => {
+
         if (block.id === target) {
+            // Обновляем строку
+            setUrlParam("tab", element.getAttribute('data-tab'));
             block.classList.add('active');
         } else {
             block.classList.remove('active');
         }
     });
+
 }
+
+// Добавляем GET параметры
+function setUrlParam(param, value) {
+    const url = new URL(window.location);
+    url.searchParams.delete(param);
+    url.searchParams.append(param, value)
+    window.history.pushState({}, null, url)
+}
+
 
 function bToggle(element) {
 
@@ -258,3 +287,6 @@ window.addEventListener( "pageshow", function ( event ) {
         window.location.reload();
     }
 });
+
+
+

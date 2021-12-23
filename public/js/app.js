@@ -102654,14 +102654,7 @@ Vue.component('socialshare', __webpack_require__(/*! ./components/SocialShare.vu
 
 var app = new Vue({
   el: '#app'
-}); // import Swiper JS
-// import Swiper from 'swiper';
-//
-// import SwiperCore, { Navigation } from 'swiper';
-// SwiperCore.use([Navigation]);
-// import 'toastr/build/toastr.css'
-// window.toastr = require('toastr');
-
+});
 
 window.iziToast = __webpack_require__(/*! iziToast */ "./node_modules/iziToast/dist/js/iziToast.js");
 

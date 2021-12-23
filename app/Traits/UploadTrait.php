@@ -13,11 +13,13 @@ trait UploadTrait
     // Подготавливаем файлы для добавления и удаления
     public function prepareImages()
     {
+        $change = false;
+
         (!empty($this->request['main_image'])) ? $mainImg = $this->request['main_image'] : $mainImg = false;
         (!empty($this->request['main'])) ? $mainDb = $this->request['main'] : $mainDb = false;
 
         if (isset($this->request['image']) && !is_null($this->request['image'])) {
-
+            $change = true;
             if (is_array($this->request['image'])) {
                 foreach ($this->request['image'] as $file) {
                     $this->addToMedia($file, $mainImg);
@@ -42,11 +44,21 @@ trait UploadTrait
                 $this->removeAsMain();
                 $this->setAsMain($mainImg);
             }
+            $change = true;
         }
 
         if (!empty($this->request["remove"])) {
+            $change = true;
             $this->deleteMediaItem(json_decode($this->request["remove"]));
         }
+
+        // Если картинка была изменена то отправляем на модерацию
+        if($change){
+            $this->article->update([
+                'moderate' => 0,
+            ]);
+        }
+
     }
 
     public function removeAsMain()

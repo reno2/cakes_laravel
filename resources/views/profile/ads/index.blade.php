@@ -19,9 +19,9 @@
             </div>
             <div class="container">
                 <div class="profile-adverts__switch">
-                    <button class="btn-middle blue profile-adverts__link js_adsSwitcher active" data-status="published">Опубликованные</button>
-                    <button  class="btn-middle blue profile-adverts__link js_notPublished js_adsSwitcher" data-status="not_published">Не опубликованные</button>
-                    <button  class="btn-middle blue profile-adverts__link js_onModerate js_adsSwitcher" data-status="moderate">Модерация</button>
+                    <button class="btn-middle blue profile-adverts__link js_adsSwitcher active" data-tab="published" data-status="published">Опубликованные</button>
+                    <button  class="btn-middle blue profile-adverts__link js_notPublished js_adsSwitcher" data-tab="not-published" data-status="not_published">Не опубликованные</button>
+                    <button  class="btn-middle blue profile-adverts__link js_onModerate js_adsSwitcher" data-tab="on-moderate" data-status="moderate">Модерация</button>
                 </div>
                 <div class="profile-adverts__lines">
 
