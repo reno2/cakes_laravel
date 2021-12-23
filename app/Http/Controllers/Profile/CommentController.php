@@ -266,7 +266,7 @@ class CommentController extends Controller
      */
     public function answer (Request $request) {
         $validated = $request->validate([
-            'comment' => 'between:2,255|regex:/^[а-яa-z0-9 .]+$/i',
+            'comment' => 'between:2,255|regex:/^[а-яa-z0-9 .]+/i',
         ]);
         $comment = $request->toArray();
         $commentData = [

@@ -2449,6 +2449,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this6 = this;
 
+    setTimeout(function () {
+      _this6.$refs.commentForm.scrollIntoView({
+        block: "end",
+        behavior: "auto"
+      });
+    }, 500);
+
     if (this.commentUsers) {
       this.usersObj = JSON.parse(this.commentUsers);
     }

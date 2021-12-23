@@ -349,7 +349,8 @@
             }
         },
         mounted() {
-
+            setTimeout(
+                () => {this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})}, 500 )
             if (this.commentUsers) {
                 this.usersObj = JSON.parse(this.commentUsers)
             }
