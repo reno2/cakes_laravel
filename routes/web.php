@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::resource('/settings', 'SettingsController', ['as' => 'admin']);
         Route::resource('/users', 'UserController', ['as' => 'admin']);
 
-        // Пост
+
 
 
         // Насройки сео
@@ -63,9 +63,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 Route::post('/update', 'SeoFrontController@updateFront')->name('seo.front.update');
             });
         });
-        //        Route::group(['prefix' => 'user_managment', 'namespace' => 'UserManagment'], function(){
-        //            Route::resource('/user', 'UserController', ['as'=> 'user_managment']);
-        //        });
+
         Route::post('/upload/fileUpload', 'ImageController@upload')->name('ckeditor.upload');
         Route::post('/upload/image', 'ImageController@add')->name('img_add');
         //Route::get('/search', "ArticleController@search")->name('admin_search');
@@ -133,3 +131,11 @@ Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
      ->name('login.callback')
      ->where('driver', implode('|', config('auth.socialite.drivers')));
 
+
+// Static pages
+Route::get('privacy-policy',  function () {
+    return view('static/privacy-policy');
+});
+Route::get('terms-conditions',  function () {
+    return view('static/terms-conditions');
+});
