@@ -2174,11 +2174,6 @@ pre code {
   opacity: 1;
 }
 
-.form-control::-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::placeholder {
   color: #6c757d;
   opacity: 1;
@@ -11094,15 +11089,13 @@ h5,
 .btn-main {
   color: #fff;
   background: #82C831;
-  -webkit-filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
-          filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
+  filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
 }
 
 .btn-second {
   color: #fff;
   background: #F8C6C6;
-  -webkit-filter: drop-shadow(0px 4px 8px rgba(248, 198, 198, 0.54));
-          filter: drop-shadow(0px 4px 8px rgba(248, 198, 198, 0.54));
+  filter: drop-shadow(0px 4px 8px rgba(248, 198, 198, 0.54));
 }
 
 .btn-default {
@@ -11127,5 +11120,26 @@ h5,
 
 .back-block {
   margin-bottom: 24px;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.captcha {
+  font-size: 10px;
+  text-align: left;
+  margin-top: 16px;
+  display: flex;
+}
+
+.captcha__info {
+  margin-right: 8px;
+}
+
+.captcha__link {
+  margin-right: 8px;
+  margin-left: 8px;
+  color: #82c831;
 }
 

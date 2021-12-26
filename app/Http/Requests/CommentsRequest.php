@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Rules\ReCaptcha;
 
 class CommentsRequest extends FormRequest
 {
@@ -58,6 +59,7 @@ class CommentsRequest extends FormRequest
         //$this->route('ad');
         $rr = '';
         return [
+            'recaptcha_response' => new ReCaptcha,
             'name' => [
                 'required',
                 'max:30',

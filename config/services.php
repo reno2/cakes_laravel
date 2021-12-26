@@ -52,4 +52,10 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI')
     ],
 
+    'google_recaptcha' => [
+        'recaptcha_key' => env('GOOGLE_RECAPTCHA_KEY'),
+        'recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+        'recaptcha_url' => env('GOOGLE_RECAPTCHA_URL')
+    ],
+
 ];

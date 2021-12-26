@@ -31,11 +31,22 @@
                        value="@if(Auth::id()) {{Auth::user()->profiles->first()->name}} @endif">
                 <span class="help-block text-danger js_error"></span>
             </div>
+
+
             <div class="modal__group">
                 <textarea class="modal__element" placeholder="Ваше вопрос" name="question" id="" cols="30" rows="10"></textarea>
                 <span class="help-block text-danger js_error"></span>
             </div>
             <button class="btn btn-primary" type="submit">Задать вопрос</button>
+
+            <div class="captcha">
+                <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+                <div class="captcha__info">Сайт защищён reCAPTCHA Google</div> |
+                <a class="captcha__link" href="https://policies.google.com/privacy">Privacy Policy</a> |
+                <a class="captcha__link" href="https://policies.google.com/terms">Terms of Service</a>
+            </div>
+
+
         </form>
     </div>
 

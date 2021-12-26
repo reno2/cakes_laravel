@@ -167,4 +167,22 @@ h5, .h5 {
 
 
 
+// region Google reCaptcha
+.grecaptcha-badge {visibility: hidden;}
+.captcha {
+  font-size: 10px;
+  text-align: left;
+  margin-top: 16px;
+  display: flex;
+}
 
+
+.captcha__info {
+  margin-right: 8px;
+}
+.captcha__link{
+  margin-right: 8px;
+  margin-left: 8px;
+  color: #82c831;
+}
+// endRegion Google reCaptcha

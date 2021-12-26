@@ -194,8 +194,7 @@
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical,
 :root .fa-flip-both {
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
 .fa-stack {
@@ -7098,6 +7097,10 @@ readers do not read off random characters that represent icons */
   text-align: left;
 }
 
+.reg-form__social {
+  margin-top: 16px;
+}
+
 .reg-form__row {
   display: flex;
   justify-content: space-between;
@@ -7340,8 +7343,7 @@ h3 {
   justify-content: center;
   align-items: center;
   border-radius: 7px;
-  -webkit-filter: drop-shadow(0px 4px 15px rgba(120, 160, 190, 0.3));
-          filter: drop-shadow(0px 4px 15px rgba(120, 160, 190, 0.3));
+  filter: drop-shadow(0px 4px 15px rgba(120, 160, 190, 0.3));
   transition: all 0.2s ease;
 }
 
