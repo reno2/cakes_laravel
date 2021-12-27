@@ -41,9 +41,9 @@
 
             <div class="captcha">
                 <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
-                <div class="captcha__info">Сайт защищён reCAPTCHA Google</div> |
-                <a class="captcha__link" href="https://policies.google.com/privacy">Privacy Policy</a> |
-                <a class="captcha__link" href="https://policies.google.com/terms">Terms of Service</a>
+                <div class="captcha__info">reCAPTCHA Google</div> |
+                <a class="captcha__link" href="https://policies.google.com/privacy">Конфиденциальность</a> |
+                <a class="captcha__link" href="https://policies.google.com/terms">Условия</a>
             </div>
 
 
