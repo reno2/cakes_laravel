@@ -272,7 +272,7 @@ function postUp(e) {
         postUpMsg = this.previousElementSibling
     if (postId) {
         axios.post(
-            '/admin/article/update',
+            '/profile/ads/update',
             {id: postId},
             {
                 headers: {
@@ -282,6 +282,8 @@ function postUp(e) {
         ).then(function (response) {
             console.log(postUpMsg)
             postUpMsg.innerHTML = response.data
+        }).catch(error => {
+            console.log(error);
         })
     }
     //this.setAttribute('disabled', !this.getAttribute('disabled'))

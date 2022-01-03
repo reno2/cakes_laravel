@@ -15,11 +15,13 @@ use App\Repositories\CoreRepository;
 use App\Seo\SeometaFacade;
 use App\Services\ProfileService;
 use App\Traits\UploadTrait;
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -226,5 +228,31 @@ class ProfileController extends Controller
         }
 
     }
+
+
+    /**
+     * Метод поднимает объявление
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postUp(Request $request){
+        $articleId =trim(strip_tags($request->get('id')));
+        $article = DB::table('articles')
+                     ->where('id', $articleId)
+                     ->first();
+
+        if(\Illuminate\Support\Carbon::parse($article->up_post)->lt(Carbon::now())){
+            DB::table('articles')
+              ->where('id', $articleId)
+              ->update(['up_post' => Carbon::now()->addMinutes(10)]);
+            $response = 'Ваше объявление поднято';
+        }else{
+            $response = 'Поднять можно через ' .
+                Carbon::parse($article->up_post)->diff(Carbon::now())->format('%h часов %i минут %s секунд');
+        }
+
+        return response()->json($response, 200);
+    }
+
 
 }

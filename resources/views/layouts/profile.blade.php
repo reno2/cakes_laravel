@@ -106,8 +106,8 @@
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/modal.js') }}"></script>
         <script src="{{ asset('js/toggleBlock.js')}}"></script>
-        {{--    <script src="public/js/forms.js"></script>--}}
 
+        <script src="{{ asset('js/js_forms.js')}}"></script>
         @yield('page-script')
         @include('chunks.messeges')
     </body>

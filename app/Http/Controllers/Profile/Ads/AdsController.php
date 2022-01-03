@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Repositories\AdsRepository;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Spatie\MediaLibrary\Models\Media;
 
@@ -205,5 +206,6 @@ class AdsController extends Controller
 
         return redirect()->route('profile.ads.index')->with('success', 'Объявление полностью удалено');
     }
+
 
 }

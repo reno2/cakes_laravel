@@ -178,13 +178,13 @@ const setAsMain = (el, name = null) => {
 const postUp = (e) => {
     e.preventDefault()
 
-    let postId = e.target.getAttribute('data-id'),
-        postUpMsg = e.target.previousElementSibling
+    const  postId = e.target.closest('.js_postUp').getAttribute('data-id')
+    const  postUpMsg = e.target.closest('.js_postUpMsg')
 
-    //console.log(postId)
+
     if (postId) {
         axios.post(
-            '/admin/article/update',
+            '/profile/up',
             {id: postId},
             {
                 headers: {
@@ -192,10 +192,17 @@ const postUp = (e) => {
                 }
             }
         ).then(function (response) {
-            postUpMsg.innerHTML = response.data
+            iziToast.success({
+                position: 'topRight',
+                timeout: 1500,
+                message: response.data
+            });
+            // if(postUpMsg) {
+            //     postUpMsg.innerHTML = response.data
+            // }
+
         })
     }
-    //this.setAttribute('disabled', !this.getAttribute('disabled'))
 
 }
 

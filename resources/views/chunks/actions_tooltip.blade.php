@@ -8,7 +8,7 @@
         <i class="fas fa-trash"></i>
         <span class="b-tooltip__name">удалить</span>
     </a>
-    <a class="b-tooltip__link" href="">
+    <a class="b-tooltip__link js_postUp" data-id="{{$ad->id}}" href="">
         <i class="fas fa-redo"></i>
         <span class="b-tooltip__name">Поднять</span>
     </a>

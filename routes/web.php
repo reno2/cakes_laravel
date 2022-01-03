@@ -29,7 +29,6 @@ Auth::routes(['verify' => true]);
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'is_admin']],
     function () {
-
         // Меню контента
         Route::group(['prefix' => 'content'], function () {
             Route::resource('/category', 'CategoryController', ['as' => 'admin']);
@@ -69,6 +68,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         //Route::get('/search', "ArticleController@search")->name('admin_search');
     });
 
+
+
 // ===== PROFILE ===============================
 Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => ['auth', 'verified']],
     function () {
@@ -78,11 +79,11 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::post('/favorites', 'ProfileController@favorites')->name('profile.favorites');
         Route::delete('/avatar/remove/{profile_id}', 'ProfileController@removeAva')->name('profile.avatar.remove');
 
-
         // Уведомления о модерации
         Route::get('/moderate/', 'ProfileNotificationsController@moderate')->name('profile.moderate.index');
         Route::get('/moderate/personal/{user_id}', 'ProfileNotificationsController@moderatePersonal')->name('profile.moderate.personal');
         Route::post('/moderate/read', 'ProfileNotificationsController@moderateRead')->name('profile.moderate.read');
+
         // Уведомления для пользователя
         Route::get('/notifications/', 'ProfileNotificationsController@index')->name('profile.notice.index');
         Route::get('/notifications/personal/{user_id}', 'ProfileNotificationsController@personal')->name('profile.notice.personal');
@@ -102,6 +103,7 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile', 'middleware' => [
         Route::get('/favorites', 'ProfileController@favoritesList')->name('profile.favorites_list');
         Route::put('/secureUpdate/{user}', 'ProfileController@secureUpdate')->name('profile.secure.update');
         Route::put('/update/{profile}', 'ProfileController@update')->name('profile.update');
+        Route::post('/up/', 'ProfileController@postUp')->name('profile.up');
         Route::group(['namespace' => 'Ads', 'middleware' => ['profile']], function () {
             Route::resource('/ads', 'AdsController', ['as' => 'profile']);
         });
