@@ -34,7 +34,7 @@ class ReCaptcha implements Rule
         // Отправляем POST запрос и декодируем результаты ответа
         $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $value);
         $recaptcha = json_decode($recaptcha);
-        return ($recaptcha->success && $recaptcha->score >= 0.5) ?? false;
+        return ($recaptcha->success && $recaptcha->score >= 0.1) ?? false;
 
 
     }

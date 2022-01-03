@@ -174,8 +174,8 @@ h5, .h5 {
   text-align: left;
   margin-top: 16px;
   display: flex;
+  justify-content: center;
 }
-
 
 .captcha__info {
   margin-right: 8px;
@@ -183,6 +183,6 @@ h5, .h5 {
 .captcha__link{
   margin-right: 8px;
   margin-left: 8px;
-  color: #82c831;
+  color: $focusBlue;
 }
 // endRegion Google reCaptcha

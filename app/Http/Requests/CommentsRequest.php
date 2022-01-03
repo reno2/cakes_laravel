@@ -59,7 +59,7 @@ class CommentsRequest extends FormRequest
         //$this->route('ad');
         $rr = '';
         return [
-            'recaptcha_response' => new ReCaptcha,
+           // 'recaptcha_response' => new ReCaptcha,
             'name' => [
                 'required',
                 'max:30',
@@ -80,6 +80,7 @@ class CommentsRequest extends FormRequest
             'question.regex' => 'Поле должно содержать только алфавитные символы, цифры, и дефисы (-).',
             'question.required' => 'Поле объязательное',
             'question.between' => 'Значение :attribute должно быть от :min и до :max. символов',
+            'recaptcha_response' => 'Похоже вы робот'
         ];
     }
 }

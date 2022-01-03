@@ -1,6 +1,7 @@
 .btn{
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 
 .btn-small{
@@ -40,4 +41,7 @@
 }
 .blue:hover svg{
   fill: #fff;
+}
+.wide{
+  width: 100%;
 }

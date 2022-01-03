@@ -6307,10 +6307,6 @@ readers do not read off random characters that represent icons */
   display: none;
 }
 
-.onError {
-  border: 1px solid #e89d9d !important;
-}
-
 .onError + .js_error {
   display: block;
   text-align: left;

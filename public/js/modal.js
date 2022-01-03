@@ -1,8 +1,23 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+
+
     // Обработка нажатия на кнопку открыть форму
-    const formCreate = document.querySelectorAll('.js_modal')
+    const formCreate = document.querySelectorAll('.js_modal__open')
     formCreate.forEach(formEl => formEl.addEventListener('click', modalOpen))
+
+
+    // Закрытие модалки
+    const modalCloseBtn = document.querySelectorAll('.js_modalClose')
+    if(modalCloseBtn.length > 0){
+        modalCloseBtn.forEach((el, inx) => {
+           el.addEventListener('click', function(e){
+               popupClose(e.target.closest('.js_modal'))
+           })
+        })
+    }
+
+
 
 
 
@@ -30,9 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (submitQuestionModal.length)
         submitQuestionModal[0].addEventListener('submit', modalFormSubmit)
 
-    // Закрытие модалки
-    const modalCloseBtn = document.querySelectorAll('.js_modalClose')
-    modalCloseBtn.forEach(closeBtn => closeBtn.addEventListener('click', modalClose))
+
 })
 
 function modalFormSubmit(event) {
@@ -40,8 +53,9 @@ function modalFormSubmit(event) {
     const submitBtn = this.querySelector('[type="submit"]')
     submitBtn.disabled = true
     event.preventDefault();
+
     axios.post(
-        "profile/comments",
+        "/profile/comments",
         new FormData(this),
         {
             headers: {
@@ -50,11 +64,18 @@ function modalFormSubmit(event) {
             }
         }
     ).then(result => {
+
         if (result.status === 200) {
+            resetInputs(this)
             this.reset()
-            showMessage(result, this)
+            const modal = this.closest('.js_modal')
+            const success = modal.querySelector('.js_modal__success')
+            //Если блок с успехом есть, то выводим
+           if(success) showSuccess(result, modal, success)
+           else popupClose(modal)
         }
     }).catch(error => {
+        console.log(error);
         errorHandler(error.response.data, this, showMainError)
     }).then(() => {
         submitBtn.disabled = false
@@ -70,25 +91,28 @@ function errorHandler(errors, form, showMainError = false) {
         formInfo.classList.add('show')
         formInfo.querySelector('.js_errorMsg').innerHTML = errors.message
     }
+    console.log(inputs, errors.errors);
     for (let err in errors.errors) {
         if (inputs[err]) {
             const element = inputs[err]
-            if (element.type === 'textarea' || element.type === 'text') {
-                element.classList.add('onError')
-                element.parentElement.querySelector('.js_error')
+            if (element.type === 'textarea' || element.type === 'text' ||  element.type === 'hidden') {
+                element.closest('.js_form-cell').classList.add('onError')
+                element.closest('.js_form-cell').querySelector('.js_error')
                     .innerHTML = errors.errors[err]
             }
         }
     }
 }
 
-function showMessage(request, form) {
-    if (request.status === 200) {
-        const wrap = form?.closest('.js_modalWrap')
-        wrap.querySelector('.js_modalContent').style.display = 'none';
-        wrap.querySelector('.js_modalThanks').style.display = 'block';
-        wrap.querySelector('.js_modalThanks').querySelector('.js_thanksText').innerHTML = request.data.msg
-    }
+function showSuccess(request, modal, successBlock) {
+
+    modal.classList.add('modal_response')
+ //  const modal = form?.closest('.js_modalWrap')
+ //  modal.classList.add('modal_response', 'modal_thanks')
+      // wrap.querySelector('.js_modalContent').style.display = 'none';
+      //  wrap.querySelector('.js_modalThanks').style.display = 'block';
+      //  wrap.querySelector('.js_modalThanks').querySelector('.js_thanksText').innerHTML = request.data.msg
+
 }
 
 function modalOpen(event = null) {
@@ -106,7 +130,11 @@ function modalOpen(event = null) {
         modal.querySelector('input[name="method"]').value = this.getAttribute('data-method')
     }
     modal.classList.add('open')
-
+    modal.addEventListener('click', function(e){
+        if(!e.target.closest('.js_modalContent')){
+            popupClose(modal)
+        }
+    })
     const userId = this.getAttribute('data-user-id')
     const userName = this.getAttribute('data-user-name')
     const adsId = this.getAttribute('data-ads-id')
@@ -119,12 +147,12 @@ function modalOpen(event = null) {
         article_id.value = adsId
 }
 
-function modalClose() {
-    const modalWrap = document.querySelector('.js_modalWrap.open')
-    console.log(modalWrap);
-    modalWrap.querySelector('.js_modalContent').style.display = '';
-    if(modalWrap.querySelector('.js_modalThanks'))
-        modalWrap.querySelector('.js_modalThanks').style.display = 'none';
-
-    modalWrap.classList.remove('open')
+// Закрываем модалку
+function popupClose(popup){
+    //popup.querySelector('.js_modalContent').style.display = '';
+    //if(popup.querySelector('.js_modalThanks'))
+    //    popup.querySelector('.js_modalThanks').style.display = 'none';
+    popup.classList.remove('open', 'modal_response')
 }
+
+

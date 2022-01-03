@@ -1,0 +1,78 @@
+.form-cell{
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 24px;
+  width: 100%;
+  vertical-align: top;
+  transition: margin-bottom, 0.3s;
+}
+
+.form-cell.onFocus .form-cell__textarea,
+.form-cell.filled .form-cell__textarea{
+  border: 1px solid $focusBlue;
+}
+// region Textarea
+.form-cell .form-cell__textarea{
+  background: unset;
+  outline: none;
+  box-sizing: border-box;
+  border: unset;
+  padding: 16px 32px 0 16px;
+  border: 1px solid #e1f0ff;
+  border-radius: 8px;
+}
+// endRegion Textarea
+
+// region PlaceHolder
+.form-cell .form-cell__placeholder{
+  position: absolute;
+  pointer-events: none;
+  left: 16px;
+  top: 15px;
+  -webkit-transition: .2s ease all;
+  -o-transition: .2s ease all;
+  transition: .2s ease all;
+  background-color: #fff;
+  line-height: 19px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: #6A747B;
+  padding: 0 3px;
+}
+.form-cell.filled .form-cell__placeholder,
+.form-cell.onFocus .form-cell__placeholder{
+  top: -8px;
+  left: 16px!important;
+  border-radius: 8px;
+  color: $focusBlue;
+}
+// endRegion PlaceHolder
+
+// region Clear Svg
+.form-cell .form-cell__cleaner {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  opacity: .54;
+}
+.form-cell.filled .form-cell__cleaner {
+  display: block;
+}
+// endRegion Clear Svg
+
+
+// region Error
+.form-cell .js_error{
+  text-align: left;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.form-cell.onError .js_error{
+  display: block;
+}
+// endRegion Error

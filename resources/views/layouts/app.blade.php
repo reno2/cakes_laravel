@@ -89,6 +89,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/main.js')}}"></script>
+<script src="{{ asset('js/inputs.js')}}"></script>
 @yield('page-script')
 </body>
 </html>

@@ -8,9 +8,9 @@
 .js_error{
     display: none;
 }
-.onError{
-    border: 1px solid #e89d9d !important;
-}
+//.onError{
+//    border: 1px solid #e89d9d !important;
+//}
 .onError + .js_error{
     display: block;
     text-align: left;

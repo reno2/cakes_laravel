@@ -46,7 +46,7 @@
         </div>
         <div class="ad__actions">
             @if(!@auth()->check() || (@auth()->check() && (@auth()->user()->id != $ad->user_id)))
-                <a class="js_modal ad__question gray" href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
+                <a class="js_modal__open ad__question gray" href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
                     <i class="fas fa-envelope"></i>
                     <span class="ad__ask">&#32 задать вопрос</span>
                 </a>
