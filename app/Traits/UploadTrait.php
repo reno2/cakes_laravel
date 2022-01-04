@@ -54,11 +54,11 @@ trait UploadTrait
 
         // Если картинка была изменена то отправляем на модерацию
         if($change){
-            $this->article->update([
-                'moderate' => 0,
-            ]);
+            return true;
         }
-
+        else{
+            return false;
+        }
     }
 
     public function removeAsMain()
@@ -85,7 +85,6 @@ trait UploadTrait
         if ($newMain->id) {
             $newMain->order_column = 1;
             $y = $newMain->update(['custom_properties->main' => true]);
-            $rr = '';
         }else{
             dd($newMain);
         }
@@ -100,9 +99,6 @@ trait UploadTrait
             ->toMediaCollection('cover');
     }
 
-
-
-
     // Удаляем файлы переданные в запросе
     public function deleteMediaItem($items)
     {
@@ -114,6 +110,7 @@ trait UploadTrait
         }
 
     }
+
     // Удаление всех заисей и файлов связанной модели
     public function deleteAllElementMedia($article)
     {
@@ -123,45 +120,4 @@ trait UploadTrait
         return true;
     }
 
-
-
-//    public function uploadOne($file, $adsId)
-//    {
-//        $name           = $file->getClientOriginalName();
-//        $folders        = [
-//            'big' => 'images/' . $adsId . '/big_' . $name,
-//            'small' => 'images/' . $adsId . '/small_' . $name
-//        ];
-//        $sizes = [
-//            'big' => [350, 750, 'center'],
-//            'small' => [250, 250, 'center']
-//        ];
-//        $adsImageModel = new PostImage;
-//        $adsImageModel->article_id = $adsId;
-//        $adsImageModel->name = $name;
-//
-//        foreach ($folders as $key => $folder) {
-//            if (!Storage::disk('public')->exists($folder)) {
-//                $this->fileCrop($file, $sizes[$key], $folder);
-//                $url = Storage::url($folder);
-//                $adsImageModel->$key = $url;
-//            }
-//        }
-//        if( !$adsImageModel->save())
-//            $this->fail();
-//    }
-//
-//
-//
-//    public function fileCrop($file, $sizes, $path)
-//    {
-//        $image = Image::make($file)->fit($sizes[0], $sizes[1],
-//            function ($constraint) {
-//                $constraint->upsize();
-//            }, $sizes[2]);
-//        $save  = Storage::put('public/'.$path, (string)$image->encode());
-//        if (!$save) {
-//            $this->fail('Не удалось сохранить файл');
-//        }
-//    }
 }

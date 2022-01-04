@@ -68,9 +68,9 @@ class ArticleObserver
         $article->title = strip_tags($article->title);
         $article->description = strip_tags($article->description);
 
-        if($article->user_id == Auth::id() && !Auth::user()->is_admin) {
-            $article->moderate = 0;
-        }
+//        if($article->user_id == Auth::id() && !Auth::user()->is_admin) {
+//        $article->moderate = 0;
+    //}
 
     }
     /**

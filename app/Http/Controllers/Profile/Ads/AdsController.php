@@ -175,8 +175,8 @@ class AdsController extends Controller
         $inputs = $request->all();
 
         try{
-            $this->adsService->uploadChain($inputs, $ads);
-            $request->session()->flash('notice', "Объявление обновленно и отправлено на модерацию");
+           $moderateMsg =  ($this->adsService->uploadChain($inputs, $ads)) ? "Объявление обновленно и отправлено на модерацию" :  "Объявление обновленно" ;
+            $request->session()->flash('notice', $moderateMsg);
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();
         }
