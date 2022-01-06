@@ -33,7 +33,7 @@ class Article extends Model implements HasMedia, Viewable
 
     }
     public $toModerate = [
-        'categories', 'title'
+        'categories', 'title', 'description'
     ];
     protected $fillable = [
         'title',

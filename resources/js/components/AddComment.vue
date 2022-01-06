@@ -5,7 +5,9 @@
         border-radius: 8px;
         margin-bottom: 16px;
     }
-
+    .comments{
+        position: relative;
+    }
     .comments__list {
         margin-left: 24px;
         margin-top: 24px;
@@ -14,6 +16,8 @@
     .comment-form {
         border-top: 2px solid #f5f6f7;
         display: flex;
+        position: sticky;
+        bottom: 0;
     }
 
     .comment-form__btn {
@@ -96,6 +100,12 @@
     .comment__typing{
         font-size: 12px;
     }
+
+    .stk{
+        position: fixed;
+        bottom: -100px;
+    }
+
     @media (max-width: 1279px){
         .comment-form .comment__row{
             flex-grow: 1;
@@ -131,7 +141,7 @@
                 </transition-group>
             </div>
 
-            <div ref="commentForm" class="row justify-content-start comment-form">
+            <div ref="commentForm" class="row justify-content-start comment-form" v-scroll>
                 <div class="card-body">
                     <form @submit.prevent="submit">
                         <div class="form-row align-items-center">
@@ -166,9 +176,14 @@
 
 <script>
     import CommentGuestItem from "./CommentGuestItem";
+    import Stics from "../directives/stics";
 
     export default {
+        directives: {
+            Stics,
+        },
         data() {
+
             return {
                 isDisabled: false,
                 answers: null,
@@ -213,6 +228,9 @@
             }
         },
         methods: {
+            handleScroll(evt, el){
+                console.log('etretr');
+            },
             notMe(){
                 return Object.keys(this.usersObj).filter(u => {
                     return this.user !== u

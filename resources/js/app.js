@@ -41,6 +41,22 @@ moment().format();
 
 
 //Vue.component('features-component', require('./components/FeaturesComponent.vue'));
+//Vue.directive('sticky-scroll', require('./directives/Scroll').default);
+//
+// Vue.directive('scroll', {
+//     inserted: function (el, binding) {
+//         let f = function (evt) {
+//             console.log('tetret');
+//             if (binding.value(evt, el)) {
+//                 window.removeEventListener('scroll', f)
+//             }
+//         }
+//         window.addEventListener('scroll', f)
+//     }
+// })
+
+require("./directives/scroll.js");
+
 Vue.component('features-component', require('./components/FeaturesComponent.vue').default);
 Vue.component('fileinput-component', require('./components/FileInputComponent.vue').default);
 Vue.component('fileautocomplite-component', require('./components/FileautocompliteComponent.vue').default);

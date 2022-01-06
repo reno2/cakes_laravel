@@ -10987,9 +10987,9 @@ input:focus {
   color: #18191f;
 }
 
-/*a {*/
-/*  color: #3f4254;*/
-/*}*/
+a {
+  color: #3f4254;
+}
 
 a:hover {
   color: #419bbf;

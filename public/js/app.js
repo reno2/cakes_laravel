@@ -2002,6 +2002,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _CommentGuestItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommentGuestItem */ "./resources/js/components/CommentGuestItem.vue");
+/* harmony import */ var _directives_stics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../directives/stics */ "./resources/js/directives/stics.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -2180,8 +2181,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  directives: {
+    Stics: _directives_stics__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       isDisabled: false,
@@ -2243,6 +2258,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    handleScroll: function handleScroll(evt, el) {
+      console.log('etretr');
+    },
     notMe: function notMe() {
       var _this = this;
 
@@ -10742,7 +10760,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429]{\n    font-size: 12px;\n}\n@media (max-width: 1279px){\n.comment-form .comment__row[data-v-2e098429]{\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429]{\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429]{\n    position: relative;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429]{\n    font-size: 12px;\n}\n.stk[data-v-2e098429]{\n    position: fixed;\n    bottom: -100px;\n}\n@media (max-width: 1279px){\n.comment-form .comment__row[data-v-2e098429]{\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429]{\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -89164,6 +89182,7 @@ var render = function() {
       _c(
         "div",
         {
+          directives: [{ name: "scroll", rawName: "v-scroll" }],
           ref: "commentForm",
           staticClass: "row justify-content-start comment-form"
         },
@@ -102637,6 +102656,21 @@ moment().format();
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 //Vue.component('features-component', require('./components/FeaturesComponent.vue'));
+//Vue.directive('sticky-scroll', require('./directives/Scroll').default);
+//
+// Vue.directive('scroll', {
+//     inserted: function (el, binding) {
+//         let f = function (evt) {
+//             console.log('tetret');
+//             if (binding.value(evt, el)) {
+//                 window.removeEventListener('scroll', f)
+//             }
+//         }
+//         window.addEventListener('scroll', f)
+//     }
+// })
+
+__webpack_require__(/*! ./directives/scroll.js */ "./resources/js/directives/scroll.js");
 
 Vue.component('features-component', __webpack_require__(/*! ./components/FeaturesComponent.vue */ "./resources/js/components/FeaturesComponent.vue")["default"]);
 Vue.component('fileinput-component', __webpack_require__(/*! ./components/FileInputComponent.vue */ "./resources/js/components/FileInputComponent.vue")["default"]);
@@ -103797,6 +103831,76 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SocialShare_vue_vue_type_template_id_2ea85657___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/directives/scroll.js":
+/*!*******************************************!*\
+  !*** ./resources/js/directives/scroll.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.directive('scroll', {
+  inserted: function inserted(el, binding) {
+    // let rect = el.getBoundingClientRect();
+    var elPos = el.offsetTop;
+
+    var f = function f(evt) {
+      var rect = el.getBoundingClientRect();
+      console.log(pageYOffset, rect.top, elPos, "==");
+
+      if (pageYOffset < elPos) {
+        el.classList.add('stk'); // el.style.cssText = `
+        //     position: absolute;
+        //     bottom: ${pageYOffset + window.innerHeight + rect.height}px;
+        // `
+      } else {
+        el.classList.remove('stk'); // el.style.cssText = `
+        //     position: static;
+        //     bottom: 0;
+        // `
+      } // if (binding.value(evt, el)) {
+      //     window.removeEventListener('scroll', f)
+      // }
+
+    };
+
+    window.addEventListener('scroll', f);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/directives/stics.js":
+/*!******************************************!*\
+  !*** ./resources/js/directives/stics.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  stics: stics
+});
+var stics = {
+  inserted: function inserted(el, binding) {
+    var f = function f(evt) {
+      console.log('test');
+
+      if (binding.value(evt, el)) {
+        window.removeEventListener('scroll', f);
+      }
+    };
+
+    window.addEventListener('scroll', f);
+  }
+};
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('stics', stics);
 
 /***/ }),
 
