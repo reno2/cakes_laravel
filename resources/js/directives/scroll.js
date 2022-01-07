@@ -1,11 +1,13 @@
 Vue.directive('scroll', {
     inserted: function (el, binding) {
        // let rect = el.getBoundingClientRect();
-        let elPos = el.offsetTop
+       // let elPos = el.offsetTop
+
         let f = function (evt) {
             let rect = el.getBoundingClientRect();
+            let elPos = el.offsetTop
 
-            console.log(pageYOffset ,   rect.top,elPos,  "==");
+           // console.log(pageYOffset ,   elPos, rect.height,  window.innerHeight, "==");
             if( pageYOffset < elPos) {
                 el.classList.add('stk')
                 // el.style.cssText = `

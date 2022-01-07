@@ -5,7 +5,7 @@
         border-radius: 8px;
         margin-bottom: 16px;
     }
-    .comments{
+    .comments {
         position: relative;
     }
     .comments__list {
@@ -40,7 +40,10 @@
         width: 500px;
         margin-left: 86px;
     }
-
+    .comment__input:active,
+    .comment__input:focus {
+        outline: unset;
+    }
     .comment__input {
         background-color: #f5f6f7;
         border: none;
@@ -48,6 +51,9 @@
         border-radius: 8px;
         width: 100%;
         color: #b19b9b;
+        resize: none;
+        height: auto;
+        padding-right: 40px;
     }
     .comment__loading,
     .comment__submit {
@@ -97,22 +103,26 @@
         transform: translateX(50px) scaleY(0);
         transform-origin: center bottom;
     }
-    .comment__typing{
+    .comment__typing {
         font-size: 12px;
     }
 
-    .stk{
+    .fix {
         position: fixed;
-        bottom: -100px;
+        bottom: 0px;
+        z-index: 9;
+        width: 784px;
+        background: #ffffff;
+        box-shadow: 0px -22px 23px -24px #00000038;
     }
 
-    @media (max-width: 1279px){
-        .comment-form .comment__row{
+    @media (max-width: 1279px) {
+        .comment-form .comment__row {
             flex-grow: 1;
             width: inherit;
             margin-left: 0;
         }
-        .comment-form .comment-form__btn{
+        .comment-form .comment-form__btn {
             max-width: 56px;
         }
     }
@@ -125,7 +135,7 @@
     <div class="container">
         <div class="comments">
 
-            <div v-if="comments" class="comments__wrap">
+            <div v-if="comments" class="comments__wrap" ref="container">
                 <transition-group name="comments-transition" tag="div" class="comments__list">
                     <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
                         <CommentGuestItem
@@ -141,42 +151,45 @@
                 </transition-group>
             </div>
 
-            <div ref="commentForm" class="row justify-content-start comment-form" v-scroll>
-                <div class="card-body">
-                    <form @submit.prevent="submit">
-                        <div class="form-row align-items-center">
-                            <div class="comment__row">
-                                <input type="text" name="comment" class="comment__input" id="comment" @keydown="actionUser" v-model="comment"
-                                       placeholder="Введите текст">
-                                <button v-if="!isDisabled" type="submit" class="btn comment__submit">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                                <span v-else class="btn comment__loading">
-                                    <i class="fas fa-circle-notch fa-spin"></i>
-                                </span>
-                                <span v-if="error.status"
-                                      class="help-block comment__error text-danger">{{ error.msg }}</span>
-                            </div>
-                            <div class="comment__row" v-if="isUserTyping">
-                                <span class="comment__typing">{{isUserTyping.user}} печатает....</span>
-                            </div>
-                            <div class="comment-form__btn" v-if="event==='update'">
-                                <button @click.prevent="exitEdit" class="comment-form__edit">
-                                    <i class="comment-form__icon fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
-                </div>
+        </div>
+        <div ref="commentForm" class="row justify-content-start comment-form">
+            <div class="card-body">
+                <form @submit.prevent="submit">
+                    <div class="form-row align-items-center">
+                        <div class="comment__row">
+                            <textarea type="text" name="comment" class="comment__input scrollVertical" id="comment" @keydown="actionUser" v-model="comment"
+                                      placeholder="Введите текст">
+                            </textarea>
+                            <button v-if="!isDisabled" type="submit" class="btn comment__submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <span v-else class="btn comment__loading">
+                                <i class="fas fa-circle-notch fa-spin"></i>
+                            </span>
+                            <span v-if="error.status"
+                                  class="help-block comment__error text-danger">{{ error.msg }}</span>
+                        </div>
+                        <div class="comment__row" v-if="isUserTyping">
+                            <span class="comment__typing">{{isUserTyping.user}} печатает....</span>
+                        </div>
+                        <div class="comment-form__btn" v-if="event==='update'">
+                            <button @click.prevent="exitEdit" class="comment-form__edit">
+                                <i class="comment-form__icon fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import CommentGuestItem from "./CommentGuestItem";
-    import Stics from "../directives/stics";
+    import CommentGuestItem from './CommentGuestItem';
+    import Stics from '../directives/stics';
+
 
     export default {
         directives: {
@@ -185,6 +198,8 @@
         data() {
 
             return {
+                firstRender: false,
+                topForm: 0,
                 isDisabled: false,
                 answers: null,
                 comment: null,
@@ -202,7 +217,7 @@
                 usersOnline: [],
 
                 updatedComment: []
-            }
+            };
         },
         components: {
             CommentGuestItem
@@ -217,65 +232,66 @@
             routeUpdate: {type: String},
             token: {type: String},
             room: {type: String},
-           // owner: {type: String}
+            // owner: {type: String}
         },
         watch: {
             comment() {
-                this.error.status = false
+                this.error.status = false;
             },
-            updatedComment(){
+            updatedComment() {
                 console.log(this.updatedComment);
             }
         },
         methods: {
-            handleScroll(evt, el){
-                console.log('etretr');
-            },
-            notMe(){
+
+            notMe() {
                 return Object.keys(this.usersObj).filter(u => {
-                    return this.user !== u
-                })
+                    return this.user !== u;
+                });
             },
             exitEdit() {
-                this.event = 'save'
-                this.comment = ''
+                this.event = 'save';
+                this.comment = '';
             },
             async deleteComment(id) {
                 if (confirm('Удалить?')) {
-                    const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE', {room: this.room})
-                    if (status) this.removeById(id)
+                    const status = await this.sendRequest(`/profile/comments/${id}`, 'DELETE', {room: this.room});
+                    if (status) this.removeById(id);
                 } else {
-                    return false
+                    return false;
                 }
             },
             removeById(id) {
-                this.comments = this.comments.filter(item => item.id !== id)
+                this.comments = this.comments.filter(item => item.id !== id);
             },
             editComment(id) {
-                this.$refs.commentForm.scrollIntoView({block: "center", behavior: "smooth"});
-                const commentText = this.comments.filter(item => item.id === id)
-                this.comment = commentText[0].comment
-                this.id = id
-                this.event = 'update'
+                this.$refs.commentForm.scrollIntoView({
+                    block: 'center',
+                    behavior: 'smooth'
+                });
+                const commentText = this.comments.filter(item => item.id === id);
+                this.comment = commentText[0].comment;
+                this.id = id;
+                this.event = 'update';
             },
             updateComment(comment) {
                 this.comments = this.comments.map(item => {
-                    if (item.id === comment.id){
-                        comment.isUpdate =  true
-                        item = comment
+                    if (item.id === comment.id) {
+                        comment.isUpdate = true;
+                        item = comment;
 
-                       this.removeUpdatedClass()
+                        this.removeUpdatedClass();
                     }
-                    return item
-                })
+                    return item;
+                });
             },
-            removeUpdatedClass(){
+            removeUpdatedClass() {
                 setTimeout(() => {
                     this.comments = this.comments.map(comment => {
-                        if(comment.isUpdate) comment.isUpdate = false
-                        return comment
-                     })
-                },8000)
+                        if (comment.isUpdate) comment.isUpdate = false;
+                        return comment;
+                    });
+                }, 8000);
             },
             addItem(comment) {
                 const tmp = {
@@ -285,13 +301,13 @@
                     id: comment.id,
                     from_user_id: comment.from_user_id,
                     user_id: comment.user_id,
-                }
-                this.comments.push(tmp)
+                };
+                this.comments.push(tmp);
             },
             async submit() {
                 //return console.log(this.notMe())
 
-                if (!this.isDisabled)
+                if (!this.isDisabled) {
                     if (this.comment && !this.comment.trim() == '' && this.comment.length < 150) {
                         const data = {
                             id: this.id,
@@ -301,118 +317,149 @@
                             from_user_id: this.user,
                             user_id: this.notMe()[0],
                             room: this.room
-                        }
-                        let method
-                        let route
+                        };
+                        let method;
+                        let route;
                         if (this.event === 'save') {
-                            method = 'POST'
-                            route = this.routeCreate
+                            method = 'POST';
+                            route = this.routeCreate;
                         } else {
-                            method = 'PUT'
-                            route = this.routeUpdate
+                            method = 'PUT';
+                            route = this.routeUpdate;
                         }
-                        this.isDisabled = true
+                        this.isDisabled = true;
                         try {
-                            const response = await this.sendRequest(route, method, data)
-                            if (this.event === 'save')
-                                this.addItem(response.comment)
-                            else
-                                this.updateComment(response.comment)
-                            this.comment = ''
-                            this.event = 'save'
+                            const response = await this.sendRequest(route, method, data);
+                            if (this.event === 'save') {
+                                this.addItem(response.comment);
+                            } else {
+                                this.updateComment(response.comment);
+                            }
+                            this.comment = '';
+                            this.event = 'save';
                         } catch (e) {
-                            this.error.status = true
+                            this.error.status = true;
                         }
-                        this.isDisabled = false
+                        this.isDisabled = false;
 
 
                     } else {
-                        this.error.status = true
+                        this.error.status = true;
                     }
+                }
             },
             sendRequest(url, method, data) {
-                let that = this
+                let that = this;
                 return new Promise(function (resolve, reject) {
                     axios({
                         method,
                         url,
                         data,
                         headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "Authorization": "Token " + that.token
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Token ' + that.token
                         }
                     }).then(response => {
-                        resolve(response.data)
+                        resolve(response.data);
                     }).catch((error) => {
-                        reject(error)
-                    })
-                })
+                        reject(error);
+                    });
+                });
             },
-            actionUser(){
+            actionUser() {
                 this.channel
-                .whisper('typing', {
-                    user: this.usersObj[this.user].name
-                    })
-            }
+                    .whisper('typing', {
+                        user: this.usersObj[this.user].name
+                    });
+            },
 
+            handleScroll(evt) {
+                if (pageYOffset + window.innerHeight - this.$refs.commentForm.offsetHeight <= this.topForm) {
+                    this.$refs.commentForm.classList.add('fix');
+                } else {
+                    this.$refs.commentForm.classList.remove('fix');
+                }
+            }
         },
 
         computed: {
             renderComments() {
-                return this.comments
+                return this.comments;
             },
-            channel(){
-                return window.Echo.join(`room.${this.room}`)
+            channel() {
+                return window.Echo.join(`room.${this.room}`);
             }
         },
+
+        updated: function () {
+
+            if (!this.firstRender) {
+                let top = this.$refs.commentForm.offsetTop;
+                window.scrollTo({
+                    top: top,
+                    behavior: 'smooth'
+                });
+                this.topForm = top;
+                this.firstRender = true;
+            }
+
+        },
         mounted() {
+            this.topForm = this.$refs.commentForm.offsetTop;
             setTimeout(
-                () => {this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})}, 500 )
+                () => {
+                    //  this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})
+                    //  this.topForm =
+                    //console.log(this.$refs.commentForm.offsetTop);
+                }, 1000);
             if (this.commentUsers) {
-                this.usersObj = JSON.parse(this.commentUsers)
+                this.usersObj = JSON.parse(this.commentUsers);
             }
             if (this.subs) {
-                this.comments = JSON.parse(this.subs)
+                this.comments = JSON.parse(this.subs);
             }
 
 
             // Init chat
             this.channel
                 .here(users => {
-                    this.usersOnline = users
+                    this.usersOnline = users;
                 })
                 .joining(user => {
-                    this.usersOnline.push(user)
+                    this.usersOnline.push(user);
                 })
-                .leaving( user => {
-                    this.usersOnline.splice(this.usersOnline.indexOf(user))
+                .leaving(user => {
+                    this.usersOnline.splice(this.usersOnline.indexOf(user));
                 })
                 .listen('.questions', ({data}) => {
-                    if(data.event === 'delete') {
-                        return this.comments = this.comments.filter(item => item.id !== data.id)
+                    if (data.event === 'delete') {
+                        return this.comments = this.comments.filter(item => item.id !== data.id);
                     }
-                    if(data.event === 'updated') {
-                        return this.updateComment(data)
+                    if (data.event === 'updated') {
+                        return this.updateComment(data);
                     }
 
 
 
 
-                    this.isUserTyping = false
-                    this.comments.push({...data})
+                    this.isUserTyping = false;
+                    this.comments.push({...data});
                 })
                 .listenForWhisper('typing', (e) => {
                     //console.log(e);
-                    this.isUserTyping = e
+                    this.isUserTyping = e;
 
-                    if(this.typingTimer) clearTimeout(this.typingTimer)
+                    if (this.typingTimer) clearTimeout(this.typingTimer);
 
                     this.typingTimer = setTimeout(() => {
-                        this.isUserTyping = false
-                    }, 2000)
-                })
+                        this.isUserTyping = false;
+                    }, 2000);
+                });
 
+        },
+        created() {
+            window.addEventListener('scroll', this.handleScroll);
         }
     }
 </script>

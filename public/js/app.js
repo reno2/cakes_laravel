@@ -2191,6 +2191,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2199,6 +2211,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      firstRender: false,
+      topForm: 0,
       isDisabled: false,
       answers: null,
       comment: null,
@@ -2258,9 +2272,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    handleScroll: function handleScroll(evt, el) {
-      console.log('etretr');
-    },
     notMe: function notMe() {
       var _this = this;
 
@@ -2315,8 +2326,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     editComment: function editComment(id) {
       this.$refs.commentForm.scrollIntoView({
-        block: "center",
-        behavior: "smooth"
+        block: 'center',
+        behavior: 'smooth'
       });
       var commentText = this.comments.filter(function (item) {
         return item.id === id;
@@ -2404,7 +2415,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 8:
                 response = _context2.sent;
-                if (_this5.event === 'save') _this5.addItem(response.comment);else _this5.updateComment(response.comment);
+
+                if (_this5.event === 'save') {
+                  _this5.addItem(response.comment);
+                } else {
+                  _this5.updateComment(response.comment);
+                }
+
                 _this5.comment = '';
                 _this5.event = 'save';
                 _context2.next = 17;
@@ -2439,9 +2456,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           url: url,
           data: data,
           headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": "Token " + that.token
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Token ' + that.token
           }
         }).then(function (response) {
           resolve(response.data);
@@ -2454,6 +2471,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.channel.whisper('typing', {
         user: this.usersObj[this.user].name
       });
+    },
+    handleScroll: function handleScroll(evt) {
+      if (pageYOffset + window.innerHeight - this.$refs.commentForm.offsetHeight <= this.topForm) {
+        this.$refs.commentForm.classList.add('fix');
+      } else {
+        this.$refs.commentForm.classList.remove('fix');
+      }
     }
   },
   computed: {
@@ -2464,15 +2488,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return window.Echo.join("room.".concat(this.room));
     }
   },
+  updated: function updated() {
+    if (!this.firstRender) {
+      var top = this.$refs.commentForm.offsetTop;
+      window.scrollTo({
+        top: top,
+        behavior: 'smooth'
+      });
+      this.topForm = top;
+      this.firstRender = true;
+    }
+  },
   mounted: function mounted() {
     var _this6 = this;
 
-    setTimeout(function () {
-      _this6.$refs.commentForm.scrollIntoView({
-        block: "end",
-        behavior: "auto"
-      });
-    }, 500);
+    this.topForm = this.$refs.commentForm.offsetTop;
+    setTimeout(function () {//  this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})
+      //  this.topForm =
+      //console.log(this.$refs.commentForm.offsetTop);
+    }, 1000);
 
     if (this.commentUsers) {
       this.usersObj = JSON.parse(this.commentUsers);
@@ -2513,6 +2547,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this6.isUserTyping = false;
       }, 2000);
     });
+  },
+  created: function created() {
+    window.addEventListener('scroll', this.handleScroll);
   }
 });
 
@@ -10760,7 +10797,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429]{\n    position: relative;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429]{\n    font-size: 12px;\n}\n.stk[data-v-2e098429]{\n    position: fixed;\n    bottom: -100px;\n}\n@media (max-width: 1279px){\n.comment-form .comment__row[data-v-2e098429]{\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429]{\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -89139,7 +89176,7 @@ var render = function() {
       _vm.comments
         ? _c(
             "div",
-            { staticClass: "comments__wrap" },
+            { ref: "container", staticClass: "comments__wrap" },
             [
               _c(
                 "transition-group",
@@ -89177,122 +89214,117 @@ var render = function() {
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [{ name: "scroll", rawName: "v-scroll" }],
-          ref: "commentForm",
-          staticClass: "row justify-content-start comment-form"
-        },
-        [
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.submit($event)
-                  }
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        ref: "commentForm",
+        staticClass: "row justify-content-start comment-form"
+      },
+      [
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submit($event)
                 }
-              },
-              [
-                _c("div", { staticClass: "form-row align-items-center" }, [
-                  _c("div", { staticClass: "comment__row" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.comment,
-                          expression: "comment"
-                        }
-                      ],
-                      staticClass: "comment__input",
-                      attrs: {
-                        type: "text",
-                        name: "comment",
-                        id: "comment",
-                        placeholder: "Введите текст"
-                      },
-                      domProps: { value: _vm.comment },
-                      on: {
-                        keydown: _vm.actionUser,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.comment = $event.target.value
-                        }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-row align-items-center" }, [
+                _c("div", { staticClass: "comment__row" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.comment,
+                        expression: "comment"
                       }
-                    }),
-                    _vm._v(" "),
-                    !_vm.isDisabled
-                      ? _c(
-                          "button",
-                          {
-                            staticClass: "btn comment__submit",
-                            attrs: { type: "submit" }
-                          },
-                          [_c("i", { staticClass: "fas fa-paper-plane" })]
-                        )
-                      : _c("span", { staticClass: "btn comment__loading" }, [
-                          _c("i", {
-                            staticClass: "fas fa-circle-notch fa-spin"
-                          })
-                        ]),
-                    _vm._v(" "),
-                    _vm.error.status
-                      ? _c(
-                          "span",
-                          {
-                            staticClass: "help-block comment__error text-danger"
-                          },
-                          [_vm._v(_vm._s(_vm.error.msg))]
-                        )
-                      : _vm._e()
-                  ]),
+                    ],
+                    staticClass: "comment__input scrollVertical",
+                    attrs: {
+                      type: "text",
+                      name: "comment",
+                      id: "comment",
+                      placeholder: "Введите текст"
+                    },
+                    domProps: { value: _vm.comment },
+                    on: {
+                      keydown: _vm.actionUser,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.comment = $event.target.value
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _vm.isUserTyping
-                    ? _c("div", { staticClass: "comment__row" }, [
-                        _c("span", { staticClass: "comment__typing" }, [
-                          _vm._v(
-                            _vm._s(_vm.isUserTyping.user) + " печатает...."
-                          )
-                        ])
-                      ])
-                    : _vm._e(),
+                  !_vm.isDisabled
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn comment__submit",
+                          attrs: { type: "submit" }
+                        },
+                        [_c("i", { staticClass: "fas fa-paper-plane" })]
+                      )
+                    : _c("span", { staticClass: "btn comment__loading" }, [
+                        _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
+                      ]),
                   _vm._v(" "),
-                  _vm.event === "update"
-                    ? _c("div", { staticClass: "comment-form__btn" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "comment-form__edit",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.exitEdit($event)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "comment-form__icon fas fa-times"
-                            })
-                          ]
-                        )
-                      ])
+                  _vm.error.status
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "help-block comment__error text-danger"
+                        },
+                        [_vm._v(_vm._s(_vm.error.msg))]
+                      )
                     : _vm._e()
-                ])
-              ]
-            )
-          ])
-        ]
-      )
-    ])
+                ]),
+                _vm._v(" "),
+                _vm.isUserTyping
+                  ? _c("div", { staticClass: "comment__row" }, [
+                      _c("span", { staticClass: "comment__typing" }, [
+                        _vm._v(_vm._s(_vm.isUserTyping.user) + " печатает....")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.event === "update"
+                  ? _c("div", { staticClass: "comment-form__btn" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "comment-form__edit",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.exitEdit($event)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "comment-form__icon fas fa-times"
+                          })
+                        ]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ]
+          )
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -103844,11 +103876,10 @@ __webpack_require__.r(__webpack_exports__);
 Vue.directive('scroll', {
   inserted: function inserted(el, binding) {
     // let rect = el.getBoundingClientRect();
-    var elPos = el.offsetTop;
-
+    // let elPos = el.offsetTop
     var f = function f(evt) {
       var rect = el.getBoundingClientRect();
-      console.log(pageYOffset, rect.top, elPos, "==");
+      var elPos = el.offsetTop; // console.log(pageYOffset ,   elPos, rect.height,  window.innerHeight, "==");
 
       if (pageYOffset < elPos) {
         el.classList.add('stk'); // el.style.cssText = `

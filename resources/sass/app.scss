@@ -186,3 +186,27 @@ h5, .h5 {
   color: $focusBlue;
 }
 // endRegion Google reCaptcha
+
+
+// region Scroll
+
+  .scrollVertical::-webkit-scrollbar-track {
+    background-color: #d7dbde00;
+    opacity: 0.1;
+  }
+  .scrollVertical:hover::-webkit-scrollbar-track {
+    background-color: #d7dbde00
+  }
+  .scrollVertical::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .scrollVertical::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #48b0f7;
+  }
+  .scrollVertical:hover::-webkit-scrollbar-thumb {
+    background-color: #48b0f7;
+  }
+
+// endRegion Scroll
