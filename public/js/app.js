@@ -89219,7 +89219,7 @@ var render = function() {
       "div",
       {
         ref: "commentForm",
-        staticClass: "row justify-content-start comment-form fix"
+        staticClass: "row justify-content-start comment-form"
       },
       [
         _c("div", { staticClass: "card-body" }, [

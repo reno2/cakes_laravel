@@ -153,7 +153,7 @@
 
 
         </div>
-        <div ref="commentForm" class="row justify-content-start comment-form fix">
+        <div ref="commentForm" class="row justify-content-start comment-form">
             <div class="card-body">
                 <form @submit.prevent="submit">
                     <div class="form-row align-items-center">
