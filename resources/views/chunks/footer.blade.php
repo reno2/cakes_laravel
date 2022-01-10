@@ -5,3 +5,5 @@
     @include('forms.form_offer')
 @endif
 @yield('forms')
+
+@include('chunks.scripts')
