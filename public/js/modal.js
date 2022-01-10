@@ -54,6 +54,8 @@ function modalFormSubmit(event) {
     submitBtn.disabled = true
     event.preventDefault();
 
+
+
     axios.post(
         "/profile/comments",
         new FormData(this),
@@ -73,6 +75,7 @@ function modalFormSubmit(event) {
             //Если блок с успехом есть, то выводим
            if(success) showSuccess(result, modal, success)
            else popupClose(modal)
+            grecaptcha_execute()
         }
     }).catch(error => {
         console.log(error);

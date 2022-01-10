@@ -3,6 +3,9 @@ window.onload = function () {
     //========================И переключаем таб
     tabSwitcher()
     urlTabs()
+
+    // Получаем ключи картчи
+    grecaptcha_execute()
 }
 
 function tabSwitcher() {

@@ -59,7 +59,7 @@ class CommentsRequest extends FormRequest
         //$this->route('ad');
         $rr = '';
         return [
-           // 'recaptcha_response' => new ReCaptcha,
+            'recaptcha_response' => new ReCaptcha,
             'name' => [
                 'required',
                 'max:30',

@@ -2488,16 +2488,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return window.Echo.join("room.".concat(this.room));
     }
   },
-  updated: function updated() {
-    if (!this.firstRender) {
-      var top = this.$refs.commentForm.offsetTop;
-      window.scrollTo({
-        top: top,
-        behavior: 'smooth'
-      });
-      this.topForm = top;
-      this.firstRender = true;
-    }
+  updated: function updated() {// if (!this.firstRender) {
+    //     let top = this.$refs.commentForm.offsetTop;
+    //     window.scrollTo({
+    //         top: top,
+    //         behavior: 'smooth'
+    //     });
+    //     this.topForm = top;
+    //     this.firstRender = true;
+    // }
   },
   mounted: function mounted() {
     var _this6 = this;
@@ -2548,8 +2547,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, 2000);
     });
   },
-  created: function created() {
-    window.addEventListener('scroll', this.handleScroll);
+  created: function created() {//window.addEventListener('scroll', this.handleScroll);
   }
 });
 
@@ -89221,7 +89219,7 @@ var render = function() {
       "div",
       {
         ref: "commentForm",
-        staticClass: "row justify-content-start comment-form"
+        staticClass: "row justify-content-start comment-form fix"
       },
       [
         _c("div", { staticClass: "card-body" }, [

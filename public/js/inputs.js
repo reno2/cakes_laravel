@@ -33,6 +33,7 @@ const setEvents = (el) => {
 const clearInputs = (el) => {
     el.addEventListener('click', (e) => {
         const formCell =  e.target.closest('.js_form-cell')
+        console.log(formCell);
         const inputs = formCell.querySelectorAll("input, textarea")
         inputs.forEach((el, inx) => {
             el.value = ''

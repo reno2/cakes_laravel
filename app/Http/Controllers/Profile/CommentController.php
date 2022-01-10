@@ -252,15 +252,15 @@ class CommentController extends Controller
 
         $request->validated();
         $request = $request->toArray();
-        return response()->json(array ('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
+        //return response()->json(array ('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
 
-//       try{
-//            $newComment = $this->commentsRepository->create($request);
-//            return response()->json(array ('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
-//        } catch (\Exception  $e) {
-//           Log::debug($e->getMessage());
-//            return response()->json(array ('success' => false, 'msg' => $e->getMessage()), 200);
-//        }
+       try{
+            $newComment = $this->commentsRepository->create($request);
+            return response()->json(array ('success' => true, 'msg' => 'Ваш вопрос отправлен'), 200);
+        } catch (\Exception  $e) {
+           Log::debug($e->getMessage());
+            return response()->json(array ('success' => false, 'msg' => $e->getMessage()), 200);
+        }
     }
 
 
