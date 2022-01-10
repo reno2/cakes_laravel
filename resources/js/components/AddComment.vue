@@ -394,15 +394,15 @@
 
         updated: function () {
 
-            // if (!this.firstRender) {
-            //     let top = this.$refs.commentForm.offsetTop;
-            //     window.scrollTo({
-            //         top: top,
-            //         behavior: 'smooth'
-            //     });
-            //     this.topForm = top;
-            //     this.firstRender = true;
-            // }
+            if (!this.firstRender) {
+                let top = this.$refs.commentForm.offsetTop;
+                window.scrollTo({
+                    top: top,
+                    behavior: 'smooth'
+                });
+                this.topForm = top;
+                this.firstRender = true;
+            }
 
         },
         mounted() {
@@ -459,7 +459,7 @@
 
         },
         created() {
-            //window.addEventListener('scroll', this.handleScroll);
+            window.addEventListener('scroll', this.handleScroll);
         }
     }
 </script>
