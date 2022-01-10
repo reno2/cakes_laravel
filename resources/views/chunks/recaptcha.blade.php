@@ -13,6 +13,10 @@
         });
     }
 
+    grecaptcha.ready(function () {
+        grecaptcha_execute()
+    })
+
 </script>
 
 
