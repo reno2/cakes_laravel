@@ -91,5 +91,6 @@
 <script src="{{ asset('js/main.js')}}"></script>
 <script src="{{ asset('js/inputs.js')}}"></script>
 @yield('page-script')
+    @include('chunks.messeges')
 </body>
 </html>

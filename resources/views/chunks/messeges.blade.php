@@ -13,5 +13,4 @@
             message: "{{$flash}}"
         });
     </script>
-    Session::forget('notice');
 @endif

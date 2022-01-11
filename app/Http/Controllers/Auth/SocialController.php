@@ -21,8 +21,12 @@ class SocialController extends Controller
 
         try {
             $user = Socialite::driver($driver)->user();
-           // dd($user);
         } catch (\Exception $e) {
+            return redirect()->route('login');
+        }
+
+        if(!$user->getEmail()){
+            session()->flash('notice', "Для авторизации необходима почта");
             return redirect()->route('login');
         }
 
