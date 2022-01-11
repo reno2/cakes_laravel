@@ -9,7 +9,7 @@
         {!!  SeometaFacade::getData('h1')  !!}
     </div>
 
-    @include('chunks.all_massages')
+{{--    @include('chunks.all_massages')--}}
     <div class="container">
         @if (session('status'))
             <div class="alert alert-success" role="alert">

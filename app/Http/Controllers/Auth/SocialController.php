@@ -26,7 +26,7 @@ class SocialController extends Controller
         }
 
         if(!$user->getEmail()){
-            session()->flash('notice', "Для авторизации необходима почта");
+            session()->flash('warning', "Для авторизации необходима почта");
             return redirect()->route('login');
         }
 
