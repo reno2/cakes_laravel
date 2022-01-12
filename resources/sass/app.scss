@@ -209,4 +209,22 @@ h5, .h5 {
     background-color: #48b0f7;
   }
 
+.scrollFat::-webkit-scrollbar-track {
+  background-color: #d7dbde00;
+  opacity: 0.1;
+}
+.scrollFat:hover::-webkit-scrollbar-track {
+  background-color: #d7dbde00
+}
+.scrollFat::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+.scrollFat::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #48b0f7;
+}
+.scrollFat:hover::-webkit-scrollbar-thumb {
+  background-color: #48b0f7;
+}
 // endRegion Scroll

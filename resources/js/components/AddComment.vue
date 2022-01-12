@@ -7,12 +7,15 @@
     }
     .comments {
         position: relative;
+        padding-right: 16px;
     }
     .comments__list {
         margin-left: 24px;
         margin-top: 24px;
     }
-
+    .comments__list .row{
+        margin-right: 0;
+    }
     .comment-form {
         border-top: 2px solid #f5f6f7;
         display: flex;
@@ -132,8 +135,8 @@
 
 </style>
 <template>
-    <div class="container">
-        <div class="comments">
+    <div class="_container">
+        <div class="comments fix_viewport scrollFat">
 
             <div v-if="comments" class="comments__wrap" ref="container">
                 <transition-group name="comments-transition" tag="div" class="comments__list">
@@ -459,7 +462,7 @@
 
         },
         created() {
-            window.addEventListener('scroll', this.handleScroll);
+           // window.addEventListener('scroll', this.handleScroll);
         }
     }
 </script>

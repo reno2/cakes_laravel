@@ -2203,6 +2203,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2548,8 +2551,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, 2000);
     });
   },
-  created: function created() {
-    window.addEventListener('scroll', this.handleScroll);
+  created: function created() {// window.addEventListener('scroll', this.handleScroll);
   }
 });
 
@@ -10797,7 +10799,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n    padding-right: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comments__list .row[data-v-2e098429]{\n    margin-right: 0;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -89171,8 +89173,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "comments" }, [
+  return _c("div", { staticClass: "_container" }, [
+    _c("div", { staticClass: "comments fix_viewport scrollFat" }, [
       _vm.comments
         ? _c(
             "div",
