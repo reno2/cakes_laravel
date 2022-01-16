@@ -136,10 +136,10 @@
 </style>
 <template>
     <div class="_container">
-        <div class="comments fix_viewport scrollFat">
+        <div ref="comments" class="comments fix_viewport scrollFat">
 
             <div v-if="comments" class="comments__wrap" ref="container">
-                <transition-group name="comments-transition" tag="div" class="comments__list">
+                <transition-group ref="commentList" name="comments-transition" tag="div" class="comments__list">
                     <div v-for="item in renderComments" class="row justify-content-start" :key="item.id">
                         <CommentGuestItem
                             :usersOnline="usersOnline"
@@ -306,6 +306,7 @@
                     user_id: comment.user_id,
                 };
                 this.comments.push(tmp);
+                this.handleScroll()
             },
             async submit() {
                 //return console.log(this.notMe())
@@ -378,11 +379,13 @@
             },
 
             handleScroll(evt) {
-                if (pageYOffset + window.innerHeight - this.$refs.commentForm.offsetHeight <= this.topForm) {
-                    this.$refs.commentForm.classList.add('fix');
-                } else {
-                    this.$refs.commentForm.classList.remove('fix');
-                }
+                this.$nextTick(() => {
+                    let top = this.$refs.commentList.$el.lastElementChild.offsetTop;
+                    this.$refs.comments.scrollTo({
+                        top: top,
+                        behavior: 'smooth'
+                    });
+                })
             }
         },
 
@@ -398,12 +401,7 @@
         updated: function () {
 
             if (!this.firstRender) {
-                let top = this.$refs.commentForm.offsetTop;
-                window.scrollTo({
-                    top: top,
-                    behavior: 'smooth'
-                });
-                this.topForm = top;
+                this.handleScroll()
                 this.firstRender = true;
             }
 

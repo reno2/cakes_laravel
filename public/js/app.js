@@ -2373,6 +2373,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         user_id: comment.user_id
       };
       this.comments.push(tmp);
+      this.handleScroll();
     },
     submit: function submit() {
       var _this5 = this;
@@ -2476,11 +2477,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     handleScroll: function handleScroll(evt) {
-      if (pageYOffset + window.innerHeight - this.$refs.commentForm.offsetHeight <= this.topForm) {
-        this.$refs.commentForm.classList.add('fix');
-      } else {
-        this.$refs.commentForm.classList.remove('fix');
-      }
+      var _this6 = this;
+
+      this.$nextTick(function () {
+        var top = _this6.$refs.commentList.$el.lastElementChild.offsetTop;
+
+        _this6.$refs.comments.scrollTo({
+          top: top,
+          behavior: 'smooth'
+        });
+      });
     }
   },
   computed: {
@@ -2493,17 +2499,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   updated: function updated() {
     if (!this.firstRender) {
-      var top = this.$refs.commentForm.offsetTop;
-      window.scrollTo({
-        top: top,
-        behavior: 'smooth'
-      });
-      this.topForm = top;
+      this.handleScroll();
       this.firstRender = true;
     }
   },
   mounted: function mounted() {
-    var _this6 = this;
+    var _this7 = this;
 
     this.topForm = this.$refs.commentForm.offsetTop;
     setTimeout(function () {//  this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})
@@ -2521,33 +2522,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
     this.channel.here(function (users) {
-      _this6.usersOnline = users;
+      _this7.usersOnline = users;
     }).joining(function (user) {
-      _this6.usersOnline.push(user);
+      _this7.usersOnline.push(user);
     }).leaving(function (user) {
-      _this6.usersOnline.splice(_this6.usersOnline.indexOf(user));
+      _this7.usersOnline.splice(_this7.usersOnline.indexOf(user));
     }).listen('.questions', function (_ref) {
       var data = _ref.data;
 
       if (data.event === 'delete') {
-        return _this6.comments = _this6.comments.filter(function (item) {
+        return _this7.comments = _this7.comments.filter(function (item) {
           return item.id !== data.id;
         });
       }
 
       if (data.event === 'updated') {
-        return _this6.updateComment(data);
+        return _this7.updateComment(data);
       }
 
-      _this6.isUserTyping = false;
+      _this7.isUserTyping = false;
 
-      _this6.comments.push(_objectSpread({}, data));
+      _this7.comments.push(_objectSpread({}, data));
     }).listenForWhisper('typing', function (e) {
       //console.log(e);
-      _this6.isUserTyping = e;
-      if (_this6.typingTimer) clearTimeout(_this6.typingTimer);
-      _this6.typingTimer = setTimeout(function () {
-        _this6.isUserTyping = false;
+      _this7.isUserTyping = e;
+      if (_this7.typingTimer) clearTimeout(_this7.typingTimer);
+      _this7.typingTimer = setTimeout(function () {
+        _this7.isUserTyping = false;
       }, 2000);
     });
   },
@@ -89174,50 +89175,58 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "_container" }, [
-    _c("div", { staticClass: "comments fix_viewport scrollFat" }, [
-      _vm.comments
-        ? _c(
-            "div",
-            { ref: "container", staticClass: "comments__wrap" },
-            [
-              _c(
-                "transition-group",
-                {
-                  staticClass: "comments__list",
-                  attrs: { name: "comments-transition", tag: "div" }
-                },
-                _vm._l(_vm.renderComments, function(item) {
-                  return _c(
-                    "div",
-                    { key: item.id, staticClass: "row justify-content-start" },
-                    [
-                      _c("CommentGuestItem", {
-                        attrs: {
-                          usersOnline: _vm.usersOnline,
-                          user: _vm.user,
-                          users: _vm.usersObj,
-                          item: item
-                        },
-                        on: {
-                          onEdit: function($event) {
-                            return _vm.editComment($event)
+    _c(
+      "div",
+      { ref: "comments", staticClass: "comments fix_viewport scrollFat" },
+      [
+        _vm.comments
+          ? _c(
+              "div",
+              { ref: "container", staticClass: "comments__wrap" },
+              [
+                _c(
+                  "transition-group",
+                  {
+                    ref: "commentList",
+                    staticClass: "comments__list",
+                    attrs: { name: "comments-transition", tag: "div" }
+                  },
+                  _vm._l(_vm.renderComments, function(item) {
+                    return _c(
+                      "div",
+                      {
+                        key: item.id,
+                        staticClass: "row justify-content-start"
+                      },
+                      [
+                        _c("CommentGuestItem", {
+                          attrs: {
+                            usersOnline: _vm.usersOnline,
+                            user: _vm.user,
+                            users: _vm.usersObj,
+                            item: item
                           },
-                          onDelete: function($event) {
-                            return _vm.deleteComment($event)
+                          on: {
+                            onEdit: function($event) {
+                              return _vm.editComment($event)
+                            },
+                            onDelete: function($event) {
+                              return _vm.deleteComment($event)
+                            }
                           }
-                        }
-                      })
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
-            ],
-            1
-          )
-        : _vm._e()
-    ]),
+                        })
+                      ],
+                      1
+                    )
+                  }),
+                  0
+                )
+              ],
+              1
+            )
+          : _vm._e()
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
