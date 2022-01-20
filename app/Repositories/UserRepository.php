@@ -14,11 +14,25 @@ class UserRepository extends CoreRepository{
      *  или null
      */
     public function getNotReadModerateNotice(){
-        return   $notices = Auth::user()->notifications()
+        return $notices = Auth::user()->notifications()
                                 ->where('type', 'App\Notifications\ModerateNotification')
                                 ->whereNull('read_at')
-                                ->simplePaginate(15);
+                                ->simplePaginate(15) ?? '';
     }
+
+
+    /**
+     *  return null | $notice
+     *  Количество не прочинаттые уведомления о модерации
+     *  или null
+     */
+    public function getNotReadModerateNoticeCount(){
+        return  Auth::user()->notifications()
+                                ->where('type', 'App\Notifications\ModerateNotification')
+                                ->whereNull('read_at')
+                                ->get()->count() ?? '';
+    }
+
 
 
 //    /**

@@ -36,6 +36,11 @@ input:focus{
     outline: none;
     box-shadow:none !important;
 }
+ol, ul, dl{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
 *{
     //font-family: 'Open Sans', sans-serif;
     //font-family: 'Roboto', sans-serif;

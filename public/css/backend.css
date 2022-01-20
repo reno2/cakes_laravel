@@ -6521,6 +6521,81 @@ readers do not read off random characters that represent icons */
   background: #f9f9f9;
 }
 
+.category-menu .menu {
+  display: flex;
+  align-items: center;
+}
+
+.category-menu .menu__li {
+  display: flex;
+  height: 100%;
+  align-items: inherit;
+  position: relative;
+}
+
+.category-menu .menu__li:not(:first-child) {
+  margin-left: 24px;
+}
+
+.category-menu .menu__link {
+  display: inherit;
+  align-items: center;
+  height: 100%;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 600;
+  padding: 24px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
+}
+
+.menu__sub {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: -100%;
+}
+
+.menu__parent .menu__sub.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: -100%;
+  height: 100%;
+  z-index: 9;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(120, 160, 190, 0.3);
+  border-radius: 0 0 10px 10px;
+}
+
+.menu__sub .menu {
+  background: #fff;
+  flex-direction: column;
+  align-items: self-start;
+  padding-bottom: 8px;
+}
+
+.menu__sub .menu .menu__li {
+  margin-left: 0;
+  width: 100%;
+}
+
+.menu__sub .menu .menu__link {
+  padding: 8px 0 8px 16px;
+  width: 100%;
+}
+
+.menu_svg {
+  width: 24px;
+  height: 24px;
+  fill: #afafaf;
+}
+
+.menu__sub .menu .menu__li:not(:last-child) .menu__link {
+  border-bottom: 1px solid #eee;
+}
+
 .info.info_admin {
   position: absolute;
   right: 3%;

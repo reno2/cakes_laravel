@@ -12,6 +12,7 @@ use App\Observers\ProfileObserver;
 use App\Observers\UserObserver;
 use App\Repositories\ProfileRepository;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Jenssegers\Date\Date;
 
@@ -65,7 +66,13 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('layouts.app', function($view)
         {
-            $view->with('favoritesCount', $this->getIds()['count']);
+            $massagesCounts = 0;
+            if(Auth::user()) $massagesCounts = helper_getAllNotice();
+
+
+            $view
+                ->with('favoritesCount', $this->getIds()['count'])
+                ->with('massagesCounts', $massagesCounts);
         });
     }
 }

@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class Category extends Model
 {
-    protected $fillable = ['title', 'slug', 'image', 'parent_id', 'published', 'created_by', 'modifierd_by', 'h1', 'meta_keywords', 'meta_description', 'description'];
+    protected $fillable = ['sort', 'title', 'slug', 'image', 'parent_id', 'published', 'created_by', 'modifierd_by', 'h1', 'meta_keywords', 'meta_description', 'description'];
 
     // Mutators
     public function setSlugAttribute($value)

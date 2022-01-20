@@ -23,7 +23,7 @@
 
 
 <div class="ui-block">
-    <ul class="ui-block__menu profile-menu">
+    <ul class="ui-block__menu">
         <li class="ui-menu__li">
             <a class="personal_a" href="{{route('profile.edit')}}">
                 <svg class="i-svg i-svg__tw i-svg__bgDark">

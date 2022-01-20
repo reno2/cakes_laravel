@@ -13,10 +13,14 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label for="title">Сортировка</label>
+    <input type="text" name="sort" class="form-control" id="name" value="{{$category->sort ?? 100}}">
+</div>
+
 <div class="slug d-flex align-items-center">
 
     <div class="form-group slug__el" id="slug__toggle">
-
         <input type="text" name="slug" class="form-control" id="slug" value="{{$category->slug ?? ''}}" readonly>
     </div>
     <div class="form-group slug__el form-check slug__checkbox ml-3">

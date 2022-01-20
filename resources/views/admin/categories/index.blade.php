@@ -16,6 +16,7 @@
         <thead>
         <th>Наименование</th>
         <th>Публикация</th>
+        <th>Сортировка</th>
         <th>Slug</th>
         <th>Уровень</th>
 
@@ -28,6 +29,7 @@
             <tr>
                 <td>{{$category->title}}</td>
                 <td>{{$category->published}}</td>
+                <td>{{$category->sort}}</td>
                 <td>{{$category->slug}}</td>
                 <td>{{$category->parent_id}}</td>
                 <td>
@@ -64,6 +66,7 @@
                 <thead>
                 <th>Наименование</th>
                 <th>Публикация</th>
+                <th>Сортировка</th>
                 <th>Slug</th>
                 <th>Уровень</th>
 
@@ -76,6 +79,7 @@
                     <tr>
                         <td>{{$category->title}}</td>
                         <td>{{$category->published}}</td>
+                        <td>{{$category->sort}}</td>
                         <td>{{$category->slug}}</td>
                         <td>{{$category->parent_id}}</td>
                         <td>

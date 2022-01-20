@@ -17,6 +17,8 @@ class ProfileServiceProvider extends ServiceProvider
         view()->composer(
             'layouts.profile',
             function ($view) {
+
+                $massagesCounts = helper_getAllNotice();
                 $user =  Auth::user();
                 $userId  = $user->id;
                 $profile = (new ProfileRepository)->getFirstProfileByUser($user);
@@ -63,8 +65,10 @@ class ProfileServiceProvider extends ServiceProvider
                     ->with('notifications_count', $notifications)
                     ->with('commentsCount', $notReadComments)
                     ->with('notifications_count', $moderateNotifications)
+                    ->with('favoritesCount', $favorites)
                     ->with('favorites', $favorites)
-                    ->with('notifications', $moderateNotifications);
+                    ->with('notifications', $moderateNotifications)
+                    ->with('massagesCounts', $massagesCounts);
             }
         );
     }

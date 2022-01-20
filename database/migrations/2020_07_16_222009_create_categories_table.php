@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('h1')->nullable();
             $table->string('slug')->unique();
             $table->integer('parent_id')->nullable();
+            $table->integer('sort')->default(100);
             $table->tinyInteger('published')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('modified_by')->nullable();
