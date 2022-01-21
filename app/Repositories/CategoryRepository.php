@@ -14,30 +14,10 @@ class CategoryRepository extends CoreRepository
 {
 
     public function getAllActiveItems(){
-        $items = $this->startCondition()
+        return $this->startCondition()
                       ->where('published', '1')
                       ->orderBy('sort', 'asc')
-                      ->get()
-                      ->keyBy('id')
-                      ->toArray();
-        if(!$items) return false;
-
-        $url = '/';
-        if(\Request::segment(2)){
-            $url = \Request::segment(2);
-        }
-        foreach($items as &$item){
-
-            //dd($item);
-            $item['is_active'] = (strpos($item['slug'], $url) !== false) ? true : false ;
-            $item['url'] = implode('/', ['', 'category', $item['slug'], '']);
-            if($item['parent_id'] !== 0) {
-                $items[$item['parent_id']]['CHILDREN'][] = $item;
-                unset($items[$item['id']]);
-            }
-
-        }
-        return $items;
+                      ->get();
     }
 
     /*
