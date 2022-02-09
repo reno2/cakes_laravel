@@ -78,8 +78,11 @@ const app = new Vue({
 
 
 
-import 'iziToast/dist/css/iziToast.css';
-window.iziToast = require('iziToast');
+/**
+ * Подключаем пакет для вывода уведомлений
+ */
+window.iziToast = require('izitoast');
+import 'izitoast/dist/css/iziToast.min.css';
 
 
 import Swiper from 'swiper/bundle';

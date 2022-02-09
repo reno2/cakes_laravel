@@ -3,12 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Seo\SeometaFacade;
+use App\Services\SearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Article;
 
 class SearchController extends Controller
 {
+
+    public function fulltextSearch(Request $request, SearchService $searchService){
+        $term =trim(strip_tags($request->get('term')));
+
+        $items = [];
+        $title = "Результатов по запросу $term не найдено.";
+        if($term) {
+            try{
+                list('items' => $items, 'title' => $title) = $searchService->getByQuery($term);
+            }catch (\Exception $e){
+
+            }
+
+        }
+
+        SeometaFacade::setStaticTag('title', 'Результаты поиска');
+        SeometaFacade::setStaticTag('h1', $title);
+
+        return view('search', [
+            'items' => $items,
+            'title' => $title
+        ]);
+    }
+
     public function index(Request $request){
         $search =trim(strip_tags($request->get('q')));
         if($search)

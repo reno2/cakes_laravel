@@ -25,6 +25,7 @@ Auth::routes(['verify' => true]);
 //    return view('welcome');
 //});
 
+Route::get('/search', 'SearchController@fulltextSearch')->name('fulltextSearch');
 
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'is_admin']],
