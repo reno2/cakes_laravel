@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="header-middle__menu search">
-                    <form class="search__form" action="">
+                    <form class="search__form" action="{{ route('fulltextSearch') }}">
                         <div class="form-cell search__cell">
                             <input class="search__input" type="text">
                             <svg class="search__btnSvg">
