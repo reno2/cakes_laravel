@@ -20,6 +20,14 @@ class CategoryRepository extends CoreRepository
                       ->get();
     }
 
+    public function getAllActiveParentItems(){
+        return $this->startCondition()
+                    ->where('published', '1')
+                    ->where('parent', '0')
+                    ->orderBy('sort', 'asc')
+                    ->get();
+    }
+
     /*
    * @return string
    */

@@ -33,7 +33,6 @@ class MenuWidget implements ContractWidget
             }
         }
 
-    //    dd($data);
         return view('Widgets::menu', [
             'data' => $data
         ]);

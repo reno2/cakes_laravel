@@ -1,42 +1,49 @@
+<div class="header-top">
+    <div class="container">
+        <div class="header-top__inner">
+            <ul class="header-top__ul">
+                <li class="header-top__li">
+                    <a href="" class="header-top__link">Условия</a>
+                </li>
+                <li class="header-top__li">
+                    <a href="" class="header-top__link">Правила</a>
+                </li>
+                <li class="header-top__li">
+                    <a href="" class="header-top__link">Партнёрам</a>
+                </li>
+            </ul>
+            <div class="header-top__cities">
+                Санкт-Петербург
+            </div>
+        </div>
+    </div>
+</div>
 <div class="header-middle">
     <div class="container">
         <div class="header-middle__inner">
             <div class="header-middle__logo logo">
                 <a class="logo__link" href="{{ url('/') }}">
-                    <img class="logo__desc" src="/images/full-logo.svg">
+                    <img class="logo__desc" src="/images/logo3.svg">
                 </a>
             </div>
-            <div class="header-middle__menu main-menu">
-                @widget('moreMenu')
-            </div>
-
-
-            <div class="header-middle__search search">
+            <div class="header-middle__menu search">
                 <form class="search__form" action="{{ route('fulltextSearch') }}">
                     <div class="form-cell search__cell">
-
-                        <svg class="js_clear search__close form-cell__cleaner">
-                            <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
-                        </svg>
-
                         <input name="term" class="search__input" type="text" value="{{ app('request')->input('term') }}">
-                    </div>
-                </form>
-
-            </div>
-
-
-            <div class="header-middle__profile profile">
-
-                <div class="profile__item js_profile__item">
-                    <a class="profile__mlink profile__search" href="">
-                        <svg class="profile_svg profile__person-svg">
+                        <svg class="search__btnSvg">
                             <use xlink:href="/images/icons.svg#icon_search"></use>
                         </svg>
-                        <span class="profile__name">Поиск</span>
-                    </a>
-                </div>
+                        <div class="search__actions">
+                            <svg class="js_clear search__close form-cell__cleaner">
+                                <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
+                            </svg>
+                            <button class="search__submit">Найти</button>
+                        </div>
 
+                    </div>
+                </form>
+            </div>
+            <div class="header-middle__profile profile yellow">
                 @guest
                     <div class="profile__item js_profile__item">
                         <a class="profile__mlink profile__login" href="{{ route('login') }}">
@@ -154,11 +161,11 @@
     </div>
 </div>
 
-{{--<div class="header-menus">--}}
-{{--    <div class="header-menus__btn"></div>--}}
-{{--    <div class="header-menus__menu category-menu">--}}
-{{--        <div class="container">--}}
-{{--            @widget('menu')--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
+<div class="header-menus">
+    <div class="header-menus__btn"></div>
+    <div class="header-menus__menu category-menu">
+        <div class="container">
+            @widget('menu')
+        </div>
+    </div>
+</div>

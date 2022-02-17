@@ -52,6 +52,7 @@
   display: flex;
   align-items: center;
 }
+.main-menu .menu__li,
 .category-menu .menu__li{
   display: flex;
   height: 100%;
@@ -61,7 +62,7 @@
 .category-menu .menu__li:not(:first-child){
   margin-left: 24px;
 }
-
+.main-menu .menu__link,
 .category-menu .menu__link{
   display: inherit;
   align-items: center;
@@ -114,3 +115,25 @@
   border-bottom: 1px solid #eee;
 }
 // endRegion Category Menu
+
+// region Main Menu
+.main-menu{}
+.main-menu .menu{
+  display: flex;
+}
+.main-menu li:not(:last-child){
+  margin-right: 16px;
+}
+.main-menu .menu__link{
+  display: inherit;
+  align-items: center;
+  height: 100%;
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 24px 0;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  position: relative;
+}
+// endregion Main Menu

@@ -8221,6 +8221,7 @@ h3 {
   align-items: center;
 }
 
+.main-menu .menu__li,
 .category-menu .menu__li {
   display: flex;
   height: 100%;
@@ -8232,6 +8233,7 @@ h3 {
   margin-left: 24px;
 }
 
+.main-menu .menu__link,
 .category-menu .menu__link {
   display: inherit;
   align-items: center;
@@ -8292,6 +8294,27 @@ h3 {
 
 .menu__sub .menu .menu__li:not(:last-child) .menu__link {
   border-bottom: 1px solid #eee;
+}
+
+.main-menu .menu {
+  display: flex;
+}
+
+.main-menu li:not(:last-child) {
+  margin-right: 16px;
+}
+
+.main-menu .menu__link {
+  display: inherit;
+  align-items: center;
+  height: 100%;
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 24px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
 }
 
 .select2 {

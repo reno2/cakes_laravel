@@ -5,6 +5,7 @@
  */
 return [
     'menu' => 'App\Widgets\MenuWidget',
+    'moreMenu' => 'App\Widgets\MoreMenuWidget',
     'slider' => 'App\Widgets\SliderWidget',
     'articleCreate' => 'App\Widgets\AdminFiltersWidget',
 ];

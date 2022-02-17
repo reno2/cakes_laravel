@@ -83,6 +83,8 @@
 .header-middle__menu{
   flex-grow: 1;
   margin: 0 24px;
+  display: flex;
+  justify-content: center;
 }
 .header-middle__profile{
   display: flex;
@@ -128,8 +130,12 @@
    fill: #3699ff;
  }
 .profile.yellow .profile_svg {
-  fill: rgb(252, 224, 0);
-}
+   fill: rgb(252, 224, 0);
+ }
+.profile .profile_svg {
+   fill: #d3a1df;
+ }
+
 .profile-menu.show .profile-menu__inner{
   transform: translate(-50%, 0);
   opacity: 1;
@@ -191,14 +197,50 @@
   background: #0ec645;
   color: #fff;
 }
+
+.profile .profile__info{
+  background: #0ec645;
+  color: #fff;
+}
 .profile.yellow .profile-menu__user{
+  font-weight: 900;
+  color: #f88245;
+}
+
+.profile .profile-menu__user{
   font-weight: 900;
   color: #f88245;
 }
 // endRegion Profile
 
+// region Main Menu
+
+
+// endregion Main Menu
+
+
 
 // region Search
+.search{
+
+}
+.search__item {
+  display: flex;
+  flex-direction: column;
+}
+.search___name{
+  font-size: 12px;
+  margin-top: 4px;
+  color: #4e4e4e;
+}
+.search__form{
+  display: none;
+}
+.search__svg{
+  height: 26px;
+  width: 26px;
+  fill: #d3a1df;
+}
 .search__input{
   width: 100%;
   height: 50px;
@@ -262,7 +304,12 @@
   z-index: 1000;
   box-shadow: 0 5px 26px -14px #3333338a;
 }
-
+.m-header__top{
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
 
 // region Mobile Bottom menu
 .header-bottom {
@@ -288,6 +335,45 @@
 }
 // endregion Mobile Bottom menu
 
+// region Mobile Top
+.mob-top{
+  display: flex;
+  background: #fff;
+  width: 100%;
+  align-items: center;
+  padding: 0 16px;
+  justify-content: flex-start;
+  height: 50px;
+}
+.mob-top__form{
+  display: flex;
+  width: 100%;
 
+}
+.mob-top__menu{
+  width: max-content;
+  margin-right: 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.mob-top .mob-top__search{
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+.mob-top__svg{
+  width: 26px;
+  height: 26px;
+}
+input.mob-top__input {
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  height: 35px;
+  padding-left: 16px;
+}
+// endregion Mobile Top
 
 // endregion Mobile menu
