@@ -11009,7 +11009,7 @@ a.text-dark:focus {
 }
 
 .profile__item:not(:first-child) {
-  margin-left: 32px;
+  margin-left: 24px;
 }
 
 .profile__mlink {
@@ -11017,6 +11017,9 @@ a.text-dark:focus {
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding: 11px;
+  background: #f8fafc;
+  border-radius: 100%;
 }
 
 .profile__name {
@@ -11030,9 +11033,7 @@ a.text-dark:focus {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 11px;
-  background: #f8fafc;
-  border-radius: 100%;
+  flex-direction: column;
 }
 
 .profile_svg {
@@ -11059,7 +11060,6 @@ a.text-dark:focus {
 }
 
 .profile-menu {
-  padding-top: 10px;
   margin-left: -50%;
 }
 
@@ -11112,8 +11112,8 @@ a.text-dark:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: -6px;
-  right: -9px;
+  top: 4px;
+  right: 0;
 }
 
 .profile.yellow .profile__info {
@@ -11133,7 +11133,7 @@ a.text-dark:focus {
 
 .profile .profile-menu__user {
   font-weight: 900;
-  color: #f88245;
+  color: #d3a1df;
 }
 
 .profile__search.isOpen .profile__name {
@@ -11150,7 +11150,7 @@ a.text-dark:focus {
 }
 
 .search.show {
-  width: 100%;
+  width: calc(100% + 75px);
   opacity: 1;
   transition: width 200ms ease-in;
 }
@@ -11452,15 +11452,21 @@ h5,
 
 .btn-big {
   font-size: 12px;
-  height: 55px;
-  padding: 0 10px;
+  padding: 18px 32px;
   display: inline-flex;
   align-items: center;
-  border-radius: 44px;
+  border-radius: 193px;
   letter-spacing: 0.8px;
   width: 100%;
   justify-content: center;
-  text-transform: uppercase;
+}
+
+.btn-small {
+  padding: 7px 10px;
+  font-weight: 500;
+  font-size: 11px;
+  transition: all 0.15s ease;
+  border-radius: 24px;
 }
 
 .btn-half {
@@ -11471,24 +11477,32 @@ h5,
   border-radius: 100%;
 }
 
+.btn-main {
+  color: #fff;
+  background: #d3a1df;
+}
+
+.btn-second {
+  color: #231F20;
+  border: 2px solid #d3a1df;
+}
+
+.btn-second:hover {
+  background: #d3a1df;
+  color: #fff;
+}
+
+.btn-second:hover i,
+.btn-second:hover span {
+  color: #fff;
+}
+
 .btn-shadow {
   background: #ffffff;
   background: #FFFFFF;
   box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
   border-radius: 9px;
   padding: 15px;
-}
-
-.btn-main {
-  color: #fff;
-  background: #82C831;
-  filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
-}
-
-.btn-second {
-  color: #fff;
-  background: #F8C6C6;
-  filter: drop-shadow(0px 4px 8px rgba(248, 198, 198, 0.54));
 }
 
 .btn-default {

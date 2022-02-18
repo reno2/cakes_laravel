@@ -55,7 +55,7 @@
                         <div class="reg-form__group">
                             <div class="reg-form__msg">
                                 <button type="submit" class="btn-big btn-main">
-                                    {{ __('Register') }}
+                                    Регистрация
                                 </button>
                             </div>
                         </div>

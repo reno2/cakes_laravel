@@ -117,16 +117,24 @@ h5, .h5 {
 }
 .btn-big{
     font-size: 12px;
-    height: 55px;
-    padding: 0 10px;
+    padding: 18px 32px;
     display: inline-flex;
     align-items: center;
-    border-radius: 44px;
+    border-radius: 193px;
     letter-spacing: 0.8px;
     width: 100%;
     justify-content: center;
-    text-transform: uppercase;
+    //text-transform: uppercase;
 }
+.btn-small{
+  padding: 7px 10px;
+  font-weight: 500;
+  font-size: 11px;
+  transition: all 0.15s ease;
+  border-radius: 24px;
+}
+
+
 .btn-half{
     border-radius: 10px;
 }
@@ -134,21 +142,32 @@ h5, .h5 {
     border-radius: 100%;
 }
 //======= btn types
-.btn-shadow{
-    background: #ffffff;
-    @include block;
-    padding: 15px;
-}
 .btn-main{
     color: #fff;
-    background:  #82C831;
-    filter: drop-shadow(0px 4px 8px rgba(130, 200, 49, 0.5));
+    background:  $mainColor;
 }
 .btn-second{
-    color: #fff;
-    background: #F8C6C6;
-    filter: drop-shadow(0px 4px 8px rgb(248 198 198 / 54%));
+    color: #231F20;
+    border: 2px solid $mainColor;
 }
+
+.btn-second:hover{
+  background: $mainColor;
+  color: #fff;
+}
+.btn-second:hover i,
+.btn-second:hover span{
+  color: #fff;
+}
+
+
+
+.btn-shadow{
+  background: #ffffff;
+  @include block;
+  padding: 15px;
+}
+
 .btn-default{
   background-color: #f6f6f6;
   color: #198cff;

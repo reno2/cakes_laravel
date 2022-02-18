@@ -17,7 +17,7 @@
                                 <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
                             </svg>
 
-                            <input name="term" class="search__input" type="text" value="{{ app('request')->input('term') ?? 'Найти' }}">
+                            <input name="term" placeholder="найти" class="search__input" type="text" value="{{ app('request')->input('term') }}">
                         </div>
                     </form>
 

@@ -107,13 +107,16 @@
 .profile{}
 .profile__person{}
 .profile__item:not(:first-child){
-  margin-left: 32px;
+  margin-left: 24px;
 }
 .profile__mlink{
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding: 11px;
+  background: #f8fafc;
+  border-radius: 100%;
 }
 .profile__name{
   font-size: 12px;
@@ -125,9 +128,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 11px;
-  background: #f8fafc;
-  border-radius: 100%;
+  flex-direction: column;
 }
 .profile_svg{
   height: 22px;
@@ -149,7 +150,7 @@
   visibility: visible;
 }
 .profile-menu{
-  padding-top: 10px;
+  //padding-top: 10px;
   margin-left: -50%;
 }
 .profile-menu__inner{
@@ -196,8 +197,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  top: -6px;
-  right: -9px;
+  top: 4px;
+  right: 0;
 }
 
 .profile.yellow .profile__info{
@@ -216,7 +217,7 @@
 
 .profile .profile-menu__user{
   font-weight: 900;
-  color: #f88245;
+  color: $mainColor;
 }
 
 .profile__search.isOpen .profile__name{
@@ -241,7 +242,7 @@
   transition: width 200ms ease-in, opacity 200ms ease-in;
 }
 .search.show{
-  width: 100%;
+  width: calc(100% + 75px);
   opacity: 1;
   transition: width 200ms ease-in;
 }

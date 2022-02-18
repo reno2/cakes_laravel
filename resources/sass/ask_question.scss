@@ -12,6 +12,7 @@
     width: 100%;
     justify-content: center;
     margin-bottom: 16px;
+
     &.gray{
         background: $gray;
         color: $dark;
@@ -21,6 +22,7 @@
             color: $dark;
         }
     }
+
     &.green{
         background: $red;
     }
@@ -44,7 +46,7 @@
 }
 .ask-question i{
     margin-right: 8px;
-    color: #fff;
+    color: #231F20;
     font-size: 15px;
 }
 .ad__ask{

@@ -1,5 +1,5 @@
 window.onload = function () {
-    const profileItem = document.querySelectorAll('.js_parent.menu__parent')
+    const profileItem = document.querySelectorAll('.js_profile__item')
     profileItem.forEach((el, inx) => {
         el.addEventListener('mouseenter', menuShow);
     })
@@ -12,8 +12,11 @@ window.onload = function () {
 
 const menuShow = (e) => {
     const menu = e.target.closest('.js_profile__item').querySelector('.js_profile__menu')
+    if(!menu) return
+
     menu.classList.add('show')
     e.target.addEventListener('mouseleave', menuHide)
+
 }
 
 const menuHide = (e) => {
