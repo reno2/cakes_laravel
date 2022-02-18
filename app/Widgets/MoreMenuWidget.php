@@ -25,7 +25,7 @@ class MoreMenuWidget implements ContractWidget
             $url = \Request::segment(2);
         }
         $cnt = 0;
-
+        $limit = 4;
         $lastItem = [
             'title' => 'Ещё',
             'CHILDREN' => [],
@@ -37,7 +37,7 @@ class MoreMenuWidget implements ContractWidget
 
             $item['is_active'] = (strpos($item['slug'], $url) !== false) ? true : false;
             $item['url'] = implode('/', ['', 'category', $item['slug'], '']);
-            if ($cnt > 4) {
+            if ($cnt > $limit) {
                 $lastItem['CHILDREN'][] = $item;
                 unset($data[$key]);
             }

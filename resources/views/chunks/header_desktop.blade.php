@@ -8,28 +8,30 @@
             </div>
             <div class="header-middle__menu main-menu">
                 @widget('moreMenu')
+
+                <div class="search js_search__block">
+                    <form class="search__form" action="{{ route('fulltextSearch') }}">
+                        <div class="form-cell search__cell">
+
+                            <svg class="js_search__close search__close">
+                                <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
+                            </svg>
+
+                            <input name="term" class="search__input" type="text" value="{{ app('request')->input('term') ?? 'Найти' }}">
+                        </div>
+                    </form>
+
+                </div>
             </div>
 
 
-            <div class="header-middle__search search">
-                <form class="search__form" action="{{ route('fulltextSearch') }}">
-                    <div class="form-cell search__cell">
 
-                        <svg class="js_clear search__close form-cell__cleaner">
-                            <use xlink:href="{{asset('images/icons.svg#icon-close')}}"></use>
-                        </svg>
-
-                        <input name="term" class="search__input" type="text" value="{{ app('request')->input('term') }}">
-                    </div>
-                </form>
-
-            </div>
 
 
             <div class="header-middle__profile profile">
 
                 <div class="profile__item js_profile__item">
-                    <a class="profile__mlink profile__search" href="">
+                    <a class="profile__mlink profile__search js_search__open" href="">
                         <svg class="profile_svg profile__person-svg">
                             <use xlink:href="/images/icons.svg#icon_search"></use>
                         </svg>
@@ -41,19 +43,19 @@
                     <div class="profile__item js_profile__item">
                         <a class="profile__mlink profile__login" href="{{ route('login') }}">
                             <svg class="profile_svg profile__person-svg">
-                                <use xlink:href="/images/icons.svg#profile-login"></use>
+                                <use xlink:href="/images/icons.svg#profile-zamok"></use>
                             </svg>
                             <span class="profile__name">Войти</span>
                         </a>
                     </div>
-                    <div class="profile__item js_profile__item">
-                        <a class="profile__mlink profile__registr" href="{{ route('register') }}">
-                            <svg class="profile_svg profile__person-svg">
-                                <use xlink:href="/images/icons.svg#profile-person"></use>
-                            </svg>
-                            <span class="profile__name">Регистрация</span>
-                        </a>
-                    </div>
+{{--                    <div class="profile__item js_profile__item">--}}
+{{--                        <a class="profile__mlink profile__registr" href="{{ route('register') }}">--}}
+{{--                            <svg class="profile_svg profile__person-svg">--}}
+{{--                                <use xlink:href="/images/icons.svg#profile-person"></use>--}}
+{{--                            </svg>--}}
+{{--                            <span class="profile__name">Регистрация</span>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
                     <div class="profile__item">
                         <a class="profile__mlink profile__favorite " href="{{route('favorites_list')}}">
                             <svg class="profile_svg profile__favorite-svg">

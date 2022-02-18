@@ -10995,6 +10995,8 @@ a.text-dark:focus {
   margin: 0 24px;
   display: flex;
   justify-content: center;
+  position: relative;
+  align-items: center;
 }
 
 .header-middle__profile {
@@ -11021,17 +11023,21 @@ a.text-dark:focus {
   font-size: 12px;
   margin-top: 4px;
   color: #4e4e4e;
+  display: none;
 }
 
 .profile__item {
   position: relative;
   display: flex;
   align-items: center;
+  padding: 11px;
+  background: #f8fafc;
+  border-radius: 100%;
 }
 
 .profile_svg {
-  height: 26px;
-  width: 26px;
+  height: 22px;
+  width: 22px;
 }
 
 .profile.blue .profile_svg {
@@ -11106,8 +11112,8 @@ a.text-dark:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  right: 20%;
+  top: -6px;
+  right: -9px;
 }
 
 .profile.yellow .profile__info {
@@ -11130,6 +11136,25 @@ a.text-dark:focus {
   color: #f88245;
 }
 
+.profile__search.isOpen .profile__name {
+  opacity: 0;
+}
+
+.search {
+  position: absolute;
+  width: 0;
+  right: -75px;
+  top: unset;
+  opacity: 0;
+  transition: width 200ms ease-in, opacity 200ms ease-in;
+}
+
+.search.show {
+  width: 100%;
+  opacity: 1;
+  transition: width 200ms ease-in;
+}
+
 .search__item {
   display: flex;
   flex-direction: column;
@@ -11139,10 +11164,6 @@ a.text-dark:focus {
   font-size: 12px;
   margin-top: 4px;
   color: #4e4e4e;
-}
-
-.search__form {
-  display: none;
 }
 
 .search__svg {
@@ -11184,6 +11205,17 @@ a.text-dark:focus {
 
 .search .search__cell {
   margin-bottom: 0;
+}
+
+.search .search__close {
+  display: block;
+  position: absolute;
+  top: 16px;
+  left: 15px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  fill: #d3a1df;
 }
 
 .header-menus {

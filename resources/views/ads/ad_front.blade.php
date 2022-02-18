@@ -3,6 +3,7 @@
         @if($ad->getMedia('cover'))
             <div class="ad__mobile">
                 @if(!empty($ad->getMedia('cover')->first()))
+
                     <img class="ad__img" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
                 @else
                     <img class="ad__img" src="/storage/images/defaults/cake.svg">
@@ -10,6 +11,7 @@
             </div>
             <div class="ad__desktop">
                 @forelse($ad->getMedia('cover') as $item)
+
                     <img class="ad__img" src="{{$item->getUrl('thumb')}}" alt="">
                 @empty
                     <img class="ad__img ad__main_placeholder" src="/storage/images/defaults/cake.svg">
