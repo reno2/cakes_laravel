@@ -18,24 +18,18 @@ use Illuminate\Support\Str;
 |
 */
 
-//$factory->define(Article::class, function (Faker $faker) {
-//    return [
-//        'name' => $faker->name,
-//        'email' => $faker->unique()->safeEmail,
-//        'email_verified_at' => now(),
-//        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-//        'remember_token' => Str::random(10),
-//    ];
-//});
+
 $factory->define(App\Models\Article::class, function (Faker $faker) {
+    $users = [1, 3, 2];
     return [
-        'title' => $faker->title,
+        'title' => $faker->unique()->word,
         'description' => $faker->paragraph,
         'deal_address' => $faker->title,
         'price'=> $faker->numberBetween(10, 200),
         'weight'=> $faker->numberBetween(10, 200),
-        'tags' => 7,
-        'categories' => 1
+        'user_id' => $faker->randomElement($users)
+//        'tags' => 7,
+//        'categories' => 1
            // $faker->randomElement(['seller', 'buyer'])
     ];
 });

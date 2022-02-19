@@ -155,12 +155,12 @@
                 <a class="ad-detail__ask js_modal btn-main btn-big" href="#"
                    data-user-name="{{$ad->user->profiles->first()->name}}"
                    data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
-                    написать продавцу
+                    Написать продавцу
                 </a>
-                <a class="ad-detail__phone js_modal btn-second btn-big" href="#"
+                <a class="ad-detail__phone js_modal btn-secondary btn-big" href="#"
                    data-user-name="{{$ad->user->profiles->first()->name}}"
                    data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
-                    показать номер
+                    Показать номер
                 </a>
                 <div class="ad-detail__author ad-author">
                     <div class="ad-author__ava">

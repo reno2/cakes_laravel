@@ -7,9 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-{{--    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>--}}
-{{--    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">--}}
-{{--    <title>{!!  MetaTag::setTitle('title') !!}</title>--}}
+
 
 {!! SeometaFacade::getStaticTag('title') !!}
 
@@ -18,21 +16,22 @@
     <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
 </head>
 <body>
-<div id="app" class="admin">
+<div id="app" class="admin dashboard">
 
-    <div class="d-flex justify-content-start admin-apage">
-        <div class="admin-page__sidebar">
+    <div class="d-flex justify-content-start admin-apage dashboard-container">
+        <div class="admin-page__sidebar dashboard__sidebar">
+
             @include('admin.components.sidebar2')
-        </div>
-        <div class="apage marea flex-fill">
-{{--            @include('admin.components.top')--}}
 
-            <div class="marea-middle marea__item">
+        </div>
+        <div class="apage marea flex-fill dashboard__content">
+
+            <div class="dashboard__main">
                 @include('chunks.messeges')
                 <div class="col-md-9">
                 @include('chunks.errors')
                 </div>
-                <div class="container-fluid pt-5 pl-5 pr-5">
+                <div class="dashboard__body">
                  @yield('content')
                 </div>
             </div>

@@ -48,8 +48,10 @@
         </div>
         <div class="ad__actions">
             @if(!@auth()->check() || (@auth()->check() && (@auth()->user()->id != $ad->user_id)))
-                <a class="js_modal__open ad__question btn-small btn-second" href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
-                    <i class="fas fa-envelope"></i>
+                <a class="js_modal__open ad__question btn-small btn-grey" href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
+                    <svg class="ad__svg">
+                        <use xlink:href="{{asset('images/icons.svg#icon-message')}}"></use>
+                    </svg>
                     <span class="ad__ask">&#32 Задать вопрос</span>
                 </a>
             @endif

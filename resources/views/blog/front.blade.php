@@ -5,6 +5,10 @@
 @endsection
 @section('content')
 
+    <div class="hero">
+        @include('chunks.hero')
+    </div>
+
     <div class="container">
         {!!  SeometaFacade::getData('h1')  !!}
     </div>
@@ -16,13 +20,13 @@
                 {{ session('status') }}
             </div>
         @endif
-        <div class="container">
+
             <div class="ads">
                 @foreach($ads as $ad)
                     @include('ads.ad_front')
                 @endforeach
             </div>
-        </div>
+
     </div>
     <ul class="pagination pull-right">
         {{$ads->links()}}

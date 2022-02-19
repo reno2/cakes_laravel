@@ -4,44 +4,102 @@
   justify-content: center;
 }
 
+// region Sizes
+
 .btn-small{
-  //padding: 7px 10px;
-  //font-weight: 500;
-  //font-size: 11px;
-  //transition: all 0.15s ease;
-  //border-radius: 5px
-}
-.btn-middle{
-  padding: 8px 16px;
-  font-weight: 500;
-  font-size: 13px;
-  transition: all 0.15s ease;
-  border-radius: 5px;
-}
-.btn-large{
-  padding: 12px 28px;
-  font-size: 18rem;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: all 0.15s ease;
-}
-.blue svg{
-  fill: #3699ff;
-}
-.blue{
-  color: #3699ff;
-  background-color: #e1f0ff;
-  position: relative;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
-.blue.active,
-.blue:hover{
-  color: #fff;
-  background-color: #3699ff;
+.btn-big{
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 15px;
+  padding: 18px 46px;
+  border-radius: 193px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
-.blue:hover svg{
-  fill: #fff;
+
+// region Style
+.btn-main{
+  background: #D3A1DF;
+  color: #FFFFFF;
+  cursor: pointer;
+  span{
+    color: #FFFFFF;
+  }
+  svg{
+    fill: #FFFFFF;
+  }
 }
+
+.btn-secondary{
+  border: 2px solid #D3A1DF;
+  color: #231F20;
+  cursor: pointer;
+  span{
+    color: #231F20;
+  }
+  svg{
+    fill: #231F20;
+  }
+}
+
+.btn-grey{
+  background: #f6f6f6;
+  color: #2e2e33;
+  span{
+    color: #2e2e33;
+  }
+  svg{
+    margin-right: 6px;
+    fill: #2e2e33;
+  }
+}
+
 .wide{
   width: 100%;
 }
+
+
+
+
+//
+//.btn-middle{
+//  padding: 8px 16px;
+//  font-weight: 500;
+//  font-size: 13px;
+//  transition: all 0.15s ease;
+//  border-radius: 5px;
+//}
+//.btn-large{
+//  padding: 12px 28px;
+//  font-size: 18rem;
+//  border-radius: 5px;
+//  font-weight: 600;
+//  transition: all 0.15s ease;
+//}
+//.blue svg{
+//  fill: #3699ff;
+//}
+//.blue{
+//  color: #3699ff;
+//  background-color: #e1f0ff;
+//  position: relative;
+//}
+//
+//.blue.active,
+//.blue:hover{
+//  color: #fff;
+//  background-color: #3699ff;
+//}
+//.blue:hover svg{
+//  fill: #fff;
+//}

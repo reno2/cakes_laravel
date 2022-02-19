@@ -5,7 +5,7 @@ window.onload = function () {
     })
 
     const openSearch = document.querySelector('.js_search__open')
-    openSearch.addEventListener('click', searchShow);
+    openSearch.addEventListener('click', searchEvent);
     const closeSearch = document.querySelector('.js_search__close')
     closeSearch.addEventListener('click', searchClose);
 }
@@ -24,14 +24,23 @@ const menuHide = (e) => {
     menu.classList.remove('show')
 }
 
-const searchShow = (e) => {
+const searchEvent = (e) => {
     e.preventDefault()
-    e.target.closest('.js_search__open').classList.add('isOpen')
-    e.target.closest('.header-middle__inner').querySelector('.search').classList.add('show')
+    const searchLink = e.target.closest('.js_search__open')
+
+    if(searchLink.classList.contains('isOpen')){
+        const searchForm = document.querySelector('.js_search-form__desc')
+        console.log( searchForm);
+         searchForm.submit()
+    }else {
+
+        searchLink.classList.add('isOpen')
+        e.target.closest('.header-middle__inner').querySelector('.search').classList.add('show')
+    }
 }
 
 const searchClose = (e) => {
     console.log(this);
     e.target.closest('.js_search__block').classList.remove('show')
-    e.target.closest('.header-middle__inner').querySelector('.js_search__open').classList.remove('show')
+    e.target.closest('.header-middle__inner').querySelector('.js_search__open').classList.remove('isOpen')
 }

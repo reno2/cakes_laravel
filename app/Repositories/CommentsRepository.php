@@ -9,7 +9,7 @@ use App\Repositories\CoreRepository;
 use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Article as Model;
+use App\Models\Comment as Model;
 
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\Models\Media;
@@ -21,6 +21,17 @@ use Throwable;
 
 class CommentsRepository extends CoreRepository
 {
+
+
+    /*
+    * @return string
+    */
+    public function getTodayComments ($count = 10) {
+        $records = Model::whereDate('created_at', Carbon::today())->take($count)->get();
+        if($records->isEmpty()) return 0;
+        return $records;
+    }
+
     /**
      * @param $room_id
      * @return array
@@ -201,6 +212,7 @@ class CommentsRepository extends CoreRepository
      **  Создание нового комментария с фронта
      * @param array $request - Объект запроса
      * @return array - возвращает лтбо новый комментарий либо массив с ошибкой
+     * @throws \Exception
      */
     public function create ($request) {
         try {
@@ -263,9 +275,8 @@ class CommentsRepository extends CoreRepository
         throw new \Exception($msg);
     }
 
-    /*
-      * @return string
-      */
+
+
     protected function getModelClass () {
         return Model::class;
     }

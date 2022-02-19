@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Article;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Article as Model;
 use App\Repositories\CoreRepository;
@@ -12,6 +14,14 @@ use App\Models\Profile;
 
 class AdsRepository extends CoreRepository
 {
+
+
+    public function getTodayAds($count = 10){
+        $records = Article::whereDate('created_at', Carbon::today())->take($count)->get();
+        if($records->isEmpty()) return 0;
+        return $records;
+    }
+
     /*
     * @param ind user Id
     * @return Collection

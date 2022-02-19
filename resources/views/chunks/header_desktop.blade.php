@@ -9,8 +9,8 @@
             <div class="header-middle__menu main-menu">
                 @widget('moreMenu')
 
-                <div class="search js_search__block">
-                    <form class="search__form" action="{{ route('fulltextSearch') }}">
+                <div class="search js_search__block @if(app('request')->input('term')) show @endif">
+                    <form class="search__form js_search-form__desc" action="{{ route('fulltextSearch') }}">
                         <div class="form-cell search__cell">
 
                             <svg class="js_search__close search__close">

@@ -12,13 +12,13 @@
                 </div>
             @endif
 
-            <div class="container">
+
                 <div class="row justify-content-start ads">
                     @foreach($ads as $ad)
                         @include('ads.ad')
                     @endforeach
                 </div>
-            </div>
+
 
     </div>
 

@@ -28,7 +28,8 @@ class Article extends Model implements HasMedia, Viewable
         if (isset($_REQUEST['slug__change']) && !empty($value)) {
             $this->attributes['slug'] = Str::slug($value);
         } else {
-            $this->attributes['slug'] = Str::slug($_REQUEST['title']);
+            //$this->attributes['slug'] = Str::slug($_REQUEST['title']);
+            $this->attributes['slug'] = Str::slug($value);
         }
 
     }

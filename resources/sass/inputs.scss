@@ -23,6 +23,21 @@
   border-radius: 8px;
 }
 // endRegion Textarea
+.form-cell .form-cell__input{
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #D7DBDE;
+  box-sizing: border-box;
+  border-radius: 8px;
+  -webkit-appearance: none;
+  height: 48px;
+  padding-left: 16px;
+  padding-right: 24px;
+}
+
+// region Input
+
+// endregion Input
 
 // region PlaceHolder
 .form-cell .form-cell__placeholder{
@@ -45,7 +60,7 @@
   top: -8px;
   left: 16px!important;
   border-radius: 8px;
-  color: $focusBlue;
+  color: $mainColor;
 }
 // endRegion PlaceHolder
 

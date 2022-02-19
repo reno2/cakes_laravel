@@ -1,12 +1,21 @@
 <?php
 
 namespace App\Repositories;
+use App\Models\Article;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\User as Model;
 use App\Repositories\CoreRepository;
 use Illuminate\Support\Facades\Auth;
 
 class UserRepository extends CoreRepository{
+
+
+    public function getTodayUsers($count = 10){
+        $records = Model::whereDate('created_at', Carbon::today())->take($count)->get();
+        if($records->isEmpty()) return 0;
+        return $records;
+    }
 
     /**
      *  return null | $notice

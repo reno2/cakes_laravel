@@ -93,11 +93,11 @@
             @endif
             <main class="py-4">
                 <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-3">
+                    <div class="row justify-content-center profile-content">
+                        <div class="col-md-3 profile-content__sidebar">
                             @include('profile.sidebar')
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-9 profile-content__body">
                             @yield('content')
                         </div>
                     </div>

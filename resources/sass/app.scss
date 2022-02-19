@@ -18,7 +18,7 @@
 
 @import 'variables';
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap';
 @import "header";
 @import "modificators";
 
@@ -52,6 +52,7 @@ ol, ul, dl{
 }
 a{
     color: rgb(63, 66, 84);
+  text-decoration: unset;
 }
 a:hover{
     color: $blue;
@@ -142,23 +143,6 @@ h5, .h5 {
     border-radius: 100%;
 }
 //======= btn types
-.btn-main{
-    color: #fff;
-    background:  $mainColor;
-}
-.btn-second{
-    color: #231F20;
-    border: 2px solid $mainColor;
-}
-
-.btn-second:hover{
-  background: $mainColor;
-  color: #fff;
-}
-.btn-second:hover i,
-.btn-second:hover span{
-  color: #fff;
-}
 
 
 

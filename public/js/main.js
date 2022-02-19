@@ -175,7 +175,7 @@ if (menusToggles.length) {
 }
 
 function toggleDMenu(el) {
-    const actionBlock = el.parentElement.querySelector('.js_menuContent');
+    const actionBlock = el.parentElement.closest('.js_menuWrap').querySelector('.js_menuContent');
     const menuWrap = el.closest('.js_menuWrap');
     menuWrap?.classList.contains('menu_isOpen') ? menuWrap.classList.remove('menu_isOpen') : menuWrap.classList.add('menu_isOpen');
     //actionBlock.classList.contains('menu_isOpen') ? actionBlock.classList.remove('menu_isOpen') : actionBlock.classList.add('menu_isOpen')

@@ -37,7 +37,7 @@
                     </svg>
                     <span class="help-block text-danger js_error"></span>
                 </div>
-                <button class="btn blue wide" type="submit">Задать вопрос</button>
+                <button class="btn-big btn-main wide" type="submit">Задать вопрос</button>
                 <div class="modal__group form-cell js_form-cell">
                     <div class="captcha">
                         <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
