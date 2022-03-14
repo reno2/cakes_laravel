@@ -2,7 +2,7 @@
 
     <div class="dashboard-sidebar__block ">
         <div class="dashboard-sidebar__front">
-            <a href="http://lara-auth.ru" class="dashboard-sidebar__logo">
+            <a href="/" class="dashboard-sidebar__logo">
                 <img src="/images/full-logo.svg">
             </a>
         </div>
