@@ -5,6 +5,7 @@ namespace App\Seo;
 use App\Seo\Classes\SeoCategoryRender;
 use App\Seo\Classes\SeoFrontRender;
 use App\Seo\Classes\SeoPostRender;
+use App\Seo\Classes\SeoTagRender;
 use App\Seo\Classes\SeoStaticRender;
 use App\Seo\Interfaces\SeoRender;
 use App\Seo\Interfaces\SeoStaticInterface;
@@ -41,6 +42,10 @@ class Seometa{
 
             case 'front':
                 $entity = new SeoFrontRender;
+                break;
+
+            case 'tag':
+                $entity = new SeoTagRender;
                 break;
 
             default:

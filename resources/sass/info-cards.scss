@@ -1,0 +1,53 @@
+// region Card
+.info-cards {
+  margin-bottom: 24px;
+}
+.info-block__name,
+.info-cards__title,
+.info-cards__block{
+  margin-bottom: 24px;
+}
+
+.info-cards__row{
+  display: flex;
+  flex-direction: column;
+}
+.info-cards__title {
+  color: #222;
+  font-weight: 700;
+}
+
+.info-cards__cards{
+  display: flex;
+  flex: 0 0 100%;
+}
+.info-cards__block {
+  padding: 24px;
+  background: #fff;
+  box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+  border-radius: 8px;
+  flex-grow: 1;
+  height: fit-content;
+}
+
+.info-cards__block{
+  margin-right: 24px;
+}
+
+.info-cards__today .info-block__data{
+  font-size: 55px;
+  font-weight: 900;
+  color: #697685;
+}
+// endregion Card
+
+// region Card Width Modificators
+
+.info-card_half{
+  flex-basis: calc(100% / 2 - 24px);
+}
+.info-card_third{
+  flex-basis: calc(100% / 3 * 2 - 24px);
+}
+
+// endregion Card Width Modificators

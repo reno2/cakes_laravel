@@ -29,9 +29,9 @@
               enctype="multipart/form-data" class="js_adsCreate">
             @csrf
             <div class="form-group row">
-                <label for="published" class="col-md-4 col-form-label text-md-right">Статус</label>
-                <div class="col-md-7">
-                    <select name="published" class="form-control" id="published">
+                <label for="published" class="col-md-4 col-form-label text-md-right form-group__placeholder">Статус</label>
+                <div class="col-md-7 form-group__inputs">
+                    <select name="published" class="form-control form-group__select" id="published">
                         <option value="1">Опубликовано</option>
                         <option value="0">Не опубликовано</option>
                     </select>
@@ -46,12 +46,15 @@
                 >
             </addresssearchstreet-component>
 
+
+
+
             <div class="form-group row">
-                <label for="delivery_self" class="col-md-4 col-form-label text-md-right">Возможна доставка</label>
-                <div class="col-md-7">
+                <label for="delivery_self" class="form-group__placeholder">Возможна доставка</label>
+                <div class="form-group__inputs">
                     <div class="form-check">
                         <input name="delivery_self" value="0" type="hidden">
-                        <input name="delivery_self" class="form-check-input" value="1" type="checkbox" id="delivery_self">
+                        <input name="delivery_self" class="form-check-input form-group__checkbox" value="1" type="checkbox" id="delivery_self">
                         <small id="hint" class="text-muted">
                             Можете договарится с клиентом о доставке
                         </small>
@@ -64,11 +67,12 @@
                 </div>
             </div>
 
+            @if(false)
             <div class="form-group row">
-                <label for="product_type" class="col-md-4 col-form-label text-md-right">Тип</label>
-                <div class="col-md-7">
+                <label for="product_type" class="form-group__placeholder">Тип</label>
+                <div class="col-md-7 form-group__inputs">
                     <select name="product_type"
-                            class="form-control  @error('product_type') is-invalid @enderror" id="product_type">
+                            class="form-control  form-group__select @error('product_type') is-invalid @enderror" id="product_type">
                         <option value="product">Готовое изделие</option>
                         <option value="order">Продукт под заказ</option>
                     </select>
@@ -79,12 +83,13 @@
                     @enderror
                 </div>
             </div>
+            @endif
 
-            <div class="form-group row">
-                <label for="title" class="col-md-4 col-form-label text-md-right">Название</label>
-                <div class="col-md-7">
+            <div class="form-group row @error('title') onError @enderror">
+                <label for="title" class="form-group__placeholder">Название</label>
+                <div class="form-group__inputs">
                     <input id="title" type="text"
-                           class="form-control @error('title') is-invalid @enderror" name="title"
+                           class="form-control form-group__input @error('title') is-invalid @enderror" name="title"
                            value="{{old('title')}}">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
@@ -93,11 +98,11 @@
                     @enderror
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="price" class="col-md-4 col-form-label text-md-right">Стоимость Руб.</label>
-                <div class="col-md-2">
+            <div class="form-group row  @error('price') onError @enderror">
+                <label for="price" class="col-md-4 col-form-label text-md-right form-group__placeholder">Стоимость Руб.</label>
+                <div class="col-md-2 form-group__inputs">
                     <input id="price" type="text"
-                           class="js_numbersPoint js_validate form-control @error('price') is-invalid @enderror" name="price"
+                           class="form-group__input js_numbersPoint js_validate form-control @error('price') is-invalid @enderror" name="price"
                            autocomplete="off"
                            value="{{old('price')}}">
                     @error('price')
@@ -110,11 +115,11 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="weight" class="col-md-4 col-form-label text-md-right">Вес г.</label>
-                <div class="col-md-2">
+            <div class="form-group row @error('weight') onError @enderror">
+                <label for="weight" class="col-md-4 col-form-label text-md-right form-group__placeholder">Вес г.</label>
+                <div class="col-md-2 form-group__inputs">
                     <input id="weight" type="text"
-                           class="js_maskWeight js_mask js_numbersPoint js_validate form-control @error('weight') is-invalid @enderror" name="weight"
+                           class="form-group__input js_maskWeight js_mask js_numbersPoint js_validate form-control @error('weight') is-invalid @enderror" name="weight"
                            value="{{old('weight')}}">
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
@@ -126,10 +131,10 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="description" class="col-md-4 col-form-label text-md-right">Описание</label>
-                <div class="col-md-7">
-                    <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+            <div class="form-group row @error('description') onError @enderror">
+                <label for="description" class="col-md-4 col-form-label text-md-right form-group__placeholder">Описание</label>
+                <div class="col-md-7 form-group__inputs">
+                    <textarea name="description" class="form-group__textarea form-control @error('description') is-invalid @enderror"
                               id="description">{{old('description')}}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -140,21 +145,21 @@
             </div>
 
             <div class="form-group row">
-                <label for="tags" class="col-md-4 col-form-label text-md-right">Теги
+                <label for="tags" class="col-md-4 col-form-label text-md-right form-group__placeholder">Теги
                     <span></span>
                 </label>
-                <div class="col-md-7">
-                    <select multiple="" name="tags[]" id="tags">
+                <div class="col-md-7 form-group__inputs">
+                    <select class="form-group__select" multiple="" name="tags[]" id="tags">
                         @foreach($tags as $tag)
-                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                            <option value="{{$tag->id}}">{{$tag->title}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="categories" class="col-md-4 col-form-label text-md-right">Родительская категория</label>
-                <div class="col-md-7">
-                    <select name="categories[]" class="form-control @error('categories') is-invalid @enderror"
+            <div class="form-group row @error('categories') onError @enderror">
+                <label for="categories" class="form-group__placeholder">Родительская категория</label>
+                <div class="form-group__inputs">
+                    <select name="categories[]" class="form-group__select form-control @error('categories') is-invalid @enderror"
                             id="categories">
                         <option value="0">Выбрать категорию</option>
                         @include('profile.ads.categories', ['categories' => $categories, ])
@@ -167,6 +172,7 @@
                 </div>
             </div>
 
+            @if(false)
             <div class="form-group row">
                 <label for="categories" class="col-md-4 col-form-label text-md-right">Фильтры продукта
                     <br> объезятельно заполнить хоть один
@@ -180,13 +186,13 @@
                     @endif
                 </div>
             </div>
-
+            @endif
 
 
 
             <div class="form-group row">
-                <label for="categories" class="col-md-4 col-form-label text-md-right">Изображения</label>
-                <div class="col-md-7 p-0 create-form__right">
+                <label for="categories" class="form-group__placeholder">Изображения</label>
+                <div class="create-form__right form-group__inputs">
                     <div class="js_postUpMsg post-up__msg"></div>
                     <div class="p-3 create-form__item single-img">
                         <div class="create-form__title">Основная картинка<br>
@@ -210,10 +216,11 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group__actions form-group__single">
                 <div class="offset-md-4 col-md-8">
-                    <input type="submit" class="btn btn-block btn-primary" value="Создать запись">
+                    <input type="submit" class="btn-main btn-middle half" value="Создать запись">
                     <input type="hidden" name="modified_by" value="{{Auth::id()}}">
+                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
                 </div>
             </div>
         </form>

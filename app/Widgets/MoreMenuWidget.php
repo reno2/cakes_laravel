@@ -15,15 +15,24 @@ class MoreMenuWidget implements ContractWidget
 
     public function execute () {
         $items = new CategoryRepository();
-        $data = $items->getAllActiveItems()
-                      ->toArray();
+        $data = $items->getAllActiveItems();
 
-        if (!$data) return [];
+
+        $excludeUrls = ['login'];
+        $curUrl = \Request::segment(1);
+
+        if(in_array($curUrl, $excludeUrls) || !$data) return view('Widgets::moreMenu', [
+            'data' => [],
+        ]);
+
+        
+
 
         $url = '/';
         if (\Request::segment(2)) {
             $url = \Request::segment(2);
         }
+        $data = $data->toArray();
         $cnt = 0;
         $limit = 4;
         $lastItem = [

@@ -91,3 +91,81 @@
   display: block;
 }
 // endRegion Error
+
+
+
+// ====================== FORM GROUP =========================
+
+.form-group{
+  display: flex;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.form-group__placeholder{
+  flex: 0 0 calc(100% / 3);
+  max-width: calc(100% / 3);
+  text-align: right;
+}
+.form-group__placeholder + .form-group__inputs{
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.form-group__inputs{
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.form-group__input{
+  border: 1px solid #ebecf3;
+  border-radius: 5px;
+  height: 41px;
+  width: 100%;
+  padding: 0 16px;
+}
+.form-group__select{
+  border: 1px solid #ebecf3;
+  border-radius: 5px;
+  height: 41px;
+  width: 100%;
+  padding: 0 16px;
+}
+.form-group__single{
+  margin-left: calc(100% / 3);
+  padding-left: 16px;
+}
+.form-group__textarea{
+  border: 1px solid #ebecf3;
+  border-radius: 5px;
+  min-height: 60px;
+  width: 100%;
+  padding: 12px 16px;
+}
+
+.form-group__textarea:focus-visible,
+.form-group__textarea:active,
+.form-group__textarea:focus,
+.form-group__input:active,
+.form-group__input:focus,{
+  outline: unset;
+}
+
+span.invalid-feedback {
+  font-size: 11px;
+  display: none;
+  color: #f24343;
+  margin-top: 4px;
+}
+
+// region Errors
+.form-group.onError .form-group__input{
+  border: 1px solid #e75a5a;
+}
+
+.was-validated :invalid ~ .invalid-feedback,
+.was-validated :invalid ~ .invalid-tooltip,
+.is-invalid ~ .invalid-feedback,
+.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+// endregion Errors

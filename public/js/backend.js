@@ -13,5 +13,28 @@ window.onload = function () {
     // Конец сброса фильтров
 
 
-    //$( "#image-list" ).sortable();
+    // Проверяем возможность изменения слага
+    changeSlug()
+
 };
+
+
+function changeSlug() {
+    const changeSlugCheckbox = document.querySelectorAll('.js_slug__change')
+    if(changeSlugCheckbox.length){
+        changeSlugCheckbox.forEach((el, inx) => {
+            el.addEventListener('change', changeSlugState)
+        })
+    }
+
+}
+function changeSlugState(e){
+    const input = e.target
+    const slugInput = input.closest('form').querySelector(`.${input.getAttribute('data-slug-input')}`)
+    const inputAttributes = ['disabled', 'readonly'];
+    if(input.checked){
+        inputAttributes.forEach( attribute => slugInput.removeAttribute(attribute))
+    }else{
+        inputAttributes.forEach( attribute => slugInput.setAttribute(attribute, attribute))
+    }
+}

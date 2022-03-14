@@ -9,7 +9,7 @@
             <div class="info-cards__title">Количество за сегодня</div>
             <div class="info-cards__cards info-cards__today">
 
-                <div class="info-cards__block info-cards_third">
+                <div class="info-cards__block info-card_third">
                     <div class="info-block">
                         <div class="info-block__name">Новых пользовтелей</div>
                         <div class="info-block__data">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="info-cards__block info-cards_third">
+                <div class="info-cards__block info-card_third">
                     <div class="info-block">
                         <div class="info-block__name">Новых объявлений</div>
                         <div class="info-block__data">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="info-cards__block info-cards_third">
+                <div class="info-cards__block info-card_third">
                     <div class="info-block">
                         <div class="info-block__name">Новых комментариев</div>
                         <div class="info-block__data">

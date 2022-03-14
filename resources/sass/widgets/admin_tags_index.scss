@@ -1,0 +1,168 @@
+.list-table{
+  padding: 24px;
+  background: #fff;
+  box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+  border-radius: 8px;
+  margin: 24px 0;
+}
+.list-table__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.list-table__head {
+  border-bottom: 1px solid #efefef;
+}
+
+.list-table__row,
+.list-table__body,
+.list-table__head {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.list-table__tab{
+  font-weight: 600;
+}
+
+.list-table__tab,
+.list-table__val{
+  flex: 0 0 calc(100% / 9);
+  padding: 12px;
+}
+.list-table__tab,
+.list-table__val{
+  font-size: 12px;
+}
+.list-table__tab:nth-child(1),
+.list-table__val:nth-child(1){
+  flex-basis: 50px;
+  flex-grow: 0;
+}
+
+.list-table__tab:nth-child(2),
+.list-table__val:nth-child(2),
+.list-table__tab:nth-child(3),
+.list-table__val:nth-child(3){
+  flex-basis: 150px;
+}
+
+.list-table__tab:nth-child(4),
+.list-table__val:nth-child(4),
+.list-table__tab:nth-child(5),
+.list-table__val:nth-child(5){
+  flex-basis: 200px;
+}
+
+.list-table__tab:nth-child(8),
+.list-table__val:nth-child(8){
+  flex-basis: 200px;
+  flex-grow: 1;
+}
+
+.list-table__tags .list-table__tab:nth-child(9),
+.list-table__tags .list-table__val:nth-child(9){
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.list-table__row:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.list-table__svg{
+
+}
+.list-table__img {
+  max-width: 70px;
+}
+
+
+
+
+// region Ads
+
+.list-table__ads .list-table__val{
+  padding-left: 12px;
+}
+.list-table__ads .list-table__tab,
+.list-table__ads .list-table__val{
+  flex: 0 0;
+}
+
+.list-table__ads .list-table__tab:nth-child(1),
+.list-table__ads .list-table__val:nth-child(1)
+{
+  flex-basis: 50px;
+}
+.list-table__ads .list-table__tab:nth-child(2),
+.list-table__ads .list-table__val:nth-child(2)
+{
+  flex-basis: 100px;
+}
+.list-table__ads .list-table__tab:nth-child(3),
+.list-table__ads .list-table__val:nth-child(3)
+{
+  flex-basis: 120px;
+}
+.list-table__ads .list-table__tab:nth-child(4),
+.list-table__ads .list-table__val:nth-child(4)
+{
+  flex-basis: 80px;
+}
+.list-table__ads .list-table__tab:nth-child(5),
+.list-table__ads .list-table__val:nth-child(5)
+{
+  flex-basis: 80px;
+}
+.list-table__ads .list-table__tab:nth-child(6),
+.list-table__ads .list-table__val:nth-child(6)
+{
+  flex-basis: 95px;
+}
+.list-table__ads .list-table__tab:nth-child(7),
+.list-table__ads .list-table__val:nth-child(7)
+{
+  flex-basis: 200px;
+}
+.list-table__ads .list-table__tab:nth-child(8),
+.list-table__ads .list-table__val:nth-child(8)
+{
+  flex-basis: 200px;
+  display: flex;
+  justify-content: flex-start;
+}
+.list-table__ads .list-table__tab:nth-child(9),
+.list-table__ads .list-table__val:nth-child(9)
+{
+  flex-basis: 120px;
+}
+.list-table__ads .list-table__tab:nth-child(10),
+.list-table__ads .list-table__val:nth-child(10)
+{
+  flex-basis: 120px;
+}
+.list-table__ads .list-table__tab:nth-child(11),
+.list-table__ads .list-table__val:nth-child(11)
+{
+  flex-basis: 120px;
+}
+.list-table__ads .list-table__tab:nth-child(12),
+.list-table__ads .list-table__val:nth-child(12)
+{
+  flex-basis: 120px;
+}
+.list-table__ads .list-table__tab:nth-child(13),
+.list-table__ads .list-table__val:nth-child(13)
+{
+  flex-basis: 120px;
+  display: flex;
+  justify-content: flex-end;
+}
+// endregion Ads
+
+

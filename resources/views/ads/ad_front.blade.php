@@ -24,15 +24,17 @@
             </div>
         @endif
 
-        <div class="ad__tags">
-            @if($ad->tags()->count())
+        @if($ad->tags()->count() && false)
+            <div class="ad__tags">
                 @foreach($ad->tags()->get()->toArray() as $tag)
+
                     <div class="ad__tag">
-                        <a class="ad__link" href="{{route('tag', $tag['name'])}}">{{$tag['name']}}</a>
+                        <a class="ad__link" href="{{route('tag', $tag['title'])}}">{{$tag['title']}}</a>
                     </div>
                 @endforeach
-            @endif
-        </div>
+            </div>
+        @endif
+
     </div>
 
     <div class="ad__body">

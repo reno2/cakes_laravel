@@ -11,61 +11,66 @@ use App\Models\Settings;
 use App\Models\User;
 use App\Notifications\ModerateNotification;
 use App\Notifications\PostCreatedNotification;
+use App\Repositories\AdsRepository;
 use App\Repositories\ProfileRepository;
+use App\Services\AdsService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 use Mockery\Exception;
 use App\Http\Requests\FileValidate;
 use App\Models\PostImage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\Models\Media;
 
 class ArticleController extends Controller
 {
 
+    public $adsRepository;
+    public $adsService;
+
+    public function __construct (AdsService $adsService, AdsRepository $adsRepository) {
+        $this->adsService = $adsService;
+        $this->adsRepository = $adsRepository;
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
      *
-     * @return Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     private $count = 5;
 
     public function index(Request $request)
     {
 
-        //MetaTag\
-        if ($request->get('sort')) {
-            $sort     = $request->get('sort');
-            $articles = Article::orderBy('sort', $sort)->paginate(10);
-        } else {
-            $articles = Article::orderBy('created_at', 'desc')->paginate(10);
-        }
-
+        $articles = $this->adsService->getAllForEdit($request);
         return view('admin.articles.index',
-
             compact('articles')
         );
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function create()
     {
-        $tags = \App\Models\Tag::all();
+        $tags = \App\Models\Tag::where('published', 1)->get();
 
         //dd(Category::with('children')->where('parent_id', 0)->get());
         return view('admin.articles.switch_article', [
@@ -76,94 +81,31 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(FileValidate $request)
-    {
-        // Валидируем поля
+
+    public function store(AdsRequest $request){
         $validated = $request->validated();
+        $inputs = $request->all();
 
-
-        $inputs             = $request->all();
-        $inputs['on_front'] = $request->input('on_front') ? true : false;
-
-        // Удаяем из реквеста картинки для сохранения поста,
-        // и последующей обработки
-
-
-        if (isset($inputs['image'])) {
-            $articleImagesCnt  = count($inputs['image']);
-            unset($inputs['image']);
-        } else $articleImagesCnt = 0;
-
-        $article = Article::create($inputs);
-        // Добавляем новый файл
-        if ($request->hasfile('image')) {
-            foreach ($request->file('image') as $image) {
-                $name    = $image->getClientOriginalName();
-                $fileUrl = Storage::url('images/' . $name);
-                // Проверяем если количество файлов после редактирования
-                // больше допустимого, то пропускаем
-                if ($articleImagesCnt++ > $this->count) continue;
-                // ToDo: написать проверку на дубли файла
-                $path      = 'public/images/' . $name;
-                $postImageModel = new PostImage;
-                // Проверяем существует ли файл с таким именем,
-                // если да, то не создаём, а используем существующий
-                if (!Storage::disk('public')->exists('images/'.$name)) {
-                    $image     = Image::make($image)->fit(450, 750, function ($constraint) {
-                        $constraint->upsize();
-                    }, 'center');
-                    Storage::put($path, (string)$image->encode());
-                    $url = Storage::url($path);
-                }else{
-                    $url = $fileUrl;
-                }
-                // Создаём запись в модели PostImage
-                try {
-                    $postImageModel->article_id = $article->id;
-                    $postImageModel->name = md5($name);
-                    $postImageModel->image_path = $url;
-                    $postImageModel->save();
-
-                } catch (\Exception $e) {
-                    echo $e->getMessage();
-                }
-            }
+        $extraData = [
+            'user_id' => Auth::id(),
+            'moderate' => isset($request['moderate']) ? 1 : 0
+        ];
+        $article = Article::create(
+            array_merge(
+                $request->except('image'),
+                $extraData)
+        );
+        try{
+            $this->adsService->chain($inputs, $article);
+            session()->flash('notice', "Объявление создано");
+        }catch (\Exception $e){
+            return back()->withErrors( $e->getMessage())->withInput();
         }
-        // FilterGroups
-        if ($request->input('attrs')):
-            // Если есть фильтры, то удаляем все связи и обновляем новые
-            $article->filterGroups()->delete();
-            $article->filterValues()->delete();
-            // Создаём новые связи
-            $article->filterGroups()->attach(array_keys($request->input('attrs')));
-            $article->filterValues()->attach($request->input('attrs'));
-        endif;
-
-        // Categories
-        if ($request->input('categories')):
-            $article->categories()->attach($request->input('categories'));
-        endif;
-        if ($request->input('tags')):
-            $article->tags()->attach($request->input('tags'));
-        endif;
-
         return redirect()->route('admin.article.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Article $article
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show(Article $article)
     {
 
@@ -174,206 +116,45 @@ class ArticleController extends Controller
      *
      * @param \App\Article $article
      *
-     * @return Factory|\Illuminate\View\View
-     * @return Factory|\Illuminate\View\View
+     * @return Factory|View
+     * @return Factory|View
      */
     public function edit(Article $article)
     {
-        $allRules = \App\Models\Settings::where('type', 'moderate_rules')->get();
-
-        $moderateRules = [];
-        if($article->moderateComments()->exists()) {
-
-            $rule = $article->moderateComments->first();
-            $moderateRules['moderate_text'] = $rule['message'] ?? '';
-            $moderateRules['rule'] = $rule->settings->pluck('id')->toArray();
-            $moderateRules['id'] = $rule->id;
-        }
-
+        $article = $this->adsRepository->getForEdit($article->id);
         $tags = \App\Models\Tag::all();
-        $tags2 = [];
-        foreach($tags as $tag){
-            $tags2[$tag->id] = $tag->name;
-        }
+        $mediaItem =  Media::where('model_id', $article->id)->whereJsonContains('custom_properties->main', true)->first();
+
         return view('admin.articles.switch_article', [
+            'main' => ($mediaItem->file_name) ?? '',
+            'mediaFiles'=> $this->adsRepository->getAdsImages($article->id),
             'article'    => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
             'tags'       => $tags,
+            'filter'     => $article->filterValues->pluck('id')->toArray(),
             'delimiter'  => '',
-            'rules' => $allRules,
-            'selectedRules' => $moderateRules
+            'profile' => $this->adsRepository->getUserProfileFirst($article)
         ]);
-
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Article             $article
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
+
+
     public function update(AdsRequest $request, $id)
     {
 
-        $validated = $request->validated();
-        $article = Article::find($id);
-        $inputsArray             = $request->all();
-        $inputsArray['on_front'] = ($request->input('on_front')) ? true : false;
-        $inputsArray['moderate'] = ($request->input('moderate')) ? true : false;
+        $request->validated();
+        $ads = Article::find($id);
+        $inputs = $request->all();
+        $isAdmin = (strpos($request->segment(1), 'admin') !== false) ? true : false;
 
-        $postImageAll = \App\Models\PostImage::where('article_id', $article->id)->get();
-        $postImage  =  $postImageAll->pluck('image_path')->toArray();
-        $articleImagesCnt        = count($postImage) ?? 0;
-        $mainImageMd5 = ($inputsArray['main_image']) ?? false;
-        $mainImage = false;
-        // Обрабатываем редактирование файлов
-        if (isset($postImage)) {
-            foreach ($postImage as $image) {
-                // Если есть старые файлы
-                if (isset($inputsArray['old_files'])) {
-                    // Если в массиве старых айлов нет текущего из базы данные
-                    // И файл существует удаляем его
-                    if (!in_array($image, $inputsArray['old_files'])) {
-                        if (\File::exists(public_path($image))) {
-                            \File::delete(public_path($image));
-                            \App\Models\PostImage::where('image_path', $image)->delete();
-                            $articleImagesCnt--;
-                        }
-                    }
-                } else {
-                    // Если массив старых файлов пуст, значит на фронте все файлы были удалены,
-                    // Удаляем файлы из базы и сами файлы
-                    if (\File::exists(public_path($image))) {
-                        \File::delete(public_path($image));
-                        \App\Models\PostImage::where('image_path', $image)->delete();
-                        $articleImagesCnt--;
-                    }
-                }
-            }
+        try{
+            $moderateMsg =  ($this->adsService->uploadChain($inputs, $ads, $isAdmin)) ? "Объявление обновленно и отправлено на модерацию" :  "Объявление обновленно" ;
+            $request->session()->flash('notice', $moderateMsg);
+        }catch (\Exception $e){
+            return back()->withErrors( $e->getMessage())->withInput();
         }
-
-
-        // Добавляем новый файл
-        if ($request->hasfile('image')) {
-            foreach ($request->file('image') as $image) {
-                $name    = $image->getClientOriginalName();
-                $fileUrl = Storage::url('images/' . $name);
-                // Проверяем если количество файлов после редактирования
-                // больше допустимого, то пропускаем
-                if ($articleImagesCnt++ > $this->count) continue;
-                // Если файл с таким имененм уже есть у поста то пропускаем
-                if($postImage) {
-                    if (in_array($fileUrl, $postImage)) continue;
-                }
-                $path      = 'public/images/' . $name;
-                $postImageModel = new PostImage;
-                // Проверяем существует ли файл с таким именем,
-                // если да, то не создаём, а используем существующий
-                if (!Storage::disk('public')->exists('images/'.$name)) {
-                    $image     = Image::make($image)->fit(450, 750, function ($constraint) {
-                        $constraint->upsize();
-                    }, 'center');
-                    Storage::put($path, (string)$image->encode());
-                    $url = Storage::url($path);
-                }else{
-                    $url = $fileUrl;
-                }
-                // Создаём запись в модели PostImage
-                try {
-                    $postImageModel->article_id = $article->id;
-                    $postImageModel->name = md5($name);
-                    $postImageModel->image_path = $url;
-                    if($postImageModel->save()){
-
-                        $postImageAll[] = $postImageModel;
-                    }
-                } catch (\Exception $e) {
-                    echo $e->getMessage();
-                }
-            }
-        }
-
-        // Временное
-        if($mainImageMd5) {
-            foreach ($postImageAll as $row){
-                if($mainImageMd5 == $row->name)
-                    PostImage::where('id', $row->id)->update(['main' => true]);
-                else
-                    PostImage::where('id', $row->id)->update(['main' => false]);
-
-            }
-        }
-
-
-        try {
-            $update = $article->update($inputsArray);
-
-            /** ===========================================================
-             ===================Модерация================================
-             **/
-            if($inputsArray['moderate']){
-                if($article->moderateComments()->exists()){
-                    $article->moderateComments()->first()->settings()->detach();
-                    $article->moderateComments()->detach();
-                }
-                event(new AdsModerate($article, []));
-            }else {
-                $moderateItem = Moderate::updateOrCreate([
-                    'id' => $inputsArray['moderate_id']
-                    ],["message" => $inputsArray['moderate_text']]);
-                $moderateItem->settings()->sync($inputsArray['rule']??[]);
-                event(new AdsModerate($article, $moderateItem));
-                $article->moderateComments()->sync($moderateItem->id);
-            }
-            /** ================================================================
-            ===================Модерация=======================================
-             **/
-
-
-            // FilterGroups
-            if ($request->input('attrs')):
-                $article->filterGroups()->attach(array_keys($request->input('attrs')));
-                $article->filterValues()->attach($request->input('attrs'));
-            endif;
-
-            //Tags
-            $article->tags()->detach();
-            if ($request->input('tags')):
-                $article->tags()->attach($request->input('tags'));
-            endif;
-
-            //Categories
-            $article->categories()->detach();
-            if ($request->input('categories')):
-                $article->categories()->attach($request->input('categories'));
-            endif;
-
-            if (array_key_exists('reload', $inputsArray)) {
-                session()->flash('message', "Материал  изменен " . $article->title);
-                $tags  = \App\Models\Tag::all();
-                $tags2 = [];
-                foreach ($tags as $tag) {
-                    $tags2[$tag->id] = $tag->name;
-                }
-
-                return redirect()->route('admin.article.edit', [
-                    'article'    => $article,
-                    'categories' => Category::with('children')->where('parent_id', 0)->get(),
-                    'tags'       => $tags,
-                    //'main_image' => $mainImage,
-                    'delimiter'  => ''
-                ]);
-            } else {
-                session()->flash('message', "Материал  изменен " . $article->title);
-                return redirect()->route('admin.article.index');
-            }
-
-        } catch (Exception $exception) {
-            session()->flash('message', $exception->getMessage());
-            return redirect()->route('admin.article.index');
-        }
+        return redirect()->route('admin.article.index');
 
 
     }
@@ -383,15 +164,23 @@ class ArticleController extends Controller
      *
      * @param Article $article
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy( Article $article) {
-        $article->categories()->detach();
-        $article->tags()->detach();
-        $article->delete();
+    public function destroy( Article $article, Request $request) {
 
-        return redirect()->route('admin.article.index');
+        try{
+            $article->favoritesProfiles()->detach();
+            $this->adsService->removeAds($article);
+        }catch (\Exception $e){
+            if($request->ajax())
+                return response()->json(array('success' => false), 500);
+            return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
+        }
+        if($request->ajax())
+            return response()->json(array('success' => true, 'msg' => 'Объявление полностью удалено'), 200);
+
+        return redirect()->route('admin.article.index')->with('success', 'Объявление полностью удалено');
     }
 
 
@@ -420,6 +209,9 @@ class ArticleController extends Controller
         return response()->json($res);
 
     }
+
+
+
 
     public function postUp(Request $request){
         $articleId =trim(strip_tags($request->get('id')));

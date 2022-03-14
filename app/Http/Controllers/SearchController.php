@@ -82,4 +82,21 @@ class SearchController extends Controller
         return $r;
 
     }
+
+
+
+    public function searchAuthor( Request $request ) {
+       $search = trim(strip_tags($request->get('term')));
+
+        //return response()->json($request->all());
+        $arRes = DB::table('users')
+                ->select('id', 'email')
+                 ->where('email', 'LIKE', '%' . $search . '%')
+                 ->get();
+        return response()->json(
+            ['items' => $arRes]
+        );
+
+    }
+
 }

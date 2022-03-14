@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', (e) => profileAdsList(btn, e));
         });
     }
+
+
+    // Обновить время подняния поста
+    let postUpBtn = document.querySelector('.js_postUp')
+    if(postUpBtn) postUpBtn.addEventListener('click', postUp)
+
 });
 
 window.addEventListener('click', function (e) {
@@ -290,4 +296,34 @@ window.addEventListener( "pageshow", function ( event ) {
 });
 
 
+// Поднимаем пост
+const postUp = (e) => {
+    e.preventDefault()
 
+    const  postId = e.target.closest('.js_postUp').getAttribute('data-id')
+    const  postUpMsg = e.target.closest('.js_postUpMsg')
+
+
+    if (postId) {
+        axios.post(
+            '/profile/up',
+            {id: postId},
+            {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }
+        ).then(function (response) {
+            iziToast.success({
+                position: 'topRight',
+                timeout: 1500,
+                message: response.data
+            });
+            // if(postUpMsg) {
+            //     postUpMsg.innerHTML = response.data
+            // }
+
+        })
+    }
+
+}

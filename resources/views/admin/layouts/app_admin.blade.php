@@ -27,10 +27,11 @@
         <div class="apage marea flex-fill dashboard__content">
 
             <div class="dashboard__main">
-                @include('chunks.messeges')
-                <div class="col-md-9">
+
+                @include('chunks.messages')
+
                 @include('chunks.errors')
-                </div>
+
                 <div class="dashboard__body">
                  @yield('content')
                 </div>
@@ -42,14 +43,13 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('page-script')
-
-<script src="{{ asset('js/forms.js')}}"></script>
 <script src="{{ asset('js/main.js')}}"></script>
 <!-- Scripts -->
 <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
 <link href="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css') }}" rel="stylesheet">
 <script src="{{ asset('js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') }}"></script>
 <script src="{{asset('js/backend.js')}}"></script>
+<script src="{{asset('js/fileLoader.js')}}"></script>
 <script>
 
 
@@ -73,6 +73,5 @@
 <script>hljs.initHighlightingOnLoad();</script>
 
 <style>img.img-fluid{width: 100%;}</style>
-
 </body>
 </html>

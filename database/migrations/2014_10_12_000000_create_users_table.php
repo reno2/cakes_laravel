@@ -24,8 +24,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->boolean('is_admin')->default(0);
+            $table->boolean('active')->default(1);
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -36,6 +38,10 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+//        Schema::table('users', function (Blueprint $table) {
+//            $table->dropSoftDeletes();
+//        });
         Schema::dropIfExists('users');
+//       // $table->dropSoftDeletes();
     }
 }

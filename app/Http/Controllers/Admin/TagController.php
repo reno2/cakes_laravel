@@ -3,31 +3,41 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Media\LocalMedia;
+use App\Media\MediaInterface;
 use App\Models\Tag;
+use App\Services\TagService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Mockery\Exception;
 use Session;
 
 class TagController extends Controller
 {
-
+    public $tagService;
     public function __construct()
     {
+        $this->tagService = new TagService();
         $this->middleware('auth');
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param TagService $tagService
+     * @return Factory|View
      */
-    public function index(Tag $tagEdit)
+    public function index()
     {
-        //	dd($tagEdit);
-        $tags = Tag::paginate(10);
+
+        $tags = $this->tagService->getAll();
 
         return view('admin.tags.index', compact('tags'));
 
@@ -35,7 +45,7 @@ class TagController extends Controller
 
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -48,96 +58,92 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return void
-     * @throws \Illuminate\Validation\ValidationException
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(Request $request)
-
     {
         $this->validate($request, [
-            'name' => 'required|max:255|unique:tags',
+            'title' => 'required|max:255|unique:tags',
         ]);
-        $tag = new Tag;
-        $tag->name = $request->name;
-        $tag->save();
-        Session::flash('success', 'тег создан');
+
+        try {
+            $this->tagService->createTag($request);
+            Session::flash('success', 'тег создан');
+
+        } catch (\Exception $e) {
+            return back()->withErrors( $e->getMessage())->withInput();
+        }
+
         return redirect()->route('admin.tags.index');
+
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Tag $tag
+     * @return Response
      */
     public function show(Tag $tag)
     {
+
         return view('admin.tags.show', compact('tag'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Tag $tag
+     * @return Factory|View
      */
     public function edit(Tag $tag)
     {
         $articles = $tag->articles;
+        $tag = $this->tagService->getForEdit($tag);
         return view('admin.tags.edit', compact('tag', 'articles'));
-
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновление тэга
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Tag                      $tag
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @param Tag $tag
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, Tag $tag)
     {
-        $y = '';
+
         $this->validate($request, [
             'slug' => Rule::unique('tags')->ignore($tag->id, 'id'),
-            'name' => 'required'
+            'title' => 'required'
         ]);
-        $r = $request->except('tags');
-        $t =$request->input('important');
-        $r['important'] = ($request->input('important')) ? true : false;
-        try{
 
-            $update = $tag->update($r);
-            //Articles
-            $tag->articles()->detach();
-            if ($request->input('tags')):
-                $tag->articles()->attach($request->input('tags'));
-            endif;
-            session()->flash('message', "Тег  изменен " . $tag->name);
-            return redirect()->route('admin.tags.index');
+
+        try{
+            $this->tagService->updateTag($tag, $request);
+            session()->flash('message', "Тег  изменен " . $tag->title);
         }catch (Exception $exception){
             session()->flash('message', $exception->getMessage());
             return redirect()->route('admin.tags.index');
         }
-       // return redirect()->route('admin.tags.index');
+
+        return redirect()->route('admin.tags.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Tag $tag
+     * @return Response
+     * @throws \Exception
      */
     public function destroy(Tag $tag)
     {
-        if($tag->articles())
-            $tag->articles()->detach();
-        $tag->delete();
+
+        $this->tagService->deleteFilesAndRelation($tag);
         return redirect()->route('admin.tags.index');
     }
 }

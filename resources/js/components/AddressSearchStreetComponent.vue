@@ -1,8 +1,8 @@
 <template>
 
     <div class="form-group row">
-        <label for="deal_address" class="col-md-4 col-form-label text-md-right">Место сделки</label>
-        <div class="col-md-7">
+        <label for="deal_address" class="form-group__placeholder">Место сделки</label>
+        <div class="form-group__inputs">
             <input required @blur="unblur"
                    @keyup="fillAddress($event)"
                    autocomplete="off"
@@ -11,7 +11,7 @@
                    id="deal_address"
                    name="deal_address"
                    :class="{'is-invalid' : message}"
-                   class="form-control">
+                   class="form-group__input">
             <span v-if="message" class="help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
                 <div v-if="choosing" class="dropdown-menu">

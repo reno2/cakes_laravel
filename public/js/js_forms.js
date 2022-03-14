@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
-    // Обновить время подняния поста
-    let postUpBtn = document.querySelector('.js_postUp')
-    if(postUpBtn) postUpBtn.addEventListener('click', postUp)
 
     // fake click
     let fakeUpload = document.querySelector('.fake-upload')
@@ -76,7 +73,6 @@ const addToBeDelete = (el) => {
         allIds.push(toDel)
     }
     $(deleteIds).val(JSON.stringify( allIds ))
-    //console.log($(deleteIds).val)
 }
 
 const addToValidArray = (file) => {
@@ -141,6 +137,7 @@ const showNotice = function(el, msg) {
 const renderFilePreview = function(file){
     let previewList = document.querySelector(".image-preview"),
         fakeUpload = document.querySelector(".fake-upload"),
+        //fakeUpload = document.querySelector(".js_thumbs__previews"),
         hash = md5(file.name),
         ext = file.name.split('.').pop(),
         previewItem = `
@@ -172,38 +169,6 @@ const setAsMain = (el, name = null) => {
         el.classList.add('image_main')
         document.querySelector('input#main_image').value = name
     }
-}
-
-
-const postUp = (e) => {
-    e.preventDefault()
-
-    const  postId = e.target.closest('.js_postUp').getAttribute('data-id')
-    const  postUpMsg = e.target.closest('.js_postUpMsg')
-
-
-    if (postId) {
-        axios.post(
-            '/profile/up',
-            {id: postId},
-            {
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            }
-        ).then(function (response) {
-            iziToast.success({
-                position: 'topRight',
-                timeout: 1500,
-                message: response.data
-            });
-            // if(postUpMsg) {
-            //     postUpMsg.innerHTML = response.data
-            // }
-
-        })
-    }
-
 }
 
 

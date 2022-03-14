@@ -1,10 +1,10 @@
 <template>
 
     <div class="form-group row">
-        <label for="address" class="col-md-4 col-form-label text-md-right">Город</label>
-        <div class="col-md-6">
+        <label for="address" class="form-group__placeholder">Город</label>
+        <div class="form-group__inputs">
             <input required @blur="unblur" @keyup="fillAddress($event)" autocomplete="off" v-model="city" type="text" id="address"
-                   name="address" :class="{'is-invalid' : message}" class="form-control">
+                   name="address" :class="{'is-invalid' : message}" class="form-group__input">
             <span v-if="message" class="help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
                 <div v-if="choosing" class="dropdown-menu">

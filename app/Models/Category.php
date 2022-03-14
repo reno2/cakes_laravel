@@ -15,7 +15,7 @@ class Category extends Model
     public function setSlugAttribute($value)
     {
 
-        if(isset($_REQUEST['slug__change']) && !empty($value)){
+        if(isset($_REQUEST['slug_change']) && !empty($value)){
             $this->attributes['slug'] = Str::slug($value);
         }else{
             $this->attributes['slug'] = Str::slug($_REQUEST['title']);
@@ -36,6 +36,10 @@ class Category extends Model
     public function scopeLastCategories($query, $count)
     {
         return $query->orderBy('created_at', 'desc')->take($count)->get();
+    }
+
+    public function attachments(){
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
 }

@@ -5,22 +5,41 @@
 
 
     @component('admin.components.breadcrumb')
-        @slot('title') @if(isset($title))  {{$title}} @else Список статьи @endif @endslot
+        @slot('title') @if(isset($title))  {{$title}} @else Список пользователей @endif @endslot
         @slot('parents') Главная @endslot
-        @slot('active') Статьи @endslot
+        @slot('active') Пользователи @endslot
     @endcomponent
 
-    <hr>
-    <a href="{{route('admin.users.create')}}" class="mb-3 btn btn-primary float-md-left"><i class="far fa-plus-square"></i> Создать материал</a>
-
-    <div class="btn-group float-md-right" role="group" aria-label="Basic example">
-        <a href="{{route('admin.users.index', ['sort' => 'asc'])}}" type="button" class="btn btn-secondary"><i class="fas fa-sort-amount-down-alt"></i></a>
-        <a href="{{route('admin.users.index', ['sort' => 'desc'])}}" type="button" class="btn btn-secondary"><i class="fas fa-sort-amount-down"></i></a>
-{{--        <a href="{{route('admin.users.index')}}" type="button" class="btn btn-secondary"><i class="fas fa-sort-numeric-down"></i> Дате добавления </a>--}}
+    <div class="dashboard__create-btn">
+        <a class="btn-main btn-big" href="{{route('admin.users.create')}}">Создать пользователя</a>
     </div>
 
 
 
+{{--    <div class="btn-group float-md-right" role="group" aria-label="Basic example">--}}
+{{--        <a href="{{route('admin.users.index', ['sort' => 'asc'])}}" type="button" class="btn btn-secondary"><i class="fas fa-sort-amount-down-alt"></i></a>--}}
+{{--        <a href="{{route('admin.users.index', ['sort' => 'desc'])}}" type="button" class="btn btn-secondary"><i class="fas fa-sort-amount-down"></i></a>--}}
+{{--    </div>--}}
+
+    @include('admin.widgets.index_users', [
+                    'heads' => [
+                        'id',
+                        'Статус',
+                        'Подтверждён',
+                        'Дата создания',
+                        'Имя',
+                        'Почта',
+                        'Количество статей',
+                        'Админ',
+                        'Изображение',
+                        'Действия'
+                        ],
+                    'values' => $users,
+                    'entity' => 'users'
+                    ])
+
+
+    @if(false)
     <table class="table table-striped">
         <thead>
             <th>#</th>
@@ -71,7 +90,7 @@
         </tfoot>
 
     </table>
-
+    @endif
 
 
 @endsection

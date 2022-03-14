@@ -2,69 +2,76 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\Http\Requests\AdsRequest;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $categories = Category::paginate(10);
-        //list
-        return view('admin.categories.index', compact('categories'));
+
+    public $categoryService;
+
+    public function __construct () {
+        $this->categoryService = new CategoryService();
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $oo = Category::with('children')->where('parent_id', 0)->get();
+
+
+    public function index () {
+        try {
+            $categories = $this->categoryService->getAll();
+            return view('admin.categories.index', compact('categories'));
+        } catch (\Mockery\Exception $exception) {
+
+        }
+    }
+
+
+    public function create () {
         return view('admin.categories.create', [
             'category' => [],
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter' => ''
+            'delimiter' => '',
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        Category::create($request->all());
-        return redirect()->route('admin.category.index');
+
+    public function store (CategoryRequest $request) {
+
+        try {
+
+            $this->categoryService->createCategory($request);
+            return redirect()->route('admin.category.index');
+
+        } catch (\Exception $e) {
+            return back()->withErrors( $e->getMessage())->withInput();
+        }
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param \App\Category $category
-     * @param Request       $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Category $category, Request $request)
-    {
+    public function show (Category $category, Request $request) {
 
-        if($request->get('sort')){
+        if ($request->get('sort')) {
             $sort = $request->get('sort');
             $articles = $category->articles()->orderBy('sort', $sort)->paginate(12);
-        }
-        else{
+        } else {
             $articles = $category->articles()->orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(12);
         }
 
@@ -72,61 +79,42 @@ class CategoryController extends Controller
 
         return view('admin.categories.show', [
             'articles' => $articles,
-            'category_name' => $category->title
+            'category_name' => $category->title,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function edit(Category $category)
-    {
+
+    public function edit (Category $category) {
+
+
+        $category = $this->categoryService->getForEdit($category);
 
         return view('admin.categories.edit', [
             'category' => $category,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter' => ''
+            'delimiter' => '',
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Category            $category
-     *
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function update(Request $request, Category $category)
-    {
-//        $category->update($request->except('slug'));
 
-        $this->validate($request, [
-            'slug' => Rule::unique('categories')->ignore($category->id, 'id'),
-            'title' => 'required'
-        ]);
+    public function update (CategoryRequest $request, Category $category) {
 
-
-        $res = $category->update($request->all());
-        session()->flash('message', "Категория  изменена");
+        try {
+            $this->categoryService->updateCategory($category, $request);
+            session()->flash('message', "Категория  изменена");
+        }catch (\Exception $e){
+            return back()->withErrors( $e->getMessage())->withInput();
+        }
         return redirect()->route('admin.category.index');
     }
 
-    /**
-     * Remove the specified resource from storage
-     *
-     * @param \App\Category $category
-     * @return Illuminate\Http\Response
-     * @throws Exception
-     */
-    public function destroy(Category $category)
-    {
-        $category->delete();
+
+    public function destroy (Category $category) {
+        try {
+            $this->categoryService->deleteFilesAndRelation($category);
+        }catch (\Exception $e){
+            return back()->withErrors( $e->getMessage())->withInput();
+        }
         return redirect()->route('admin.category.index');
     }
 }

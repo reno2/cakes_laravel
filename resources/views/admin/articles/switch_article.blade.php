@@ -1,7 +1,9 @@
 @extends('admin.layouts.app_admin')
 @if($article)
+
     @include('admin.articles.edit')
 @else
+
     @include('admin.articles.create')
 @endif
 
@@ -20,6 +22,38 @@
       @isset($article->id)
       $('#tags').select2().val({!! json_encode($article->tags()->allRelatedIds()) !!}).trigger('change');
       @endisset
+
+
+
+      $('.authors').select2({
+          minimumInputLength: 1,
+          ajax: {
+              url: "{{route('getUser')}}",
+              dataType: 'json',
+              quietMillis: 50,
+              type: "GET",
+              data: function (params) {
+                  return {
+                      term: params.term
+                  }
+              },
+              processResults: function (data) {
+                 const yy =  {
+
+                      results: $.map(data.items, function (item) {
+
+                          return {
+                              text: item.email,
+                              id: item.id
+                          }
+                      })
+                  };
+
+                  return yy;
+              }
+          }
+      });
+
     </script>
 
 @stop

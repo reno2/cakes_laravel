@@ -113,6 +113,6 @@
         <script src="{{ asset('js/header.js')}}"></script>
         <script src="{{ asset('js/js_forms.js')}}"></script>
         @yield('page-script')
-        @include('chunks.messeges')
+        @include('chunks.messages')
     </body>
 </html>

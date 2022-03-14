@@ -15,13 +15,14 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('title')->unique();
             $table->string('slug')->nullable()->unique();
             $table->timestamps();
             $table->text('description_short')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->boolean('important')->default(0);
+            $table->integer('sort')->nullable()->default(500);
             $table->boolean('published')->default(1);
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();

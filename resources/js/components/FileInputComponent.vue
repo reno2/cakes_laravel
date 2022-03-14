@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <div class="form-group row justify-content-md-center">
-            <div class="offset-md-4 col-md-6 mr-2">
-                <div v-if="url" class="file-preview">
+    <div class="file-input">
+        <div class="form-group__single form-group row justify-content-md-center file-input__top">
+            <div class="offset-md-4 col-md-6 mr-2 file-input__figure">
+                <div v-if="url" class="file-preview file-input__preview">
                     <img class="js_profileAva file-preview__img" v-if="url" :src="url"/>
 
                     <svg v-if="hasAvatar == true" @click="removeAva" class="file-preview__del">
@@ -11,11 +11,13 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="ava" class="col-md-4 col-form-label text-md-right">Аватарка</label>
-            <input @change="loadImg($event)" type="file" id="ava" name="image">
-            <div class="col-md-6">
-                <button @click="openInput" type="button" class="btn btn-primary btn-block">Загрузить</button>
+        <div class="form-group file-input__actions">
+            <label for="ava" class="form-group__placeholder file-input__label">Аватарка</label>
+            <div class="form-group__inputs">
+                <input @change="loadImg($event)" type="file" id="ava" name="image">
+                <div class="file-input__btn">
+                    <button @click="openInput" type="button" class="btn-middle btn-grey wide">Загрузить</button>
+                </div>
             </div>
         </div>
     </div>
@@ -30,51 +32,53 @@
                 type: String
             },
             token: {type: String},
-            hasAvatar: {type : String},
+            hasAvatar: {type: String},
         },
         data() {
             return {
                 defaultAva: '/storage/images/defaults/cake.svg',
                 input: null,
                 url: null,
-            }
+            };
         },
         methods: {
-            async removeAva(){
-               const that = this
+            async removeAva() {
+                const that = this;
                 const response = await axios.delete(`/profile/avatar/remove/${that.profileId}`,
-                    {headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token " + that.token
-                    }}
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Token ' + that.token
+                        }
+                    }
                 );
-               if(response.data.success){
-                    document.querySelectorAll('.js_profileAva').forEach((el, i) =>{
-                        el.src = this.defaultAva
-                        this.hasAvatar = false
-                    })
-               }
+                if (response.data.success) {
+                    document.querySelectorAll('.js_profileAva').forEach((el, i) => {
+                        el.src = this.defaultAva;
+                        this.hasAvatar = false;
+                    });
+                }
             },
             loadImg(event) {
-                let file = event.target.files[0]
+                let file = event.target.files[0];
                 this.url = URL.createObjectURL(file);
             },
             openInput() {
-                this.input.click()
+                this.input.click();
             }
         },
         mounted() {
-            if(this.img) this.url = this.img
+            if (this.img) this.url = this.img;
             this.input = document.getElementById('ava');
         }
-    }
+    };
 </script>
 <style>
     #ava {
         display: none
     }
-    .file-preview{
+    .file-preview {
         border-radius: 8px;
         width: 200px;
         height: 200px;
@@ -84,7 +88,7 @@
         justify-content: center;
         position: relative;
     }
-    .file-preview__img{
+    .file-preview__img {
         object-fit: cover;
         object-position: top;
         height: 100%;
@@ -97,13 +101,25 @@
         z-index: 9;
         bottom: 0;
         right: 0;
-        background: #fff;
+        background: #ffffff;
         padding: 3px;
         cursor: pointer;
         border-radius: 2px;
     }
-    .file-preview__del:hover{
-        background: #eee;
-    }
+    .file-input__top {
 
+    }
+    .file-preview__del:hover {
+        background: #eeeeee;
+    }
+    .file-input {
+        margin-bottom: 24px;
+    }
+    .file-input__actions {
+        display: flex;
+        align-items: center;
+    }
+    .file-input__label {
+
+    }
 </style>

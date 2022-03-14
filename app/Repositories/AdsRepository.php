@@ -16,6 +16,11 @@ class AdsRepository extends CoreRepository
 {
 
 
+    public function disableUserAds($userId){
+        $this->startCondition()::where('user_id', $userId)
+            ->update(['published'=>0]);
+    }
+
     public function getTodayAds($count = 10){
         $records = Article::whereDate('created_at', Carbon::today())->take($count)->get();
         if($records->isEmpty()) return 0;

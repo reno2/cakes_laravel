@@ -4,53 +4,95 @@
 @section('content')
 
 
-    @component('admin.components.breadcrumb')
-        @slot('title') Список категорий @endslot
-        @slot('parents') Главная @endslot
-        @slot('active') Категории @endslot
-    @endcomponent
+    <div class="info-cards">
+        <div class="info-cards__row">
 
-    <div class="row">
-        <div class="col-sm-9">
-            <div class="form">
-                <form id="seometa" action="{{route('seo.category.update')}}"  method='POST'>
-                    {{csrf_field()}}
-                    <input type="hidden" name="type" value="category">
-                    <input type="hidden" name="id" value="{{$category->id ?? ''}}">
-                     <div class="block ">
-                         <div class="block__category">
-                             <div class="form-group">
-                                 <label for="title">Тег title для категории</label>
-                                 <input type="text" name="title" class="form-control" id="title" value="{{$category->title ?? ''}}">
-                             </div>
-                             <div class="form-group">
-                                 <label for="h1">Тег h1 для категории</label>
-                                 <input type="text" name="h1" class="form-control" id="h1" value="{{$category->h1 ?? ''}}">
-                             </div>
-{{--                             <div class="form-group">--}}
-{{--                                 <label for="keywords">Тег meta-keywords для категории</label>--}}
-{{--                                 <input type="text" name="keywords" class="form-control" id="keywords" value="{{$category->keywords ?? ''}}">--}}
-{{--                             </div>--}}
-                             <div class="form-group">
-                                 <label for="description">Тег meta-description для категории</label>
-                                 <textarea name="description" class="form-control" id="description">
-{{$category->description ?? ''}}
-                                 </textarea>
-                             </div>
+            @php $parents = [];
+                $parents[] = ['link' => route('admin.index'), 'title' => 'Главная'];
 
-                         </div>
-                     </div>
+            @endphp
 
-                    <input type="submit" class="btn btn-block btn-primary" value="Изменить  категорию">
-                </form>
-            </div>
+            @component('admin.components.breadcrumb', ['parents'=>$parents])
+                @slot('title') SEO @endslot
+                @slot('active') Seo для категории @endslot
+            @endcomponent
         </div>
-        <div class="col-sm-3">
-            <div class="seo-vars">
-                <ul class="seo-vars__ul">
-                    <li class="seo-vars__li">#title# - Название категории</li>
-                    <li class="seo-vars__li">#description# - Описание категории</li>
-                </ul>
+    </div>
+    <div class="info-cards">
+        <div class="info-cards__row">
+            <div class="info-cards__cards">
+                <div class="info-cards__block info-card_half">
+                    <form id="seometa" action="{{route('seo.category.update')}}" method='POST' class="dashboard-form create-form">
+                        {{csrf_field()}}
+                        <input type="hidden" name="type" value="category">
+                        <input type="hidden" name="id" value="{{$category->id ?? ''}}">
+
+
+                        <div class="form-group">
+                            <label for="title" class="form-group__placeholder  @error('title') onError @enderror">Тег title для категории</label>
+                            <div class="form-group__inputs">
+                                <input type="text" name="title" class="form-group__input" id=title" value="{{$category->title ?? ''}}">
+                                @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="h1" class="form-group__placeholder  @error('h1') onError @enderror">Тег h1 для категории</label>
+                            <div class="form-group__inputs">
+                                <input type="text" name="h1" class="form-group__input" id="h1" value="{{$category->h1 ?? ''}}">
+                                @error('h1')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="description" class="form-group__placeholder  @error('description') onError @enderror">Тег meta-description для категории</label>
+                            <div class="form-group__inputs">
+                                <textarea type="text" name="description" class="form-group__textarea" id="description">
+{{$category->description ?? ''}}
+                                </textarea>
+                                @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        <div class="form-group__actions form-group__single">
+                            <div class="offset-md-4 col-md-8">
+                                <input type="submit" class="btn-main btn-middle half" value="Создать запись">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+
+                <div class="info-cards__block">
+
+                    <div class="info-block">
+                        <div class="info-block__name"> Значение по умолчанию</div>
+                        <div class="info-block__data">
+                            <ul class="back-sidebar__ul">
+                                @foreach(config('seo') as $key => $seo)
+                                    <li class="back-sidebar__li">#{{$key}}# - {{$seo}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

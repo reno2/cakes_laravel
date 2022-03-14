@@ -28,7 +28,7 @@ function formSubmit(e){
 function numbersPoint(el) {
     removeError(el);
     const pattern =  /^(\d)*(\.)?([0-9]{1,3})?$/g;
-    if (!pattern.test(el.value)) {
+    if (!pattern.test(el.value) || !el.value) {
         showError('.js_numbersPoint', el);
         return false
     }else

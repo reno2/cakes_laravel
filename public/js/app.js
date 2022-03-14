@@ -3247,6 +3247,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     profileId: {
@@ -3283,9 +3285,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 3;
                 return axios["delete"]("/profile/avatar/remove/".concat(that.profileId), {
                   headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token " + that.token
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Token ' + that.token
                   }
                 });
 
@@ -10876,7 +10878,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview{\n    border-radius: 8px;\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n}\n.file-preview__img{\n    -o-object-fit: cover;\n       object-fit: cover;\n    -o-object-position: top;\n       object-position: top;\n    height: 100%;\n}\n.file-preview__del {\n    width: 30px;\n    height: 30px;\n    fill: #bf4141;\n    position: absolute;\n    z-index: 9;\n    bottom: 0;\n    right: 0;\n    background: #fff;\n    padding: 3px;\n    cursor: pointer;\n    border-radius: 2px;\n}\n.file-preview__del:hover{\n    background: #eee;\n}\n\n", ""]);
+exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview {\n    border-radius: 8px;\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n}\n.file-preview__img {\n    -o-object-fit: cover;\n       object-fit: cover;\n    -o-object-position: top;\n       object-position: top;\n    height: 100%;\n}\n.file-preview__del {\n    width: 30px;\n    height: 30px;\n    fill: #bf4141;\n    position: absolute;\n    z-index: 9;\n    bottom: 0;\n    right: 0;\n    background: #ffffff;\n    padding: 3px;\n    cursor: pointer;\n    border-radius: 2px;\n}\n.file-input__top {\n}\n.file-preview__del:hover {\n    background: #eeeeee;\n}\n.file-input {\n    margin-bottom: 24px;\n}\n.file-input__actions {\n    display: flex;\n    align-items: center;\n}\n.file-input__label {\n}\n", ""]);
 
 // exports
 
@@ -89364,7 +89366,7 @@ var render = function() {
     _c(
       "label",
       {
-        staticClass: "col-md-4 col-form-label text-md-right",
+        staticClass: "form-group__placeholder",
         attrs: { for: "deal_address" }
       },
       [_vm._v("Место сделки")]
@@ -89372,7 +89374,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-md-7" },
+      { staticClass: "form-group__inputs" },
       [
         _c("input", {
           directives: [
@@ -89383,7 +89385,7 @@ var render = function() {
               expression: "dealPlace"
             }
           ],
-          staticClass: "form-control",
+          staticClass: "form-group__input",
           class: { "is-invalid": _vm.message },
           attrs: {
             required: "",
@@ -89930,66 +89932,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "form-group row justify-content-md-center" }, [
-      _c("div", { staticClass: "offset-md-4 col-md-6 mr-2" }, [
-        _vm.url
-          ? _c("div", { staticClass: "file-preview" }, [
-              _vm.url
-                ? _c("img", {
-                    staticClass: "js_profileAva file-preview__img",
-                    attrs: { src: _vm.url }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.hasAvatar == true
-                ? _c(
-                    "svg",
-                    {
-                      staticClass: "file-preview__del",
-                      on: { click: _vm.removeAva }
-                    },
-                    [
-                      _c("use", {
-                        attrs: { "xlink:href": "/images/icons.svg#icon-close" }
+  return _c("div", { staticClass: "file-input" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "form-group__single form-group row justify-content-md-center file-input__top"
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "offset-md-4 col-md-6 mr-2 file-input__figure" },
+          [
+            _vm.url
+              ? _c("div", { staticClass: "file-preview file-input__preview" }, [
+                  _vm.url
+                    ? _c("img", {
+                        staticClass: "js_profileAva file-preview__img",
+                        attrs: { src: _vm.url }
                       })
-                    ]
-                  )
-                : _vm._e()
-            ])
-          : _vm._e()
-      ])
-    ]),
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.hasAvatar == true
+                    ? _c(
+                        "svg",
+                        {
+                          staticClass: "file-preview__del",
+                          on: { click: _vm.removeAva }
+                        },
+                        [
+                          _c("use", {
+                            attrs: {
+                              "xlink:href": "/images/icons.svg#icon-close"
+                            }
+                          })
+                        ]
+                      )
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ]
+        )
+      ]
+    ),
     _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
+    _c("div", { staticClass: "form-group file-input__actions" }, [
       _c(
         "label",
         {
-          staticClass: "col-md-4 col-form-label text-md-right",
+          staticClass: "form-group__placeholder file-input__label",
           attrs: { for: "ava" }
         },
         [_vm._v("Аватарка")]
       ),
       _vm._v(" "),
-      _c("input", {
-        attrs: { type: "file", id: "ava", name: "image" },
-        on: {
-          change: function($event) {
-            return _vm.loadImg($event)
+      _c("div", { staticClass: "form-group__inputs" }, [
+        _c("input", {
+          attrs: { type: "file", id: "ava", name: "image" },
+          on: {
+            change: function($event) {
+              return _vm.loadImg($event)
+            }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-block",
-            attrs: { type: "button" },
-            on: { click: _vm.openInput }
-          },
-          [_vm._v("Загрузить")]
-        )
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "file-input__btn" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn-middle btn-grey wide",
+              attrs: { type: "button" },
+              on: { click: _vm.openInput }
+            },
+            [_vm._v("Загрузить")]
+          )
+        ])
       ])
     ])
   ])
@@ -90102,16 +90119,13 @@ var render = function() {
   return _c("div", { staticClass: "form-group row" }, [
     _c(
       "label",
-      {
-        staticClass: "col-md-4 col-form-label text-md-right",
-        attrs: { for: "address" }
-      },
+      { staticClass: "form-group__placeholder", attrs: { for: "address" } },
       [_vm._v("Город")]
     ),
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-md-6" },
+      { staticClass: "form-group__inputs" },
       [
         _c("input", {
           directives: [
@@ -90122,7 +90136,7 @@ var render = function() {
               expression: "city"
             }
           ],
-          staticClass: "form-control",
+          staticClass: "form-group__input",
           class: { "is-invalid": _vm.message },
           attrs: {
             required: "",
@@ -102739,47 +102753,6 @@ var app = new Vue({
 window.iziToast = __webpack_require__(/*! izitoast */ "./node_modules/izitoast/dist/js/iziToast.js");
 
 
- // const slideItems = document.querySelectorAll('.ad-detail__small');
-// const thumbSlider = document.querySelector('.ad-detail__navigation');
-// console.log(thumbSlider);
-// const thumbArrows = thumbSlider.querySelector('.js_swiperNavigate');
-//
-// thumbArrows.style.display = 'none'
-// const options = {
-//     loop: true,
-//     slidesPerView: 4,
-//     spaceBetween: 30,
-//     // observer: true,
-//     // observeParents: true,
-//     freeMode: false,
-//     height: 100,
-//     //  loopedSlides: 3, //looped slides should be the same
-//     // watchSlidesVisibility: true,
-//     // watchSlidesProgress: true,
-//     navigation: {
-//         nextEl: '.arrow__right',
-//         prevEl: '.arrow__left',
-//     },
-// }
-// const galleryThumbs = new Swiper('.ad-detail__navigation', options);
-//
-// const galleryTop = new Swiper('.ad-detail__figure', {
-//     freeMode: false,
-//     loop: true,
-//     loopedSlides: 4,
-//     // watchSlidesVisibility: true,
-//     // watchSlidesProgress: true,
-//     pagination: {
-//         el: '.swiper-pagination',
-//     },
-//     navigation: {
-//         nextEl: '.arrow__right',
-//         prevEl: '.arrow__left',
-//     },
-//     // thumbs: {
-//     //     swiper: galleryThumbs,
-//     // },
-// });
 
 var galleryThumbs = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-detail__navigation', {
   spaceBetween: 10,
@@ -102805,6 +102778,52 @@ var galleryTop = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-
   thumbs: {
     swiper: galleryThumbs
   }
+}); // region Collection Slider
+// function swiperCommon() {
+//     const swiperWrap = document.querySelectorAll('.js_swiper__wrap');
+//     if (swiperWrap.length) {
+//         swiperWrap.forEach(el => {
+//             const swiperContainer = el.querySelector('.js_swiper__container');
+//             console.log(swiperContainer);
+//             const swiperSlider = new Swiper('.js_swiper__container', {
+//                 spaceBetween: 10,
+//                 freeMode: false,
+//                 centeredSlides: true,
+//                 pagination: {
+//                     el: '.swiper-pagination',
+//                     clickable: true,
+//                     type: 'fraction',
+//                 },
+//
+//             });
+//         });
+//     }
+// }
+// endregion Collection Slider
+
+document.addEventListener("DOMContentLoaded", function (e) {
+  var swiperSlider = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.js_collection', {
+    // spaceBetween: 10,
+    // loopedSlides: 4,
+    spaceBetween: 10,
+    // centeredSlides: true,
+    // loop: true,
+    slidesPerView: 'auto',
+    navigation: {} // watchSlidesVisibility: true,
+    // watchSlidesProgress: true,
+    // freeMode: false,
+
+  }); // const swiperSlider = new Swiper('.js_swiper__container', {
+  //     spaceBetween: 10,
+  //     freeMode: false,
+  //     centeredSlides: true,
+  //     pagination: {
+  //         el: '.swiper-pagination',
+  //         clickable: true,
+  //         type: 'fraction',
+  //     },
+  //
+  // });
 }); // galleryTop.controller.control = galleryThumbs;
 // galleryThumbs.controller.control = galleryTop;
 // galleryThumbs.init();

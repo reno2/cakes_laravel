@@ -1,13 +1,19 @@
 <?php
+
 namespace App\Seo\Abstracts;
 
-use Illuminate\Support\Facades\DB;
 
-abstract class SeoAbstractRender{
-    protected $varsToReplace = ['title','description'];
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
+
+abstract class SeoAbstractRender
+{
+    protected $varsToReplace = ['title', 'description'];
 
     protected $fillable = [
-        'title', 'h1', 'description'
+        'title',
+        'h1',
+        'description',
     ];
     protected $data;
     protected $type;
@@ -20,11 +26,11 @@ abstract class SeoAbstractRender{
      * @param null $fieldTpl Значенеи шаблона подстановки
      * @return mixed
      */
-    public function getTitle ($field, $fieldTpl = null) {
+    public function getTitle ($field, $fieldTpl = NULL) {
         // Если шаблон пустой возвращает значение из модели
-        if(!$fieldTpl) return $this->data[$fieldTpl];
+        if (!$fieldTpl) return $this->data[$fieldTpl];
         foreach ($this->varsToReplace as $varToReplace) {
-            $fieldTpl = preg_replace("/#" .$varToReplace. "#/", $this->data[$varToReplace], $fieldTpl);
+            $fieldTpl = preg_replace("/#" . $varToReplace . "#/", $this->data[$varToReplace], $fieldTpl);
         }
 
         return $fieldTpl;
@@ -36,12 +42,12 @@ abstract class SeoAbstractRender{
      * @param null $fieldTpl Значенеи шаблона подстановки
      * @return mixed
      */
-    public function getH1 ($field, $fieldTpl = null) {
+    public function getH1 ($field, $fieldTpl = NULL) {
         // Если шаблон пустой возвращает значение из модели
-        if(!$fieldTpl) return $this->data[$fieldTpl];
+        if (!$fieldTpl) return $this->data[$fieldTpl];
 
         foreach ($this->varsToReplace as $varToReplace) {
-            $fieldTpl = preg_replace("/#" .$varToReplace. "#/", $this->data[$varToReplace], $fieldTpl);
+            $fieldTpl = preg_replace("/#" . $varToReplace . "#/", $this->data[$varToReplace], $fieldTpl);
         }
 
         return $fieldTpl;
@@ -52,12 +58,12 @@ abstract class SeoAbstractRender{
      * @param null $fieldTpl Значенеи шаблона подстановки
      * @return mixed
      */
-    public function getDescription ($field, $fieldTpl = null) {
+    public function getDescription ($field, $fieldTpl = NULL) {
         // Если шаблон пустой возвращает значение из модели
-        if(!$fieldTpl) return $this->data[$fieldTpl];
+        if (!$fieldTpl) return $this->data[$fieldTpl];
 
         foreach ($this->varsToReplace as $varToReplace) {
-            $fieldTpl = preg_replace("/#" .$varToReplace. "#/", $this->data[$varToReplace], $fieldTpl);
+            $fieldTpl = preg_replace("/#" . $varToReplace . "#/", $this->data[$varToReplace], $fieldTpl);
         }
 
         return $fieldTpl;
@@ -68,11 +74,11 @@ abstract class SeoAbstractRender{
      * Основной метод по подготовке данных и передачи их в нужные геттеры.
      * Если Геттера нет то возвращает значение из даты
      */
-    protected function prepareData() : void {
-        $rawData = DB::table('seo')->where('type', $this->type)->first();
-        $rawData = ((array)$rawData) ?: [];
-        $metaResult = [];
-
+    protected function prepareData (): void {
+        try {
+            $rawData = DB::table('seo')->where('type', $this->type)->first();
+            $rawData = ((array)$rawData) ?: [];
+            $metaResult = [];
             foreach ($this->fillable as $field) {
 
                 // Если нет шаблона и виртуальное поле
@@ -94,7 +100,10 @@ abstract class SeoAbstractRender{
                 $metaResult[$field] = $metaTpl;
             }
 
-        $this->toRender =  $metaResult;
+            $this->toRender = $metaResult;
+        } catch (Exception $exception) {
+
+        }
     }
 
 }

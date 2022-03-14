@@ -1,0 +1,26 @@
+.cart-errors {
+  width: fit-content;
+  padding: 16px;
+  background: #f8d7da;
+  border-radius: 5px;
+  box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+  border-color: #f5c6cb;
+  border-left: 4px solid #f39ea6;
+}
+
+.cart-errors__li {
+  font-size: 14px;
+  color: #313a46;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+li.cart-errors__li::marker {
+  color: red;
+  font-size: 1.5em;
+}
+
+
+.front .cart-errors {
+  width: auto;
+}

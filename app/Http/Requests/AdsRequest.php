@@ -39,11 +39,12 @@ class AdsRequest extends FormRequest
      */
     public function rules()
     {
-        $i = $this->route()->uri;
+
 
         $adsObj  = (strpos( (string)$this->route()->uri, 'admin') === false) ? 'ad' : 'article';
         $adsId = (!is_object($this->route($adsObj))) ? $this->route($adsObj) : $this->route($adsObj)->id;
         return [
+            'user_id' => "required",
             'title'   => [
                 'required',
                 'max:155',
@@ -69,6 +70,7 @@ class AdsRequest extends FormRequest
     public function messages()
     {
         return [
+            'user_id.required' => 'Владелец объязательно',
             'title.unique' => 'Объявление с таким названием существует',
             'title.required' => 'Название объязательно',
             'title.max' => 'Не более 155 символов',

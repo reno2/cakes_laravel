@@ -1,31 +1,32 @@
 .create-form {
+  .create-form__item {
+    background: #fff;
+    overflow: hidden;
 
-    .create-form__item {
-        padding: 3rem;
-        background: #fff;
-        overflow: hidden;
-        .create-form__title {
-            margin-bottom: 16px;
-            font-size: 12px;
-        }
-
-        .create-form__error {
-            display: none;
-            color: #ff0000;
-            font-weight: 500;
-            letter-spacing: 1px;
-
-            &.show {
-                display: block;
-            }
-        }
-
-
+    .create-form__title {
+      margin-bottom: 16px;
+      font-size: 12px;
     }
-.single-img__input{
+
+    .create-form__error {
+      display: none;
+      color: #ff0000;
+      font-weight: 500;
+      letter-spacing: 1px;
+
+      &.show {
+        display: block;
+      }
+    }
+
+
+  }
+
+  .single-img__input {
     display: none;
-}
-.fake-upload{
+  }
+
+  .fake-upload {
     border: 4px solid #f8fafc;
     padding: 8px;
     box-shadow: 0 1px 8px -7px #000;
@@ -33,131 +34,161 @@
     max-height: 106px;
     display: flex;
     cursor: pointer;
-    .fake-upload__img{
-        width: 100%;
-    }
-}
 
-.single-img__handle {
+    .fake-upload__img {
+      width: 100%;
+    }
+  }
+
+  .single-img__handle {
     display: flex;
     align-items: center;
+
     .single-img__upload {
-        width: 56px;
+      width: 56px;
     }
+
     .single-img__load {
-        margin-left: 16px;
-        font-weight: 900;
-        line-height: 100%;
-        span{
-            font-size: 12px;
-            color: #656565;
-        }
+      margin-left: 16px;
+      font-weight: 900;
+      line-height: 100%;
+
+      span {
+        font-size: 12px;
+        color: #656565;
+      }
     }
-}
-    .image-preview {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        background: #fff;
-        padding: 5px;
-        .image-preview__item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 16px;
-            border: 4px solid #f8fafc;
-            padding: 8px;
-            box-shadow: 0 1px 8px -7px #000;
-            border-radius: 5px;
-            margin-right: 4px;
-            width: 100px;
-            overflow: hidden;
-            max-height: 127px;
-            img {
-                height: 100%;
-            }
-            .image-preview__name {
-                font-size: 10px;
-                text-overflow: ellipsis;
-                max-width: 100%;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-            .image-preview__del {
-                width: 24px;
-                fill: #ff2828;
-                height: 24px;
-                position: absolute;
-                top: 0;
-                background: #fff;
-                left: 0;
-                cursor: pointer;
-            }
-            .image-preview__process{
-                height: 5px ;
-                width: 100%;
-                .image-preview__bar{
-                    width: 0;
-                    background: #000;
-                }
-            }
-            &.ui-sortable-helper{
-                background: #fff;
-            }
-            &.image_main{
-                border: 4px solid #4271ae;
-                &:after{
-                    position: absolute;
-                    content: "основная";
-                    bottom: 0;
-                    background: #4271ae;
-                    color: #fff;
-                    width: 100%;
-                    text-align: center;
-                    line-height: 100%;
-                    font-size: 10px;
-                }
-            }
-        }
+  }
+
+  .image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background: #fff;
+    padding: 5px;
+  }
+
+  .image-preview__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+    border: 4px solid #f8fafc;
+    padding: 8px;
+    box-shadow: 0 1px 8px -7px #000;
+    border-radius: 5px;
+    margin-right: 4px;
+    width: 100px;
+    overflow: hidden;
+    max-height: 127px;
+
+    img {
+      height: 100%;
     }
+  }
+
+  .image-preview__name {
+    font-size: 10px;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
+
+.image-preview__del {
+  width: 24px;
+  fill: #ff2828;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  background: #fff;
+  left: 0;
+  cursor: pointer;
+}
+
+.image-preview__process {
+  height: 5px;
+  width: 100%;
+
+  .image-preview__bar {
+    width: 0;
+    background: #000;
+  }
+}
+
+
+.image-preview__bar.image_main {
+  border: 4px solid #4271ae;
+}
+
+//.image-preview__bar:after {
+//  position: absolute;
+//  content: "основная";
+//  bottom: 0;
+//  background: #4271ae;
+//  color: #fff;
+//  width: 100%;
+//  text-align: center;
+//  line-height: 100%;
+//  font-size: 10px;
+//}
+
 
 // Front side
 .front {
-    .image-preview__item {
-        max-width: 300px;
-        overflow: hidden;
-        height: 300px;
-        border: 2px dashed #cccccc;
-        position: relative;
+  .image-preview__item {
+    max-width: 300px;
+    overflow: hidden;
+    height: 300px;
+    border: 2px dashed #cccccc;
+    position: relative;
+    margin-right: 8px;
+  }
 
+  .image-preview__item.image_main {
+    border: 2px solid #4271ae;
 
+    &:after {
+      position: absolute;
+      content: "основная";
+      bottom: 0;
+      background: #4271ae;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      line-height: 100%;
+      font-size: 10px;
+    }
+  }
+
+  .fake-upload.ava {
+    /* border: 4px solid #f8fafc; */
+    padding: 7px;
+
+    width: 100%;
+    max-height: 52px;
+    display: flex;
+    cursor: pointer;
+    margin-top: 16px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background: #587ea5;
+    border-radius: 6px;
+
+    .fake-upload__img {
+      width: 30px;
     }
 
-    .fake-upload.ava{
-        /* border: 4px solid #f8fafc; */
-        padding: 7px;
-
-        width: 100%;
-        max-height: 52px;
-        display: flex;
-        cursor: pointer;
-        margin-top: 16px;
-        overflow: hidden;
-        align-items: center;
-        justify-content: center;
-        background: #587ea5;
-        border-radius: 6px;
-        .fake-upload__img{
-            width: 30px;
-        }
-        .fake-upload__text{
-            margin-left: 16px;
-            font-weight: 900;
-            color: #ffffff;
-        }
+    .fake-upload__text {
+      margin-left: 16px;
+      font-weight: 900;
+      color: #ffffff;
     }
+  }
 
 }
+
 
 

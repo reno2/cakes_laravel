@@ -45,12 +45,15 @@
                                 </button>
                             </div>
                         </div>
+
+                        @if(config('services.google_recaptcha.recaptcha_status'))
                         <div class="captcha">
                             <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                             <div class="captcha__info">Защищён reCAPTCHA Google</div> |
                             <a class="captcha__link" href="https://policies.google.com/privacy">Privacy Policy</a> |
                             <a class="captcha__link" href="https://policies.google.com/terms">Terms of Service</a>
                         </div>
+                        @endif
                         <div class="reg-form__social">
                             <div class="reg-form__subtitle">Войти через соц. сети</div>
                             <div class="reg-form__row">

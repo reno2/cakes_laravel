@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\User;
 use App\Notifications\PostCreatedNotification;
+use App\Repositories\CategoryRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\ProfileRepository;
+use App\Repositories\TagRepository;
 use App\Seo\SeometaFacade;
 use CyrildeWit\EloquentViewable\Support\Period;
 use Illuminate\Http\Request;
@@ -20,16 +23,20 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
-    //
 
-    public function front(Request $request)
+
+    public function front(Request $request, TagRepository $tagRepository, CategoryRepository $categoryRepository)
     {
         SeometaFacade::setData('front', config('seo'));
         $ads = Article::where('published', 1)
                       ->where('moderate', 1)
                       ->orderBy('sort', 'desc')->orderBy('created_at', 'desc')->paginate(9);
+        $collections = $tagRepository->allWithAds();
+        $categories = $categoryRepository->getAllActiveItems();
         return view('blog.front', [
             'ads' => $ads,
+            'collections' => $collections,
+            'categories'  => $categories
         ]);
     }
 
@@ -130,16 +137,17 @@ class BlogController extends Controller
     public function tag($slug)
     {
 
-        MetaTag::setTags(['title' => $slug]);
+        $tag      = Tag::where('slug', $slug)->first();
 
-        $tag      = Tag::where('name', $slug)->first();
+        // Передаём настройки для сео
+        SeometaFacade::setData('tag', $tag->toArray());
+
         $articles = $tag->articles()->where('published', 1)->paginate(12);
 
-        //dd($category->articles()->where('published', 0)->paginate(12));
-        return view('blog.category', [
-            'articles' => $articles,
+
+        return view('blog.thumbs', [
+            'ads' => $articles,
             'tag'      => $tag
-            //'articles' => $category->articles()->where('published', 1)->paginate(12)
         ]);
     }
 }

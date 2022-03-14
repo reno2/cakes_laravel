@@ -3,76 +3,238 @@
 
 @section('content')
 
-        @php $parents = [];
+
+    <div class="info-cards">
+
+
+        <div class="info-cards__row">
+            @php $parents = [];
                 $parents[] = ['link' => route('admin.index'), 'title' => 'Главная'];
                 $parents[] = ['link' => route('admin.category.index'), 'title' => 'Категории'];
-        @endphp
+            @endphp
+            @component('admin.components.breadcrumb', ['parents'=> $parents])
+                @slot('title') Редактирование категории @endslot
+                @slot('active') редактирование @endslot
+            @endcomponent
+        </div>
 
-    @component('admin.components.breadcrumb', ['parents'=>$parents])
-            @slot('title') Редактирование категории @endslot
-{{--            @slot('parent') Главная @endslot--}}
-            @slot('active') Редактирование @endslot
-        @endcomponent
-        <div class="row">
 
-                <div class="col-sm-9">
-                    <form сlass="form-horizontal" id="aform" action="{{route('admin.category.update', $category)}}" method="post">
+    </div>
+
+    <div class="info-cards">
+        <div class="info-cards__row">
+            <div class="info-cards__cards">
+                <div class="info-cards__block info-card_half">
+                    <form сlass="dashboard-form create-form"
+                          action="{{route('admin.category.update', $category)}}"
+                          method="post"
+                          enctype="multipart/form-data">
+
                         <input type="hidden" name="_method" value="put">
                         {{csrf_field()}}
-                        {{-- Form include--}}
-                        @include('admin.categories.partials.form')
-                        <input type="hidden" name="image" value="{{$category->image ?? ''}}" id="category-img">
-                    </form>
-                </div>
-                <div class="col-sm-3">
-                    <div class="cart">
-                        <div class="card-body">
-                            <form id="aform"  onsubmit="return upload()" action="{{route('img_add')}}"  enctype="multipart/form-data">
 
-                                <div class="form-group">
-                                    <input name="image" type="file" id="file_">
-                                </div>
-                                <button class="btn-block btn btn-success" type="submit">загрузить</button>
-                            </form>
-                            <div>
-                                <img src="{{$category->image ?? ''}}" @if(!isset($category->image))style="display: none;"@endif id="post_img" class="img-fluid"  alt="">
+
+                        <div class="form-group">
+                            <label for="published" class="form-group__placeholder">Статус</label>
+                            <div class="form-group__inputs">
+                                <select name="published" class="form-group__select form-control @error('published') is-invalid @enderror" id="published">
+                                    <option value="0" @if($category->published == 0) selected="" @endif>Не опубликовано</option>
+                                    <option value="1" @if($category->published == 1) selected="" @endif>Опубликовано</option>
+                                </select>
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label for="title" class="form-group__placeholder  @error('title') onError @enderror">Название</label>
+                            <div class="form-group__inputs">
+                                <input type="text" name="title" class="form-group__input" id="title" value="{{old('title') ?? $category->title }}">
+                                @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-check">
+                            <label class="form-group__placeholder" for="slug_change">Изменить slug</label>
+                            <div class="form-group__inputs">
+
+                                <input type="checkbox"  data-slug-input="js_slug__input" name="slug_change" class="js_slug__change form-group__checkbox" id="slug_change">
+                                @error('slug_change')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="slug" class="form-group__placeholder  @error('slug') onError @enderror">Slug</label>
+                            <div class="form-group__inputs">
+                                <input readonly="readonly"  type="text" name="slug" class="form-group__input js_slug__input" id="name" value="{{ old('slug')?? $category->slug}}">
+                                @error('slug')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="name" class="form-group__placeholder  @error('sort') onError @enderror">Сортировка</label>
+                            <div class="form-group__inputs">
+                                <input type="text" name="sort" class="form-group__input" id="name" value="{{old('sort') ?? $category->sort}}">
+                                @error('sort')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="parent_id" class="form-group__placeholder">Родительская категория</label>
+                            <div class="form-group__inputs">
+                                <select name="parent_id" class="form-group__select form-control @error('parent_id') is-invalid @enderror" id="parent_id">
+                                    <option value="0">-- без родителей</option>
+                                    @include('admin.categories.partials.categories', ['categories' => $categories])
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row @error('description') onError @enderror">
+                            <label for="description" class="form-group__placeholder">Описание</label>
+                            <div class="col-md-7 form-group__inputs">
+                                <textarea name="description" class="form-group__textarea form-control @error('description') is-invalid @enderror"
+                                          id="description">{{old('description') ?? $category->description}}</textarea>
+                                @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        <div class="form-group">
+                            <h4 class="form-group__placeholder ">Мета-Заголовки</h4>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="title" class="form-group__placeholder  @error('meta_title') onError @enderror">Мета-Keywords</label>
+                            <div class="form-group__inputs">
+                                <input type="text" name="meta_title" class="form-group__input" id="meta_title" value="{{old('meta_title') ?? $category->meta_title }}">
+                                @error('meta_title')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="title" class="form-group__placeholder  @error('meta_keywords') onError @enderror">Мета-Заголовок</label>
+                            <div class="form-group__inputs">
+                                <input type="text" name="meta_title" class="form-group__input" id="meta_title" value="{{old('meta_keywords') ?? $category->meta_keywords}}">
+                                @error('meta_keywords')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row @error('meta_description') onError @enderror">
+                            <label for="meta_description" class="col-md-4 col-form-label text-md-right form-group__placeholder">Мета-Описание</label>
+                            <div class="col-md-7 form-group__inputs">
+                                <textarea name="meta_description" class="form-group__textarea form-control @error('meta_description') is-invalid @enderror"
+                                          id="meta_description">{{old('meta_description') ?? $category->meta_description}}</textarea>
+                                @error('meta_description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        <div class="form-group__actions form-group__single">
+                            <div class="offset-md-4 col-md-8">
+                                <input type="submit" class="btn-main btn-middle half" value="Создать запись">
+                            </div>
+                        </div>
+
+
+                        <input name="image[]" type="file" multiple value=""
+                               class="js_fileInput js_file-loader__input js_tag-image file-loader__hidden">
+
+                        <input type="hidden" name="category_img_del" class="js_category__del">
+                        <input type="hidden" name="created_by" value="{{Auth::id()}}">
+
+                    </form>
+                </div>
+                <div class="info-cards__block">
+
+                    <div class="info-block">
+                        <div class="info-block__name">Изображение</div>
+                        <div class="info-block__data">
+
+                            <div class="file-loader_one js_file-loader file-loader @error('image') onError @enderror"
+                            >
+                                <div class="file-loader__wrap js_thumbs" data-hash="">
+                                    <div class="js_images-preview images-preview">
+
+                                        @if(isset($category->image))
+                                            <div class="js_images-preview__item images-preview__item">
+                                                <img class="images-preview__img" src="{{$category->image}}" alt="">
+                                                <div class="images-preview__bottom">
+                                                    <span class="images-preview__name">{{File::name($category->image)}}.{{File::extension($category->image)}}</span>
+                                                    <svg onclick="fileLoader.removeFromArray(this)"
+                                                         data-name="${file.name}"
+                                                         data-del-input="js_category__del"
+                                                         data-file-id="{{$category->imageId}}"
+                                                         class="images-preview__del js_file-loader__del js_old__file">
+                                                        <use xlink:href="/images/icons.svg#icon-close"></use>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    </div>
+
+                                    <button
+                                            data-validate=""
+                                            data-rules='{"limit": "1", "size": "100000", "type": "jpeg"}'
+                                            data-proxy="js_tag-image"
+                                            type="button"
+                                            class="js_file-loader__proxy file-loader__proxy btn-middle btn-grey wide">Загрузить
+                                    </button>
+
+                                    <div class="create-form__error js_file-loader__error file-loader__error"></div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
                     </div>
+
                 </div>
             </div>
-
-
+        </div>
+    </div>
 
 
 @endsection
 
-<script>
-    function upload(){
-        let formData = new FormData();
-        let file = document.getElementById('file_');
-        formData.append("image", file.files[0]);
-        //console.log(formData.get('image'));
-
-        //console.log(formData.get(name));
-        axios.post('{{route("img_add")}}',
-            formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-
-            }).then(function (response) {
-            if(response.data){
-                let img = document.getElementById('post_img');
-                img.style.display='block';
-                img.setAttribute('src', response.data.image);
-                document.getElementById('category-img').value = response.data.image;
-            }
-            console.log(response.data.image);
-        })
-
-        return false;
-    }
-
-
-</script>

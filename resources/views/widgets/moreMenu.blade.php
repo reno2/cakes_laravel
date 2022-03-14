@@ -1,5 +1,5 @@
 
-@if(!empty($data))
+@if(!empty($data) || count($data))
     <ul class="menu">
         @foreach($data as $value)
             @if(isset($value['CHILDREN']))

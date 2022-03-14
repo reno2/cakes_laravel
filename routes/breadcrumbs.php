@@ -2,7 +2,7 @@
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Home', '/');
+    $trail->push('Главная', '/');
 });
 
 // Home > Blog > [Category] > [Post]
@@ -13,7 +13,7 @@ Breadcrumbs::for('category', function ($breadcrumbs, $category) {
 
 Breadcrumbs::for('tag', function ($breadcrumbs, $tag) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push($tag->name, route('tag', ['slug' => $tag->name ]));
+    $breadcrumbs->push($tag->title, route('tag', ['slug' => $tag->title ]));
 });
 
 Breadcrumbs::register('article', function ($trail, $category, $article) {

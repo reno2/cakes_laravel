@@ -67,11 +67,11 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.app', function($view)
         {
             $massagesCounts = 0;
-            if(Auth::user()) $massagesCounts = helper_getAllNotice();
+            if(Auth::user()) $massagesCounts = helper_getAllNotice() ;
 
 
             $view
-                ->with('favoritesCount', $this->getIds()['count'])
+                ->with('favoritesCount', $this->getIds()['count'] ?? 0)
                 ->with('massagesCounts', $massagesCounts);
         });
     }

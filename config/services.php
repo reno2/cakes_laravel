@@ -53,6 +53,7 @@ return [
     ],
 
     'google_recaptcha' => [
+        'recaptcha_status' => env('GOOGLE_RECAPTCHA_STATUS'),
         'recaptcha_key' => env('GOOGLE_RECAPTCHA_KEY'),
         'recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET'),
         'recaptcha_url' => env('GOOGLE_RECAPTCHA_URL')

@@ -1,0 +1,33 @@
+.breadcrumb__ul{
+  display: flex;
+}
+
+.breadcrumb_slash {
+  margin: 0 4px;
+}
+.admin.breadcrumb .breadcrumb__item,
+.admin.breadcrumb .breadcrumb_slash,
+.admin.breadcrumb .breadcrumb__link{
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #8391a2;
+  letter-spacing: 1.2px;
+}
+.breadcrumb{
+  display: flex;
+  margin-bottom: 16px;
+}
+.breadcrumb-item a,
+.breadcrumb-item{
+  color: #3f4254;
+  font-size: 12px;
+  font-weight: 900;
+}
+.breadcrumb-arrow{
+  transform: rotate(270deg);
+  width: 14px;
+  height: 14px;
+  fill: #d3a1df;
+  margin: 0 4px;
+}

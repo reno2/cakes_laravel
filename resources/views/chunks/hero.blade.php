@@ -12,7 +12,8 @@
                 </div>
             </div>
             <div class="hero__banner">
-                <img src="{{asset('images/hero.jpg')}}" alt="">
+                <img class="hero__banner_desc" src="{{asset('images/hero.jpg')}}" alt="">
+                <img class="hero__banner_mob" src="{{asset('images/hero/hero_mob.jpg')}}" alt="">
             </div>
         </div>
     </div>

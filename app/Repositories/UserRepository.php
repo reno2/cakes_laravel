@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class UserRepository extends CoreRepository{
 
 
+    public function getSortedPagination($repPare = 10){
+        return $this->startCondition()->with('profiles')->orderBy('id', 'desc')->paginate($repPare);
+    }
+
+
+
+
     public function getTodayUsers($count = 10){
         $records = Model::whereDate('created_at', Carbon::today())->take($count)->get();
         if($records->isEmpty()) return 0;
@@ -39,7 +46,7 @@ class UserRepository extends CoreRepository{
         return  Auth::user()->notifications()
                                 ->where('type', 'App\Notifications\ModerateNotification')
                                 ->whereNull('read_at')
-                                ->get()->count() ?? '';
+                                ->get()->count() ?? 0;
     }
 
 

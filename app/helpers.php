@@ -21,8 +21,9 @@ function helper_getAllNotice () : array {
     $userRepo = new UserRepository();
     $commentsRepo = new CommentsRepository();
     $moderateNoticeCount = $userRepo->getNotReadModerateNoticeCount();
+    //$commentsCount = $commentsRepo->notReadAnswers(Auth::id());
     $commentsCount = $commentsRepo->notReadAnswers(Auth::id()) + $commentsRepo->notReadQuestions(Auth::id());
-    return ['moderateCount' => $moderateNoticeCount, 'commentsCount' => $commentsCount];
+    return ['moderateCount' => $moderateNoticeCount ?? 0, 'commentsCount' => $commentsCount ?? 0];
 }
 
 /**

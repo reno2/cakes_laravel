@@ -1,13 +1,13 @@
-<div class="errors ma-3">
-    @if($errors->any())
-        <div  class="alert alert-danger" role="alert">
-            <ul>
+@if($errors->any())
+<div class="cart-errors">
+        <div class="cart-errors__block" role="alert">
+            <ul class="cart-errors__ul">
                 @foreach($errors->all() as $error)
-                    <li>
+                    <li class="cart-errors__li">
                         {{$error}}
                     </li>
                 @endforeach
             </ul>
         </div>
-    @endif
 </div>
+@endif

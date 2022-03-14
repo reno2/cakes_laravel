@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Room;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\CustomEmailNotification;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-
+    use SoftDeletes;
     /**
      * Users' roles
      * @var array
@@ -23,7 +24,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'author'    => 2
     ];
 
-
+    /**
+     * Атрибуты, которые должны быть преобразованы в дату
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id', 'is_admin', 'email_verified_at'
+        'active', 'name', 'email', 'password', 'provider', 'provider_id', 'is_admin', 'email_verified_at'
     ];
 
     /**

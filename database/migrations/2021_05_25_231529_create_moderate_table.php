@@ -28,6 +28,6 @@ class CreateModerateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('moderate');
+        Schema::dropIfExists('moderates');
     }
 }

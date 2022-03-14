@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\Category as Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\Models\Media;
 use App\Models\Profile;
 
@@ -14,10 +15,21 @@ class CategoryRepository extends CoreRepository
 {
 
     public function getAllActiveItems(){
-        return $this->startCondition()
+        $categories = $this->startCondition()
                       ->where('published', '1')
                       ->orderBy('sort', 'asc')
+                      ->orderBy('id', 'asc')
+                      ->with('attachments')
                       ->get();
+
+        foreach ($categories as $category) {
+            $imgFromDb = $category->attachments->first();
+            $category->cover = $imgFromDb
+                ? Storage::url($imgFromDb->url)
+                : Storage::url("images/defaults/cake.svg") ;
+
+        }
+        return  $categories ?? [];
     }
 
     public function getAllActiveParentItems(){

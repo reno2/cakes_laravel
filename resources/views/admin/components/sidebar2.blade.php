@@ -37,7 +37,7 @@
                 </div>
                 <div class="sidebar-block__bottom js_menuContent">
                     <a class="sidebar-block__item" href="{{route('admin.category.index')}}">Категории</a>
-                    <a class="sidebar-block__item" href="{{route('admin.article.index')}}">Материалы</a>
+                    <a class="sidebar-block__item" href="{{route('admin.article.index')}}">Объявления</a>
                     <a class="sidebar-block__item" href="{{route('admin.tags.index')}}">Теги</a>
                     <a class="sidebar-block__item" href="{{route('admin.features.index')}}">Характеристики</a>
                 </div>
@@ -62,7 +62,7 @@
                     <a class="sidebar-block__item" href="{{route('seo.front.index')}}">Главная</a>
                     <a class="sidebar-block__item" href="{{route('seo.category.index')}}">Категории</a>
                     <a class="sidebar-block__item" href="{{route('seo.post.index')}}">Материалы</a>
-                    <a class="sidebar-block__item" href="{{route('admin.tags.index')}}">Теги</a>
+                    <a class="sidebar-block__item" href="{{route('seo.tag.index')}}">Теги</a>
                 </div>
             </div>
 

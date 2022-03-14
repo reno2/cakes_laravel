@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\Article;
 use App\Models\PostImage;
 use App\Repositories\AdsRepository;
 use App\Repositories\UserRepository;
@@ -10,6 +11,7 @@ use Exception;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\UploadTrait;
+use Spatie\MediaLibrary\Models\Media;
 
 class AdsService
 {
@@ -17,6 +19,38 @@ class AdsService
     protected $article;
     protected $adsRepository;
     protected $request;
+
+
+    public function getAllForEdit ($request) {
+
+        if ($request->get('sort')) {
+            $sort = $request->get('sort');
+            $articles = Article::orderBy('sort', $sort)
+                               ->with('media', 'tags')
+                               ->paginate(10);
+        } else {
+            $articles = Article::orderBy('sort', 'asc')
+                               ->orderBy('id', 'desc')
+                               ->with('media', 'tags')
+                               ->paginate(10);
+        }
+
+        foreach ($articles as $article) {
+            // Категории
+            $article->categoryName =  $article->categories->pluck('title')->first() ?? null;
+            $article->userEmail = $article->user->email;
+            // Если ест теги то добавляем
+            $article->tagsNames = $article->tags ? implode(', ', $article->tags->pluck('title')->all()) : NULL;
+            $src = Media::where('model_id', $article->id)
+                        ->whereJsonContains('custom_properties->main', true)
+                        ->first();
+            $article->image = $src
+                ? $src->getUrl('thumb')
+                : Storage::url("images/defaults/cake.svg");
+        }
+
+        return $articles;
+    }
 
     public function removeAds ($article) {
         $this->adsRepository = new AdsRepository();
@@ -79,7 +113,7 @@ class AdsService
     }
 
 
-    function uploadChain ($request, $article) {
+    function uploadChain ($request, $article, $isAdminPage) {
 
         //$oldValues = $article->getAttributes();
         $this->article = $article;
@@ -87,8 +121,19 @@ class AdsService
         $this->request = $request;
 
         $imgIsChange = $this->prepareImages();
-        $needModerate = $this->onModerate($imgIsChange);
-        if($needModerate) $request['moderate'] = 0;
+
+        // Если раздел админки
+        if($isAdminPage) {
+            $request['moderate'] = isset($request['moderate']) ? 1 : 0;
+            $needModerate = (bool)$request['moderate'];
+        }
+
+        // Если это раздел админки то пропускаем проверку
+        if(!$isAdminPage) {
+            $needModerate = $this->onModerate($imgIsChange);
+            if ($needModerate) $request['moderate'] = 0;
+        }
+
         $update = $article->update($request);
 
         //  $isTagsCatsChange = ($catDiff && $tagsDiff) ? false : true;
@@ -144,12 +189,14 @@ class AdsService
 
                 if (in_array($field, ['tags', 'categories'])) continue;
 
-                if ($field === 'price'){
+                if ($field === 'price') {
                     $checkVal = floatval($this->request[$field]);
-                }else if($field === 'published'){
-                    $checkVal = intval($this->request[$field]);
-                }else{
-                    $checkVal = $this->request[$field];
+                } else {
+                    if ($field === 'published') {
+                        $checkVal = intval($this->request[$field]);
+                    } else {
+                        $checkVal = $this->request[$field];
+                    }
                 }
 
                 if ($oldValues[$field] !== $checkVal) {

@@ -34,10 +34,10 @@ class CreateModerateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('moderate_settings', function (Blueprint $table){
-           $table->dropForeign(['moderate_settings_moderate_id_foreign']);
-           $table->dropForeign(['moderate_settings_settings_id_foreign']);
-        });
+       // Schema::table('moderate_settings', function (Blueprint $table){
+         //  $table->dropForeign(['moderate_settings_moderate_id_foreign']);
+        //   $table->dropForeign(['moderate_settings_settings_id_foreign']);
+      //  });
         Schema::dropIfExists('moderate_settings');
     }
 }

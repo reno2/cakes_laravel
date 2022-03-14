@@ -6,9 +6,16 @@ $fa-font-path:        "../webfonts";
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import './forms_img';
 @import './forms';
+@import './buttons';
+@import './breadcrumb';
 @import './menus';
+@import './file_loader';
+@import './info-cards';
+@import './inputs';
 @import './widgets/admin_users';
 @import './widgets/admin_ads';
+@import './widgets/admin_tags_index';
+@import './errors';
 
 body{
   margin: 0;
@@ -40,7 +47,9 @@ body{
   background: #fcfdfd;
 }
 
-
+.dashboard__create-btn{
+  margin-top: 16px;
+}
 // region dashboard-sidebar
 .dashboard-sidebar {
   padding: 24px;
@@ -67,7 +76,7 @@ body{
 }
 .dashboard-sidebar__top{
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 
 }
 .dashboard-sidebar__bottom{
@@ -174,58 +183,9 @@ body{
 
 
 
-// region Card
-.info-block__name,
-.info-cards__title,
-.info-cards__block{
-  margin-bottom: 24px;
-}
 
 
 
-.info-cards__title {
-  color: #222;
-  font-weight: 700;
-}
-
-.info-cards__cards{
-  display: flex;
-}
-.info-cards__block {
-  padding: 24px;
-  background: #fff;
-  box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
-  border-radius: 8px;
-}
-
-
-
-.info-cards__block{
-  margin-right: 24px;
-}
-
-
-.info-cards__today .info-block__data{
-  font-size: 55px;
-  font-weight: 900;
-  color: #697685;
-}
-
-
-
-
-// endregion Card
-
-// region Card Width Modificators
-
-.info-cards_half{
-  width: calc(100% / 2 - 24px);
-}
-.info-cards_third{
-  width: calc(100% / 3 - 24px);
-}
-
-// endregion Card Width Modificators
 
 
 
@@ -316,3 +276,48 @@ body{
 .scrollbar::-webkit-scrollbar {width: 6px;}
 .scrollbar::-webkit-scrollbar-thumb {border-radius: 10px;background-color: #d3a1df; opacity: 0.5}
 //.scrollbar:hover::-webkit-scrollbar-thumb {background-color: #83B049; opacity: 0.5}
+
+.widget__actions{
+  display: flex;
+
+}
+.widget__action{
+  cursor: pointer;
+  margin-left: 8px;
+}
+.widget__action svg{
+  width: 13px;
+  height: 13px;
+}
+
+
+.info-badge{
+  border-radius: 5px;
+  padding: 3px 5px;
+  font-size: 11px;
+  transition:all .15s ease;
+  &.blue{
+       color: #3699ff;
+       background-color: #e1f0ff;
+       &:hover{
+         color: #fff;
+         background-color: #3699ff;
+       }
+     }
+  &.green{
+    color: #fff;
+    background-color: #28a745;
+    &:hover{
+      color: #fff;
+      background-color: #47db69;
+    }
+  }
+  &.red{
+    color: #fff;
+    background-color: #dc3545;
+    &:hover{
+      color: #fff;
+      background-color: #ff5162;
+    }
+  }
+}

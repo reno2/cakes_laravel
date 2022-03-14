@@ -64,12 +64,16 @@ class CommentsRepository extends CoreRepository
      * @return  $count
      */
     public function notReadQuestions($userId){
-        return \DB::table('comments')
-            ->select('comments.id')
-            ->leftJoin('rooms', 'rooms.id', '=', 'comments.room')
-            ->where('rooms.owner_id', $userId)
-            ->whereNull("comments.recipient_read_at")
-            ->count();
+        try {
+            return \DB::table('comments')
+                      ->select('comments.id')
+                      ->leftJoin('rooms', 'rooms.id', '=', 'comments.room')
+                      ->where('rooms.owner_id', $userId)
+                      ->whereNull("comments.recipient_read_at")
+                      ->count();
+        }catch (\Exception $e){
+            return 0;
+        }
     }
 
 
@@ -79,12 +83,16 @@ class CommentsRepository extends CoreRepository
      * @return  $count
      */
     public function notReadAnswers($userId){
-        return \DB::table('comments')
-            ->select('comments.id')
-            ->leftJoin('rooms', 'rooms.id', '=', 'comments.room')
-            ->where('rooms.asked_id', $userId)
-            ->whereNull("comments.sender_read_at")
-            ->count();
+        try {
+            return \DB::table('comments')
+                      ->select('comments.id')
+                      ->leftJoin('rooms', 'rooms.id', '=', 'comments.room')
+                      ->where('rooms.asked_id', $userId)
+                      ->whereNull("comments.sender_read_at")->count();
+        }catch (\Exception $e){
+            return 0;
+        }
+
     }
 
 

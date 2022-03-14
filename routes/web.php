@@ -27,6 +27,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('/search', 'SearchController@fulltextSearch')->name('fulltextSearch');
 
+Route::get('/article/getUser', 'SearchController@searchAuthor')->name('getUser');
+
 Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'is_admin']],
     function () {
@@ -37,6 +39,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
             Route::resource('/article', 'ArticleController', ['as' => 'admin']);
             Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+
         });
 
 
@@ -61,6 +64,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::group(['prefix' => '/front'], function () {
                 Route::get('/', 'SeoFrontController@get')->name('seo.front.index');
                 Route::post('/update', 'SeoFrontController@updateFront')->name('seo.front.update');
+            });
+            Route::group(['prefix' => '/tag'], function () {
+                Route::get('/', 'SeoTagController@get')->name('seo.tag.index');
+                Route::post('/update', 'SeoTagController@updateTag')->name('seo.tag.update');
             });
         });
 

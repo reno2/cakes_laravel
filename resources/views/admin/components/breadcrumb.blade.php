@@ -2,21 +2,24 @@
 	{{$title}}
 </h2>
 
-<div class="mb-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
+<div class="breadcrumb admin">
+
+        <ol class="breadcrumb__ul">
             @if(is_array($parents))
                 @foreach($parents as $parent)
-                <li class="breadcrumb-item">
-                    <a href="{{$parent['link']}}">{{$parent['title']}}</a>
+                <li class="breadcrumb__item">
+                    <a class="breadcrumb__link" href="{{$parent['link']}}">{{$parent['title']}}</a>
+                    <span class="breadcrumb_slash">/</span>
                 </li>
+
                 @endforeach
             @else
-            <li class="breadcrumb-item">
-                    <a href="{{route('admin.index')}}">{{$parents}}</a>
+            <li class="breadcrumb__item">
+                <a class="breadcrumb__link" href="{{route('admin.index')}}">{{$parents}}</a>
+                <span class="breadcrumb_slash">/</span>
             </li>
             @endif
-            <li class="breadcrumb-item active" aria-current="page">{{$active}}</li>
+            <li class="breadcrumb__item active" aria-current="page">{{$active}}</li>
         </ol>
-    </nav>
+
 </div>

@@ -7,19 +7,25 @@ use Illuminate\Support\Str;
 
 class Tag extends Model
 {
+
     //protected $guarded = [];
-    protected $fillable = ['slug', 'name', 'description', 'image', 'published', 'meta_title'];
+    protected $fillable = ['slug', 'title', 'sort', 'slug', 'description', 'image', 'published', 'meta_title'];
+
     // Mutators
-    public function setNameAttribute($value)
+    public function setSlugAttribute($value)
     {
-        $this->attributes['name'] = $value;
-        if(isset($_REQUEST['slug__change']) && !empty($value)){
+
+
+        if(isset($_REQUEST['slug_change']) && !empty($value)){
             $this->attributes['slug'] = Str::slug($value);
         }else{
-            $this->attributes['slug'] = Str::slug($_REQUEST['name']);
+            $this->attributes['slug'] = Str::slug($_REQUEST['title']);
         }
     }
     public function articles(){
         return $this->belongsToMany('\App\Models\Article');
+    }
+    public function attachments(){
+            return $this->morphMany(Attachment::class, 'attachable');
     }
 }

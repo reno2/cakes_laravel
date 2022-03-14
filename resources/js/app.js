@@ -55,7 +55,7 @@ moment().format();
 //     }
 // })
 
-require("./directives/scroll.js");
+require('./directives/scroll.js');
 
 Vue.component('features-component', require('./components/FeaturesComponent.vue').default);
 Vue.component('fileinput-component', require('./components/FileInputComponent.vue').default);
@@ -89,49 +89,6 @@ import Swiper from 'swiper/bundle';
 import 'swiper/swiper-bundle.css';
 
 
-// const slideItems = document.querySelectorAll('.ad-detail__small');
-// const thumbSlider = document.querySelector('.ad-detail__navigation');
-// console.log(thumbSlider);
-// const thumbArrows = thumbSlider.querySelector('.js_swiperNavigate');
-//
-// thumbArrows.style.display = 'none'
-
-
-// const options = {
-//     loop: true,
-//     slidesPerView: 4,
-//     spaceBetween: 30,
-//     // observer: true,
-//     // observeParents: true,
-//     freeMode: false,
-//     height: 100,
-//     //  loopedSlides: 3, //looped slides should be the same
-//     // watchSlidesVisibility: true,
-//     // watchSlidesProgress: true,
-//     navigation: {
-//         nextEl: '.arrow__right',
-//         prevEl: '.arrow__left',
-//     },
-// }
-// const galleryThumbs = new Swiper('.ad-detail__navigation', options);
-//
-// const galleryTop = new Swiper('.ad-detail__figure', {
-//     freeMode: false,
-//     loop: true,
-//     loopedSlides: 4,
-//     // watchSlidesVisibility: true,
-//     // watchSlidesProgress: true,
-//     pagination: {
-//         el: '.swiper-pagination',
-//     },
-//     navigation: {
-//         nextEl: '.arrow__right',
-//         prevEl: '.arrow__left',
-//     },
-//     // thumbs: {
-//     //     swiper: galleryThumbs,
-//     // },
-// });
 
 const galleryThumbs = new Swiper('.ad-detail__navigation', {
     spaceBetween: 10,
@@ -159,8 +116,68 @@ const galleryTop = new Swiper('.ad-detail__figure', {
         swiper: galleryThumbs
     },
 
-
 });
+
+
+// region Collection Slider
+
+// function swiperCommon() {
+//     const swiperWrap = document.querySelectorAll('.js_swiper__wrap');
+//     if (swiperWrap.length) {
+//         swiperWrap.forEach(el => {
+//             const swiperContainer = el.querySelector('.js_swiper__container');
+//             console.log(swiperContainer);
+//             const swiperSlider = new Swiper('.js_swiper__container', {
+//                 spaceBetween: 10,
+//                 freeMode: false,
+//                 centeredSlides: true,
+//                 pagination: {
+//                     el: '.swiper-pagination',
+//                     clickable: true,
+//                     type: 'fraction',
+//                 },
+//
+//             });
+//         });
+//     }
+// }
+// endregion Collection Slider
+
+
+
+document.addEventListener("DOMContentLoaded",   (e) => {
+
+    const swiperSlider = new Swiper('.js_collection', {
+        // spaceBetween: 10,
+        // loopedSlides: 4,
+        spaceBetween: 10,
+        // centeredSlides: true,
+        // loop: true,
+        slidesPerView: 'auto',
+        navigation: {
+
+        }
+        // watchSlidesVisibility: true,
+        // watchSlidesProgress: true,
+        // freeMode: false,
+
+    });
+    // const swiperSlider = new Swiper('.js_swiper__container', {
+    //     spaceBetween: 10,
+    //     freeMode: false,
+    //     centeredSlides: true,
+    //     pagination: {
+    //         el: '.swiper-pagination',
+    //         clickable: true,
+    //         type: 'fraction',
+    //     },
+    //
+    // });
+
+
+
+})
+
 // galleryTop.controller.control = galleryThumbs;
 // galleryThumbs.controller.control = galleryTop;
 

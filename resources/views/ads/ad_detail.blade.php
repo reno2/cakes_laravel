@@ -75,7 +75,7 @@
                         <div class="tags__title">теги:</div>
                         <div class="tags__el">
                             @foreach($ad->tags()->get()->toArray() as $tag)
-                                <a class="tags__item" href="{{route('tag', $tag['name'])}}">{{$tag['name']}}</a>
+                                <a class="tags__item" href="{{route('tag', $tag['title'])}}">{{$tag['title']}}</a>
                             @endforeach
                         </div>
                     </div>

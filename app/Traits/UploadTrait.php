@@ -49,7 +49,7 @@ trait UploadTrait
 
         if (!empty($this->request["remove"])) {
             $change = true;
-            $this->deleteMediaItem(json_decode($this->request["remove"]));
+            $this->deleteMediaItem($this->request["remove"]);
         }
 
         // Если картинка была изменена то отправляем на модерацию
@@ -102,6 +102,7 @@ trait UploadTrait
     // Удаляем файлы переданные в запросе
     public function deleteMediaItem($items)
     {
+        $items = explode(",", $items);
         $images = $this->article->getMedia('cover');
         foreach ($images as $img) {
             if (in_array($img->id, $items)) {
