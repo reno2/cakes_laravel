@@ -125,6 +125,15 @@ class ArticleController extends Controller
         $tags = \App\Models\Tag::all();
         $mediaItem =  Media::where('model_id', $article->id)->whereJsonContains('custom_properties->main', true)->first();
 
+        $rule = $article->moderateComments->first();
+        if($rule){
+            $moderateRules['moderate_text'] = $rule['message'] ?? '';
+            $moderateRules['rule'] = $rule->settings->pluck('id')->toArray();
+            $moderateRules['id'] = $rule->id;
+        }
+
+        $allRules = \App\Models\Settings::where('type', 'moderate_rules')->get();
+
         return view('admin.articles.switch_article', [
             'main' => ($mediaItem->file_name) ?? '',
             'mediaFiles'=> $this->adsRepository->getAdsImages($article->id),
@@ -133,7 +142,9 @@ class ArticleController extends Controller
             'tags'       => $tags,
             'filter'     => $article->filterValues->pluck('id')->toArray(),
             'delimiter'  => '',
-            'profile' => $this->adsRepository->getUserProfileFirst($article)
+            'profile' => $this->adsRepository->getUserProfileFirst($article),
+            'rules' => $allRules,
+            'selectedRules' => $moderateRules ?? []
         ]);
     }
 

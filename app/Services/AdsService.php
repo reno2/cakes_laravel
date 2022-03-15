@@ -3,7 +3,9 @@
 namespace App\Services;
 
 
+use App\Events\AdsModerate;
 use App\Models\Article;
+use App\Models\Moderate;
 use App\Models\PostImage;
 use App\Repositories\AdsRepository;
 use App\Repositories\UserRepository;
@@ -37,7 +39,7 @@ class AdsService
 
         foreach ($articles as $article) {
             // Категории
-            $article->categoryName =  $article->categories->pluck('title')->first() ?? null;
+            $article->categoryName = $article->categories->pluck('title')->first() ?? NULL;
             $article->userEmail = $article->user->email;
             // Если ест теги то добавляем
             $article->tagsNames = $article->tags ? implode(', ', $article->tags->pluck('title')->all()) : NULL;
@@ -113,52 +115,40 @@ class AdsService
     }
 
 
-    function uploadChain ($request, $article, $isAdminPage) {
+    function uploadChain ($requestArray, $article, $isAdminPage) {
 
-        //$oldValues = $article->getAttributes();
+
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
-        $this->request = $request;
+        $this->request = $requestArray;
 
         $imgIsChange = $this->prepareImages();
 
-        // Если раздел админки
-        if($isAdminPage) {
-            $request['moderate'] = isset($request['moderate']) ? 1 : 0;
-            $needModerate = (bool)$request['moderate'];
-        }
+        $needModerate = $this->moderateStatus($requestArray, $article, $isAdminPage, $imgIsChange);
 
-        // Если это раздел админки то пропускаем проверку
-        if(!$isAdminPage) {
-            $needModerate = $this->onModerate($imgIsChange);
-            if ($needModerate) $request['moderate'] = 0;
-        }
+        $update = $article->update($requestArray);
 
-        $update = $article->update($request);
 
-        //  $isTagsCatsChange = ($catDiff && $tagsDiff) ? false : true;
 
 
         $this->adsRepository->removeRelationCategories($article);
         $this->adsRepository->removeRelationTags($article);
         $this->adsRepository->removeRelationTags($article);
 
-        if (isset($request['attrs']) && !empty($request['attrs'])):
-            $this->setNewRelations('Attrs', $request['attrs'], $article);
+        if (isset($requestArray['attrs']) && !empty($requestArray['attrs'])):
+            $this->setNewRelations('Attrs', $requestArray['attrs'], $article);
         endif;
 
-        if (isset($request['categories']) && !empty($request['categories'])):
-            $this->setNewRelations('Categories', $request['categories'], $article);
+        if (isset($requestArray['categories']) && !empty($requestArray['categories'])):
+            $this->setNewRelations('Categories', $requestArray['categories'], $article);
         endif;
 
-        if (isset($request['tags']) && !empty($request['tags'])):
-            $this->setNewRelations('Tags', $request['tags'], $article);
+        if (isset($requestArray['tags']) && !empty($requestArray['tags'])):
+            $this->setNewRelations('Tags', $requestArray['tags'], $article);
         endif;
 
         return $needModerate;
-        //$imgIsChange = $this->prepareImages();
 
-        //return $this->onModerate($request, $imgIsChange, $isTagsCatsChange, $oldValues);
     }
 
 
@@ -173,9 +163,9 @@ class AdsService
      */
     public function onModerate ($isImgChange) {
 
+
+        // Проверяем изменения ли категория или картинка
         $adsCat = $this->article->categories->pluck('id')->toArray();
-        //$adsTags = $this->article->tags->pluck('id')->toArray();
-        //$tagsDiff = $adsTags == $this->request['tags'];
         $catDiff = $adsCat == $this->request['categories'];
         $isCatsChange = ($catDiff) ? false : true;
 
@@ -207,5 +197,38 @@ class AdsService
         }
         return $needModerate;
     }
+
+    private function moderateStatus ($requestArray, $article, $isAdminPage, bool $imgIsChange) {
+
+        // Проверяем требуется ли модерация если это не админка
+        if (!$isAdminPage) {
+            return $this->onModerate($imgIsChange) ? 0 : 1;
+        }
+
+
+        // Если раздел админки
+        if ($requestArray['moderate'] == 1) {
+            if ($article->moderateComments()->exists()) {
+                $article->moderateComments()->first()->settings()->detach();
+                $article->moderateComments()->detach();
+            }
+            event(new AdsModerate($article, []));
+            return 1;
+        }
+
+        $moderateItem = Moderate::updateOrCreate(
+            ['id' => $requestArray['moderate_id']],       // Фильтр
+            ['message' => $requestArray['moderate_text']] // Колонки которые будет обновлены
+        );
+
+        $moderateItem->settings()->sync($requestArray['rule'] ?? []);
+        $article->moderateComments()->sync($moderateItem->id);
+
+
+        event(new AdsModerate($article, $moderateItem));
+        return 0;
+    }
+
+
 
 }

@@ -46,20 +46,64 @@
                             >
                         </addresssearchstreet-component>
 
+                        <br>
+                        <hr>
+                        <br>
 
                         <div class="form-group form-check">
                             <label class="form-group__placeholder" for="moderate">Модерация пройдена</label>
                             <div class="form-group__inputs">
-
-                                <input type="checkbox" @if($article->moderate == 1) checked="checked" @endif name="moderate" class="form-group__checkbox" id="moderate">
+                                <input name="moderate" value="0" type="hidden">
+                                <input type="checkbox" value="1" @if($article->moderate == 1) checked="checked" @endif name="moderate" class="form-group__checkbox" id="moderate">
                                 @error('moderate')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group form-check">
+
+                            <label class="form-group__placeholder" for="rul">Правила модерации</label>
+                            <div class="form-group__inputs">
+                                @foreach($rules as $type)
+
+                                    <div class="form-check">
+                                        <input type="checkbox" name="rule[]"
+                                               @if(isset($selectedRules['rule']))
+                                               @if(in_array($type->id,  $selectedRules['rule']))checked @endif
+                                               @endif
+                                               value="{{$type->id}}" class="form-check-input" id="rule_{{$type->id}}">
+                                        <label class="form-group__small" for="rule_{{$type->id}}">{{$type->title}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row @error('moderate_text') onError @enderror">
+                            <label for="moderate_text" class="form-group__placeholder">Комментарий</label>
+                            <div class="form-group__inputs">
+                                <textarea name="moderate_text" class="form-group__textarea form-control @error('moderate_text') is-invalid @enderror"
+                                          id="moderate_text">{{@old('moderate_text', $selectedRules['moderate_text'])}}</textarea>
+                                @error('moderate_text')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
                             </div>
                         </div>
+                        <input type="hidden" name="moderate_id" value="{{ $selectedRules['id'] ?? ''}}">
 
+
+                        <br>
+                        <hr>
+                        <br>
 
                         <div class="form-group form-check">
                             <label class="form-group__placeholder" for="slug_change">Изменить slug</label>
@@ -185,7 +229,7 @@
                             <label for="tags" class="form-group__placeholder">Автор</label>
                             <div class="form-group__inputs">
                                 <select multiple="" name="user_id" class="authors">
-                                    <option value="{{Auth::id()}}" selected="selected">{{Auth::user()->email}}</option>
+                                    <option value="{{$article->user->id}}" selected="selected">{{$article->user->email}}</option>
                                 </select>
                             </div>
                         </div>
