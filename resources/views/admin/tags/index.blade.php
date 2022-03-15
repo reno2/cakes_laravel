@@ -29,5 +29,8 @@
                     'entity' => 'tags'
                     ])
 
+        <ul class="pagination pull-right">
+            {{$tags->links()}}
+        </ul>
 
 @endsection

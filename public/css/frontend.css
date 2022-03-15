@@ -2633,6 +2633,29 @@ li.cart-errors__li::marker {
   width: auto;
 }
 
+.profile-adverts__switch {
+  display: flex;
+}
+
+.profile-adverts__link {
+  border-radius: unset;
+}
+
+.profile-adverts__link:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.profile-adverts__link:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.profile-adverts__link.active {
+  background: #d3a1df;
+  color: #fff;
+}
+
 .select2 {
   display: block;
   width: 100% !important;

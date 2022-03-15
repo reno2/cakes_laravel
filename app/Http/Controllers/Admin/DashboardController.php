@@ -23,6 +23,7 @@ class DashboardController extends Controller
 
         SeometaFacade::setStaticTag('title', 'Админ панель');
         $todayAds = $adsRepository->getTodayAds();
+        $notModerated = $adsRepository->notModerated();
         $todayUsers = $userRepository->getTodayUsers();
         $todayComments = $commentsRepository->getTodayComments();
         return view('admin.dashboard', [
@@ -30,6 +31,8 @@ class DashboardController extends Controller
             'today_articles' => $todayAds,
             'today_users' => $todayUsers,
             'today_comments' => $todayComments,
+
+            'not_moderated' => $notModerated,
 
             'today_articles_count' => ($todayAds) ? $todayAds->count() : 0,
             'today_users_count' => ($todayUsers) ? $todayUsers->count() : 0,

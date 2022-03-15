@@ -64,7 +64,7 @@
                 </div>
 
                 <ul class="pagination pull-right">
-                    {{$ads->links()}}
+{{--                    {{$ads->links()}}--}}
                 </ul>
             </div>
         </section>

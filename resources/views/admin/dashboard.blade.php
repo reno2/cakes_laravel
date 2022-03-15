@@ -62,7 +62,17 @@
         </div>
     </div>
 
-
+    <div class="info-cards__row">
+        <div class="info-cards__title">Объявления ожидающие модерации</div>
+        <div class="info-cards__block info-cards_half">
+            <div class="info-block">
+                <div class="info-block__name">Объявления</div>
+                <div class="info-block__data">
+                    @include('admin.widgets.ads', ['data' => $not_moderated])
+                </div>
+            </div>
+        </div>
+    </div>
     @if(false)
 
         <div class="row dash">

@@ -16,6 +16,10 @@ class AdsRepository extends CoreRepository
 {
 
 
+    public function notModerated(){
+        return $this->startCondition()::where('moderate', 0)->get();
+    }
+
     public function disableUserAds($userId){
         $this->startCondition()::where('user_id', $userId)
             ->update(['published'=>0]);

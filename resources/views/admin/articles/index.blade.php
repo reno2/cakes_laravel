@@ -36,6 +36,8 @@
                 ])
 
 
-
+    <ul class="pagination pull-right">
+        {{$articles->links()}}
+    </ul>
 
 @endsection

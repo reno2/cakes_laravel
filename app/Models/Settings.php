@@ -8,7 +8,7 @@ class Settings extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'title', 'type', 'value', 'number'
+        'title', 'type', 'value', 'number', 'sort'
     ];
 
     public static $types = [

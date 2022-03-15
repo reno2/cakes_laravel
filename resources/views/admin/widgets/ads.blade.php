@@ -12,7 +12,11 @@
 
                 @foreach($data as $value)
                     <div class="widget-ads__line">
-                        <div class="widget-ads__val">{{$value->title}}</div>
+                        <div class="widget-ads__val">
+                            <a href="{{route("admin.article.edit", $value)}}">
+                            {{$value->title}}
+                            </a>
+                        </div>
                         <div class="widget-ads__val">{{Str::limit($value->description, 50, $end='..')}}</div>
                         <div class="widget-ads__val">{{$value->created_at}}</div>
                     </div>
