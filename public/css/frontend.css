@@ -2037,7 +2037,7 @@ h3 {
   margin-right: 16px;
 }
 
-.page-item:not(:last-child):not(:first-child) a {
+.page-item.active span {
   background: #D3A1DF;
   padding: 4px 8px;
   color: #fff;
