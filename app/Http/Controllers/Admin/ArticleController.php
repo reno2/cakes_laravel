@@ -88,7 +88,8 @@ class ArticleController extends Controller
 
         $extraData = [
             'user_id' => Auth::id(),
-            'moderate' => isset($request['moderate']) ? 1 : 0
+            'moderate' => isset($request['moderate']) ? 1 : 0,
+            'sort' => $request['sort'] ?? 100
         ];
         $article = Article::create(
             array_merge(
@@ -165,7 +166,10 @@ class ArticleController extends Controller
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();
         }
-        return redirect()->route('admin.article.index');
+        $url = $request->only('redirects_to');
+        return redirect()->to($url['redirects_to']);
+        //return redirect()->route('admin.article.index');
+
 
 
     }

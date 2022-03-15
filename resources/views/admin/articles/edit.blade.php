@@ -291,7 +291,7 @@
                         {{-- endregion Image --}}
 
                         <input type="hidden" name="created_by" value="{{Auth::id()}}">
-
+                        <input type="hidden" name="redirects_to" value="{{URL::previous()}}">
 
 
                     </form>
