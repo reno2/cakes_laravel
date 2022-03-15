@@ -7,3 +7,23 @@
 .pagination__active svg{
   fill: #82C831;
 }
+.pagination{
+  display: flex;
+  margin-bottom: 16px;
+}
+.page-item{
+
+  height: 12px;
+}
+.page-item:not(:last-child):not(:first-child){
+  margin-right: 16px;
+}
+.page-item:not(:last-child):not(:first-child) a{
+  background: #D3A1DF;
+  padding: 4px 8px;
+  color: #fff;
+  border-radius: 4px;
+}
+.page-item:first-child{
+  margin-right: 16px;
+}

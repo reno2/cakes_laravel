@@ -30,6 +30,7 @@ class BlogController extends Controller
         SeometaFacade::setData('front', config('seo'));
         $ads = Article::where('published', 1)
                       ->where('moderate', 1)
+                      ->where('on_front', 1)
                       ->orderBy('sort', 'desc')->orderBy('created_at', 'desc')->take(3)->get();
         $collections = $tagRepository->allWithAds();
         $categories = $categoryRepository->getAllActiveItems();

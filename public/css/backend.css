@@ -7397,6 +7397,42 @@ li.cart-errors__li::marker {
   width: auto;
 }
 
+.pagination .pagination__li .pagination__not-active {
+  background-color: #F0F0F0 !important;
+}
+
+.pagination__not-active svg {
+  fill: #D7DBDE;
+}
+
+.pagination__active svg {
+  fill: #82C831;
+}
+
+.pagination {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.page-item {
+  height: 12px;
+}
+
+.page-item:not(:last-child):not(:first-child) {
+  margin-right: 16px;
+}
+
+.page-item:not(:last-child):not(:first-child) a {
+  background: #D3A1DF;
+  padding: 4px 8px;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.page-item:first-child {
+  margin-right: 16px;
+}
+
 body {
   margin: 0;
 }

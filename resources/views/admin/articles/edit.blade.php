@@ -37,6 +37,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group form-check">
+                            <label class="form-group__placeholder" for="moderate">На главной</label>
+                            <div class="form-group__inputs">
+                                <input name="on_front" value="0" type="hidden">
+                                <input type="checkbox" value="1" @if($article->on_front == 1) checked="checked" @endif name="on_front" class="form-group__checkbox" id="on_front">
+                                @error('on_front')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+                            </div>
+                        </div>
 
                         <addresssearchstreet-component
                                 target="street"
@@ -61,9 +74,7 @@
                                 </span>
                                 @enderror
 
-
                             </div>
-
 
                         </div>
 
