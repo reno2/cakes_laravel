@@ -68,9 +68,9 @@ class AdsController extends Controller
         ];
         return view('profile.ads.index', [
             'user'    => $user,
-            'ads' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($where),
-            'adsNotPublished' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($notPublished),
-            'adsOnModerate' =>  $this->adsRepository->getByCurrentProfileAdsSortedDesc($adsOnModerate),
+            'ads' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($where, 'ads'),
+            'adsNotPublished' => $this->adsRepository->getByCurrentProfileAdsSortedDesc($notPublished, 'not_pub'),
+            'adsOnModerate' =>  $this->adsRepository->getByCurrentProfileAdsSortedDesc($adsOnModerate, 'on_moderate'),
             'favorites_cookies' => json_decode(Cookie::get('favorites')),
             'favorites_profile' => $favorites_profile
         ]);

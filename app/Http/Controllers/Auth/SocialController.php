@@ -44,7 +44,7 @@ class SocialController extends Controller
             $newUser->email_verified_at = now();
             $newUser->save();
 
-            $image = null;
+            $image = '/storage/images/defaults/cake.svg';
             if($user->getAvatar()) $image  = $user->getAvatar();
             $newUser->profiles()->create(['image'=>$image]);
             (new ProfileRepository())->setProfileNameAfterRegister($newUser->id);

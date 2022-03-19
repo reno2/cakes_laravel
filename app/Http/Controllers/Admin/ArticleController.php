@@ -55,7 +55,6 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-
         $articles = $this->adsService->getAllForEdit($request);
         return view('admin.articles.index',
             compact('articles')
@@ -168,7 +167,7 @@ class ArticleController extends Controller
         }
         $url = $request->only('redirects_to');
         return redirect()->to($url['redirects_to']);
-        //return redirect()->route('admin.article.index');
+
 
 
 

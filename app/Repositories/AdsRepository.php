@@ -47,10 +47,9 @@ class AdsRepository extends CoreRepository
     * @return Collection
     * Возвращаем коллекцию объявлений пользователя
     */
-    public function getByCurrentProfileAdsSortedDesc($where, $user = null, $per = 9) {
+    public function getByCurrentProfileAdsSortedDesc($where, $page = 'page', $user = null, $per = 10) {
         if(!is_array($where)) $where = [ ['user_id', $user]];
-        //$data = $this->startCondition()->where('user_id', $user)->where('published', 1)->orderBy('created_at', 'desc')->paginate($per);
-        $data = $this->startCondition()->where($where)->orderBy('created_at', 'desc')->paginate($per);
+        $data = $this->startCondition()->where($where)->orderBy('created_at', 'desc')->paginate($per, ['*'], $page);
         return $data;
 
     }

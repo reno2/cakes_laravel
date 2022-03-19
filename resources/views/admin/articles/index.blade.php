@@ -15,6 +15,10 @@
     </div>
 
 
+
+
+{{--    @include('admin.components.sort')--}}
+
     @include('admin.widgets.index_ads', [
                 'heads' => [
                 'id',
@@ -37,6 +41,7 @@
 
 
     <ul class="pagination pull-right">
+
         {{$articles->links()}}
     </ul>
 

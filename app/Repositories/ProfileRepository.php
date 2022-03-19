@@ -107,7 +107,9 @@ class ProfileRepository extends CoreRepository
     */
     public function getProfileNameByUserId($id)
     {
-        return $this->getFirstProfileByUser($id)->name;
+        $profile = $this->getFirstProfileByUser($id);
+        return  $profile ?  $profile->name : null;
+
     }
 
     /*
@@ -156,11 +158,11 @@ class ProfileRepository extends CoreRepository
     */
     public function getFirstProfileByUser($user)
     {
-        if(!is_object($user))
+        if(!is_object($user)) {
             $user = \DB::table('users')->find($user);
+        }
+
         $profile = $this->startCondition()->where('user_id', $user->id)->first();
-        if($profile->image) return $profile;
-        $profile->image = Storage::url('/images/defaults/cake.svg');
         return $profile;
     }
 

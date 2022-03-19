@@ -42,6 +42,11 @@
 
                                 @include('ads.advert__line')
                             @endforeach
+
+                            <ul class="pagination pull-right">
+                                {{$ads->links()}}
+                            </ul>
+
                         @else
                             <h4>Объявлений нет</h4>
                         @endif
@@ -61,6 +66,11 @@
                             @foreach($adsNotPublished as $ad)
                                 @include('ads.advert__line')
                             @endforeach
+
+                            <ul class="pagination pull-right">
+                                {{$adsNotPublished->links()}}
+                            </ul>
+
                         @else
                             <h4>Объявлений нет</h4>
                         @endif
@@ -80,6 +90,11 @@
                             @foreach($adsOnModerate as $ad)
                                 @include('ads.advert__line')
                             @endforeach
+
+                            <ul class="pagination pull-right">
+                                {{$adsOnModerate->links()}}
+                            </ul>
+
                         @else
                             <h4>Объявлений нет</h4>
                         @endif
@@ -90,9 +105,6 @@
 
         </div>
     </div>
-    <ul class="pagination pull-right">
-        {{$ads->links()}}
-    </ul>
 @endsection
 {{--Тут подключаем нужные стили и скрипты для шаблонов форм--}}
 @section('forms')

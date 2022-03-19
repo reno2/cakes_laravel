@@ -1,9 +1,13 @@
 window.onload = function () {
     //========================Проверяем что в урле есть якорь
     //========================И переключаем таб
-    tabSwitcher()
-    urlTabs()
-}
+    tabSwitcher();
+
+
+
+
+
+};
 
 
 function tabSwitcher() {
@@ -15,13 +19,18 @@ function tabSwitcher() {
     }
 }
 
-function urlTabs(){
-    let searchParams = new URLSearchParams(window.location.search)
+function urlTabs() {
+    let searchParams = new URLSearchParams(window.location.search);
+
     if (searchParams.get('tab')) {
-        const tabData = searchParams.get('tab')
-        const activeTab = document.querySelector('[data-tab="'+tabData+'"]')
-        if(activeTab){
-          activeTab.click()
+        const tabData = searchParams.get('tab');
+        const activeTab = document.querySelector('[data-tab="' + tabData + '"]');
+        document.querySelector('.js_notPublished').click();
+        if (activeTab) {
+
+            setTimeout(() => {
+                activeTab.click();
+            }, 100);
         }
     }
 }
@@ -30,6 +39,9 @@ function urlTabs(){
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
+
+    urlTabs();
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
     //===================Обработчики на переключение=========================
@@ -44,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Обновить время подняния поста
-    let postUpBtn = document.querySelector('.js_postUp')
-    if(postUpBtn) postUpBtn.addEventListener('click', postUp)
+    let postUpBtn = document.querySelector('.js_postUp');
+    if (postUpBtn) postUpBtn.addEventListener('click', postUp);
 
 });
 
@@ -111,7 +123,7 @@ function profileAdsList(element, e) {
 
         if (block.id === target) {
             // Обновляем строку
-            setUrlParam("tab", element.getAttribute('data-tab'));
+            setUrlParam('tab', element.getAttribute('data-tab'));
             block.classList.add('active');
         } else {
             block.classList.remove('active');
@@ -124,8 +136,8 @@ function profileAdsList(element, e) {
 function setUrlParam(param, value) {
     const url = new URL(window.location);
     url.searchParams.delete(param);
-    url.searchParams.append(param, value)
-    window.history.pushState({}, null, url)
+    url.searchParams.append(param, value);
+    window.history.pushState({}, null, url);
 }
 
 
@@ -227,13 +239,13 @@ btn?.addEventListener('click', function () {
 
 
 function togglePreloader(state) {
-    const element = document.querySelector('.js_ajaxPreloader')
-    if(state) {
-        element.classList.add('loading')
-        return  element.insertAdjacentHTML('afterbegin', "<div class='lds-ellipsis__wrap'><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div></div>")
+    const element = document.querySelector('.js_ajaxPreloader');
+    if (state) {
+        element.classList.add('loading');
+        return element.insertAdjacentHTML('afterbegin', '<div class=\'lds-ellipsis__wrap\'><div class=\'lds-ellipsis\'><div></div><div></div><div></div><div></div></div></div>');
     }
-    element.classList.remove('loading')
-    element.querySelector('.lds-ellipsis__wrap').remove()
+    element.classList.remove('loading');
+    element.querySelector('.lds-ellipsis__wrap').remove();
 }
 
 const tabsLink = document.querySelectorAll('.js_tabLink');
@@ -245,34 +257,34 @@ if (tabsLink.length) {
     });
 }
 
-function setDataFromRequest(){}
+function setDataFromRequest() {}
 
 function toggleTab() {
-    const tabChange = this.mynum
-    const tabs = this.closest('.js_tabs').querySelectorAll('.js_tabContent')
+    const tabChange = this.mynum;
+    const tabs = this.closest('.js_tabs').querySelectorAll('.js_tabContent');
     tabs.forEach((el, inx) => {
-        if(tabs[inx].classList.contains('active')) {
-            tabs[inx].classList.remove('active')
+        if (tabs[inx].classList.contains('active')) {
+            tabs[inx].classList.remove('active');
         }
-        tabsLink[inx].classList.remove('active')
-    })
-    tabs[tabChange].classList.add('active')
+        tabsLink[inx].classList.remove('active');
+    });
+    tabs[tabChange].classList.add('active');
     this.classList.add('active');
 }
 
 
 
-const wSize = function getWindowSizeName () {
+const wSize = function getWindowSizeName() {
     let currentSizeName = window.SIZENAME;
     if (window.innerWidth <= 767) {
-        window.SIZENAME = "mobile";
-        if (window.STARTWIDTH > 767) $(window).trigger('sizeNameChanged', [currentSizeName, "mobile"]);
+        window.SIZENAME = 'mobile';
+        if (window.STARTWIDTH > 767) $(window).trigger('sizeNameChanged', [currentSizeName, 'mobile']);
     } else if (window.innerWidth <= 1279) {
-        window.SIZENAME = "tablet";
-        if (window.STARTWIDTH <= 767 || window.STARTWIDTH > 1279) $(window).trigger('sizeNameChanged', [currentSizeName, "tablet"]);
+        window.SIZENAME = 'tablet';
+        if (window.STARTWIDTH <= 767 || window.STARTWIDTH > 1279) $(window).trigger('sizeNameChanged', [currentSizeName, 'tablet']);
     } else {
-        window.SIZENAME = "desktop";
-        if (window.STARTWIDTH <= 1279) $(window).trigger('sizeNameChanged', [currentSizeName, "desktop"]);
+        window.SIZENAME = 'desktop';
+        if (window.STARTWIDTH <= 1279) $(window).trigger('sizeNameChanged', [currentSizeName, 'desktop']);
     }
     window.STARTWIDTH = window.innerWidth;
 };
@@ -285,11 +297,11 @@ $(window).on('resize', function () {
 
 //=========================END SIMPLE TABS===========================
 
-window.addEventListener( "pageshow", function ( event ) {
-    const  historyTraversal = event.persisted ||
-        ( typeof window.performance != "undefined" &&
-            window.performance.navigation.type === 2 );
-    if ( historyTraversal ) {
+window.addEventListener('pageshow', function (event) {
+    const historyTraversal = event.persisted ||
+        (typeof window.performance != 'undefined' &&
+            window.performance.navigation.type === 2);
+    if (historyTraversal) {
         // Handle page restore.
         window.location.reload();
     }
@@ -298,10 +310,10 @@ window.addEventListener( "pageshow", function ( event ) {
 
 // Поднимаем пост
 const postUp = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const  postId = e.target.closest('.js_postUp').getAttribute('data-id')
-    const  postUpMsg = e.target.closest('.js_postUpMsg')
+    const postId = e.target.closest('.js_postUp').getAttribute('data-id');
+    const postUpMsg = e.target.closest('.js_postUpMsg');
 
 
     if (postId) {
@@ -323,7 +335,7 @@ const postUp = (e) => {
             //     postUpMsg.innerHTML = response.data
             // }
 
-        })
+        });
     }
 
-}
+};

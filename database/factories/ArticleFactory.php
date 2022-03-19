@@ -20,14 +20,19 @@ use Illuminate\Support\Str;
 
 
 $factory->define(App\Models\Article::class, function (Faker $faker) {
-    $users = [1, 3, 2];
+    $users = [4, 3, 5];
+    $filePath = '/storage/images/defaults/';
     return [
-        'title' => $faker->unique()->word,
+        'title' => $faker->unique(true)->name,
         'description' => $faker->paragraph,
         'deal_address' => $faker->title,
         'price'=> $faker->numberBetween(10, 200),
         'weight'=> $faker->numberBetween(10, 200),
-        'user_id' => $faker->randomElement($users)
+        'user_id' => $faker->randomElement($users),
+        'sort' => 100,
+        'moderate' => 0,
+        'published' => 1
+        //'image' => $faker->imageUrl(400,300)
 //        'tags' => 7,
 //        'categories' => 1
            // $faker->randomElement(['seller', 'buyer'])
