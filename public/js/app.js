@@ -10916,7 +10916,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-fade-enter-active[data-v-8c2ff5cc] {\n    transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-8c2ff5cc] {\n    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-8c2ff5cc], .slide-fade-leave-to[data-v-8c2ff5cc]{\n    transform: translateY(10px);\n    opacity: 0;\n}\n.dropdown-menu[data-v-8c2ff5cc] {\n    position: absolute;\n    display: block;\n    width: calc( 100% - 30px);\n    margin-top: -2px;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    margin-left: 15px;\n    max-height: 203px;\n    overflow-y: scroll;\n}\n.dropdown-item[data-v-8c2ff5cc] {\n    white-space: pre-wrap;\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.form-group.error .form-group__inputs input[data-v-8c2ff5cc]{\n    border: 1px solid #f24343;\n}\n.slide-fade-enter-active[data-v-8c2ff5cc] {\n    transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-8c2ff5cc] {\n    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-8c2ff5cc], .slide-fade-leave-to[data-v-8c2ff5cc]{\n    transform: translateY(10px);\n    opacity: 0;\n}\n.dropdown-menu[data-v-8c2ff5cc] {\n    position: absolute;\n    display: block;\n    width: calc( 100% - 30px);\n    margin-top: -2px;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n    margin-left: 15px;\n    max-height: 203px;\n    overflow-y: scroll;\n}\n.dropdown-item[data-v-8c2ff5cc] {\n    white-space: pre-wrap;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -90116,84 +90116,90 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "form-group row" }, [
-    _c(
-      "label",
-      { staticClass: "form-group__placeholder", attrs: { for: "address" } },
-      [_vm._v("Город")]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "form-group__inputs" },
-      [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.city,
-              expression: "city"
-            }
-          ],
-          staticClass: "form-group__input",
-          class: { "is-invalid": _vm.message },
-          attrs: {
-            required: "",
-            autocomplete: "off",
-            type: "text",
-            id: "address",
-            name: "address"
-          },
-          domProps: { value: _vm.city },
-          on: {
-            blur: _vm.unblur,
-            keyup: function($event) {
-              return _vm.fillAddress($event)
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+  return _c(
+    "div",
+    { staticClass: "form-group row", class: { error: _vm.message } },
+    [
+      _c(
+        "label",
+        { staticClass: "form-group__placeholder", attrs: { for: "address" } },
+        [_vm._v("Город")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "form-group__inputs" },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.city,
+                expression: "city"
               }
-              _vm.city = $event.target.value
+            ],
+            staticClass: "form-group__input",
+            class: { "is-invalid": _vm.message },
+            attrs: {
+              required: "",
+              autocomplete: "off",
+              type: "text",
+              id: "address",
+              name: "address"
+            },
+            domProps: { value: _vm.city },
+            on: {
+              blur: _vm.unblur,
+              keyup: function($event) {
+                return _vm.fillAddress($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.city = $event.target.value
+              }
             }
-          }
-        }),
-        _vm._v(" "),
-        _vm.message
-          ? _c("span", { staticClass: "help-block text-danger" }, [
-              _vm._v(_vm._s(_vm.message))
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("transition", { attrs: { name: "slide-fade" } }, [
-          _vm.choosing
+          }),
+          _vm._v(" "),
+          _vm.message
             ? _c(
-                "div",
-                { staticClass: "dropdown-menu" },
-                _vm._l(_vm.choosing, function(item, inx) {
-                  return _c(
-                    "a",
-                    {
-                      key: inx,
-                      staticClass: "dropdown-item",
-                      on: {
-                        click: function($event) {
-                          return _vm.selectCity(item.data.city)
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(item.data.city))]
-                  )
-                }),
-                0
+                "span",
+                { staticClass: "invalid-feedback help-block text-danger" },
+                [_vm._v(_vm._s(_vm.message))]
               )
-            : _vm._e()
-        ])
-      ],
-      1
-    )
-  ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("transition", { attrs: { name: "slide-fade" } }, [
+            _vm.choosing
+              ? _c(
+                  "div",
+                  { staticClass: "dropdown-menu" },
+                  _vm._l(_vm.choosing, function(item, inx) {
+                    return _c(
+                      "a",
+                      {
+                        key: inx,
+                        staticClass: "dropdown-item",
+                        on: {
+                          click: function($event) {
+                            return _vm.selectCity(item.data.city)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(item.data.city))]
+                    )
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

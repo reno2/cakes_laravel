@@ -15,6 +15,21 @@ use App\Models\Profile;
 class AdsRepository extends CoreRepository
 {
 
+    public function allForEditWithPaginateAndSort($sortParam = null, $sortType = null, $perPage = 10){
+
+        if($sortParam && $sortType){
+            return $this->startCondition()::orderBy($sortParam, $sortType)
+                                          ->with('media', 'tags')
+                                          ->paginate($perPage);
+        }
+
+        return $this->startCondition()::orderBy('sort', 'asc')
+            ->orderBy('id', 'desc')
+            ->with('media', 'tags')
+            ->paginate($perPage);
+
+    }
+
 
     public function notModerated(){
         return $this->startCondition()::where('moderate', 0)->get();

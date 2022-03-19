@@ -1,11 +1,11 @@
 <template>
 
-    <div class="form-group row">
+    <div class="form-group row" :class="{'error' : message}">
         <label for="address" class="form-group__placeholder">Город</label>
         <div class="form-group__inputs">
             <input required @blur="unblur" @keyup="fillAddress($event)" autocomplete="off" v-model="city" type="text" id="address"
                    name="address" :class="{'is-invalid' : message}" class="form-group__input">
-            <span v-if="message" class="help-block text-danger">{{ message }}</span>
+            <span v-if="message" class="invalid-feedback help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
                 <div v-if="choosing" class="dropdown-menu">
                     <a @click="selectCity(item.data.city)" class="dropdown-item" v-for="(item, inx) in choosing" :key="inx">{{item.data.city}}</a>
@@ -97,6 +97,9 @@
     }
 </script>
 <style scoped>
+    .form-group.error .form-group__inputs input{
+        border: 1px solid #f24343;
+    }
     .slide-fade-enter-active {
         transition: all .3s ease;
     }

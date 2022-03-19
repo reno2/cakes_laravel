@@ -1,19 +1,17 @@
+@php
+$querySting = '/?';
+if(isset($_GET['page']) && !empty($_GET['page']) ):
+$querySting = "/?page={$_GET['page']}";
+endif;
+@endphp
+
 <div class="sorts info-cards">
-    <div class="sorts__elements info-cards__row">
-        <form action="{{url()->full()}}">
-{{--            <select name="published" id="">--}}
-{{--                <option value="">Не выбрано</option>--}}
-{{--                <option value="1">сначала активные</option>--}}
-{{--                <option value="0">сначала неактивные</option>--}}
-{{--            </select>--}}
-
-{{--            <select name="on_front" id="">--}}
-{{--                <option value="">Не выбрано</option>--}}
-{{--                <option value="1">На главной</option>--}}
-{{--                <option value="0">Не на главной</option>--}}
-{{--            </select>--}}
-            <input type="submit" value="send">
-        </form>
-    </div>
-
+        <div class="info-cards__line sorts__items">
+            <span class="sorts__item">Сортирорвка:</span>
+            <a class="sorts__item btn btn-small btn-grey" href="{{url()->current()}}{{$querySting}}moderate=desc">Модерации</a>
+            <a class="sorts__item btn btn-small btn-grey" href="{{url()->current()}}{{$querySting}}published=desc">Опубликованно</a>
+            <a class="sorts__item btn btn-small btn-grey" href="{{url()->current()}}{{$querySting}}on_front=desc">На главной</a>
+            <a class="sorts__item btn btn-small btn-grey" href="{{url()->current()}}{{$querySting}}updated_at=desc">Дате изменения</a>
+            <a class="sorts__item btn btn-small btn-main" href="{{route('admin.article.index')}}">Сбросить</a>
+        </div>
 </div>

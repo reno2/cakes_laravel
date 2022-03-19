@@ -23,19 +23,25 @@ class AdsService
     protected $request;
 
 
+    public function __construct(AdsRepository $adsRepository){
+        $this->adsRepository = $adsRepository;
+    }
+
     public function getAllForEdit ($request) {
 
-        if ($request->get('sort')) {
-            $sort = $request->get('sort');
-            $articles = Article::orderBy('sort', $sort)
-                               ->with('media', 'tags')
-                               ->paginate(10);
-        } else {
-            $articles = Article::orderBy('sort', 'asc')
-                               ->orderBy('id', 'desc')
-                               ->with('media', 'tags')
-                               ->paginate(10);
+        $sorts = ['moderate', 'published', 'on_front', 'updated_at'];
+        $sortParam = null;
+        $sortType = null;
+        foreach ($sorts as $sort){
+            if($request->get($sort)) {
+                $sortParam = $sort;
+                $sortType = $request->get($sort) ?? 'desc';
+                break;
+            }
         }
+
+        $articles = $this->adsRepository->allForEditWithPaginateAndSort($sortParam, $sortType);
+
 
         foreach ($articles as $article) {
             // Категории

@@ -6891,6 +6891,11 @@ readers do not read off random characters that represent icons */
   margin-bottom: 24px;
 }
 
+.info-cards__line {
+  display: flex;
+  align-items: center;
+}
+
 .info-cards__row {
   display: flex;
   flex-direction: column;
@@ -7431,6 +7436,16 @@ li.cart-errors__li::marker {
 
 .page-item:first-child {
   margin-right: 16px;
+}
+
+.sorts {
+  margin-top: 24px;
+}
+
+.sorts__item {
+  margin-right: 16px;
+  font-size: 12px;
+  font-weight: 900;
 }
 
 body {

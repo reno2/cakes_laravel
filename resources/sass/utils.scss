@@ -1,18 +1,28 @@
 .profile-adverts__switch{
   display: flex;
 }
+
 .profile-adverts__link{
-  border-radius: unset;
-}
-.profile-adverts__link:first-child{
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-.profile-adverts__link:last-child{
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  margin-right: 8px;
 }
 .profile-adverts__link.active{
     background: $mainColor;
     color: #fff;
 }
+
+// region Theming GOne Grope
+.profile-adverts__switch.group .profile-adverts__link:first-child{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.profile-adverts__switch.group .profile-adverts__link:last-child{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.profile-adverts__switch.group .profile-adverts__link{
+  border-radius: unset;
+}
+.profile-adverts__switch.group .profile-adverts__link{
+  margin-right: 0;
+}
+// endregion Theming

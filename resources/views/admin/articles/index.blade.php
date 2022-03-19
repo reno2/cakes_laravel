@@ -17,7 +17,7 @@
 
 
 
-{{--    @include('admin.components.sort')--}}
+    @include('admin.components.sort')
 
     @include('admin.widgets.index_ads', [
                 'heads' => [
