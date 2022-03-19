@@ -100,15 +100,20 @@ class BlogController extends Controller
     public function category($slug)
     {
         $category = Category::where('slug', $slug)->first();
-        $ads = $category->articles()->where('published', 0)->paginate(12);
         if (!$category) {
             abort(404);
         }
+
+        $ads = $category->articles()
+                        ->where('published', 1)
+                        ->where('moderate', 1)
+                        ->paginate(12);
+
         SeometaFacade::setData('category', $category->toArray());
 
         return view('blog.category', [
             'category' => $category,
-            'ads' => $category->articles()->where('published', 1)->paginate(12)
+            'ads' => $category->articles()->where('published', 1)->where('moderate', 1)->paginate(12)
         ]);
     }
 

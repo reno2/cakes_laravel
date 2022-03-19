@@ -151,13 +151,14 @@
                         {{$ad->price}} руб.
                     </div>
                 </div>
-
-                <a class="ad-detail__ask js_modal btn-main btn-big" href="#"
-                   data-user-name="{{$ad->user->profiles->first()->name}}"
-                   data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
-                    Написать продавцу
-                </a>
-                <a class="ad-detail__phone js_modal btn-secondary btn-big" href="#"
+                @if(!@auth()->check() || (@auth()->check() && (@auth()->user()->id != $ad->user_id)))
+                    <a class="wide ad-detail__ask js_modal__open ad__question btn-main btn-big" href="#"
+                       data-user-name="{{$ad->user->profiles->first()->name}}"
+                       data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
+                        Написать продавцу
+                    </a>
+                @endif
+                <a class="wide ad-detail__phone js_modal btn-secondary btn-big" href="#"
                    data-user-name="{{$ad->user->profiles->first()->name}}"
                    data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">
                     Показать номер
