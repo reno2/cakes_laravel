@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Repositories\ProfileRepository;
+use App\Rules\NotEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -40,7 +41,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::PROFILE;
 
     /**
      * Create a new controller instance.
@@ -63,7 +64,16 @@ class RegisterController extends Controller
         return Validator::make($data, [
             //'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                new NotEmail,
+                'regex:/[A-Za-z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/'
+            ],
         ]);
     }
 

@@ -28,7 +28,7 @@
 
 
                         <div class="form-group">
-                            <label for="title" class="form-group__placeholder  @error('title') onError @enderror">Тег title для категории</label>
+                            <label for="title" class="form-group__placeholder  @error('title') onError @enderror">Тег title для объявления</label>
                             <div class="form-group__inputs">
                                 <input type="text" name="title" class="form-group__input" id=title" value="{{$post->title ?? ''}}">
                                 @error('title')
@@ -41,7 +41,7 @@
 
 
                         <div class="form-group">
-                            <label for="h1" class="form-group__placeholder  @error('h1') onError @enderror">Тег h1 для категории</label>
+                            <label for="h1" class="form-group__placeholder  @error('h1') onError @enderror">Тег h1 для объявления</label>
                             <div class="form-group__inputs">
                                 <input type="text" name="h1" class="form-group__input" id="h1" value="{{$post->h1 ?? ''}}">
                                 @error('h1')

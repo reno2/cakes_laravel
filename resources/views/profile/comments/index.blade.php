@@ -2,16 +2,7 @@
 
 @section('content')
 
-    @include('chunks.all_massages')
-    @if (session('status'))
-        <div class="ui-card">
-            <div class="ui-card__body">
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            </div>
-        </div>
-    @endif
+
     <div class="ui-tabs js_tabs">
         <div class="ui-tabs__head">
             <button class="blue btn-middle ui-tabs__head-item js_tabLink active">

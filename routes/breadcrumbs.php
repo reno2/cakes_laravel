@@ -20,3 +20,4 @@ Breadcrumbs::register('article', function ($trail, $category, $article) {
     $trail->parent('category', $category);
     $trail->push($article->title, route('article', ['slug' => $article->slug ]));
 });
+

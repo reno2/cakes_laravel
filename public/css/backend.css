@@ -6340,6 +6340,7 @@ readers do not read off random characters that represent icons */
   font-weight: 600;
   font-size: 10px;
   color: #6e7d97;
+  margin-bottom: 4px;
 }
 
 .form__input {
@@ -6398,11 +6399,17 @@ readers do not read off random characters that represent icons */
   font-size: 36px;
   font-weight: 700;
   color: #344055;
+  margin-bottom: 8px;
 }
 
 .reg-form__login {
   color: #b1b2b9;
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.reg-form__login_link,
+.reg-form__register_link {
+  font-weight: 900;
 }
 
 .reg-form_form {
@@ -6581,6 +6588,11 @@ readers do not read off random characters that represent icons */
 
 .half {
   width: 50%;
+}
+
+.btn-unset:hover,
+.btn-unset {
+  background: unset;
 }
 
 .breadcrumb__ul {
@@ -7024,6 +7036,16 @@ readers do not read off random characters that represent icons */
   display: block;
 }
 
+.form-group.onError .form-group__textarea,
+.form-group.onError .form-group__input {
+  border: 1px solid #ed9687;
+}
+
+.form-group.onError .invalid-feedback {
+  color: #ed9687;
+  display: block;
+}
+
 .form-group {
   display: flex;
   margin-bottom: 16px;
@@ -7096,8 +7118,16 @@ span.invalid-feedback {
   margin-top: 4px;
 }
 
+.form-group.onError .form-group__select,
 .form-group.onError .form-group__input {
   border: 1px solid #e75a5a;
+}
+
+.form-group__hint {
+  color: #9d9d9d;
+  margin-top: 8px;
+  display: block;
+  font-size: 12px;
 }
 
 .was-validated :invalid ~ .invalid-feedback,
@@ -7400,6 +7430,30 @@ li.cart-errors__li::marker {
 
 .front .cart-errors {
   width: auto;
+}
+
+.error-block {
+  padding: 20px;
+  background-color: #ea806f;
+  color: white;
+  opacity: 0.83;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.error-block__ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.error-block__li {
+  color: white;
+  font-size: 14px;
+}
+
+.error-block__li:not(:last-child) {
+  margin-bottom: 8px;
 }
 
 .pagination .pagination__li .pagination__not-active {

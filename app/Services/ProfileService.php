@@ -34,11 +34,11 @@ class ProfileService
                 $newUser['password'] = Hash::make($request->input('new_password'));
                 if ($user->update($newUser)) {
                     return $user;
-                } else $this->fail('Ошибка при изменении пользователя"');
+                } else $this->fail('Ошибка при изменении пользователя');
 
             }
         } else {
-            $this->fail('Пароль не совпадает с текущим"');
+            $this->fail('Пароль не совпадает с текущим');
         }
     }
 

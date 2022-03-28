@@ -3,7 +3,6 @@
 @section('content')
 
 
-    @include('chunks.all_massages')
     <div class="comment">
         <div class="back-block">
             <a class="btn btn-middle blue" href="{{route('comments.index')}}">

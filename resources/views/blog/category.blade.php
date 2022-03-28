@@ -6,20 +6,7 @@
 
 @section('content')
 
-    @component('chunks.page_title')
-        @slot('title') {!!  SeometaFacade::getData('h1')  !!}@endslot
-    @endcomponent
-
-    {{--    @include('chunks.beadcrumbs')--}}
-    <div class="container">
-        <div class="row">
-            @if(isset($tag))
-                {{ Breadcrumbs::render('tag', $tag) }}
-            @else
-                {{ Breadcrumbs::render('category', $category) }}
-            @endif
-        </div>
-    </div>
+    @include('chunks.block_title', compact($category))
 
     <div class="container">
 

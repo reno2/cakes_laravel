@@ -48,20 +48,12 @@
                             <span class="profile__name">Войти</span>
                         </a>
                     </div>
-{{--                    <div class="profile__item js_profile__item">--}}
-{{--                        <a class="profile__mlink profile__registr" href="{{ route('register') }}">--}}
-{{--                            <svg class="profile_svg profile__person-svg">--}}
-{{--                                <use xlink:href="/images/icons.svg#profile-person"></use>--}}
-{{--                            </svg>--}}
-{{--                            <span class="profile__name">Регистрация</span>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
                     <div class="profile__item">
                         <a class="profile__mlink profile__favorite " href="{{route('favorites_list')}}">
                             <svg class="profile_svg profile__favorite-svg">
                                 <use xlink:href="/images/icons.svg#profile-favorite"></use>
                             </svg>
-                            <span class="profile__info">
+                            <span class="profile__info js_favoritesMain">
                                 {{$favoritesCount}}
                             </span>
                             <span class="profile__name">Избранное</span>
@@ -117,7 +109,7 @@
                             <svg class="profile_svg profile__favorite-svg">
                                 <use xlink:href="/images/icons.svg#profile-favorite"></use>
                             </svg>
-                            <span class="profile__info">
+                            <span class="profile__info js_favoritesMain">
                                 {{$favoritesCount}}
                             </span>
                             <span class="profile__name">Избранное</span>

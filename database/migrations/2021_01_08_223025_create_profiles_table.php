@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->bigIncrements('id');
             $table->boolean('published')->default(0);
             $table->boolean('filled')->default(0);
-            $table->string('type')->nullable();
+            $table->string('type')->default('person');
             $table->string('favorites')->nullable();
             $table->string('name')->nullable();
             $table->string('image')->nullable();

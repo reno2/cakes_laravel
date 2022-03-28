@@ -6,4 +6,4 @@
 @endif
 @yield('forms')
 
-@include('chunks.scripts')
+

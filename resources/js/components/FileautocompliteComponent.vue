@@ -1,13 +1,13 @@
 <template>
 
-    <div class="form-group row" :class="{'error' : message}">
+    <div class="form-group row" :class="{'onError' : message}">
         <label for="address" class="form-group__placeholder">Город</label>
         <div class="form-group__inputs">
             <input required @blur="unblur" @keyup="fillAddress($event)" autocomplete="off" v-model="city" type="text" id="address"
                    name="address" :class="{'is-invalid' : message}" class="form-group__input">
             <span v-if="message" class="invalid-feedback help-block text-danger">{{ message }}</span>
             <transition name="slide-fade">
-                <div v-if="choosing" class="dropdown-menu">
+                <div v-if="choosing" class="dropdown-menu scrollbar">
                     <a @click="selectCity(item.data.city)" class="dropdown-item" v-for="(item, inx) in choosing" :key="inx">{{item.data.city}}</a>
                 </div>
             </transition>
@@ -104,25 +104,35 @@
         transition: all .3s ease;
     }
     .slide-fade-leave-active {
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
     .slide-fade-enter, .slide-fade-leave-to{
         transform: translateY(10px);
         opacity: 0;
     }
+    .form-group__inputs{
+        position: relative;
+    }
     .dropdown-menu {
         position: absolute;
-        display: block;
+        display: flex;
+        flex-direction: column;
         width: calc( 100% - 30px);
-        margin-top: -2px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        margin-left: 15px;
         max-height: 203px;
         overflow-y: scroll;
+        z-index: 9;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 40px 60px 0 rgb(37 59 112 / 10%);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
     }
     .dropdown-item {
         white-space: pre-wrap;
         cursor: pointer;
+        font-size: 12px;
+    }
+    .dropdown-item:not(:last-child) {
+        margin-bottom: 8px;
     }
 </style>

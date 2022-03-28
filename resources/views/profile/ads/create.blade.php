@@ -8,22 +8,6 @@
         </svg>
     </div>
 
-    <div class="ui-card__body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
-        @if (session('danger'))
-            <div class="alert alert-danger" role="alert">
-                {{ session('danger') }}
-            </div>
-        @endif
-        @if($errors->any())
-            <div class="alert alert-danger" role="alert">
-                {{$errors->first()}}
-            </div>
-        @endif
 
         <form method="post" id="post-image" action="{{ route('profile.ads.store')}}" class="js_adsCreate create-form"
               enctype="multipart/form-data" class="js_adsCreate">
@@ -93,7 +77,7 @@
                            value="{{old('title')}}">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>
@@ -111,7 +95,7 @@
                     </span>
                     @enderror
                     <span class="invalid-feedback js_error js_numbersPoint" role="alert">
-                        <strong>Возможно только цифры и точка</strong>
+                       Возможно только цифры и точка
                     </span>
                 </div>
             </div>
@@ -127,7 +111,7 @@
                     </span>
                     @enderror
                     <span class="invalid-feedback js_error js_numbersPoint" role="alert">
-                        <strong>Возможно только цифры</strong>
+                        Возможно только цифры
                     </span>
                 </div>
             </div>
@@ -141,6 +125,9 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <small id="hint" class="form-group__hint">
+                       Не указывайте в описании телефон и e-mail - для это есть отдельные поля.
+                    </small>
                 </div>
             </div>
 
@@ -166,7 +153,7 @@
                     </select>
                     @error('categories')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        {{ $message }}
                     </span>
                     @enderror
                 </div>

@@ -170,11 +170,13 @@ function favorites(e) {
             const mainFavoritesCount = document.querySelector('.js_favoritesMain');
             if (mainFavoritesCount) mainFavoritesCount.innerHTML = response.data.count;
             if (response.data.action === 'del') {
-                favoritesIcon.classList.remove('fas');
-                favoritesIcon.classList.add('far');
+                // favoritesIcon.classList.remove('fas');
+                // favoritesIcon.classList.add('far');
+                favoritesIcon.classList.remove('filled');
+                //favoritesIcon.classList.add('far');
             } else {
-                favoritesIcon.classList.remove('far');
-                favoritesIcon.classList.add('fas');
+               // favoritesIcon.classList.remove('far');
+                favoritesIcon.classList.add('filled');
             }
         }
     });

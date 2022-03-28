@@ -50,7 +50,7 @@ class Article extends Model implements HasMedia, Viewable
         'moderate',
         'published',
         'created_by',
-        'modifierd_by',
+        'modified_by',
         'on_front',
         'service',
         'product_type',

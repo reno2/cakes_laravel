@@ -101,7 +101,11 @@
   width: 50%;
 }
 
-
+// region Unset Styles
+.btn-unset:hover,
+.btn-unset{
+  background: unset;
+}
 
 //
 //.btn-middle{

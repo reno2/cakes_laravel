@@ -2,10 +2,6 @@
 
 @section('content')
 
-
-    @include('chunks.all_massages')
-
-
     <div class="profile-adverts">
 
         <div class="profile-adverts__body">
@@ -14,9 +10,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <div class="container">
 
-            </div>
             <div class="container">
                 <div class="profile-adverts__switch">
                     <button class="btn-middle blue profile-adverts__link js_adsSwitcher active" data-tab="published" data-status="published">Опубликованные</button>

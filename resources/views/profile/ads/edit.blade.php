@@ -11,16 +11,16 @@
 
     <div class="ui-card__body">
 
-        @if (session('status'))
-            @include('chunks.error', ['errors' => session('status')])
-        @endif
-        @if (session('danger'))
-                @include('chunks.error', ['errors' => session('danger')])
-        @endif
-        @if($errors->any())
+{{--        @if (session('status'))--}}
+{{--            @include('chunks.error', ['errors' => session('status')])--}}
+{{--        @endif--}}
+{{--        @if (session('danger'))--}}
+{{--                @include('chunks.error', ['errors' => session('danger')])--}}
+{{--        @endif--}}
+{{--        @if($errors->any())--}}
 
-                @include('chunks.error', ['errors' => $errors->all()])
-        @endif
+{{--                @include('chunks.error', ['errors' => $errors->all()])--}}
+{{--        @endif--}}
 
 
         </div>
@@ -66,33 +66,12 @@
                         </small>
                         @error('delivery_self')
                         <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                             {{ $message }}
                         </span>
                         @enderror
                     </div>
                 </div>
             </div>
-
-            @if(false)
-            <div class="form-group row">
-                <label for="product_type" class="form-group__placeholder">Тип</label>
-                <div class="col-md-7">
-                    <select name="product_type"
-                            class="form-control  @error('product_type') is-invalid @enderror" id="product_type">
-                        <option value="product" @if($ads->product_type == 'product') selected="" @endif>Готовое
-                            изделие
-                        </option>
-                        <option value="order" @if($ads->product_type == 'order') selected="" @endif>Продукт под заказ
-                        </option>
-                    </select>
-                    @error('product_type')
-                    <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-            @endif
 
             <div class="form-group row @error('title') onError @enderror">
                 <label for="title" class="form-group__placeholder">Название</label>
@@ -102,14 +81,14 @@
                            value="{{old('title', $ads->title)}}">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                          {{ $message }}
                     </span>
                     @enderror
                 </div>
             </div>
 
 
-            <div class="form-group row">
+            <div class="form-group row @error('price') onError @enderror">
                 <label for="price" class="form-group__placeholder">Стоимость Руб.</label>
                 <div class="form-group__inputs">
                     <input id="price" type="text"
@@ -122,13 +101,13 @@
                     </span>
                     @enderror
                     <span class="invalid-feedback js_error js_numbersPoint" role="alert">
-                          <strong>Возможно только цифры и точка</strong>
+                          Возможно только цифры и точка
                     </span>
                 </div>
             </div>
 
 
-            <div class="form-group row">
+            <div class="form-group row @error('weight') onError @enderror">
                 <label for="weight" class="form-group__placeholder">Вес г.</label>
                 <div class="form-group__inputs">
                     <input id="weight" type="text"
@@ -141,21 +120,24 @@
 
                     @error('weight')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                          {{ $message }}
                     </span>
                     @enderror
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row @error('description') onError @enderror">
                 <label for="description" class="form-group__placeholder">Описание</label>
                 <div class="form-group__inputs">
                     <textarea name="description" class="form-group__textarea form-control @error('description') is-invalid @enderror"
                               id="description">{{old('description', $ads->description)}}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                         {{ $message }}
                     </span>
                     @enderror
+                    <small id="hint" class="form-group__hint">
+                        Не указывайте в описании телефон и e-mail - для это есть отдельные поля.
+                    </small>
                 </div>
             </div>
 
@@ -171,12 +153,12 @@
                     </select>
                     @error('tags')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                          {{ $message }}
                     </span>
                     @enderror
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row @error('categories') onError @enderror">
                 <label for="categories" class="form-group__placeholder">Родительская категория</label>
                 <div class="form-group__inputs">
                     <select name="categories[]" class="form-group__select form-control @error('categories') is-invalid @enderror"
@@ -186,7 +168,7 @@
                     </select>
                     @error('categories')
                     <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                          {{ $message }}
                     </span>
                     @enderror
                 </div>

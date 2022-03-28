@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="contentCenter">
@@ -7,7 +6,7 @@
                 <div class="reg-form__content">
                     <div class="reg-form__top">
                         <div class="reg-form__title">Авторизация</div>
-                        <div class="reg-form__login">Ещё нет аккаунта? <a href="/register">Регистрация</a></div>
+                        <div class="reg-form__login">Ещё нет аккаунта? <a class="reg-form__register_link" href="/register">Регистрация</a></div>
                     </div>
                     <form class="reg-form_form" method="POST" action="{{ route('login') }}">
                         @csrf

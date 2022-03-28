@@ -139,3 +139,7 @@
   font-size: 16px;
   line-height: 23px;
 }
+.scrollbar::-webkit-scrollbar-track {background-color: #dbdbdb}
+.scrollbar:hover::-webkit-scrollbar-track {background-color: #dbdbdb}
+.scrollbar::-webkit-scrollbar {width: 6px;}
+.scrollbar::-webkit-scrollbar-thumb {border-radius: 10px;background-color: #d3a1df; opacity: 0.5}

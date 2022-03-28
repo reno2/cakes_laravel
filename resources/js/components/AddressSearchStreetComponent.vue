@@ -1,6 +1,6 @@
 <template>
 
-    <div class="form-group row">
+    <div class="form-group row" :class="{'onError' : message}">
         <label for="deal_address" class="form-group__placeholder">Место сделки</label>
         <div class="form-group__inputs">
             <input required @blur="unblur"
@@ -12,9 +12,9 @@
                    name="deal_address"
                    :class="{'is-invalid' : message}"
                    class="form-group__input">
-            <span v-if="message" class="help-block text-danger">{{ message }}</span>
+            <span v-if="message" class="invalid-feedback">{{ message }}</span>
             <transition name="slide-fade">
-                <div v-if="choosing" class="dropdown-menu">
+                <div v-if="choosing" class="dropdown-menu scrollbar">
                     <a @click="selectCity(item.value)" class="dropdown-item" v-for="(item, inx) in choosing" :key="inx">{{item.value}}</a>
                 </div>
             </transition>
@@ -67,7 +67,7 @@
             },
             fillAddress(event) {
                 this.message = ''
-                //console.log( this.$el)
+
                 if (this.dealPlace.length > 3) {
                     let d = {
                         query: this.dealPlace,
@@ -117,7 +117,7 @@
         transition: all .3s ease;
     }
     .slide-fade-leave-active {
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
     .slide-fade-enter, .slide-fade-leave-to{
         transform: translateY(10px);
@@ -137,5 +137,30 @@
     .dropdown-item {
         white-space: pre-wrap;
         cursor: pointer;
+    }
+    .form-group__inputs{
+        position: relative;
+    }
+    .dropdown-menu {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: calc( 100% - 30px);
+        max-height: 203px;
+        overflow-y: scroll;
+        z-index: 9;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 40px 60px 0 rgb(37 59 112 / 10%);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    .dropdown-item {
+        white-space: pre-wrap;
+        cursor: pointer;
+        font-size: 12px;
+    }
+    .dropdown-item:not(:last-child) {
+        margin-bottom: 8px;
     }
 </style>

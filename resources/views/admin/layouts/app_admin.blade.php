@@ -28,7 +28,7 @@
 
             <div class="dashboard__main">
 
-                @include('chunks.messages')
+                @include('chunks.massages_errors')
 
                 @include('chunks.errors')
 

@@ -10,13 +10,10 @@
                 @yield('content')
             </main>
         </div>
+
         @include('chunks.footer')
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/modal.js') }}"></script>
-        <script src="{{ asset('js/main.js')}}"></script>
-        <script src="{{ asset('js/inputs.js')}}"></script>
-        <script src="{{ asset('js/header.js')}}"></script>
+        @include('chunks.includesFooter')
         @yield('page-script')
-        @include('chunks.messages')
+        @include('chunks.messages_alerts')
     </body>
 </html>

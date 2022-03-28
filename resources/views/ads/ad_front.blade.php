@@ -62,19 +62,19 @@
                 <form action="{{route('profile.favorites')}}" method="post" class="@if(Auth::user()) auth @else guest @endif js_favorites">
                     {{csrf_field()}}
                     <input type="hidden" name="id" value="{{$ad->id}}">
-                    <button type="submit" class="btn btn-default">
-
+                    <button type="submit" class="btn btn-unset">
                         @if(Auth::user() )
                             @if($favorites && in_array($ad->id, $favorites))
-                                <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
+                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                             @else
-                                <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                             @endif
                         @else
                             @if($favorites && in_array($ad->id, $favorites))
+                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                                 <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
                             @else
-                                <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                             @endif
                         @endif
 

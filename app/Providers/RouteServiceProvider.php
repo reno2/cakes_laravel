@@ -24,6 +24,14 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/home';
 
     /**
+     * Редирект после авторизации
+     *
+     * @var string
+     */
+    public const PROFILE = '/profile';
+
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void

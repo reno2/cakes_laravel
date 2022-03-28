@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
+use App\Rules\FindLinks;
+use App\Rules\NotEmail;
 use App\Rules\StripTags;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,7 +30,7 @@ class AdsRequest extends FormRequest
 
     public function validationData()
     {
-        return $this->stripTags(['title'], parent::validationData());
+        return $this->stripTags(['title', 'description'], parent::validationData());
     }
     /**
      * Get the validation rules that apply to the request.
@@ -49,10 +51,20 @@ class AdsRequest extends FormRequest
                 'required',
                 'max:155',
                 Rule::unique('articles', 'title')->ignore($adsId),
+                new FindLinks
             ],
-         // 'deal_address' => "required|regex:/[а-яА-Я0-9 -]+/",
+            'deal_address' => [
+                'required',
+                'regex:/^[а-яА-Я0-9\s-]+$/u',
+                new NotEmail
+                ],
             'tags' => 'required',
-            'description'   => "required|max:1000",
+            'description'   => [
+                'required',
+                'max:1000',
+                'regex:/^[\.\'\"_а-яёА-Я0-9a-z\s-]+$/umi',
+                new FindLinks,
+            ],
             'weight' => 'regex:/^(\d+){0,2}(\.){0,1}(\d){1,3}$/i',
             'price'   => "required|max:10|regex:/^\d+(\.\d{1,2})?$/",
             'categories'=> "required|array|not_in:0",

@@ -2,9 +2,6 @@
 
 @section('content')
 
-    @include('chunks.all_massages')
-
-
     <div class="profile-adverts">
             <div class="container">
 

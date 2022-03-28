@@ -411,8 +411,19 @@
   line-height: 18px;
 }
 
+.ad__favorite.filled {
+  fill: #f279b1;
+  stroke-width: 0;
+  stroke: unset;
+}
+
 .ad__favorite {
-  color: #f279b1;
+  fill: none;
+  height: 18px;
+  width: 20px;
+  cursor: pointer;
+  stroke-width: 3px;
+  stroke: #f279b1;
 }
 
 @media (max-width: 1279px) {
@@ -959,6 +970,7 @@
   font-weight: 600;
   font-size: 10px;
   color: #6e7d97;
+  margin-bottom: 4px;
 }
 
 .form__input {
@@ -1017,11 +1029,17 @@
   font-size: 36px;
   font-weight: 700;
   color: #344055;
+  margin-bottom: 8px;
 }
 
 .reg-form__login {
   color: #b1b2b9;
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.reg-form__login_link,
+.reg-form__register_link {
+  font-weight: 900;
 }
 
 .reg-form_form {
@@ -1156,7 +1174,6 @@ h3 {
   background: #FFFFFF;
   box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
   border-radius: 9px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -1603,6 +1620,11 @@ h3 {
 
 .half {
   width: 50%;
+}
+
+.btn-unset:hover,
+.btn-unset {
+  background: unset;
 }
 
 .notification {
@@ -2132,6 +2154,16 @@ h3 {
   display: block;
 }
 
+.form-group.onError .form-group__textarea,
+.form-group.onError .form-group__input {
+  border: 1px solid #ed9687;
+}
+
+.form-group.onError .invalid-feedback {
+  color: #ed9687;
+  display: block;
+}
+
 .form-group {
   display: flex;
   margin-bottom: 16px;
@@ -2204,8 +2236,16 @@ span.invalid-feedback {
   margin-top: 4px;
 }
 
+.form-group.onError .form-group__select,
 .form-group.onError .form-group__input {
   border: 1px solid #e75a5a;
+}
+
+.form-group__hint {
+  color: #9d9d9d;
+  margin-top: 8px;
+  display: block;
+  font-size: 12px;
 }
 
 .was-validated :invalid ~ .invalid-feedback,
@@ -2661,6 +2701,30 @@ li.cart-errors__li::marker {
   width: auto;
 }
 
+.error-block {
+  padding: 20px;
+  background-color: #ea806f;
+  color: white;
+  opacity: 0.83;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.error-block__ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.error-block__li {
+  color: white;
+  font-size: 14px;
+}
+
+.error-block__li:not(:last-child) {
+  margin-bottom: 8px;
+}
+
 .profile-adverts__switch {
   display: flex;
 }
@@ -2790,5 +2854,23 @@ li.cart-errors__li::marker {
   color: #6A747B;
   font-size: 16px;
   line-height: 23px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: #dbdbdb;
+}
+
+.scrollbar:hover::-webkit-scrollbar-track {
+  background-color: #dbdbdb;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #d3a1df;
+  opacity: 0.5;
 }
 

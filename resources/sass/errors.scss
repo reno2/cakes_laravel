@@ -24,3 +24,28 @@ li.cart-errors__li::marker {
 .front .cart-errors {
   width: auto;
 }
+
+
+// region Errors Block
+.error-block{
+  padding: 20px;
+  background-color: #ea806f;
+  color: white;
+  opacity: 0.83;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+.error-block__ul {
+  padding-left: 20px;
+  list-style-type: disc;
+}
+.error-block__li{
+  color: white;
+
+  font-size: 14px;
+}
+.error-block__li:not(:last-child){
+  margin-bottom: 8px;
+}
+// endregion Errors Block

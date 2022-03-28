@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\CategoryRequest;
 use App\Models\User;
 use App\Notifications\PostCreatedNotification;
@@ -25,8 +26,7 @@ class BlogController extends Controller
 {
 
 
-    public function front(Request $request, TagRepository $tagRepository, CategoryRepository $categoryRepository)
-    {
+    public function front (Request $request, TagRepository $tagRepository, CategoryRepository $categoryRepository) {
         SeometaFacade::setData('front', config('seo'));
         $ads = Article::where('published', 1)
                       ->where('moderate', 1)
@@ -37,13 +37,12 @@ class BlogController extends Controller
         return view('blog.front', [
             'ads' => $ads,
             'collections' => $collections,
-            'categories'  => $categories
+            'categories' => $categories,
         ]);
     }
 
-    public function favorites(Request $request, ProfileRepository $profileRepository)
-    {
-        $adsId  = $request->get('id');
+    public function favorites (Request $request, ProfileRepository $profileRepository) {
+        $adsId = $request->get('id');
         $action = '';
 
         if (Auth::id()) {
@@ -55,18 +54,18 @@ class BlogController extends Controller
                 $profile->favoritePosts()->attach($adsId);
                 $action = 'add';
             }
-            $count =  count($profileRepository->getFavoritesArray($profile->id));
-            return response(['action'=>$action, 'count' => $count], 200);
+            $count = count($profileRepository->getFavoritesArray($profile->id));
+            return response(['action' => $action, 'count' => $count], 200);
         } else {
 
             if (!json_decode(Cookie::get('favorites'))) {
                 $cookies[] = $adsId;
-                $action    = 'add';
+                $action = 'add';
             } else {
                 $cookies = json_decode(Cookie::get('favorites'));
                 if (!in_array($adsId, $cookies)) {
                     $cookies[] = $adsId;
-                    $action    = 'add';
+                    $action = 'add';
                 } else {
                     $key = array_search($adsId, $cookies);
                     unset($cookies[$key]);
@@ -75,7 +74,7 @@ class BlogController extends Controller
             }
             $count = count($cookies);
             $cookies = cookie('favorites', json_encode(array_values($cookies), JSON_OBJECT_AS_ARRAY));
-            return response(['action'=>$action, 'count' => $count], 200)->cookie(
+            return response(['action' => $action, 'count' => $count], 200)->cookie(
                 $cookies
             );
         }
@@ -83,22 +82,21 @@ class BlogController extends Controller
     }
 
 
-    public function favoritesList(){
+    public function favoritesList () {
 
         if (Auth::check()) {
             $ads = (new ProfileRepository)->favoritesListAuth();
-        }else{
+        } else {
             $ads = (new ProfileRepository)->favoritesListNotAuth();
         }
         return view('blog.favorites', [
             'ads' => $ads,
-            'favorites' => (new ProfileRepository)->getFavoritesIds()
+            'favorites' => (new ProfileRepository)->getFavoritesIds(),
         ]);
     }
 
 
-    public function category($slug)
-    {
+    public function category ($slug) {
         $category = Category::where('slug', $slug)->first();
         if (!$category) {
             abort(404);
@@ -113,47 +111,44 @@ class BlogController extends Controller
 
         return view('blog.category', [
             'category' => $category,
-            'ads' => $category->articles()->where('published', 1)->where('moderate', 1)->paginate(12)
+            'ads' => $category->articles()->where('published', 1)->where('moderate', 1)->paginate(12),
         ]);
     }
 
-    public function ads($slug)
-    {
+    public function ads ($slug) {
+        try {
+            $article = Article::where('slug', $slug)->firstOrFail();
+            views($article)->record();
 
-        $article = Article::where('slug', $slug)->first();
-        views($article)->record();
+            SeometaFacade::setData('post', $article->toArray());
 
-        SeometaFacade::setData('post', $article->toArray());
-//        SeometaFacade::setTags('article', $article->toArray());
+            return view('blog.ads', [
+                'ad' => $article,
+            ]);
 
-
-//        $rr = views($article)
-//            ->period(Period::pastDays(1))
-//            ->count();
-//        dd($rr);
-        //MetaTag::setTags(['title'=> $article->title]);
-        //dd($category->articles()->where('published', 0)->paginate(12));
-        return view('blog.ads', [
-            'ad' => $article,
-            //'articles' => $category->articles()->where('published', 1)->paginate(12)
-        ]);
+        } catch (\Exception $e) {
+            return abort(404);
+        }
     }
 
 
-    public function tag($slug)
-    {
 
-        $tag      = Tag::where('slug', $slug)->first();
+    public function tag ($slug) {
 
-        // Передаём настройки для сео
-        SeometaFacade::setData('tag', $tag->toArray());
+        try {
+            $tag = Tag::where('slug', $slug)->firstOrFail();
 
-        $articles = $tag->articles()->where('published', 1)->paginate(12);
+            // Передаём настройки для сео
+            SeometaFacade::setData('tag', $tag->toArray());
 
+            $articles = $tag->articles()->where('published', 12)->paginate(12);
 
-        return view('blog.thumbs', [
-            'ads' => $articles,
-            'tag'      => $tag
-        ]);
+            return view('blog.collections', [
+                'ads' => $articles,
+                'tag' => $tag,
+            ]);
+        } catch (\Exception $e) {
+            return abort(404);
+        }
     }
 }

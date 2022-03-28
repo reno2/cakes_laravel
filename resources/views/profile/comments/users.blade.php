@@ -3,8 +3,6 @@
 @section('content')
 
 
-    @include('chunks.all_massages')
-
 
     <div class="card">
         <div class="card-header">{{ __('Dashboard') }}</div>

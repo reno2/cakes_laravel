@@ -46,6 +46,7 @@
     font-weight: 600;
     font-size: 10px;
     color: #6e7d97;
+    margin-bottom: 4px;
 }
 .form__input{
     border: 1px solid #ebecf3;
@@ -98,10 +99,15 @@
     font-size: 36px;
     font-weight: 700;
     color: #344055;
+  margin-bottom: 8px;
 }
 .reg-form__login{
     color: $gray3;
-    font-size: 12px;
+    font-size: 14px;
+}
+.reg-form__login_link,
+.reg-form__register_link{
+  font-weight: 900;
 }
 .reg-form_form {
     margin-top: 32px;

@@ -131,7 +131,7 @@ class AdsService
         $imgIsChange = $this->prepareImages();
 
         $needModerate = $this->moderateStatus($requestArray, $article, $isAdminPage, $imgIsChange);
-
+        $requestArray['moderate'] = $needModerate;
         $update = $article->update($requestArray);
 
 
@@ -173,11 +173,11 @@ class AdsService
         // Проверяем изменения ли категория или картинка
         $adsCat = $this->article->categories->pluck('id')->toArray();
         $catDiff = $adsCat == $this->request['categories'];
-        $isCatsChange = ($catDiff) ? false : true;
+
 
         $needModerate = false;
-        if ($isCatsChange || $isImgChange) {
-            $needModerate = true;
+        if ($catDiff || $isImgChange) {
+            return true;
         } else {
 
             $oldValues = $this->article->getAttributes();
@@ -196,12 +196,12 @@ class AdsService
                 }
 
                 if ($oldValues[$field] !== $checkVal) {
-                    $needModerate = true;
+                    return true;
                 }
 
             }
         }
-        return $needModerate;
+        return false;
     }
 
     private function moderateStatus ($requestArray, $article, $isAdminPage, bool $imgIsChange) {

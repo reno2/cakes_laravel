@@ -90,6 +90,15 @@
 .form-cell.onError .js_error{
   display: block;
 }
+
+.form-group.onError .form-group__textarea,
+.form-group.onError .form-group__input{
+  border: 1px solid #ed9687;
+}
+.form-group.onError .invalid-feedback{
+  color: #ed9687;
+  display: block;
+}
 // endRegion Error
 
 
@@ -161,8 +170,17 @@ span.invalid-feedback {
 }
 
 // region Errors
+.form-group.onError .form-group__select,
 .form-group.onError .form-group__input{
   border: 1px solid #e75a5a;
+}
+
+
+.form-group__hint{
+  color: #9d9d9d;
+  margin-top: 8px;
+  display: block;
+  font-size: 12px;
 }
 
 .was-validated :invalid ~ .invalid-feedback,

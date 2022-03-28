@@ -12,7 +12,7 @@
                     <div class="reg-form__top">
                         <div class="reg-form__sub">присоединяйтесь к нам</div>
                         <div class="reg-form__title">Регистрация</div>
-                        <div class="reg-form__login">Уже есть аккаунт? <a href="/login">Войти</a></div>
+                        <div class="reg-form__login">Уже есть аккаунт? <a class="reg-form__login_link" href="/login">Войти</a></div>
                     </div>
                     <form class="reg-form_form" method="POST" action="{{ route('register') }}">
                         @csrf
