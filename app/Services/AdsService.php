@@ -128,9 +128,9 @@ class AdsService
         $this->adsRepository = new AdsRepository();
         $this->request = $requestArray;
 
-        $imgIsChange = $this->prepareImages();
+        $isImgChange = $this->prepareImages();
 
-        $needModerate = $this->moderateStatus($requestArray, $article, $isAdminPage, $imgIsChange);
+        $needModerate = $this->moderateStatus($requestArray, $article, $isAdminPage, $isImgChange);
         $requestArray['moderate'] = $needModerate;
         $update = $article->update($requestArray);
 
@@ -172,7 +172,7 @@ class AdsService
 
         // Проверяем изменения ли категория или картинка
         $adsCat = $this->article->categories->pluck('id')->toArray();
-        $catDiff = $adsCat == $this->request['categories'];
+        $catDiff = $adsCat == $this->request['categories'][0];
 
 
         $needModerate = false;
@@ -183,17 +183,17 @@ class AdsService
             $oldValues = $this->article->getAttributes();
             foreach ($this->article->toModerate as $field) {
 
-                if (in_array($field, ['tags', 'categories'])) continue;
+
+                if ($field === 'published') {
+                    $checkVal = intval($this->request[$field]);
+                }
 
                 if ($field === 'price') {
                     $checkVal = floatval($this->request[$field]);
-                } else {
-                    if ($field === 'published') {
-                        $checkVal = intval($this->request[$field]);
-                    } else {
-                        $checkVal = $this->request[$field];
-                    }
                 }
+
+                $checkVal = $this->request[$field];
+
 
                 if ($oldValues[$field] !== $checkVal) {
                     return true;
@@ -204,11 +204,11 @@ class AdsService
         return false;
     }
 
-    private function moderateStatus ($requestArray, $article, $isAdminPage, bool $imgIsChange) {
+    private function moderateStatus ($requestArray, $article, $isAdminPage, bool $imgIsNotChange) {
 
         // Проверяем требуется ли модерация если это не админка
         if (!$isAdminPage) {
-            return $this->onModerate($imgIsChange) ? 0 : 1;
+            return $this->onModerate($imgIsNotChange) ? 0 : 1;
         }
 
 

@@ -26,7 +26,7 @@ class ProfileValidate extends FormRequest
 
         return [
             'name' => 'regex:/^[a-zA-Zа-яА-Я0-9\s_]+$/u',
-            'contact1' =>  'regex:/^[a-zA-Zа-яА-Я0-9\s]+$/u',
+            'contact1' =>  'regex:/^[-0-9\s]+$/u',
             'address' => 'required|regex:/^[a-zA-Zа-яА-Я0-9\s-]+$/u'
         ];
     }
@@ -35,10 +35,24 @@ class ProfileValidate extends FormRequest
     public function messages()
     {
         return [
-            'name.regex' => 'Только буквы или числа',
-            'contact1.regex' => 'Только буквы или числа',
-            'address.required' => 'Название объязательно',
-            'address.regex' => 'Только буквы или числа "-" пробел ',
+            'name.regex' => ':attribute - Только буквы или числа',
+            'contact1.regex' => ':attribute - Только числа, пробел и тире',
+            'address.required' => ':attribute - Название объязательно',
+            'address.regex' => ':attribute - Только буквы или числа "-" пробел ',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name' => 'Имя',
+            'address' => 'Адрес',
+            'contact1' => 'Контактный телефон',
         ];
     }
 }

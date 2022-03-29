@@ -22,7 +22,7 @@ class FilledProfileValid
     {
 
         if (!(new ProfileRepository())->checkIfCanAddAds(Auth::user())) {
-            return redirect()->route('profile.edit')->with('danger', 'Необходимо заполнить поля адреса и контактов');
+            return redirect()->route('profile.edit')->withErrors('Необходимо заполнить поля адреса и контактов');
         }
         return $next($request);
     }

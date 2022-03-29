@@ -53,12 +53,7 @@ trait UploadTrait
         }
 
         // Если картинка была изменена то отправляем на модерацию
-        if($change){
-            return true;
-        }
-        else{
-            return false;
-        }
+       return $change;
     }
 
     public function removeAsMain()

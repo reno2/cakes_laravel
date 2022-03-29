@@ -23,7 +23,7 @@
 
 
     <div class="form-group onFocus @error('contact1') onError @enderror">
-        <label class="form-group__placeholder" for="">Контакт</label>
+        <label class="form-group__placeholder" for="">Контактный телефон</label>
         <div class="form-group__inputs">
             <input id="contact1" type="text"
                    class="form-group__input @error('contact1') is-invalid @enderror" name="contact1"
