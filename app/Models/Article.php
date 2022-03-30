@@ -20,7 +20,8 @@ class Article extends Model implements HasMedia, Viewable
 {
     use HasMediaTrait, Notifiable, InteractsWithViews;
 
-
+    public  $not_need_moderate = '100';
+    public  $need_moderate = '200';
 
     public function setTitleAttribute($value)
     {
@@ -34,7 +35,7 @@ class Article extends Model implements HasMedia, Viewable
 
     }
     public $toModerate = [
-        'title', 'description'
+        'title', 'description', 'price'
     ];
     protected $fillable = [
         'title',

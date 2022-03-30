@@ -131,7 +131,10 @@ class AdsService
         $isImgChange = $this->prepareImages();
 
         $needModerate = $this->moderateStatus($requestArray, $article, $isAdminPage, $isImgChange);
-        $requestArray['moderate'] = $needModerate;
+
+        if((int)$needModerate === 200) {
+            $requestArray['moderate'] = 0;
+        }
         $update = $article->update($requestArray);
 
 
@@ -168,7 +171,9 @@ class AdsService
      * @return bool
      */
     public function onModerate ($isImgChange) {
-
+        if($this->article->moderate == 0) {
+            return $this->article->not_need_moderate;
+        }
 
         // Проверяем изменения ли категория или картинка
         $adsCat = $this->article->categories->pluck('id')->toArray();
@@ -177,12 +182,13 @@ class AdsService
 
         $needModerate = false;
         if ($catDiff || $isImgChange) {
-            return true;
+            return $this->article->need_moderate;
         } else {
 
             $oldValues = $this->article->getAttributes();
             foreach ($this->article->toModerate as $field) {
 
+                $checkVal = $this->request[$field];
 
                 if ($field === 'published') {
                     $checkVal = intval($this->request[$field]);
@@ -192,23 +198,21 @@ class AdsService
                     $checkVal = floatval($this->request[$field]);
                 }
 
-                $checkVal = $this->request[$field];
-
 
                 if ($oldValues[$field] !== $checkVal) {
-                    return true;
+                    return $this->article->need_moderate;
                 }
 
             }
         }
-        return false;
+        return $this->article->not_need_moderate;
     }
 
     private function moderateStatus ($requestArray, $article, $isAdminPage, bool $imgIsNotChange) {
 
         // Проверяем требуется ли модерация если это не админка
         if (!$isAdminPage) {
-            return $this->onModerate($imgIsNotChange) ? 0 : 1;
+            return $this->onModerate($imgIsNotChange);
         }
 
 
