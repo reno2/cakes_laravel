@@ -59,7 +59,7 @@
         width: 80%;
         border-radius: 10px;
         border: none;
-
+        padding: 16px;
     }
     .comment-item__date {
         color: #9b9b9b;
@@ -102,10 +102,13 @@
     }
     .comment-item__icon:hover {
         cursor: pointer;
-        color: #fecf37;
+        fill: #fecf37;
     }
     .comment-item__icon {
         font-size: 10px;
+        width: 18px;
+        height: 18px;
+        fill: #fcddb3;
     }
     .comment-item__status{
         display: none;
@@ -137,8 +140,13 @@
 
         <div class="comment-item__auth" v-if="Number(item.from_user_id) === Number(user)">
             <div class="comment-item__actions">
-                <i @click="edit(item.id)" class="comment-item__icon fas fa-highlighter"></i>
-                <i @click="deleteComment(item.id)" class="comment-item__icon fas fa-times"></i>
+                <svg @click="edit(item.id)" class="comment-item__icon">
+                    <use xlink:href="/images/icons.svg#fa-highlighter"></use>
+                </svg>
+                <svg @click="deleteComment(item.id)" class="comment-item__icon">
+                    <use xlink:href="/images/icons.svg#icon-close"></use>
+                </svg>
+
             </div>
             <div class="comment-item__link list-group-item list-group-item-action">
                 <small>#{{item.id}}</small>

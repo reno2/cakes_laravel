@@ -15,41 +15,33 @@
 
 
 
-        <div class="ui-card">
-            <div class="card-body">
+        <div class="ui-card ">
+            <div class="card-body comment-page">
 
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
 
-                <div class="container">
-                    <div class="row justify-content-start ads">
-                        <div class="list-group  w-100 mt-3">
+                    <div class="comment-page__top">
 
-                            @if($comment)
-                                <div class="p-comment">
-                                    <div class="p-comment__date">
-                                        {{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment['created_at']))->diffForHumans()}}
-                                    </div>
-                                    <div class="">
-                                        <h5 class="p-comment__title mb-1">
-                                            {{$ads['title']}}
-                                        </h5>
-                                        <p class="p-comment__desc mb-1">Вопрос от {{$profile['name']}} ({{$comment['from_user_id']}})</p>
-                                    </div>
+                        @if($comment)
+                            <div class="p-comment">
+                                <div class="p-comment__date">
+                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment['created_at']))->diffForHumans()}}
                                 </div>
-                            @else
-                                <div>Никаких объявлений не отложенно</div>
-                            @endif
-                        </div>
+                                <div class="">
+                                    <h5 class="p-comment__title mb-1">
+                                        {{$ads['title']}}
+                                    </h5>
+                                    <p class="p-comment__desc mb-1">Вопрос от {{$profile['name']}} ({{$comment['from_user_id']}})</p>
+                                </div>
+                            </div>
+                        @else
+                            <div>Никаких объявлений не отложенно</div>
+                        @endif
                     </div>
 
 
 
 
-                </div>
+
                 <addcomment
                         ads="{{$ads['id']}}"
                         comment-users="{{$users}}"

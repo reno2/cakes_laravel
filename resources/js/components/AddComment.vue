@@ -21,8 +21,13 @@
         display: flex;
         position: sticky;
         bottom: 0;
+        background: #fff;
     }
-
+    .comment-form__row{
+        display: flex;
+        align-content: center;
+        padding-top: 16px;
+    }
     .comment-form__btn {
         border-radius: 8px;
         background: #f5f6f7;
@@ -64,7 +69,9 @@
         top: 50%;
         right: 8px;
         transform: translateY(-50%);
+        background: unset;
     }
+
     .comment__loading i,
     .comment__submit i {
         color: #48b0f7;
@@ -131,6 +138,12 @@
     }
 
 
+    .comment__svg{
+        width: 20px;
+        height: 20px;
+        fill: #d3a1df;
+    }
+
 
 
 </style>
@@ -159,14 +172,18 @@
         <div ref="commentForm" class="row justify-content-start comment-form">
             <div class="card-body">
                 <form @submit.prevent="submit">
-                    <div class="form-row align-items-center">
+                    <div class="comment-form__row form-row align-items-center ">
                         <div class="comment__row">
                             <textarea type="text" name="comment" class="comment__input scrollVertical" id="comment" @keydown="actionUser" v-model="comment"
                                       placeholder="Введите текст">
                             </textarea>
                             <button v-if="!isDisabled" type="submit" class="btn comment__submit">
-                                <i class="fas fa-paper-plane"></i>
+                                <svg class="comment__svg">
+                                    <use xlink:href="/images/icons.svg#fa-send"></use>
+                                </svg>
                             </button>
+
+
                             <span v-else class="btn comment__loading">
                                 <i class="fas fa-circle-notch fa-spin"></i>
                             </span>
@@ -178,7 +195,9 @@
                         </div>
                         <div class="comment-form__btn" v-if="event==='update'">
                             <button @click.prevent="exitEdit" class="comment-form__edit">
-                                <i class="comment-form__icon fas fa-times"></i>
+                                <svg class="comment-item__icon comment__svg">
+                                    <use xlink:href="/images/icons.svg#icon-close"></use>
+                                </svg>
                             </button>
                         </div>
                     </div>

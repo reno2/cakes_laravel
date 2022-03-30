@@ -168,13 +168,13 @@ class CommentController extends Controller
                 $data["ads_owner"],
                 [
                     'name' => $data["ads_owner"]['profiles'][0]['name'],
-                    'image' => $data["ads_owner"]['profiles'][0]['image']
+                    'image' => $data["ads_owner"]['profiles'][0]['image'] ?? Storage::url("images/defaults/cake.svg")
                 ]),
             $data['asked_id'] => array_merge(
                 $data["ads_asked"],
                 [
                     'name' => $data["ads_asked"]['profiles'][0]['name'],
-                    'image' => $data["ads_asked"]['profiles'][0]['image']
+                    'image' => $data["ads_asked"]['profiles'][0]['image'] ?? Storage::url("images/defaults/cake.svg")
                 ])
         ];
 

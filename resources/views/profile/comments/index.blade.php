@@ -14,7 +14,7 @@
         </div>
 
         <div class="ui-tabs__content">
-            <div class="ui-tabs__content-item js_tabContent active">
+            <div class="ui-tabs__content-item js_tabContent active @if(empty($toUserQuestions)) not_empty @endif">
                 @forelse($toUserQuestions as $room)
                     @include('chunks.comments_to')
                 @empty
@@ -24,7 +24,7 @@
                     </div>
                 @endforelse
             </div>
-            <div class="ui-tabs__content-item js_tabContent">
+            <div class="ui-tabs__content-item js_tabContent @if(empty($userQuestions)) not_empty @endif">
                 @forelse($userQuestions as $room)
                     @include('chunks.comments_from')
                 @empty

@@ -1939,9 +1939,7 @@ h3 {
 
 .ui-tabs__content {
   position: relative;
-  overflow: hidden;
   margin-top: 40px;
-  border-radius: 10px;
 }
 
 .ui-tabs__content-item:not(.active) {
@@ -1957,6 +1955,13 @@ h3 {
 .ui-tabs__content-item.active {
   transition: opacity ease-in-out 0.5s;
   opacity: 1;
+}
+
+.ui-tabs__content-item.active:not(.not_empty) {
+  box-shadow: 0 40px 60px 0 rgba(37, 59, 112, 0.1);
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .ui-tabs__head-item {

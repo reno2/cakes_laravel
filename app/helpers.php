@@ -3,6 +3,7 @@
 use App\Repositories\CommentsRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('helper_comment_owner_asked')) {
     function helper_comment_owner_asked ($article_owner, $user_to, $user_from) {
@@ -55,4 +56,9 @@ function helper_getNumWord (int $num, $words)
             return ($words[2]);
         }
     }
+}
+
+
+function helper_returnImage ($data)  {
+    return $data->image ?? Storage::url("images/defaults/cake.svg");
 }

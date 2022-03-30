@@ -2206,6 +2206,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2691,6 +2710,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10802,7 +10829,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n    padding-right: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comments__list .row[data-v-2e098429]{\n    margin-right: 0;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n    padding-right: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comments__list .row[data-v-2e098429]{\n    margin-right: 0;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n    background: #fff;\n}\n.comment-form__row[data-v-2e098429]{\n    display: flex;\n    align-content: center;\n    padding-top: 16px;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n    background: unset;\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n.comment__svg[data-v-2e098429]{\n    width: 20px;\n    height: 20px;\n    fill: #d3a1df;\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -10840,7 +10867,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed {\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i {\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.comment-item__online {\n    margin-top: 8px;\n    font-size: 10px;\n    background: #82c831;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #ffffff;\n}\n.comment-item__offline {\n    margin-top: 8px;\n    font-size: 10px;\n    background: #afafaf;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #ffffff;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth h5,\n.comment-item__auth small,\n.comment-item__auth p {\n    color: #ffffff;\n}\n.comment-item__auth .comment-item__link {\n    /*transition: background-color 2s ease-out;*/\n    background: #48b0f7;\n    color: #ffffff;\n}\n.comment-item__actions {\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed {\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i {\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child {\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor: pointer;\n    color: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n}\n.comment-item__status{\n    display: none;\n}\n.comment-item__status i{\n    color:#04f2c6;\n}\n@media (max-width: 768px) {\n.comment-item__name{\n        font-size: 14px;\n        display: flex;\n}\n}\n@media (max-width: 560px) {\n.comment-item__ava {\n        display: none;\n}\n.comment-item__status{\n        display: block;\n        margin-left: 8px;\n}\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n.comment-item {\n    display: flex;\n    width: 100%;\n    margin-bottom: 24px;\n}\n.comment-item__noAuth {\n    justify-content: flex-start;\n    width: 100%;\n    display: flex;\n}\n.comment-item__noAuth .comment-item__link {\n    background: #f5f6f7;\n    color: #9b9b9b;\n}\n.comment-item__noAuth .comment-item__changed {\n    position: absolute;\n    right: -25px;\n}\n.comment-item__noAuth .comment-item__changed i {\n    color: #d2d4d6;\n}\n.comment-item__img {\n    width: 70px;\n    border-radius: 100px;\n    height: 70px;\n    background: #f5f6f7;\n}\n.comment-item__ava {\n    margin-right: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.comment-item__online {\n    margin-top: 8px;\n    font-size: 10px;\n    background: #82c831;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #ffffff;\n}\n.comment-item__offline {\n    margin-top: 8px;\n    font-size: 10px;\n    background: #afafaf;\n    padding: 0px 4px;\n    border-radius: 4px;\n    color: #ffffff;\n}\n.comment-item__comment {\n    flex-grow: 1;\n}\n.comment-item .comment-item__link {\n    width: 80%;\n    border-radius: 10px;\n    border: none;\n    padding: 16px;\n}\n.comment-item__date {\n    color: #9b9b9b;\n}\n.comment-item__auth {\n    display: flex;\n    align-items: flex-end;\n    width: 100%;\n    flex-direction: column;\n    position: relative;\n}\n.comment-item__auth h5,\n.comment-item__auth small,\n.comment-item__auth p {\n    color: #ffffff;\n}\n.comment-item__auth .comment-item__link {\n    /*transition: background-color 2s ease-out;*/\n    background: #48b0f7;\n    color: #ffffff;\n}\n.comment-item__actions {\n    position: absolute;\n    z-index: 2;\n    right: 16px;\n    top: 8px;\n    color: #f5f6f7;\n}\n.comment-item__auth .comment-item__changed {\n    position: absolute;\n    left: -25px;\n}\n.comment-item__auth .comment-item__changed i {\n    color: #d2d4d6;\n}\n.comment-item__icon:first-child {\n    margin-right: 8px;\n}\n.comment-item__icon:hover {\n    cursor: pointer;\n    fill: #fecf37;\n}\n.comment-item__icon {\n    font-size: 10px;\n    width: 18px;\n    height: 18px;\n    fill: #fcddb3;\n}\n.comment-item__status{\n    display: none;\n}\n.comment-item__status i{\n    color:#04f2c6;\n}\n@media (max-width: 768px) {\n.comment-item__name{\n        font-size: 14px;\n        display: flex;\n}\n}\n@media (max-width: 560px) {\n.comment-item__ava {\n        display: none;\n}\n.comment-item__status{\n        display: block;\n        margin-left: 8px;\n}\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -89249,90 +89276,118 @@ var render = function() {
               }
             },
             [
-              _c("div", { staticClass: "form-row align-items-center" }, [
-                _c("div", { staticClass: "comment__row" }, [
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.comment,
-                        expression: "comment"
-                      }
-                    ],
-                    staticClass: "comment__input scrollVertical",
-                    attrs: {
-                      type: "text",
-                      name: "comment",
-                      id: "comment",
-                      placeholder: "Введите текст"
-                    },
-                    domProps: { value: _vm.comment },
-                    on: {
-                      keydown: _vm.actionUser,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+              _c(
+                "div",
+                {
+                  staticClass: "comment-form__row form-row align-items-center "
+                },
+                [
+                  _c("div", { staticClass: "comment__row" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.comment,
+                          expression: "comment"
                         }
-                        _vm.comment = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  !_vm.isDisabled
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn comment__submit",
-                          attrs: { type: "submit" }
-                        },
-                        [_c("i", { staticClass: "fas fa-paper-plane" })]
-                      )
-                    : _c("span", { staticClass: "btn comment__loading" }, [
-                        _c("i", { staticClass: "fas fa-circle-notch fa-spin" })
-                      ]),
-                  _vm._v(" "),
-                  _vm.error.status
-                    ? _c(
-                        "span",
-                        {
-                          staticClass: "help-block comment__error text-danger"
-                        },
-                        [_vm._v(_vm._s(_vm.error.msg))]
-                      )
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _vm.isUserTyping
-                  ? _c("div", { staticClass: "comment__row" }, [
-                      _c("span", { staticClass: "comment__typing" }, [
-                        _vm._v(_vm._s(_vm.isUserTyping.user) + " печатает....")
-                      ])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.event === "update"
-                  ? _c("div", { staticClass: "comment-form__btn" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "comment-form__edit",
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.exitEdit($event)
-                            }
+                      ],
+                      staticClass: "comment__input scrollVertical",
+                      attrs: {
+                        type: "text",
+                        name: "comment",
+                        id: "comment",
+                        placeholder: "Введите текст"
+                      },
+                      domProps: { value: _vm.comment },
+                      on: {
+                        keydown: _vm.actionUser,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
                           }
-                        },
-                        [
+                          _vm.comment = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    !_vm.isDisabled
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn comment__submit",
+                            attrs: { type: "submit" }
+                          },
+                          [
+                            _c("svg", { staticClass: "comment__svg" }, [
+                              _c("use", {
+                                attrs: {
+                                  "xlink:href": "/images/icons.svg#fa-send"
+                                }
+                              })
+                            ])
+                          ]
+                        )
+                      : _c("span", { staticClass: "btn comment__loading" }, [
                           _c("i", {
-                            staticClass: "comment-form__icon fas fa-times"
+                            staticClass: "fas fa-circle-notch fa-spin"
                           })
-                        ]
-                      )
-                    ])
-                  : _vm._e()
-              ])
+                        ]),
+                    _vm._v(" "),
+                    _vm.error.status
+                      ? _c(
+                          "span",
+                          {
+                            staticClass: "help-block comment__error text-danger"
+                          },
+                          [_vm._v(_vm._s(_vm.error.msg))]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm.isUserTyping
+                    ? _c("div", { staticClass: "comment__row" }, [
+                        _c("span", { staticClass: "comment__typing" }, [
+                          _vm._v(
+                            _vm._s(_vm.isUserTyping.user) + " печатает...."
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.event === "update"
+                    ? _c("div", { staticClass: "comment-form__btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "comment-form__edit",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.exitEdit($event)
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "comment-item__icon comment__svg"
+                              },
+                              [
+                                _c("use", {
+                                  attrs: {
+                                    "xlink:href": "/images/icons.svg#icon-close"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              )
             ]
           )
         ])
@@ -89474,23 +89529,39 @@ var render = function() {
     Number(_vm.item.from_user_id) === Number(_vm.user)
       ? _c("div", { staticClass: "comment-item__auth" }, [
           _c("div", { staticClass: "comment-item__actions" }, [
-            _c("i", {
-              staticClass: "comment-item__icon fas fa-highlighter",
-              on: {
-                click: function($event) {
-                  return _vm.edit(_vm.item.id)
+            _c(
+              "svg",
+              {
+                staticClass: "comment-item__icon",
+                on: {
+                  click: function($event) {
+                    return _vm.edit(_vm.item.id)
+                  }
                 }
-              }
-            }),
+              },
+              [
+                _c("use", {
+                  attrs: { "xlink:href": "/images/icons.svg#fa-highlighter" }
+                })
+              ]
+            ),
             _vm._v(" "),
-            _c("i", {
-              staticClass: "comment-item__icon fas fa-times",
-              on: {
-                click: function($event) {
-                  return _vm.deleteComment(_vm.item.id)
+            _c(
+              "svg",
+              {
+                staticClass: "comment-item__icon",
+                on: {
+                  click: function($event) {
+                    return _vm.deleteComment(_vm.item.id)
+                  }
                 }
-              }
-            })
+              },
+              [
+                _c("use", {
+                  attrs: { "xlink:href": "/images/icons.svg#icon-close" }
+                })
+              ]
+            )
           ]),
           _vm._v(" "),
           _c(
