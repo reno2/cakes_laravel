@@ -38,6 +38,7 @@ class CreateArticlesTable extends Migration
                 $table->boolean('moderate')->default(0)->nullable();
                 $table->text('moderate_text')->nullable();
                 $table->unsignedBigInteger('user_id')->nullable(false);
+                $table->softDeletes();
                 $table->timestamps();
 
         });

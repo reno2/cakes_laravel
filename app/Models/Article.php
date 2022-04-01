@@ -18,7 +18,7 @@ use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
 class Article extends Model implements HasMedia, Viewable
 {
-    use HasMediaTrait, Notifiable, InteractsWithViews;
+    use HasMediaTrait, Notifiable, InteractsWithViews, SoftDeletes;
 
     public  $not_need_moderate = '100';
     public  $need_moderate = '200';

@@ -50,7 +50,7 @@ class AdsRequest extends FormRequest
             'title'   => [
                 'required',
                 'max:155',
-                Rule::unique('articles', 'title')->ignore($adsId),
+                Rule::unique('articles', 'title')->where('deleted_at', null)->ignore($adsId),
                 new FindLinks
             ],
             'deal_address' => [

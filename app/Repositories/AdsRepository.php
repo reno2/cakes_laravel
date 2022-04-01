@@ -15,16 +15,28 @@ use App\Models\Profile;
 class AdsRepository extends CoreRepository
 {
 
-    public function allForEditWithPaginateAndSort($sortParam = null, $sortType = null, $perPage = 10){
+    public function allForEditWithPaginateAndSort($sortParam = null, $sortType = null, $deleted = false, $perPage = 10){
+        $order = 'sort';
+        $sort = 'asc';
 
-        if($sortParam && $sortType){
-            return $this->startCondition()::orderBy($sortParam, $sortType)
+        if($sortParam){
+            $order = $sortParam;
+        }
+
+        if($sortType){
+            $sort = $sortType;
+        }
+
+        if($deleted){
+            return $this->startCondition()::onlyTrashed()
+                                          ->orderBy($order, $sort)
                                           ->with('media', 'tags')
                                           ->paginate($perPage);
         }
 
-        return $this->startCondition()::orderBy('sort', 'asc')
-            ->orderBy('id', 'desc')
+
+
+        return $this->startCondition()::orderBy($order, $sort)
             ->with('media', 'tags')
             ->paginate($perPage);
 
@@ -53,7 +65,6 @@ class AdsRepository extends CoreRepository
     * возвращаем коллекцию со связами
     */
     public function getByCurrentProfileFavoritesAdsSortedDesc($ids, $per = 9) {
-       // $ids = (new ProfileRepository())->getFavoritesArray($id);
         return $this->startCondition()->whereIn('id', $ids)->orderBy('created_at', 'desc')->paginate($per);
     }
 

@@ -6,8 +6,10 @@ use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 
+
 class Room extends Model
 {
+
     protected $guarded = [];
 
     public function comments() {
@@ -15,7 +17,7 @@ class Room extends Model
     }
 
     public function ads() {
-       return $this->belongsTo(Article::class, 'article_id');
+       return $this->belongsTo(Article::class, 'article_id')->withTrashed();
     }
 
     public function adsOwner() {

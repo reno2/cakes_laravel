@@ -176,6 +176,7 @@ class ProfileRepository extends CoreRepository
         $profileId =  $this->getFirstProfileByUser($userId)->id;
         $res = DB::table('favorites')
             ->where('article_id', $id)
+            ->where('deleted_at', null)
             ->where('profile_id', $profileId)
             ->first();
 

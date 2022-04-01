@@ -169,7 +169,7 @@
 
 
         </div>
-        <div ref="commentForm" class="row justify-content-start comment-form">
+        <div v-if="isDeleted === '0'" ref="commentForm" class="row justify-content-start comment-form">
             <div class="card-body">
                 <form @submit.prevent="submit">
                     <div class="comment-form__row form-row align-items-center ">
@@ -245,6 +245,7 @@
             CommentGuestItem
         },
         props: {
+            isDeleted: {type: String},
             user: {type: String},
             commentUsers: {type: String},
             ads: {type: String},
@@ -262,7 +263,14 @@
             },
             updatedComment() {
                 console.log(this.updatedComment);
+            },
+            renderComments(){
+                if (!this.firstRender) {
+                    this.handleScroll()
+                    this.firstRender = true;
+                }
             }
+
         },
         methods: {
 
@@ -400,6 +408,7 @@
             handleScroll(evt) {
                 this.$nextTick(() => {
                     let top = this.$refs.commentList.$el.lastElementChild.offsetTop;
+
                     this.$refs.comments.scrollTo({
                         top: top,
                         behavior: 'smooth'
@@ -418,7 +427,6 @@
         },
 
         updated: function () {
-
             if (!this.firstRender) {
                 this.handleScroll()
                 this.firstRender = true;
@@ -426,7 +434,9 @@
 
         },
         mounted() {
-            this.topForm = this.$refs.commentForm.offsetTop;
+            // Проверяем если пост не удалён
+            if(!this.isDeleted)
+                this.topForm = this.$refs.commentForm.offsetTop;
             setTimeout(
                 () => {
                     //  this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})
@@ -467,7 +477,6 @@
                     this.comments.push({...data});
                 })
                 .listenForWhisper('typing', (e) => {
-                    //console.log(e);
                     this.isUserTyping = e;
 
                     if (this.typingTimer) clearTimeout(this.typingTimer);

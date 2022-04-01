@@ -13,7 +13,13 @@
             </a>
         </div>
 
-
+        @if($ads['deleted_at'])
+            <div class="error-block">
+                <ul class="error-block__ul">
+                  <li class="error-block__li">Убъявление удалено</li>
+                </ul>
+            </div>
+        @endif
 
         <div class="ui-card ">
             <div class="card-body comment-page">
@@ -46,7 +52,7 @@
                         ads="{{$ads['id']}}"
                         comment-users="{{$users}}"
                         user="{{$user}}"
-
+                        is-deleted="{{($ads['deleted_at']) ? 1 : 0 }}"
                         subs="{{$sub}}"
                         comment-id="{{$comment['id'] ?? ''}}"
                         route-create="{{route('comments.answer', $comment['id'] ?? '')}}"
@@ -55,6 +61,8 @@
                         room="{{$room}}"
                 >
                 </addcomment>
+
+
             </div>
         </div>
     </div>

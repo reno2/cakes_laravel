@@ -28,6 +28,7 @@
         <script src="{{ asset('js/toggleBlock.js')}}"></script>
         <script src="{{ asset('js/header.js')}}"></script>
         <script src="{{ asset('js/js_forms.js')}}"></script>
+        <script src="{{ asset('js/jqHandlers.js')}}"></script>
         @yield('page-script')
         @include('chunks.messages_alerts')
     </body>

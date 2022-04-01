@@ -14,6 +14,7 @@ use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
 use App\Services\AdsService;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
@@ -97,7 +98,7 @@ class AdsController extends Controller
      *
      * @param AdsRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(AdsRequest $request)
     {
@@ -165,7 +166,7 @@ class AdsController extends Controller
      * @param AdsRequest $request
      * @param Article    $ads
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(AdsRequest $request, $id)
     {
@@ -188,7 +189,8 @@ class AdsController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param int
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function destroy($id, Request $request)
     {

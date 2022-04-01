@@ -4,24 +4,20 @@
         <i class="fas fa-pen"></i>
         <span class="b-tooltip__name">изменить</span>
     </a>
-    <a class="b-tooltip__link js_modal" href="#" data-modal="confirm_delete" data-id="{{$ad->id}}" data-url="{{route('profile.ads.destroy', $ad)}}">
+    <form class="widget__actions" onsubmit="if(confirm('Удалить?')){return true} else {return false}" action="{{route("profile.ads.destroy", $ad)}}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        {{csrf_field()}}
+        <button type="submit" class="b-tooltip__link" href="#" data-modal="confirm_delete" data-id="{{$ad->id}}" data-url="{{route('profile.ads.destroy', $ad)}}">
         <i class="fas fa-trash"></i>
         <span class="b-tooltip__name">удалить</span>
-    </a>
+        </button>
+    </form>
+
     <a class="b-tooltip__link js_postUp" data-id="{{$ad->id}}" href="">
         <i class="fas fa-redo"></i>
         <span class="b-tooltip__name">Поднять</span>
     </a>
 
-{{--    <form onsubmit="if(confirm('Удалить?')){return true} else {return false}"--}}
-{{--          action="{{route('profile.ads.destroy', $ad)}}" method="post">--}}
-{{--        <input type="hidden" name="_method" value="DELETE">--}}
-{{--        {{csrf_field()}}--}}
-{{--        <button type="submit" class="btn btn-default">--}}
-{{--            <i class="fas fa-trash-alt"></i>--}}
-{{--            удалить--}}
-{{--        </button>--}}
-{{--    </form>--}}
 
 
 </div>

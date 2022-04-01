@@ -40,6 +40,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 
+
+window.requsetJs = require('./request')
+
 import Echo from "laravel-echo"
 window.io = require('socket.io-client');
 // Have this in case you stop running your laravel echo server

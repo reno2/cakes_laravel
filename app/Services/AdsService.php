@@ -32,6 +32,7 @@ class AdsService
         $sorts = ['moderate', 'published', 'on_front', 'updated_at'];
         $sortParam = null;
         $sortType = null;
+        $deleted = false;
         foreach ($sorts as $sort){
             if($request->get($sort)) {
                 $sortParam = $sort;
@@ -40,7 +41,10 @@ class AdsService
             }
         }
 
-        $articles = $this->adsRepository->allForEditWithPaginateAndSort($sortParam, $sortType);
+        if($request->get('with_deleted')){
+            $deleted = true;
+        }
+        $articles = $this->adsRepository->allForEditWithPaginateAndSort($sortParam, $sortType, $deleted);
 
 
         foreach ($articles as $article) {

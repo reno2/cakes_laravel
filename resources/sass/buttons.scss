@@ -87,6 +87,22 @@
   }
 }
 
+.btn-red{
+  background: #ea806f;
+  color: #fff;
+  border: 2px solid #ea806f;
+  span{
+    color: #fff;
+  }
+  &:hover{
+    color: #fff;
+  }
+  svg{
+    margin-right: 6px;
+    fill: #ea806f;
+  }
+}
+
 .btn-icon{
   background: #ecefef;
   svg{

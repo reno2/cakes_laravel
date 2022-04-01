@@ -1606,6 +1606,25 @@ h3 {
   fill: #2e2e33;
 }
 
+.btn-red {
+  background: #ea806f;
+  color: #fff;
+  border: 2px solid #ea806f;
+}
+
+.btn-red span {
+  color: #fff;
+}
+
+.btn-red:hover {
+  color: #fff;
+}
+
+.btn-red svg {
+  margin-right: 6px;
+  fill: #ea806f;
+}
+
 .btn-icon {
   background: #ecefef;
 }
