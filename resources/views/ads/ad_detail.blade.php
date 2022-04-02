@@ -67,13 +67,13 @@
                         </div>
                     </div>
                 @else
-                    Пусто
+                    <img class="full_imgplaceholder" src="{{helper_returnFakeImg()}}" alt="">
                 @endif
             </div>
             <div class="ad-detail__tags">
                 @if($ad->tags()->count())
                     <div class="tags">
-                        <div class="tags__title">теги:</div>
+                        <div class="tags__title">коллекции:</div>
                         <div class="tags__el">
                             @foreach($ad->tags()->get()->toArray() as $tag)
                                 <a class="tags__item" href="{{route('tag', $tag['title'])}}">{{$tag['title']}}</a>
@@ -121,7 +121,7 @@
 
                 <div class="ad-detail__subtitle">Описание</div>
                 <div class="ad-detail__block card-block">
-                    {{$ad->description}}
+                    <div class="ad_text ad-detail__text">{{$ad->description}}</div>
                     <div class="card-block__bottom">
                         <div class="card-block__social">
                             <div class="card-block__social-title">Поделиться:</div>
@@ -194,15 +194,15 @@
 
                                 @if(Auth::user() )
                                     @if($favorites && in_array($ad->id, $favorites))
-                                        <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                                     @else
-                                        <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                                     @endif
                                 @else
                                     @if($favorites && in_array($ad->id, $favorites))
-                                        <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                                     @else
-                                        <i class="ad__favorite js_favoritesIcon far fa-heart"></i>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                                     @endif
                                 @endif
                             </button>
@@ -214,71 +214,3 @@
         </div>
     </div>
 </div>
-
-
-
-{{--        @if($ad->getMedia('cover'))--}}
-{{--            <div class="ad__mobile">--}}
-{{--                @if(!empty($ad->getMedia('cover')->first()))--}}
-{{--                    <img class="ad__img" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">--}}
-{{--                @endif--}}
-{{--            </div>--}}
-{{--            <div class="ad__desktop">--}}
-{{--                @forelse($ad->getMedia('cover') as $item)--}}
-{{--                    <img class="ad__img" src="{{$item->getUrl('thumb')}}" alt="">--}}
-{{--                @empty--}}
-{{--                @endforelse--}}
-{{--            </div>--}}
-{{--        @endif--}}
-
-{{--        <div class="ad__tags">--}}
-{{--            @if($ad->tags()->count())--}}
-{{--                @foreach($ad->tags()->get()->toArray() as $tag)--}}
-{{--                    <div class="ad__tag">--}}
-{{--                        <a class="ad__link" href="{{route('tag', $tag['name'])}}">{{$tag['name']}}</a>--}}
-{{--                    </div>--}}
-{{--                @endforeach--}}
-{{--            @endif--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-{{--    <div class="ad__body">--}}
-{{--        <div class="ad__info">--}}
-{{--            <div class="ad__categories">--}}
-{{--                <a class="ad__category"--}}
-{{--                   href="{{route('category', $ad->categories->pluck('slug')->first())}}">{{$ad->categories->pluck('title')->first()}}</a>--}}
-{{--            </div>--}}
-{{--            <h5 class="ad__title">--}}
-{{--                <a href="{{route('ads', $ad->slug)}}">--}}
-{{--                    {{$ad->title}}</a></h5>--}}
-{{--        </div>--}}
-{{--        <div class="ad__actions">--}}
-{{--            <a class="js_modal ad__question gray" href="#" data-user-name="{{$ad->user->profiles->first()->name}}" data-ads-id="{{$ad->id}}" data-user-id="{{$ad->user->id}}" data-modal="feedback__question">--}}
-{{--                <i class="fas fa-envelope"></i>--}}
-{{--                <span class="ad__ask">&#32 задать вопрос</span>--}}
-{{--            </a>--}}
-
-
-{{--            <form action="{{route('profile.favorites')}}" method="post" class="@if(Auth::user()) auth @else guest @endif js_favorites">--}}
-{{--                {{csrf_field()}}--}}
-{{--                <input type="hidden" name="id" value="{{$ad->id}}">--}}
-{{--                <button type="submit" class="btn btn-default">--}}
-
-{{--                    @if(Auth::user() )--}}
-{{--                        @if($favorites && in_array($ad->id, $favorites))--}}
-{{--                            <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>--}}
-{{--                        @else--}}
-{{--                            <i class="ad__favorite js_favoritesIcon far fa-heart"></i>--}}
-{{--                        @endif--}}
-{{--                    @else--}}
-{{--                        @if($favorites && in_array($ad->id, $favorites))--}}
-{{--                            <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>--}}
-{{--                        @else--}}
-{{--                            <i class="ad__favorite js_favoritesIcon far fa-heart"></i>--}}
-{{--                        @endif--}}
-{{--                    @endif--}}
-{{--                </button>--}}
-{{--            </form>--}}
-{{--        </div>--}}
-
-{{--    </div>--}}

@@ -59,6 +59,6 @@ function helper_getNumWord (int $num, $words)
 }
 
 
-function helper_returnImage ($data)  {
-    return $data->image ?? Storage::url("images/defaults/cake.svg");
+function helper_returnFakeImg()  {
+    return  Storage::url("images/defaults/cake.svg");
 }

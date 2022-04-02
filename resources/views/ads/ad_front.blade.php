@@ -44,7 +44,7 @@
                    href="{{route('category', $ad->categories->pluck('slug')->first())}}">{{$ad->categories->pluck('title')->first()}}</a>
             </div>
             <h5 class="ad__title">
-                <a href="{{route('ads', $ad->slug)}}">
+                <a href="{{route('ads', $ad->id)}}">
                     {{$ad->title}}</a>
             </h5>
         </div>

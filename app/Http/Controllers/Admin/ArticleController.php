@@ -246,4 +246,28 @@ class ArticleController extends Controller
 
         return response()->json($response, 200);
     }
+
+
+    public function restore($id, Request $request){
+        try {
+            $article = Article::onlyTrashed()->findOrFail($id);
+            $article->restore();
+            $request->session()->flash('notice', 'Объявление восстановлено');
+        }catch (\Exception $e){
+                return redirect()->route('profile.ads.index')->with('errors',$e->getMessage());
+        }
+        return redirect()->route('admin.article.index');
+    }
+
+
+    public function forceDelete($id, Request $request){
+        try {
+            $article = Article::onlyTrashed()->findOrFail($id);
+            $article->forceDelete();
+            $request->session()->flash('notice', 'Объявление безвозвратно удалено');
+        }catch (\Exception $e){
+            return redirect()->route('admin.article.index')->with('errors',$e->getMessage());
+        }
+        return redirect()->route('admin.article.index');
+    }
 }

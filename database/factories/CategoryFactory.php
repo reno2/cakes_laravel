@@ -19,21 +19,15 @@ use Illuminate\Support\Str;
 */
 
 
-$factory->define(App\Models\Article::class, function (Faker $faker) {
+$factory->define(App\Models\Category::class, function (Faker $faker) {
     $users = [1, 1, 1];
     $filePath = '/storage/images/defaults/';
+    $title = $faker->lexify();
+    $slug = Str::slug($title);
     return [
-        'title' => $faker->unique(true)->name,
-        'description' => $faker->paragraph,
-        'deal_address' => $faker->title,
-        'price'=> $faker->numberBetween(10, 200),
-        'weight'=> $faker->numberBetween(10, 200),
-        'user_id' => $faker->randomElement($users),
-        'sort' => 100,
-        'moderate' => 1,
+        'title' =>$title,
         'published' => 1,
-        'on_front'  => 1,
-        //'image' => $faker->imageUrl(400,300)
-           // $faker->randomElement(['seller', 'buyer'])
+        'slug' => $slug,
+        'image' => $faker->image('public/storage/images/categories',640,480, null, false),
     ];
 });

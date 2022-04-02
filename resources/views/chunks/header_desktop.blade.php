@@ -49,6 +49,8 @@
                         </a>
                     </div>
                     <div class="profile__item">
+                        <a href="/register" class="profile__mlink hero__buy btn-middle-round btn-main">Стать партнёром</a>
+                        @if(false)
                         <a class="profile__mlink profile__favorite " href="{{route('favorites_list')}}">
                             <svg class="profile_svg profile__favorite-svg">
                                 <use xlink:href="/images/icons.svg#profile-favorite"></use>
@@ -58,6 +60,7 @@
                             </span>
                             <span class="profile__name">Избранное</span>
                         </a>
+                        @endif
                     </div>
                 @else
                     <div class="profile__item js_profile__item">

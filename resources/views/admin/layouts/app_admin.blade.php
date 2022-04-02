@@ -30,8 +30,6 @@
 
                 @include('chunks.massages_errors')
 
-                @include('chunks.errors')
-
                 <div class="dashboard__body">
                  @yield('content')
                 </div>

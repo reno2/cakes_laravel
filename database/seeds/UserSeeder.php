@@ -6,13 +6,19 @@ use Illuminate\Database\Seeder;
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * php artisan db:seed --class=UserSeeder
      *
      * @return void
      */
     public function run()
     {
-        factory(App\Models\User::class,  10)->create();
-        //User::factory()->count(10)->create();
+        factory(App\Models\User::class,  2)->create()->each(function($user){
+            if($user->id == 1) $user->update(['is_admin' => 1]);
+            $profile = factory(\App\Models\Profile::class)->create();
+            $user->profiles()->create([
+                'user_id' => $user->id,
+                'name' => 'test'
+            ]);
+        });
     }
 }

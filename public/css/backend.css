@@ -6505,6 +6505,22 @@ readers do not read off random characters that represent icons */
   width: fit-content;
 }
 
+.btn-middle-round {
+  font-size: 14px;
+  line-height: 23px;
+  border-radius: 37px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px 23px;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 900;
+}
+
 .btn-middle {
   font-weight: 500;
   font-size: 14px;
@@ -6961,6 +6977,10 @@ readers do not read off random characters that represent icons */
   font-size: 55px;
   font-weight: 900;
   color: #697685;
+}
+
+.cards_between {
+  justify-content: space-between;
 }
 
 .info-card_half {

@@ -50,7 +50,8 @@ class AdsRequest extends FormRequest
             'title'   => [
                 'required',
                 'max:155',
-                Rule::unique('articles', 'title')->where('deleted_at', null)->ignore($adsId),
+                'regex:/^[а-яА-Я0-9\s-]*$/u',
+                //Rule::unique('articles', 'title')->where('deleted_at', null)->ignore($adsId),
                 new FindLinks
             ],
             'deal_address' => [
@@ -86,6 +87,7 @@ class AdsRequest extends FormRequest
             'title.unique' => 'Объявление с таким названием существует',
             'title.required' => 'Название объязательно',
             'title.max' => 'Не более 155 символов',
+            'title.regex' => 'Разрешено Буквы цыфры пробел и дефис',
 
             'description.required' => 'Поле объязательное',
             'description.max' => 'Максимальное количество 400 символов',

@@ -35,7 +35,24 @@
                         <img class="list-table__img" src="{{$value->image}}">
                     </div>
                     <div class="list-table__val">
-
+                        @if($value->trashed())
+                            <form class="widget__actions"  action="{{route("admin.{$entity}.restore", $value)}}" method="post">
+                                {{csrf_field()}}
+                                <button type="submit" class="widget__action btn-square btn-icon">
+                                    <svg class="list-table__svg">
+                                        <use xlink:href="{{asset('images/back-icons.svg#fa-restore')}}"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                            <form class="widget__actions" onsubmit="if(confirm('Удалить навсегда?')){return true} else {return false}" action="{{route("admin.{$entity}.force_delete", $value)}}" method="post">
+                                {{csrf_field()}}
+                                <button type="submit" class="widget__action btn-square btn-icon">
+                                    <svg class="list-table__svg">
+                                        <use xlink:href="{{asset('/images/icons.svg#icon-close')}}"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        @else
                         <form class="widget__actions" onsubmit="if(confirm('Удалить?')){return true} else {return false}" action="{{route("admin.{$entity}.destroy", $value)}}" method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             {{csrf_field()}}
@@ -55,7 +72,7 @@
                                 </svg>
                             </a>
                         </form>
-
+                        @endif
                     </div>
                 </div>
             @endforeach

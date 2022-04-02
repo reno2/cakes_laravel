@@ -15,9 +15,13 @@ class Category extends Model
     public function setSlugAttribute($value)
     {
 
+        // Проверка для сидов
+        if(!$_REQUEST) return $this->attributes['slug'] = $value;
+
         if(isset($_REQUEST['slug_change']) && !empty($value)){
             $this->attributes['slug'] = Str::slug($value);
         }else{
+            if($_REQUEST)
             $this->attributes['slug'] = Str::slug($_REQUEST['title']);
         }
 

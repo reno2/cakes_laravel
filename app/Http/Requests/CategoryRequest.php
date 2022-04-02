@@ -18,9 +18,9 @@ class CategoryRequest extends FormRequest
             'title' => [
                 'required',
                 'max:155',
-                Rule::unique('categories', 'title')->ignore($categoryId),
+                 Rule::unique('categories', 'title')->ignore($categoryId),
             ],
-            'slug' => Rule::unique('categories', 'slug')->ignore($categoryId),
+            //'slug' => Rule::unique('categories', 'slug')->ignore($categoryId),
             'image' => "max:1",
             'image.*' => "mimes:png,jpg,jpeg|max:20000",
         ];

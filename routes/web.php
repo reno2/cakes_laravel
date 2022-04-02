@@ -29,7 +29,9 @@ Route::get('/search', 'SearchController@fulltextSearch')->name('fulltextSearch')
 
 Route::get('/article/getUser', 'SearchController@searchAuthor')->name('getUser');
 
-Route::get('/blog/article/{slug?}', 'BlogController@article')->name('article');
+Route::get('/blog/article/{id?}', 'BlogController@article')->name('article');
+
+// ===== ADMIN ===============================
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'is_admin']],
     function () {
         // Меню контента
@@ -39,6 +41,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::resource('/features', 'Features\FeaturesTypeController', ['as' => 'admin']);
             Route::resource('/article', 'ArticleController', ['as' => 'admin']);
             Route::post('/article/update/', 'ArticleController@postUp')->name('admin.article.up');
+
+
+            Route::post('/article/{id}/restore', 'ArticleController@restore')->name('admin.article.restore');
+            Route::post('/article/{id}/force_delete', 'ArticleController@forceDelete')->name('admin.article.force_delete');
 
         });
 

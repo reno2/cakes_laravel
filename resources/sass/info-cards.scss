@@ -11,6 +11,8 @@
   display: flex;
   align-items: center;
 }
+
+
 .info-cards__row{
   display: flex;
   flex-direction: column;
@@ -43,6 +45,13 @@
   color: #697685;
 }
 // endregion Card
+
+// region Modificators
+.cards_between{
+  justify-content: space-between;
+}
+// endregion Modificators
+
 
 // region Card Width Modificators
 

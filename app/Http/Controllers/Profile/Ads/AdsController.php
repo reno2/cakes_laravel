@@ -194,7 +194,7 @@ class AdsController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $ads = Article::find($id);
+        $ads = Article::findOrFail($id);
         try{
            $ads->favoritesProfiles()->detach();
            $this->adsService->removeAds($ads);

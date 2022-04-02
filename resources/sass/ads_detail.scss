@@ -123,8 +123,12 @@
     font-size: 12px;
     font-weight: 600;
 }
+
+.ad-detail__favorites button:hover,
 .ad-detail__favorites button{
     font-size: 18px;
+    background: unset;
+
 }
 
 
@@ -251,3 +255,11 @@
     height: 260px;
   }
 }
+
+
+// region Modificator
+.ad_text{
+  font-size: 14px;
+  line-height: 18px;
+}
+// endregion Modificator

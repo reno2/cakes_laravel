@@ -572,8 +572,10 @@
   font-weight: 600;
 }
 
+.ad-detail__favorites button:hover,
 .ad-detail__favorites button {
   font-size: 18px;
+  background: unset;
 }
 
 .ad-detail__bottom {
@@ -719,6 +721,11 @@
   .ad-detail__cover .ad-detail__img {
     height: 260px;
   }
+}
+
+.ad_text {
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .ad-author {
@@ -1138,15 +1145,17 @@
 
 .tags__item {
   display: inline-block;
-  font-size: 13px;
-  line-height: 18px;
-  color: #82C831;
-  text-transform: uppercase;
-  padding: 16px;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 6px 12px;
+  font-weight: bold;
   cursor: pointer;
-  font-weight: 500;
-  background: rgba(130, 200, 49, 0.1);
-  border-radius: 24px;
+  color: #54545a;
+  background-color: #f6f6f6;
+  border-radius: 16px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .card-block {
@@ -1535,6 +1544,22 @@ h3 {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.btn-middle-round {
+  font-size: 14px;
+  line-height: 23px;
+  border-radius: 37px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px 23px;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 900;
 }
 
 .btn-middle {

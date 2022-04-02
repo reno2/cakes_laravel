@@ -115,9 +115,9 @@ class BlogController extends Controller
         ]);
     }
 
-    public function ads ($slug) {
+    public function ads ($id) {
         try {
-            $article = Article::where('slug', $slug)->firstOrFail();
+            $article = Article::find($id)->firstOrFail();
             views($article)->record();
 
             SeometaFacade::setData('post', $article->toArray());
