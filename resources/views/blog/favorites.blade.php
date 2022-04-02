@@ -3,7 +3,7 @@
 @section('content')
 
 
-    @include('chunks.all_massages')
+    @include('chunks.massages_errors')
 
 {{--        {{dd($ads )}}--}}
 
