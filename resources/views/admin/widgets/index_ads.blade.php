@@ -66,7 +66,7 @@
                                     <use xlink:href="{{asset('images/back-icons.svg#icon-edit')}}"></use>
                                 </svg>
                             </a>
-                            <a class="widget__action btn-square btn-icon" href="{{route("admin.{$entity}.show", $value)}}">
+                            <a class="widget__action btn-square btn-icon" target="_blank" href="{{route("ads", $value)}}">
                                 <svg class="list-table__svg">
                                     <use xlink:href="{{asset('images/back-icons.svg#icon-search')}}"></use>
                                 </svg>

@@ -207,15 +207,15 @@
                                         </svg>
                                     @endif
                                 @else
-                                    @if($favorites && in_array($ad->id, $favorites))
-                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled">
-                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>
-                                        </svg>
-                                    @else
-                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg">
-                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>
-                                        </svg>
-                                    @endif
+{{--                                    @if($favorites && in_array($ad->id, $favorites))--}}
+{{--                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled">--}}
+{{--                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>--}}
+{{--                                        </svg>--}}
+{{--                                    @else--}}
+{{--                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg">--}}
+{{--                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>--}}
+{{--                                        </svg>--}}
+{{--                                    @endif--}}
                                 @endif
                             </button>
                         </form>

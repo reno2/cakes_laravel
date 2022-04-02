@@ -130,7 +130,7 @@ class BlogController extends Controller
 
     public function ads ($id) {
         try {
-            $article = Article::find($id)->firstOrFail();
+            $article = Article::findOrFail($id);
             views($article)->record();
 
             SeometaFacade::setData('post', $article->toArray());
