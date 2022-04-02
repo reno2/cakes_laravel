@@ -170,7 +170,7 @@
                 </a>
                 <div class="ad-detail__author ad-author">
                     <div class="ad-author__ava">
-                        <img class="ad-author__img" src="{{$ad->user->profiles->first()->image}}">
+                        <img class="ad-author__img" src="{{$ad->user->profiles->first()->image ?? helper_returnFakeImg('ads_detail_ava')}}">
                     </div>
                     <div class="ad-author__info">
                         <div class="ad-author__name">
