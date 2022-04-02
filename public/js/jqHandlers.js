@@ -1,7 +1,10 @@
 
 $(document).ready(function () {
     // Карусель на превьюшках
-    //$('.ad__desktop').brazzersCarousel();
+    const $adsWithCarousel = $('.ad__desktop');
+    if($adsWithCarousel.length)
+        $adsWithCarousel.brazzersCarousel();
+
 
     $('.js_ads__delete').on('click', async function(e){
         e.preventDefault()

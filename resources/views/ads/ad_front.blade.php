@@ -70,12 +70,12 @@
                                 <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
                             @endif
                         @else
-                            @if($favorites && in_array($ad->id, $favorites))
-                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
-                                <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>
-                            @else
-                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
-                            @endif
+{{--                            @if($favorites && in_array($ad->id, $favorites))--}}
+{{--                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>--}}
+{{--                                <i class="ad__favorite js_favoritesIcon fas fa-heart"></i>--}}
+{{--                            @else--}}
+{{--                                <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>--}}
+{{--                            @endif--}}
                         @endif
 
                     </button>

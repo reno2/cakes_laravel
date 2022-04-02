@@ -15,7 +15,7 @@ class MoreMenuWidget implements ContractWidget
 
     public function execute () {
         $items = new CategoryRepository();
-        $data = $items->getAllActiveItems();
+        $data = $items->forFrontPage();
 
 
         $excludeUrls = ['login'];

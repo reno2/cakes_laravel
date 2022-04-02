@@ -58,7 +58,7 @@ class AdsService
                         ->first();
             $article->image = $src
                 ? $src->getUrl('thumb')
-                : Storage::url("images/defaults/cake.svg");
+                : helper_returnFakeImg('admin_ads');
         }
 
         return $articles;

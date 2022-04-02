@@ -1,8 +1,8 @@
 <div class="ad-detail">
     <div class="ad-detail__head">
-{{--        <div class="ad-detail__title">--}}
-{{--            {!! SeometaFacade::getData('h1') !!}--}}
-{{--        </div>--}}
+        {{--        <div class="ad-detail__title">--}}
+        {{--            {!! SeometaFacade::getData('h1') !!}--}}
+        {{--        </div>--}}
 
         <div class="ad-detail__date">
             {{ Date::parse($ad->created_at)->format('j F Y г.') }}
@@ -13,8 +13,9 @@
 
         <div class="ad-detail__left ad-detail__content">
 
-            <div class="ad-detail__gallery">
-                @if(!$ad->getMedia('cover')->isEmpty())
+
+            @if(!$ad->getMedia('cover')->isEmpty())
+                <div class="ad-detail__gallery">
                     <div class="ad-detail__block">
                         <div class="ad-detail__figure swiper-container">
                             @if(!empty($ad->getMedia('cover')))
@@ -66,10 +67,13 @@
                             @endif
                         </div>
                     </div>
-                @else
-                    <img class="full_imgplaceholder" src="{{helper_returnFakeImg()}}" alt="">
-                @endif
-            </div>
+                </div>
+            @else
+                <div class="ad-detail__placeholder">
+                    <img class="ad-detail__image full_imgplaceholder" src="{{helper_returnFakeImg('ads_detail')}}" alt="">
+                </div>
+            @endif
+
             <div class="ad-detail__tags">
                 @if($ad->tags()->count())
                     <div class="tags">
@@ -194,15 +198,23 @@
 
                                 @if(Auth::user() )
                                     @if($favorites && in_array($ad->id, $favorites))
-                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled">
+                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>
+                                        </svg>
                                     @else
-                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg">
+                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>
+                                        </svg>
                                     @endif
                                 @else
                                     @if($favorites && in_array($ad->id, $favorites))
-                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg filled">
+                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>
+                                        </svg>
                                     @else
-                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg"><use xlink:href="/images/icons.svg#profile-favorite"></use></svg>
+                                        <svg class="ad__favorite js_favoritesIcon profile_svg profile__favorite-svg">
+                                            <use xlink:href="/images/icons.svg#profile-favorite"></use>
+                                        </svg>
                                     @endif
                                 @endif
                             </button>

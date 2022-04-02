@@ -59,6 +59,10 @@ function helper_getNumWord (int $num, $words)
 }
 
 
-function helper_returnFakeImg()  {
-    return  Storage::url("images/defaults/cake.svg");
+function helper_returnFakeImg($type = null)  {
+    $path = Storage::url("images/defaults/cake.svg");
+    if($type == 'ads_detail')
+        $path = Storage::url("images/defaults/ads_default.svg");
+
+    return $path;
 }

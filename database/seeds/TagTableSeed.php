@@ -12,12 +12,16 @@ class TagTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Tag::class,  2)->create()->each(function($tag){
+        factory(App\Models\Tag::class,  1)->create()->each(function($tag){
             $category = factory(\App\Models\Category::class)->create();
-            $article = factory(App\Models\Article::class)->create();
-            $article->categories()->attach($category);
-            $tag->articles()->save($article);
-        });
 
+            factory(App\Models\Article::class, 3)->create()->each(function($article) use ($category, $tag){
+                $article->categories()->attach($category);
+                $tag->articles()->save($article);
+            });
+
+
+
+        });
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Article;
+
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Article as Model;
@@ -14,6 +15,15 @@ use App\Models\Profile;
 
 class AdsRepository extends CoreRepository
 {
+
+
+    public function forFrontPage(){
+        return $this->startCondition()::where('published', 1)
+                      ->where('moderate', 1)
+                      ->where('on_front', 1)
+                      ->orderBy('sort', 'asc')->orderBy('id', 'asc')->take(20)->get();
+    }
+
 
     public function allForEditWithPaginateAndSort($sortParam = null, $sortType = null, $deleted = false, $perPage = 10){
         $order = 'sort';

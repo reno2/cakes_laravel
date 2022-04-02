@@ -50,7 +50,7 @@ class AdsRequest extends FormRequest
             'title'   => [
                 'required',
                 'max:155',
-                'regex:/^[а-яА-Я0-9\s-]*$/u',
+                'regex:/^[-а-яА-Я0-9\s]+$/umi',
                 //Rule::unique('articles', 'title')->where('deleted_at', null)->ignore($adsId),
                 new FindLinks
             ],
@@ -84,26 +84,33 @@ class AdsRequest extends FormRequest
     {
         return [
             'user_id.required' => 'Владелец объязательно',
-            'title.unique' => 'Объявление с таким названием существует',
-            'title.required' => 'Название объязательно',
-            'title.max' => 'Не более 155 символов',
-            'title.regex' => 'Разрешено Буквы цыфры пробел и дефис',
+            'title.unique' => ':attribute - Объявление с таким названием существует',
+            'title.required' => ':attribute - Название объязательно',
+            'title.max' => ':attribute - Не более 155 символов',
+            'title.regex' => ':attribute - Разрешено Буквы цыфры пробел и дефис',
 
             'description.required' => 'Поле объязательное',
             'description.max' => 'Максимальное количество 400 символов',
-            //'categories.required|not_in' => 'Выбор категории объязателен',
-            'categories.not_in' => 'Выбор категории объязателен',
+            'categories.not_in' => ':attribute - Выбор категории объязателен',
             'price.required'   => 'Поле цена объязательно',
             'price.regex'   => 'Не верный формат',
             'weight.regex' => 'Не корректный ввод',
-            'deal_address.regex' => 'Не корректный ввод',
-            'deal_address.required' => 'Адрес сделки объязательно',
+            'deal_address.regex' => ':attribute - Не корректный ввод',
+            'deal_address.required' => ':attribute - Адрес сделки объязательно',
             'tags.required' => 'Необходимо выбрать один тег',
             'tags.regex' => 'Необходимо выбрать один тег',
-//            'title.unique' => 'Название уже существует',
             'image.max'      => 'Не более 5 файлов',
             'image.required' => 'Загрузка файла объязательна',
             'image.*.mimes'  => 'Только разрешённые форматы',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'Название',
+            'categories' => 'Категория',
+            'deal_address' => 'Место сделки'
         ];
     }
 }

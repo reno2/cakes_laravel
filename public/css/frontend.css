@@ -548,6 +548,20 @@
      object-fit: contain;
 }
 
+.ad-detail__placeholder {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 730px;
+  background: #d3a1df21;
+  border-radius: 9px;
+}
+
+.ad-detail__image {
+  width: 376px;
+}
+
 .ad-detail__form__actions {
   margin-top: 24px;
   display: flex;

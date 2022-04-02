@@ -6,12 +6,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\User;
 use App\Notifications\PostCreatedNotification;
+use App\Repositories\AdsRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\ProfileRepository;
 use App\Repositories\TagRepository;
 use App\Seo\SeometaFacade;
 use CyrildeWit\EloquentViewable\Support\Period;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Article;
@@ -21,19 +23,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class BlogController extends Controller
 {
 
+    /**
+     * Метод формирования данных для главной страницы
+     * @param Request $request
+     * @param TagRepository $tagRepository
+     * @param CategoryRepository $categoryRepository
+     * @param AdsRepository $adsRepository
+     * @return Factory|View
+     */
+    public function front (Request $request, TagRepository $tagRepository, CategoryRepository $categoryRepository, AdsRepository $adsRepository) {
 
-    public function front (Request $request, TagRepository $tagRepository, CategoryRepository $categoryRepository) {
+        // Устанавливаем метатеги
         SeometaFacade::setData('front', config('seo'));
-        $ads = Article::where('published', 1)
-                      ->where('moderate', 1)
-                      ->where('on_front', 1)
-                      ->orderBy('sort', 'asc')->orderBy('id', 'asc')->take(20)->get();
-        $collections = $tagRepository->allWithAds();
-        $categories = $categoryRepository->getAllActiveItems();
+        // Доступные для вывода на главной объявления
+        $ads = $adsRepository->forFrontPage();
+        // Доступные коллекции на главной
+        $collections = $tagRepository->forFrontPage();
+        // Доступные категории на главной
+        $categories = $categoryRepository->forFrontPage();
+
         return view('blog.front', [
             'ads' => $ads,
             'collections' => $collections,
@@ -141,7 +154,10 @@ class BlogController extends Controller
             // Передаём настройки для сео
             SeometaFacade::setData('tag', $tag->toArray());
 
-            $articles = $tag->articles()->where('published', 12)->paginate(12);
+            $articles = $tag->articles()
+                            ->where('published', 1)
+                            ->where('moderate', 1)
+                            ->paginate(12);
 
             return view('blog.collections', [
                 'ads' => $articles,

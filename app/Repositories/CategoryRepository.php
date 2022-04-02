@@ -14,12 +14,15 @@ use App\Models\Profile;
 class CategoryRepository extends CoreRepository
 {
 
-    public function getAllActiveItems(){
+    public function forFrontPage(){
         $categories = $this->startCondition()
                       ->where('published', '1')
                       ->orderBy('sort', 'asc')
                       ->orderBy('id', 'asc')
                       ->with('attachments')
+                        ->whereHas('articles', function ($query){
+                            $query->where('published', '1')->where('moderate', '1');
+                        })
                       ->get();
 
         foreach ($categories as $category) {
