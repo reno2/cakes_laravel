@@ -130,7 +130,7 @@ Route::get('/autocomplete', "SearchController@autocomplete")->name('admin_autoco
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/', 'BlogController@front')->name('front');
 Route::get('/category/{slug?}', 'BlogController@category')->name('category');
-Route::get('/ads/{slug?}/', 'BlogController@ads')->name('ads');
+Route::get('/ads/{id?}/', 'BlogController@ads')->name('ads');
 Route::get('/tag/{slug?}', 'BlogController@tag')->name('tag');
 
 Route::get('/', 'BlogController@front')->name('main');
