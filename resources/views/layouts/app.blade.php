@@ -3,10 +3,10 @@
 
     @include('chunks.head')
     <body class="front">
-        <div id="app">
+        <div id="app" class="app">
 
             @include('chunks.header')
-            <main class="py-4">
+            <main class="app__main">
                 @yield('content')
             </main>
         </div>

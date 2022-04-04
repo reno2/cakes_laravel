@@ -10,14 +10,15 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 
-class CustomEmailNotification extends Notification
+class VerificationEmailNotification extends Notification
 {
     use Queueable;
+
 
     /**
      * Create a new notification instance.
      *
-     * @return void
+
      */
     public function __construct()
     {
@@ -43,16 +44,16 @@ class CustomEmailNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $tt = '';
-        //dd($notifiable);
+
         $verificationUrl = $this->verificationUrl($notifiable);
         return (new MailMessage)
-            ->view(
-                'emails.confirm', ['token' => $verificationUrl]
-            );
-//                    ->line('Для активации аккаунта подтвердите email')
-//                    ->action('Подтвердить',$verificationUrl)
-//                    ->line('Хороших продаж!');
+            ->line('Для активации аккаунта подтвердите email')
+            ->action('Подтвердить',$verificationUrl)
+            ->line('Хороших продаж!');
+
+//            ->view(
+//                'emails.confirm', ['token' => $verificationUrl]
+//            );
     }
 
     /**

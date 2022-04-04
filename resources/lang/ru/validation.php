@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'passwords'             => [
+        'user'       => 'ыфафыафыафыа',
+    ],
     'main_error'           => 'Переданы не корректные данные',
     'accepted'             => 'Вы должны принять :attribute.',
     'active_url'           => 'Поле :attribute содержит недействительный URL.',

@@ -143,3 +143,9 @@
 .scrollbar:hover::-webkit-scrollbar-track {background-color: #dbdbdb}
 .scrollbar::-webkit-scrollbar {width: 6px;}
 .scrollbar::-webkit-scrollbar-thumb {border-radius: 10px;background-color: #d3a1df; opacity: 0.5}
+
+
+.app{}
+.app__main{
+  min-height: 100vh;
+}

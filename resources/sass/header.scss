@@ -354,7 +354,7 @@
 .header-bottom__svg{
   height: 24px;
   width: 24px;
-  fill: #fce000;
+  fill: #d3a1df;
 }
 .header-bottom__item {
   display: flex;
@@ -378,6 +378,7 @@
   padding: 0 16px;
   justify-content: flex-start;
   height: 50px;
+  border-bottom: 1px solid #f3f4f7;
 }
 .mob-top__form{
   display: flex;
@@ -386,7 +387,7 @@
 }
 .mob-top__menu{
   width: max-content;
-  margin-right: 16px;
+  margin-right: 8px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -396,10 +397,13 @@
 .mob-top .mob-top__search{
   flex-grow: 1;
   margin-bottom: 0;
+  flex-direction: row;
+  align-items: center;
 }
 .mob-top__svg{
   width: 26px;
   height: 26px;
+  fill: #d3a1df;
 }
 input.mob-top__input {
   width: 100%;
@@ -407,6 +411,9 @@ input.mob-top__input {
   border-radius: 6px;
   height: 35px;
   padding-left: 16px;
+}
+.mob-top__svg{
+  margin-left: 8px;
 }
 // endregion Mobile Top
 

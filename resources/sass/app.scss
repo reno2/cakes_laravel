@@ -244,8 +244,22 @@ h5, .h5 {
 
 // endregion Meta
 
+
+// region App
+.front{
+  padding: 0;
+  margin: 0;
+}
+.app__main {
+  min-height: 100vh;
+}
+
 @media (max-width: 767px){
-  main{
-    padding-top: 50px;
+  .app{
+    display: flex;
+    flex-direction: column;
+  }
+  .app__main{
+    padding: 50px 16px 0;
   }
 }

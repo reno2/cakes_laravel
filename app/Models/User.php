@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Models\Room;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\CustomEmailNotification;
+use App\Notifications\VerificationEmailNotification;
 use Illuminate\Support\Facades\Auth;
+
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -64,13 +66,24 @@ class User extends Authenticatable implements MustVerifyEmail
     public function articles(){
         return $this->hasMany('App\Models\Article');
     }
+
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new CustomEmailNotification);
+        $this->notify(new VerificationEmailNotification);
     }
 
 
-    // Проверка пользователя на статус администратора
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+
+
+    //
+    //Проверка пользователя на статус администратора
     public function isAdmin()
     {
         return $this->is_admin === 1;

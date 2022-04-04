@@ -148,6 +148,7 @@ Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
      ->where('driver', implode('|', config('auth.socialite.drivers')));
 
 
+
 // Static pages
 Route::get('privacy-policy',  function () {
     return view('static/privacy-policy');

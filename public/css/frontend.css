@@ -434,7 +434,8 @@
 
 @media (max-width: 767px) {
   .ad {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
   }
 }
 
@@ -1061,6 +1062,11 @@
 .reg-form__login_link,
 .reg-form__register_link {
   font-weight: 900;
+}
+
+.reg-form__register_link {
+  font-size: 12px;
+  text-align: right;
 }
 
 .reg-form_form {
@@ -2217,11 +2223,13 @@ h3 {
   display: block;
 }
 
+.reg-form__group input.is-invalid,
 .form-group.onError .form-group__textarea,
 .form-group.onError .form-group__input {
   border: 1px solid #ed9687;
 }
 
+.reg-form__group .invalid-feedback,
 .form-group.onError .invalid-feedback {
   color: #ed9687;
   display: block;
@@ -2774,6 +2782,11 @@ li.cart-errors__li::marker {
   border-radius: 6px;
 }
 
+.error-block_half-form {
+  width: 450px;
+  margin: 0 auto;
+}
+
 .error-block__ul {
   padding-left: 20px;
   list-style-type: disc;
@@ -2935,5 +2948,9 @@ li.cart-errors__li::marker {
   border-radius: 10px;
   background-color: #d3a1df;
   opacity: 0.5;
+}
+
+.app__main {
+  min-height: 100vh;
 }
 

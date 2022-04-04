@@ -38,6 +38,9 @@
                             </div>
                         </div>
                         <div class="reg-form__group">
+                        <a class="reg-form__register_link" href="{{route('password.request')}}">Забыл пароль</a>
+                        </div>
+                        <div class="reg-form__group">
                             <div class="reg-form__msg">
                                 <button type="submit" class="btn-big btn-main">
                                    Войти

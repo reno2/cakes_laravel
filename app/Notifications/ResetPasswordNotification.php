@@ -7,21 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewUserNotification extends Notification implements ShouldQueue
+class ResetPasswordNotification extends Notification
 {
     use Queueable;
-    private $data;
+
+    public $token;
 
     /**
      * Create a new notification instance.
      *
-     * @param $data
+     * @param $token
      */
-    public function __construct($data)
+    public function __construct($token)
     {
-        $this->data = $data;
+        $this->token = $token;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -37,14 +37,15 @@ class NewUserNotification extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Регистрация нового пользователя')
-                    ->greeting('Вы зарегистрировались!')
-                    ->line('Новый пользователь ' . $this->data['email']);
+                    ->subject('Сброс пароля')
+                    ->line('Уведомление о сбросе пароля')
+                    ->action('Сбросить пароль', url('password/reset', $this->token))
+                    ->line('Спасибо за то что выбрали наше приложение!');
     }
 
     /**

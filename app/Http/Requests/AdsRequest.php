@@ -56,14 +56,14 @@ class AdsRequest extends FormRequest
             ],
             'deal_address' => [
                 'required',
-                'regex:/^[а-яА-Я0-9\s-]+$/u',
+                'regex:/^[\.а-яА-Я0-9\s-]+$/u',
                 new NotEmail
                 ],
             'tags' => 'required',
             'description'   => [
                 'required',
                 'max:1000',
-                'regex:/^[\.\'\"_а-яёА-Я0-9a-z\s-]+$/umi',
+                'regex:/^[\.\,\'\"_а-яёА-Я0-9a-z\s-]+$/umi',
                 new FindLinks,
             ],
             'weight' => 'regex:/^(\d+){0,2}(\.){0,1}(\d){1,3}$/i',

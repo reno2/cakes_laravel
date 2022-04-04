@@ -6412,6 +6412,11 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
+.reg-form__register_link {
+  font-size: 12px;
+  text-align: right;
+}
+
 .reg-form_form {
   margin-top: 32px;
 }
@@ -7075,11 +7080,13 @@ readers do not read off random characters that represent icons */
   display: block;
 }
 
+.reg-form__group input.is-invalid,
 .form-group.onError .form-group__textarea,
 .form-group.onError .form-group__input {
   border: 1px solid #ed9687;
 }
 
+.reg-form__group .invalid-feedback,
 .form-group.onError .invalid-feedback {
   color: #ed9687;
   display: block;
@@ -7479,6 +7486,11 @@ li.cart-errors__li::marker {
   transition: opacity 0.6s;
   margin-bottom: 15px;
   border-radius: 6px;
+}
+
+.error-block_half-form {
+  width: 450px;
+  margin: 0 auto;
 }
 
 .error-block__ul {
