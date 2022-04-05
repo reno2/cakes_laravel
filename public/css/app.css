@@ -697,6 +697,7 @@ h5,
 
 .app__main {
   min-height: 100vh;
+  margin-bottom: 80px;
 }
 
 @media (max-width: 767px) {
