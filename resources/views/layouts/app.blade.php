@@ -9,9 +9,10 @@
             <main class="app__main">
                 @yield('content')
             </main>
+            @include('chunks.footer')
         </div>
 
-        @include('chunks.footer')
+        @include('chunks.forms')
         @include('chunks.includesFooter')
         @yield('page-script')
         @include('chunks.messages_alerts')

@@ -1,4 +1,4 @@
-<header>
+<header class="app__header">
 
     <div class="header__desktop">
         @include('chunks.header_desktop')
