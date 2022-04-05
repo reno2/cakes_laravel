@@ -43,8 +43,8 @@ class NewUserNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->subject('Регистрация нового пользователя')
-                    ->greeting('Вы зарегистрировались!')
-                    ->line('Новый пользователь ' . $this->data['email']);
+                    ->greeting('Подтверждение регистрации')
+                    ->line('Большое спасибо, Ваш еmail адрес успешно подтвержден' . $this->data['email']);
     }
 
     /**
