@@ -41,6 +41,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                <small id="hint" class="form-group__hint">
+                                    Длинная от 8 символов, числа, буквы латинского алфавита и спец. символы @$!%*#?&
+                                </small>
                             </div>
                         </div>
                         <div class="reg-form__group">
@@ -72,11 +75,11 @@
                                         <use xlink:href="/icons/social.svg#vk"></use>
                                     </svg>
                                 </a>
-                                <a class="btn-half btn-shadow" href="{{ route('login.driver', 'facebook') }}">
-                                    <svg data-name="" class="i-svg i-svg__md i-svg__bgGrey">
-                                        <use xlink:href="/icons/social.svg#facebook"></use>
-                                    </svg>
-                                </a>
+{{--                                <a class="btn-half btn-shadow" href="{{ route('login.driver', 'facebook') }}">--}}
+{{--                                    <svg data-name="" class="i-svg i-svg__md i-svg__bgGrey">--}}
+{{--                                        <use xlink:href="/icons/social.svg#facebook"></use>--}}
+{{--                                    </svg>--}}
+{{--                                </a>--}}
                             </div>
                         </div>
                     </form>

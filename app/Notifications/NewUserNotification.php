@@ -44,7 +44,7 @@ class NewUserNotification extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->subject('Регистрация нового пользователя')
                     ->greeting('Подтверждение регистрации')
-                    ->line('Большое спасибо, Ваш еmail адрес успешно подтвержден. Аккаунт пативирован')
+                    ->line('Большое спасибо, Ваш еmail адрес успешно подтвержден, аккаунт активирован')
                     ->action('2cake', "https://2cake.ru");
     }
 

@@ -13,6 +13,5 @@
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/libs/jQuery.Brazzers-Carousel.min.css') }}" rel="stylesheet">
     @include('chunks.recaptcha')
-
 </head>
 

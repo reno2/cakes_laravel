@@ -6,7 +6,7 @@
 
                     <img class="ad__img" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
                 @else
-                    <img class="ad__img" src="/storage/images/defaults/cake.svg">
+                    <img class="ad__img ad__default" src="{{helper_returnFakeImg('ads_front')}}">
                 @endif
             </div>
             <div class="ad__desktop">
@@ -20,7 +20,7 @@
         @else
 
             <div class="ad__mobile">
-                <img class="ad__img" src="/storage/images/defaults/cake.svg">
+                <img class="ad__img ad__default" src="{{helper_returnFakeImg('ads_front')}}">
             </div>
         @endif
 

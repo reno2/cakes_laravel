@@ -56,7 +56,7 @@ class AdsRequest extends FormRequest
             ],
             'deal_address' => [
                 'required',
-                'regex:/^[\.а-яА-Я0-9\s-]+$/u',
+                'regex:/^[\.а-яА-Я0-9\s\-\,]+$/u',
                 new NotEmail
                 ],
             'tags' => 'required',

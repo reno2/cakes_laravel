@@ -32,7 +32,7 @@ class ModerateNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -43,17 +43,30 @@ class ModerateNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $data = $this->prepare();
         return (new MailMessage)
-                    ->line($this->data['event_name'])
-                    ->line($this->data['message'])
-                    ->action('Notification Action', url('/'));
+                    ->subject($data['title'] )
+                    ->line($data['text'])
+                    ->action($data['ads_title'], $data['link']);
+    }
+
+
+    public function prepare(){
+        $title = ($this->data["moderate"]) ? '[успех]' : '[отказ]';
+        return [
+            'title' => "Модерация объявления{$title}",
+            'ads_title' => $this->data['title'],
+            'link'  => $this->data["link"],
+            'text' => "Ваше объявление {$this->data['title']} было одобрено модераторами портала, теперь его могут видеть все пользователи портала, не забывайте обновлять его для более эффективной выдачи на страницах портала."
+        ];
+
     }
 
     /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
+     * @return string
      */
     public function toArray($notifiable)
     {

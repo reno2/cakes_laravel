@@ -25,7 +25,7 @@ class AdsModerate
      * @param Article $ads
      * @param  $mess
      */
-    public function __construct(Article $ads, $mess = null)
+    public function __construct(Article $ads, $mess = false)
     {
         $this->mess = $mess;
         $this->ads = $ads;

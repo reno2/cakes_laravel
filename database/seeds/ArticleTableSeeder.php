@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 class ArticleTableSeeder extends Seeder
 {
     /**
+     * php artisan db:seed --class=TagTableSeed
      * Run the database seeds.
      *
      * @return void

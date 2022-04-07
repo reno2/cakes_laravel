@@ -7,7 +7,7 @@
                     <div class="hero__desc">Господа, высокотехнологичная концепция общественного уклада</div>
                     <div class="hero__actions">
                         <a class="hero__buy btn-big btn-main">Заказать десерт</a>
-                        <a class="hero__sell btn-big btn-secondary">Я кондитер</a>
+                        <a href="{{route('register')}}" class="hero__sell btn-big btn-secondary">Я кондитер</a>
                     </div>
                 </div>
             </div>

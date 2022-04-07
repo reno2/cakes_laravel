@@ -48,7 +48,7 @@ class VerificationEmailNotification extends Notification
         $verificationUrl = $this->verificationUrl($notifiable);
         return (new MailMessage)
             ->subject('Подтверждение регистрации')
-            ->line('Здравствуйте, благодарим Вас за регистрацию на нашем проекте, для активации вашего аккаунта подтвердите действие')
+            ->line('Здравствуйте, благодарим Вас за регистрацию на нашем проекте, для активации вашего аккаунта подтвердите почту.')
             ->action('Активировать', $verificationUrl);
 
 //            ->view(

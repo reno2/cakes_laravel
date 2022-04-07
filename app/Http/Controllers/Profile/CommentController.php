@@ -61,11 +61,7 @@ class CommentController extends Controller
             'userQuestions' => $this->commentsRepository->myComments(),
             'notReadQuestions' => $this->commentsRepository->notReadQuestions(Auth::id()),
             'notReadAnswers' => $this->commentsRepository->notReadAnswers(Auth::id()),
-//            'not_read' => [
-//                'not_read_to_me'   => $notReadToMe,
-//                'not_read_from_me' => $notReadFromMe,
-//                'not_read_count'   => $notReadToMe + $notReadFromMe
-//            ]
+
 
         ]);
     }
@@ -95,7 +91,6 @@ class CommentController extends Controller
                            ->orderBy('last_date', 'ASC')
                            ->get();
 
-            //dd($comments);
             $data = ['data' => $comments];
 
         } else {

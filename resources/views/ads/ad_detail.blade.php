@@ -80,7 +80,7 @@
                         <div class="tags__title">коллекции:</div>
                         <div class="tags__el">
                             @foreach($ad->tags()->get()->toArray() as $tag)
-                                <a class="tags__item" href="{{route('tag', $tag['title'])}}">{{$tag['title']}}</a>
+                                <a class="tags__item" href="{{route('tag', $tag['slug'])}}">{{$tag['title']}}</a>
                             @endforeach
                         </div>
                     </div>

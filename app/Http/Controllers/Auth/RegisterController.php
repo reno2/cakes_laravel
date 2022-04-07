@@ -69,9 +69,9 @@ class RegisterController extends Controller
                 'string',
                 'min:8',
                 'confirmed',
-                new NotEmail,
-                'regex:/[A-Za-z]/',
-                'regex:/[0-9]/',
+//                new NotEmail,
+                'regex:/[a-z\.]/',
+               // 'regex:/[0-9]/',
                 'regex:/[@$!%*#?&]/'
             ],
         ]);

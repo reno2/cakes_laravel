@@ -69,11 +69,11 @@
                                         <use xlink:href="/icons/social.svg#vk"></use>
                                     </svg>
                                 </a>
-                                <a class="btn-half btn-shadow" href="{{ route('login.driver', 'facebook') }}">
-                                    <svg data-name="" class="i-svg i-svg__md i-svg__bgGrey">
-                                        <use xlink:href="/icons/social.svg#facebook"></use>
-                                    </svg>
-                                </a>
+{{--                                <a class="btn-half btn-shadow" href="{{ route('login.driver', 'facebook') }}">--}}
+{{--                                    <svg data-name="" class="i-svg i-svg__md i-svg__bgGrey">--}}
+{{--                                        <use xlink:href="/icons/social.svg#facebook"></use>--}}
+{{--                                    </svg>--}}
+{{--                                </a>--}}
                             </div>
                         </div>
                     </form>

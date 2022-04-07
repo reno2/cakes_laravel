@@ -23,25 +23,25 @@ class AdsService
     protected $request;
 
 
-    public function __construct(AdsRepository $adsRepository){
+    public function __construct (AdsRepository $adsRepository) {
         $this->adsRepository = $adsRepository;
     }
 
     public function getAllForEdit ($request) {
 
         $sorts = ['moderate', 'published', 'on_front', 'updated_at'];
-        $sortParam = null;
-        $sortType = null;
+        $sortParam = NULL;
+        $sortType = NULL;
         $deleted = false;
-        foreach ($sorts as $sort){
-            if($request->get($sort)) {
+        foreach ($sorts as $sort) {
+            if ($request->get($sort)) {
                 $sortParam = $sort;
                 $sortType = $request->get($sort) ?? 'desc';
                 break;
             }
         }
 
-        if($request->get('with_deleted')){
+        if ($request->get('with_deleted')) {
             $deleted = true;
         }
         $articles = $this->adsRepository->allForEditWithPaginateAndSort($sortParam, $sortType, $deleted);
@@ -132,17 +132,18 @@ class AdsService
         $this->adsRepository = new AdsRepository();
         $this->request = $requestArray;
 
-        $isImgChange = $this->prepareImages();
 
-        $needModerate = $this->moderateStatus($requestArray, $article, $isAdminPage, $isImgChange);
 
-        if((int)$needModerate === 200) {
+
+        $sendToModerate = $this->sentToModerate();
+        if($sendToModerate){
             $requestArray['moderate'] = 0;
         }
-        $update = $article->update($requestArray);
 
+        $moderateBefore = $article->moderate;
+        $updatedAds = tap($article)->update($requestArray);
 
-
+        if($isAdminPage) $this->fireModerateEvent($requestArray, $moderateBefore);
 
         $this->adsRepository->removeRelationCategories($article);
         $this->adsRepository->removeRelationTags($article);
@@ -160,89 +161,100 @@ class AdsService
             $this->setNewRelations('Tags', $requestArray['tags'], $article);
         endif;
 
-        return $needModerate;
+        return $sendToModerate;
 
     }
+
+
 
 
     /**
      * Сравнивает поля для проверки на изменения из новых данных со старыми
      * И отправляет на модерацию
-     * @param $request - obj Объект реквеста
-     * @param $isImgChange - bool Изменены ли картинки
-     * @param $isTagsCatsChange - bool состояние false если или теги или категории изменены и нужно отправять на модерацию
-     * @param $oldValues
-     * @return bool
+     * @param $requestArray
+     * @param $updatedAds
+     * @return void
      */
-    public function onModerate ($isImgChange) {
-        if($this->article->moderate == 0) {
-            return $this->article->not_need_moderate;
+    public function fireModerateEvent ($requestArray, $moderateBefore) {
+
+
+
+            if ($requestArray['moderate'] == 1 && $moderateBefore == 0) {
+                if ($this->article->moderateComments()->exists()) {
+                    $this->article->moderateComments()->first()->settings()->detach();
+                    $this->article->moderateComments()->detach();
+                }
+                event(new AdsModerate($this->article, []));
+                // выбрасываем событие о пройденой модерации
+            }
+
+            // Если валидация не пройдена и заполнен коммент или отмеченно правило
+            if ($requestArray['moderate'] == 0
+               // && ($requestArray['moderate_text'] || isset($requestArray['rule']))
+            ) {
+
+                $moderateItem = Moderate::updateOrCreate(
+                    ['id' => $requestArray['moderate_id']],       // Фильтр
+                    ['message' => $requestArray['moderate_text']] // Колонки которые будет обновлены
+                );
+
+                $moderateItem->settings()->sync($requestArray['rule'] ?? []);
+                $this->article->moderateComments()->sync($moderateItem->id);
+
+                event(new AdsModerate($this->article, $moderateItem));
+                // выбрасываем событие о пройденой модерации
+            }
+
+
+
+    }
+
+    public function sentToModerate(){
+
+        // Модерация не требуется
+        if ($this->article->moderate == 0) {
+            return false;
         }
+
+
+        // Проверяем изменени ли картинка
+        $isImgChange = $this->prepareImages();
+
 
         // Проверяем изменения ли категория или картинка
         $adsCat = $this->article->categories->pluck('id')->toArray();
         $catDiff = $adsCat == $this->request['categories'][0];
 
 
-        $needModerate = false;
+        // Модерация требуется
         if ($catDiff || $isImgChange) {
-            return $this->article->need_moderate;
-        } else {
-
-            $oldValues = $this->article->getAttributes();
-            foreach ($this->article->toModerate as $field) {
-
-                $checkVal = $this->request[$field];
-
-                if ($field === 'published') {
-                    $checkVal = intval($this->request[$field]);
-                }
-
-                if ($field === 'price') {
-                    $checkVal = floatval($this->request[$field]);
-                }
+            return true;
+        }
 
 
-                if ($oldValues[$field] !== $checkVal) {
-                    return $this->article->need_moderate;
-                }
+        $oldValues = $this->article->getAttributes();
+        foreach ($this->article->toModerate as $field) {
 
+            $checkVal = $this->request[$field];
+
+            if ($field === 'published') {
+                $checkVal = intval($this->request[$field]);
             }
-        }
-        return $this->article->not_need_moderate;
-    }
 
-    private function moderateStatus ($requestArray, $article, $isAdminPage, bool $imgIsNotChange) {
-
-        // Проверяем требуется ли модерация если это не админка
-        if (!$isAdminPage) {
-            return $this->onModerate($imgIsNotChange);
-        }
-
-
-        // Если раздел админки
-        if ($requestArray['moderate'] == 1) {
-            if ($article->moderateComments()->exists()) {
-                $article->moderateComments()->first()->settings()->detach();
-                $article->moderateComments()->detach();
+            if ($field === 'price') {
+                $checkVal = floatval($this->request[$field]);
             }
-            event(new AdsModerate($article, []));
-            return 1;
+
+            // Модерация требуется
+            if ($oldValues[$field] !== $checkVal) {
+                return true;
+            }
+
         }
 
-        $moderateItem = Moderate::updateOrCreate(
-            ['id' => $requestArray['moderate_id']],       // Фильтр
-            ['message' => $requestArray['moderate_text']] // Колонки которые будет обновлены
-        );
-
-        $moderateItem->settings()->sync($requestArray['rule'] ?? []);
-        $article->moderateComments()->sync($moderateItem->id);
-
-
-        event(new AdsModerate($article, $moderateItem));
-        return 0;
+        // Модерация не требуется
+        return false;
     }
-
 
 
 }

@@ -160,7 +160,7 @@ class ArticleController extends Controller
         $isAdmin = (strpos($request->segment(1), 'admin') !== false) ? true : false;
 
         try{
-            $moderateMsg =  ($this->adsService->uploadChain($inputs, $ads, $isAdmin)) ? "Объявление обновленно и отправлено на модерацию" :  "Объявление обновленно" ;
+            $moderateMsg =  ($this->adsService->uploadChain($inputs, $ads, $isAdmin)) ? $ads::MODERATE_AND_UPDATE :  $ads::UPDATE;
             $request->session()->flash('notice', $moderateMsg);
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();

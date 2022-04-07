@@ -200,4 +200,16 @@
     width: 90%;
     margin: 0 auto 24px !important;
   }
+  .ad__desktop{
+    display: none;
+  }
+  .ad__mobile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ad__default{
+    width: 50%;
+    padding: 24px;
+  }
 }

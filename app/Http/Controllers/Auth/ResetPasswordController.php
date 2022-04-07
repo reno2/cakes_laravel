@@ -31,7 +31,16 @@ class ResetPasswordController extends Controller
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:12',
+            'password' =>[
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                //                new NotEmail,
+                'regex:/[a-z]/',
+               // 'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/'
+            ],
         ];
     }
     /**

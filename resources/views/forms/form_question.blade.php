@@ -38,6 +38,7 @@
                     <span class="help-block text-danger js_error"></span>
                 </div>
                 <button class="btn-big btn-main wide" type="submit">Задать вопрос</button>
+                @if(config('services.google_recaptcha.recaptcha_status'))
                 <div class="modal__group form-cell js_form-cell">
                     <div class="captcha">
                         <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
@@ -49,7 +50,7 @@
                     </div>
                     <span class="help-block text-danger js_error"></span>
                 </div>
-
+                @endif
             </form>
         </div>
     </div>

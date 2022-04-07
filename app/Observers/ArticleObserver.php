@@ -54,6 +54,7 @@ class ArticleObserver
      */
     public function updated(Article $article)
     {
+
     }
 
     /**

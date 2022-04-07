@@ -23,6 +23,9 @@ class Article extends Model implements HasMedia, Viewable
     public  $not_need_moderate = '100';
     public  $need_moderate = '200';
 
+    const MODERATE_AND_UPDATE = "Объявление обновленно и отправлено на модерацию";
+    const UPDATE = "Объявление обновленно";
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
