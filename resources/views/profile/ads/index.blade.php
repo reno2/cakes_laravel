@@ -1,9 +1,6 @@
 @extends('layouts.profile')
-
 @section('content')
-
     <div class="profile-adverts">
-
         <div class="profile-adverts__body">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">

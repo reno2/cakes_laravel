@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
@@ -26,13 +27,13 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
     /**
      * Show the application registration form.
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
-    {
+    public function showRegistrationForm () {
         return view('forms.form_register');
     }
 
@@ -48,31 +49,26 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct () {
         $this->middleware('guest');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator (array $data) {
         return Validator::make($data, [
-            //'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => [
                 'required',
                 'string',
                 'min:8',
                 'confirmed',
-//                new NotEmail,
                 'regex:/[a-z\.]/',
-               // 'regex:/[0-9]/',
-                'regex:/[@$!%*#?&]/'
+                'regex:/[@$!%*#?&]/',
             ],
         ]);
     }
@@ -80,14 +76,13 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
+    protected function create (array $data) {
         $newUser = User::create([
             'email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
         ]);
         $newUser->profiles()->create();
         (new ProfileRepository())->setProfileNameAfterRegister($newUser->id);

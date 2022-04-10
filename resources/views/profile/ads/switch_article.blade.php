@@ -9,7 +9,6 @@
 @endif
 @stop
 
-{{--Тут подключаем нужные стили и скрипты для шаблонов форм--}}
 @section('page-script')
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
@@ -28,11 +27,6 @@
   <script src="{{ asset('js/validate.js')}}"></script>
   <link href="{{ asset('css/forms.css')}}" rel="stylesheet">
 @stop
-<style>
-    .hide{
-        display: none;
-    }
-</style>
 
 
 

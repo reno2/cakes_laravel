@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -26,23 +27,21 @@ class ResetPasswordController extends Controller
      *
      * @return array
      */
-    protected function rules()
-    {
+    protected function rules () {
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' =>[
+            'password' => [
                 'required',
                 'string',
                 'min:8',
                 'confirmed',
-                //                new NotEmail,
                 'regex:/[a-z]/',
-               // 'regex:/[0-9]/',
-                'regex:/[@$!%*#?&]/'
+                'regex:/[@$!%*#?&]/',
             ],
         ];
     }
+
     /**
      * Where to redirect users after resetting their password.
      *

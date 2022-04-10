@@ -170,11 +170,9 @@ class AdsController extends Controller
      */
     public function update(AdsRequest $request, $id)
     {
-
         $validated = $request->validated();
         $ads = Article::find($id);
         $inputs = $request->all();
-
         try{
            $moderateMsg =  ($this->adsService->uploadChain($inputs, $ads, false)) ? "Объявление обновленно и отправлено на модерацию" :  "Объявление обновленно" ;
             $request->session()->flash('notice', $moderateMsg);
@@ -182,8 +180,6 @@ class AdsController extends Controller
             return back()->withErrors( $e->getMessage())->withInput();
         }
         return redirect()->route('profile.ads.index');
-
-
     }
 
     /**

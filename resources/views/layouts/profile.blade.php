@@ -1,6 +1,5 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru"  >
     @include('chunks.head')
 
     <body class="front">
@@ -21,7 +20,6 @@
             </main>
         </div>
         @include('chunks.footer')
-
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/modal.js') }}"></script>
