@@ -52,7 +52,7 @@ class NewUserNotification extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array.form-group__hint
+     * @return array
      */
     public function toArray($notifiable)
     {

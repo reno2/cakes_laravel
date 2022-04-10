@@ -127,13 +127,9 @@ class AdsService
 
     function uploadChain ($requestArray, $article, $isAdminPage) {
 
-
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $requestArray;
-
-
-
 
         $sendToModerate = $this->sentToModerate();
         if($sendToModerate){
@@ -172,20 +168,19 @@ class AdsService
      * Сравнивает поля для проверки на изменения из новых данных со старыми
      * И отправляет на модерацию
      * @param $requestArray
-     * @param $updatedAds
+     * @param $moderateBefore
      * @return void
      */
     public function fireModerateEvent ($requestArray, $moderateBefore) {
-
-
 
             if ($requestArray['moderate'] == 1 && $moderateBefore == 0) {
                 if ($this->article->moderateComments()->exists()) {
                     $this->article->moderateComments()->first()->settings()->detach();
                     $this->article->moderateComments()->detach();
                 }
-                event(new AdsModerate($this->article, []));
+
                 // выбрасываем событие о пройденой модерации
+                event(new AdsModerate($this->article, []));
             }
 
             // Если валидация не пройдена и заполнен коммент или отмеченно правило
@@ -201,11 +196,9 @@ class AdsService
                 $moderateItem->settings()->sync($requestArray['rule'] ?? []);
                 $this->article->moderateComments()->sync($moderateItem->id);
 
+                // выбрасываем событие о непройденой модерации
                 event(new AdsModerate($this->article, $moderateItem));
-                // выбрасываем событие о пройденой модерации
             }
-
-
 
     }
 

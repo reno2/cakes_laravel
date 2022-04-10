@@ -50,7 +50,7 @@ class AdsRequest extends FormRequest
             'title'   => [
                 'required',
                 'max:155',
-                'regex:/^[-а-яА-Я0-9\s]+$/umi',
+                'regex:/^[-а-яА-Я0-9\sa-zA-Z]+$/umi',
                 //Rule::unique('articles', 'title')->where('deleted_at', null)->ignore($adsId),
                 new FindLinks
             ],
