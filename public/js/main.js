@@ -42,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     urlTabs();
+
+
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
-    //===================Обработчики на переключение=========================
-    //====================табов объявлениях профиля==========================
-    //=======================================================================
+
+    // Обработчики на переключение
+    //табов объявлениях профиля
     const adsSwitcher = document.querySelectorAll('.js_adsSwitcher');
     if (adsSwitcher) {
         adsSwitcher.forEach(btn => {

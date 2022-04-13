@@ -49,6 +49,9 @@
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
+            <small id="hint" class="form-group__hint">
+                Длина от 8 символов, числа, буквы латинского алфавита и спец. символы @$!%*#?&
+            </small>
         </div>
     </div>
 

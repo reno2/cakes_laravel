@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Profile as Model;
 use App\Repositories\CoreRepository;
@@ -176,7 +177,6 @@ class ProfileRepository extends CoreRepository
         $profileId =  $this->getFirstProfileByUser($userId)->id;
         $res = DB::table('favorites')
             ->where('article_id', $id)
-            ->where('deleted_at', null)
             ->where('profile_id', $profileId)
             ->first();
 
