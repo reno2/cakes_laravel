@@ -17,4 +17,5 @@ npm-debug.log
 yarn-error.log
 .bashrc
 laravel-echo-server.json
+laravel-echo-server.lock
 
