@@ -12,5 +12,19 @@
   100% {
     background: #f5f6f7;
   }
+}
 
+
+/* region Vue transition */
+
+// Fade-Down Transition use <transition name="slide-fade">
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: translateY(20px);
+  opacity: 0;
 }

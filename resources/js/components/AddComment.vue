@@ -13,7 +13,7 @@
         margin-left: 24px;
         margin-top: 24px;
     }
-    .comments__list .row{
+    .comments__list .row {
         margin-right: 0;
     }
     .comment-form {
@@ -21,12 +21,14 @@
         display: flex;
         position: sticky;
         bottom: 0;
-        background: #fff;
+        background: #ffffff;
     }
-    .comment-form__row{
+    .comment-form__row {
         display: flex;
         align-content: center;
+        flex-direction: column;
         padding-top: 16px;
+        padding-bottom: 16px;
     }
     .comment-form__btn {
         border-radius: 8px;
@@ -138,11 +140,48 @@
     }
 
 
-    .comment__svg{
+    .comment__svg {
         width: 20px;
         height: 20px;
         fill: #d3a1df;
     }
+    .comment__rows {
+        width: auto;
+    }
+
+    .comment-btn {
+        width: 100%;
+        display: flex;
+    }
+    .comment-btn__inner {
+        width: 500px;
+        position: relative;
+        display: flex;
+        flex-grow: 1;
+    }
+    .comment-typing {
+        margin-bottom: 8px;
+    }
+
+    /*region Scroll btn*/
+
+    .comments__scroll {
+        position: absolute;
+        top: -72px;
+    }
+    .scroll-action {
+        background: #eeeeee;
+        border-radius: 6px;
+        padding: 8px;
+        cursor: pointer;
+    }
+    .scroll-action__btn {
+        width: 40px;
+        height: 40px;
+        transform: rotate(268deg);
+        fill: #48b0f7;
+    }
+    /*region Scroll btn*/
 
 
 
@@ -150,6 +189,7 @@
 <template>
     <div class="_container">
         <div ref="comments" class="comments fix_viewport scrollFat">
+
 
             <div v-if="comments" class="comments__wrap" ref="container">
                 <transition-group ref="commentList" name="comments-transition" tag="div" class="comments__list">
@@ -166,41 +206,62 @@
                     </div>
                 </transition-group>
             </div>
-
-
         </div>
+
         <div v-if="isDeleted === '0'" ref="commentForm" class="row justify-content-start comment-form">
+            <transition name="slide-fade">
+                <div v-show="newComment" class="comments__scroll scroll-action" @click="runScroll">
+                    <svg class="scroll-action__btn">
+                        <use xlink:href="/images/icons.svg#icon-arrow_back"></use>
+                    </svg>
+                </div>
+            </transition>
             <div class="card-body">
                 <form @submit.prevent="submit">
-                    <div class="comment-form__row form-row align-items-center ">
-                        <div class="comment__row">
-                            <textarea type="text" name="comment" class="comment__input scrollVertical" id="comment" @keydown="actionUser" v-model="comment"
-                                      placeholder="Введите текст">
-                            </textarea>
-                            <button v-if="!isDisabled" type="submit" class="btn comment__submit">
-                                <svg class="comment__svg">
-                                    <use xlink:href="/images/icons.svg#fa-send"></use>
-                                </svg>
-                            </button>
+                    <div class="comment-form__row comment__rows align-items-center ">
 
-
-                            <span v-else class="btn comment__loading">
-                                <i class="fas fa-circle-notch fa-spin"></i>
-                            </span>
-                            <span v-if="error.status"
-                                  class="help-block comment__error text-danger">{{ error.msg }}</span>
-                        </div>
-                        <div class="comment__row" v-if="isUserTyping">
+                        <div class="comment__row comment-typing" v-if="isUserTyping">
                             <span class="comment__typing">{{isUserTyping.user}} печатает....</span>
                         </div>
-                        <div class="comment-form__btn" v-if="event==='update'">
-                            <button @click.prevent="exitEdit" class="comment-form__edit">
-                                <svg class="comment-item__icon comment__svg">
-                                    <use xlink:href="/images/icons.svg#icon-close"></use>
-                                </svg>
-                            </button>
+
+                        <div class="comment__row comment-btn">
+
+                            <div class="comment-btn__inner">
+                                <textarea type="text" name="comment" class="comment__input scrollVertical" id="comment" @keydown="actionUser" v-model="comment"
+                                          placeholder="Введите текст">
+                                </textarea>
+                                <button v-if="!isDisabled" type="submit" class="btn comment__submit">
+                                    <svg class="comment__svg">
+                                        <use xlink:href="/images/icons.svg#fa-send"></use>
+                                    </svg>
+                                </button>
+                                <span v-else class="btn comment__loading">
+                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                </span>
+
+                                <span v-if="error.status"
+                                      class="comment-btn__error help-block comment__error text-danger">{{ error.msg }}</span>
+                            </div>
+                            <div class="comment-btn__edit">
+                                <div class="comment-form__btn" v-if="event==='update'">
+                                    <button @click.prevent="exitEdit" class="comment-form__edit">
+                                        <svg class="comment-item__icon comment__svg">
+                                            <use xlink:href="/images/icons.svg#icon-close"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+
+
                         </div>
+
+
+
+
                     </div>
+
+
                 </form>
 
             </div>
@@ -220,6 +281,7 @@
         data() {
 
             return {
+                newComment: false,
                 firstRender: false,
                 topForm: 0,
                 isDisabled: false,
@@ -264,16 +326,19 @@
             updatedComment() {
                 console.log(this.updatedComment);
             },
-            renderComments(){
+            renderComments() {
                 if (!this.firstRender) {
-                    this.handleScroll()
+                    this.handleScroll();
                     this.firstRender = true;
                 }
-            }
+            },
 
         },
         methods: {
-
+            runScroll() {
+                this.handleScroll();
+                this.newComment = false;
+            },
             notMe() {
                 return Object.keys(this.usersObj).filter(u => {
                     return this.user !== u;
@@ -333,7 +398,7 @@
                     user_id: comment.user_id,
                 };
                 this.comments.push(tmp);
-                this.handleScroll()
+                this.handleScroll();
             },
             async submit() {
                 //return console.log(this.notMe())
@@ -413,7 +478,7 @@
                         top: top,
                         behavior: 'smooth'
                     });
-                })
+                });
             }
         },
 
@@ -428,15 +493,16 @@
 
         updated: function () {
             if (!this.firstRender) {
-                this.handleScroll()
+                this.handleScroll();
                 this.firstRender = true;
             }
 
         },
         mounted() {
             // Проверяем если пост не удалён
-            if(!this.isDeleted)
+            if (!this.isDeleted) {
                 this.topForm = this.$refs.commentForm.offsetTop;
+            }
             setTimeout(
                 () => {
                     //  this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})
@@ -463,6 +529,8 @@
                     this.usersOnline.splice(this.usersOnline.indexOf(user));
                 })
                 .listen('.questions', ({data}) => {
+
+                    // Основной метод для отслеживания
                     if (data.event === 'delete') {
                         return this.comments = this.comments.filter(item => item.id !== data.id);
                     }
@@ -470,8 +538,7 @@
                         return this.updateComment(data);
                     }
 
-
-
+                    this.newComment = true;
 
                     this.isUserTyping = false;
                     this.comments.push({...data});
@@ -488,7 +555,7 @@
 
         },
         created() {
-           // window.addEventListener('scroll', this.handleScroll);
+            // window.addEventListener('scroll', this.handleScroll);
         }
-    }
+    };
 </script>

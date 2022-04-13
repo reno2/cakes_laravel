@@ -2225,6 +2225,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2233,6 +2294,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      newComment: false,
       firstRender: false,
       topForm: 0,
       isDisabled: false,
@@ -2303,6 +2365,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    runScroll: function runScroll() {
+      this.handleScroll();
+      this.newComment = false;
+    },
     notMe: function notMe() {
       var _this = this;
 
@@ -2535,7 +2601,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this7 = this;
 
     // Проверяем если пост не удалён
-    if (!this.isDeleted) this.topForm = this.$refs.commentForm.offsetTop;
+    if (!this.isDeleted) {
+      this.topForm = this.$refs.commentForm.offsetTop;
+    }
+
     setTimeout(function () {//  this.$refs.commentForm.scrollIntoView({block: "end", behavior: "auto"})
       //  this.topForm =
       //console.log(this.$refs.commentForm.offsetTop);
@@ -2559,6 +2628,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }).listen('.questions', function (_ref) {
       var data = _ref.data;
 
+      // Основной метод для отслеживания
       if (data.event === 'delete') {
         return _this7.comments = _this7.comments.filter(function (item) {
           return item.id !== data.id;
@@ -2569,6 +2639,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _this7.updateComment(data);
       }
 
+      _this7.newComment = true;
       _this7.isUserTyping = false;
 
       _this7.comments.push(_objectSpread({}, data));
@@ -10838,7 +10909,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n    padding-right: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comments__list .row[data-v-2e098429]{\n    margin-right: 0;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n    background: #fff;\n}\n.comment-form__row[data-v-2e098429]{\n    display: flex;\n    align-content: center;\n    padding-top: 16px;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n    background: unset;\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n.comment__svg[data-v-2e098429]{\n    width: 20px;\n    height: 20px;\n    fill: #d3a1df;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n.item__add[data-v-2e098429] {\n    background: #eeeeeeb0;\n    padding: 5px 10px;\n    border-radius: 8px;\n    margin-bottom: 16px;\n}\n.comments[data-v-2e098429] {\n    position: relative;\n    padding-right: 16px;\n}\n.comments__list[data-v-2e098429] {\n    margin-left: 24px;\n    margin-top: 24px;\n}\n.comments__list .row[data-v-2e098429] {\n    margin-right: 0;\n}\n.comment-form[data-v-2e098429] {\n    border-top: 2px solid #f5f6f7;\n    display: flex;\n    position: -webkit-sticky;\n    position: sticky;\n    bottom: 0;\n    background: #ffffff;\n}\n.comment-form__row[data-v-2e098429] {\n    display: flex;\n    align-content: center;\n    flex-direction: column;\n    padding-top: 16px;\n    padding-bottom: 16px;\n}\n.comment-form__btn[data-v-2e098429] {\n    border-radius: 8px;\n    background: #f5f6f7;\n    height: -webkit-max-content;\n    height: -moz-max-content;\n    height: max-content;\n    display: block;\n    margin-left: 8px;\n}\n.comment-form__edit[data-v-2e098429] {\n    color: #48b0f7;\n    border: none;\n    background: none;\n    padding: 14px 24px;\n}\n.comment__row[data-v-2e098429] {\n    position: relative;\n    width: 500px;\n    margin-left: 86px;\n}\n.comment__input[data-v-2e098429]:active,\n.comment__input[data-v-2e098429]:focus {\n    outline: unset;\n}\n.comment__input[data-v-2e098429] {\n    background-color: #f5f6f7;\n    border: none;\n    padding: 16px;\n    border-radius: 8px;\n    width: 100%;\n    color: #b19b9b;\n    resize: none;\n    height: auto;\n    padding-right: 40px;\n}\n.comment__loading[data-v-2e098429],\n.comment__submit[data-v-2e098429] {\n    position: absolute;\n    top: 50%;\n    right: 8px;\n    transform: translateY(-50%);\n    background: unset;\n}\n.comment__loading i[data-v-2e098429],\n.comment__submit i[data-v-2e098429] {\n    color: #48b0f7;\n}\n.comment__error[data-v-2e098429] {\n    color: #e3342f !important;\n    position: absolute;\n    width: -webkit-fit-content;\n    width: -moz-fit-content;\n    width: fit-content;\n    left: 0;\n    bottom: -21px;\n    font-size: 12px;\n}\n\n/*transition*/\n.comments-transition-enter-active[data-v-2e098429],\n.comments-transition-leave-active[data-v-2e098429],\n.comments-transition-move[data-v-2e098429] {\n    transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);\n    transition-property: opacity, transform;\n}\n.comments-transition-enter[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0.5);\n}\n.comments-transition-enter-to[data-v-2e098429] {\n    opacity: 1;\n    transform: translateX(0) scaleY(1);\n}\n.comments-transition-leave-active[data-v-2e098429] {\n    transform: translateX(-50px);\n}\n.comments-transition-leave-to[data-v-2e098429] {\n    opacity: 0;\n    transform: translateX(50px) scaleY(0);\n    transform-origin: center bottom;\n}\n.comment__typing[data-v-2e098429] {\n    font-size: 12px;\n}\n.fix[data-v-2e098429] {\n    position: fixed;\n    bottom: 0px;\n    z-index: 9;\n    width: 784px;\n    background: #ffffff;\n    box-shadow: 0px -22px 23px -24px #00000038;\n}\n@media (max-width: 1279px) {\n.comment-form .comment__row[data-v-2e098429] {\n        flex-grow: 1;\n        width: inherit;\n        margin-left: 0;\n}\n.comment-form .comment-form__btn[data-v-2e098429] {\n        max-width: 56px;\n}\n}\n.comment__svg[data-v-2e098429] {\n    width: 20px;\n    height: 20px;\n    fill: #d3a1df;\n}\n.comment__rows[data-v-2e098429] {\n    width: auto;\n}\n.comment-btn[data-v-2e098429] {\n    width: 100%;\n    display: flex;\n}\n.comment-btn__inner[data-v-2e098429] {\n    width: 500px;\n    position: relative;\n    display: flex;\n    flex-grow: 1;\n}\n.comment-typing[data-v-2e098429] {\n    margin-bottom: 8px;\n}\n\n/*region Scroll btn*/\n.comments__scroll[data-v-2e098429] {\n    position: absolute;\n    top: -72px;\n}\n.scroll-action[data-v-2e098429] {\n    background: #eeeeee;\n    border-radius: 6px;\n    padding: 8px;\n    cursor: pointer;\n}\n.scroll-action__btn[data-v-2e098429] {\n    width: 40px;\n    height: 40px;\n    transform: rotate(268deg);\n    fill: #48b0f7;\n}\n/*region Scroll btn*/\n\n\n\n", ""]);
 
 // exports
 
@@ -89274,6 +89345,33 @@ var render = function() {
             staticClass: "row justify-content-start comment-form"
           },
           [
+            _c("transition", { attrs: { name: "slide-fade" } }, [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.newComment,
+                      expression: "newComment"
+                    }
+                  ],
+                  staticClass: "comments__scroll scroll-action",
+                  on: { click: _vm.runScroll }
+                },
+                [
+                  _c("svg", { staticClass: "scroll-action__btn" }, [
+                    _c("use", {
+                      attrs: {
+                        "xlink:href": "/images/icons.svg#icon-arrow_back"
+                      }
+                    })
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c(
                 "form",
@@ -89290,126 +89388,137 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "comment-form__row form-row align-items-center "
+                        "comment-form__row comment__rows align-items-center "
                     },
                     [
-                      _c("div", { staticClass: "comment__row" }, [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.comment,
-                              expression: "comment"
-                            }
-                          ],
-                          staticClass: "comment__input scrollVertical",
-                          attrs: {
-                            type: "text",
-                            name: "comment",
-                            id: "comment",
-                            placeholder: "Введите текст"
-                          },
-                          domProps: { value: _vm.comment },
-                          on: {
-                            keydown: _vm.actionUser,
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.comment = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        !_vm.isDisabled
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn comment__submit",
-                                attrs: { type: "submit" }
-                              },
-                              [
-                                _c("svg", { staticClass: "comment__svg" }, [
-                                  _c("use", {
-                                    attrs: {
-                                      "xlink:href": "/images/icons.svg#fa-send"
-                                    }
-                                  })
-                                ])
-                              ]
-                            )
-                          : _c(
-                              "span",
-                              { staticClass: "btn comment__loading" },
-                              [
-                                _c("i", {
-                                  staticClass: "fas fa-circle-notch fa-spin"
-                                })
-                              ]
-                            ),
-                        _vm._v(" "),
-                        _vm.error.status
-                          ? _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "help-block comment__error text-danger"
-                              },
-                              [_vm._v(_vm._s(_vm.error.msg))]
-                            )
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
                       _vm.isUserTyping
-                        ? _c("div", { staticClass: "comment__row" }, [
-                            _c("span", { staticClass: "comment__typing" }, [
-                              _vm._v(
-                                _vm._s(_vm.isUserTyping.user) + " печатает...."
-                              )
-                            ])
-                          ])
+                        ? _c(
+                            "div",
+                            { staticClass: "comment__row comment-typing" },
+                            [
+                              _c("span", { staticClass: "comment__typing" }, [
+                                _vm._v(
+                                  _vm._s(_vm.isUserTyping.user) +
+                                    " печатает...."
+                                )
+                              ])
+                            ]
+                          )
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm.event === "update"
-                        ? _c("div", { staticClass: "comment-form__btn" }, [
-                            _c(
-                              "button",
+                      _c("div", { staticClass: "comment__row comment-btn" }, [
+                        _c("div", { staticClass: "comment-btn__inner" }, [
+                          _c("textarea", {
+                            directives: [
                               {
-                                staticClass: "comment-form__edit",
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.exitEdit($event)
-                                  }
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.comment,
+                                expression: "comment"
+                              }
+                            ],
+                            staticClass: "comment__input scrollVertical",
+                            attrs: {
+                              type: "text",
+                              name: "comment",
+                              id: "comment",
+                              placeholder: "Введите текст"
+                            },
+                            domProps: { value: _vm.comment },
+                            on: {
+                              keydown: _vm.actionUser,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
                                 }
-                              },
-                              [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass:
-                                      "comment-item__icon comment__svg"
-                                  },
-                                  [
+                                _vm.comment = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          !_vm.isDisabled
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn comment__submit",
+                                  attrs: { type: "submit" }
+                                },
+                                [
+                                  _c("svg", { staticClass: "comment__svg" }, [
                                     _c("use", {
                                       attrs: {
                                         "xlink:href":
-                                          "/images/icons.svg#icon-close"
+                                          "/images/icons.svg#fa-send"
                                       }
                                     })
+                                  ])
+                                ]
+                              )
+                            : _c(
+                                "span",
+                                { staticClass: "btn comment__loading" },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-circle-notch fa-spin"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _vm.error.status
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "comment-btn__error help-block comment__error text-danger"
+                                },
+                                [_vm._v(_vm._s(_vm.error.msg))]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "comment-btn__edit" }, [
+                          _vm.event === "update"
+                            ? _c("div", { staticClass: "comment-form__btn" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "comment-form__edit",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.exitEdit($event)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "comment-item__icon comment__svg"
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/images/icons.svg#icon-close"
+                                          }
+                                        })
+                                      ]
+                                    )
                                   ]
                                 )
-                              ]
-                            )
-                          ])
-                        : _vm._e()
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
                     ]
                   )
                 ]
               )
             ])
-          ]
+          ],
+          1
         )
       : _vm._e()
   ])
