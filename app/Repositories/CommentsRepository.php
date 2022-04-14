@@ -119,7 +119,7 @@ class CommentsRepository extends CoreRepository
                     ->selectRaw('ANY_VALUE(articles.title) as title')
                     ->selectRaw('ANY_VALUE(articles.id) as article_id')
                     ->selectRaw('ANY_VALUE(media.id) as media_id')
-                    ->selectRaw('ANY_VALUE(comments.updated_at) AS last_date')
+                    ->selectRaw('max(comments.updated_at) AS last_date')
                     ->selectRaw('ANY_VALUE(media.file_name) as file_name')
                     ->join('rooms', 'comments.room', '=', 'rooms.id')
                     ->leftJoin('media', 'media.model_id', '=', 'comments.article_id')

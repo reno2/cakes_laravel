@@ -39,3 +39,7 @@
 .ui-tabs__head-item.active .ui-tabs__tab{
   color: #fff;
 }
+.ui-tabs__head-item.active{
+  background: $mainColor;
+  color: #fff;
+}

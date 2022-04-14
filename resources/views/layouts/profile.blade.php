@@ -20,13 +20,7 @@
             </main>
         </div>
         @include('chunks.footer')
-        <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/main.js')}}"></script>
-        <script src="{{ asset('js/modal.js') }}"></script>
-        <script src="{{ asset('js/toggleBlock.js')}}"></script>
-        <script src="{{ asset('js/header.js')}}"></script>
-        <script src="{{ asset('js/js_forms.js')}}"></script>
-        <script src="{{ asset('js/jqHandlers.js')}}"></script>
+        @include('chunks.includesFooter')
         @yield('page-script')
         @include('chunks.messages_alerts')
     </body>

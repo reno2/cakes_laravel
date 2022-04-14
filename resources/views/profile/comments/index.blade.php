@@ -5,10 +5,10 @@
 
     <div class="ui-tabs js_tabs">
         <div class="ui-tabs__head">
-            <button class="blue btn-middle ui-tabs__head-item js_tabLink active">
+            <button class="blue btn-middle ui-tabs__head-item js_tabLink active" data-tab="questions-to">
                 Вопросы мне @if($notReadQuestions) <span class="comment_isNew"></span>@endif
             </button>
-            <button class="blue btn-middle ui-tabs__head-item js_tabLink">
+            <button class="blue btn-middle ui-tabs__head-item js_tabLink" data-tab="questions-from">
                 Мои вопросы @if($notReadAnswers)<span class="comment_isNew"></span>@endif
             </button>
         </div>

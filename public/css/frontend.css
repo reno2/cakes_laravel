@@ -2072,6 +2072,11 @@ h3 {
   color: #fff;
 }
 
+.ui-tabs__head-item.active {
+  background: #d3a1df;
+  color: #fff;
+}
+
 .toggle-block {
   width: 100%;
   position: relative;

@@ -13,8 +13,6 @@ window.onload = function () {
 function tabSwitcher() {
 
     if (location.href.includes('#moderate')) {
-        //  console.log(document.querySelector("[href='#not_published']"));
-        //document.querySelector("[href='#not_published']")?.click()
         document.querySelector('.js_onModerate')?.dispatchEvent(new MouseEvent('click'));
     }
 }
@@ -25,7 +23,7 @@ function urlTabs() {
     if (searchParams.get('tab')) {
         const tabData = searchParams.get('tab');
         const activeTab = document.querySelector('[data-tab="' + tabData + '"]');
-        document.querySelector('.js_notPublished').click();
+        //document.querySelector('.js_notPublished').click();
         if (activeTab) {
 
             setTimeout(() => {
@@ -134,13 +132,6 @@ function profileAdsList(element, e) {
 
 }
 
-// Добавляем GET параметры
-function setUrlParam(param, value) {
-    const url = new URL(window.location);
-    url.searchParams.delete(param);
-    url.searchParams.append(param, value);
-    window.history.pushState({}, null, url);
-}
 
 
 function bToggle(element) {
@@ -252,6 +243,8 @@ function togglePreloader(state) {
     element.querySelector('.lds-ellipsis__wrap').remove();
 }
 
+// tabs
+
 const tabsLink = document.querySelectorAll('.js_tabLink');
 
 if (tabsLink.length) {
@@ -265,6 +258,7 @@ function setDataFromRequest() {}
 
 function toggleTab() {
     const tabChange = this.mynum;
+    const tabName = this.dataset.tab;
     const tabs = this.closest('.js_tabs').querySelectorAll('.js_tabContent');
     tabs.forEach((el, inx) => {
         if (tabs[inx].classList.contains('active')) {
@@ -274,6 +268,7 @@ function toggleTab() {
     });
     tabs[tabChange].classList.add('active');
     this.classList.add('active');
+    setUrlParam('tab', tabName)
 }
 
 
