@@ -16,11 +16,19 @@
 
 
 /* region Vue transition */
+// Simple fade animation
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+
 
 // Fade-Down Transition use <transition name="slide-fade">
 .slide-fade-enter-active {
-  transition: all .3s ease;
-}
+   transition: all .3s ease;
+ }
 .slide-fade-leave-active {
   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
@@ -28,3 +36,27 @@
   transform: translateY(20px);
   opacity: 0;
 }
+
+
+// Fade-LEft-Slide Transition use <transition name="slide-left-fade">
+.slide-left-fade-enter{
+  transform: translateX(-100%);
+  //transform: translateX(0%);
+
+}
+.slide-left-fade-enter-active {
+  transition: all .3s ease;
+
+}
+.slide-left-fade-leave-active {
+  transition: all .3s ease;
+  transform: translateX(-100%);
+}
+//.slide-left-fade-leave-active {
+//  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+//  transform: translateX(0%);
+//}
+//.slide-left-fade-enter, .slide-left-fade-leave-to{
+//  transform: translateX(0%);
+//  opacity: 0;
+//}

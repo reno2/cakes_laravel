@@ -6,8 +6,6 @@
 
 
 require('./bootstrap');
-// import 'jquery-ui/ui/widgets/sortable'
-// import 'jquery-ui/themes/base/all.css'
 window.md5 = require('md5');
 window.Vue = require('vue');
 import * as VeeValidate from 'vee-validate';
@@ -65,12 +63,8 @@ Vue.component('addresssearchstreet-component', require('./components/AddressSear
 Vue.component('multifileupload-component', require('./components/MultiFileUploadComponent.vue').default);
 Vue.component('addcomment', require('./components/AddComment.vue').default);
 Vue.component('socialshare', require('./components/SocialShare.vue').default);
+Vue.component('mobilemenu', require('./components/MobileMenu.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 const app = new Vue({
     el: '#app',
@@ -119,93 +113,14 @@ const galleryTop = new Swiper('.ad-detail__figure', {
 });
 
 
-// region Collection Slider
-
-// function swiperCommon() {
-//     const swiperWrap = document.querySelectorAll('.js_swiper__wrap');
-//     if (swiperWrap.length) {
-//         swiperWrap.forEach(el => {
-//             const swiperContainer = el.querySelector('.js_swiper__container');
-//             console.log(swiperContainer);
-//             const swiperSlider = new Swiper('.js_swiper__container', {
-//                 spaceBetween: 10,
-//                 freeMode: false,
-//                 centeredSlides: true,
-//                 pagination: {
-//                     el: '.swiper-pagination',
-//                     clickable: true,
-//                     type: 'fraction',
-//                 },
-//
-//             });
-//         });
-//     }
-// }
-// endregion Collection Slider
-
-
-
 document.addEventListener("DOMContentLoaded",   (e) => {
-
     const swiperSlider = new Swiper('.js_collection', {
-        // spaceBetween: 10,
-        // loopedSlides: 4,
         spaceBetween: 10,
-        // centeredSlides: true,
-        // loop: true,
         slidesPerView: 'auto',
         navigation: {
 
         }
-        // watchSlidesVisibility: true,
-        // watchSlidesProgress: true,
-        // freeMode: false,
-
     });
-    // const swiperSlider = new Swiper('.js_swiper__container', {
-    //     spaceBetween: 10,
-    //     freeMode: false,
-    //     centeredSlides: true,
-    //     pagination: {
-    //         el: '.swiper-pagination',
-    //         clickable: true,
-    //         type: 'fraction',
-    //     },
-    //
-    // });
-
-
-
 })
-
-// galleryTop.controller.control = galleryThumbs;
-// galleryThumbs.controller.control = galleryTop;
-
-// galleryThumbs.init();
-
-
-
-//
-// galleryThumbs.on('init', function(swiper){
-//     if(swiper.activeIndex < 4){
-//         swiper.prependSlide([
-//             '<div class="swiper-slide swiper__fake"></div>',
-//             '<div class="swiper-slide swiper__fake"></div>',
-//         ]);
-//
-//         galleryThumbs.params.loop = false
-//         swiper.allowSlideNext = false
-//         swiper.allowSlidePrev = false
-//         swiper.allowTouchMove = false
-//         document.querySelector('.swiper-container').classList.add('swiper-no-swiping')
-//         swiper.update()
-//     }
-// })
-
-// galleryThumbs.on('resize', function(swiper){
-//     console.log(this);
-// })
-// if(slideItems.length > 4)
-// galleryThumbs.init();
 
 

@@ -10,11 +10,13 @@
                 @yield('content')
             </main>
             @include('chunks.footer')
+            <mobilemenu menu="{{$mobileMenu}}"></mobilemenu>
         </div>
 
         @include('chunks.forms')
         @include('chunks.includesFooter')
         @yield('page-script')
         @include('chunks.messages_alerts')
+
     </body>
 </html>

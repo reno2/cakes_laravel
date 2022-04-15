@@ -35,6 +35,19 @@ class CategoryRepository extends CoreRepository
         return  $categories ?? [];
     }
 
+    public function forMobileMenu() {
+        return $this->startCondition()
+                           ->select('title', 'slug')
+                           ->where('published', '1')
+                           ->orderBy('sort', 'asc')
+                           ->orderBy('id', 'asc')
+                           ->whereHas('articles', function ($query) {
+                               $query->where('published', '1')->where('moderate', '1');
+                           })
+                           ->get()->toJson();
+
+    }
+
     public function getAllActiveParentItems(){
         return $this->startCondition()
                     ->where('published', '1')

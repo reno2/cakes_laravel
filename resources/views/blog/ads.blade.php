@@ -16,10 +16,10 @@
     </div>
 
 
-    @include('chunks.block_title', ['article' => $ad])
+    @include('chunks.block_title', ['article' => $article])
 
     <div class="container">
-        <div class="ad-detail">
+        <div class="article-detail">
             @include('ads.ad_detail')
         </div>
     </div>

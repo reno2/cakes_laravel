@@ -135,9 +135,7 @@ class BlogController extends Controller
 
             SeometaFacade::setData('post', $article->toArray());
 
-            return view('blog.ads', [
-                'ad' => $article,
-            ]);
+            return view('blog.ads', compact('article'));
 
         } catch (\Exception $e) {
             return abort(404);

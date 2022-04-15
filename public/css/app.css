@@ -460,6 +460,10 @@ input.mob-top__input {
   overflow-y: scroll;
 }
 
+.scrollBlock {
+  overflow: hidden;
+}
+
 i,
 button,
 input {
@@ -706,7 +710,7 @@ h5,
   }
 
   .app__main {
-    padding: 50px 16px 0;
+    padding: 72px 16px 80px;
   }
 }
 

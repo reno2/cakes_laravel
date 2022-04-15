@@ -10,6 +10,7 @@ use App\Observers\ArticleObserver;
 use App\Observers\CommentObserver;
 use App\Observers\ProfileObserver;
 use App\Observers\UserObserver;
+use App\Repositories\CategoryRepository;
 use App\Repositories\ProfileRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -66,11 +67,13 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('layouts.app', function($view)
         {
+
             $massagesCounts = 0;
             if(Auth::user()) $massagesCounts = helper_getAllNotice() ;
 
-
+            $mobileMenu = (new CategoryRepository)->forMobileMenu() ?? '';
             $view
+                ->with('mobileMenu', $mobileMenu)
                 ->with('favoritesCount', $this->getIds()['count'] ?? 0)
                 ->with('massagesCounts', $massagesCounts);
         });

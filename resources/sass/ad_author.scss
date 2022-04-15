@@ -1,4 +1,4 @@
-.ad-author{
+.article-author{
     display: flex;
     flex-wrap: wrap;
     background: #f2f2f2;
@@ -6,27 +6,27 @@
     border-radius: 10px;
     padding: 16px;
 }
-.ad-author__ava{
+.article-author__ava{
     width: 55px;
 }
-.ad-author__name{
+.article-author__name{
     font-weight: 700;
     margin-bottom: 8px;
     font-size: 16px;
 }
-.ad-author__created{
+.article-author__created{
     color: $gray2;
     line-height: 12px;
 }
-.ad-author__ads {
+.article-author__ads {
     color: $gray2;
  }
-.ad-author__img{
+.article-author__img{
     width: 100%;
     border-radius: 100px;
     border: 4px solid $cream;
 }
-.ad-author__info {
+.article-author__info {
     margin-left: 16px;
     font-weight: 500;
     font-size: 12px;
