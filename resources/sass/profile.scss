@@ -116,3 +116,9 @@
 .ui-menu__accent:hover .ui-menu__text {
   color: #ffe;
 }
+
+@media (max-width: 767px) {
+  .profile-content{
+    flex-direction: column;
+  }
+}

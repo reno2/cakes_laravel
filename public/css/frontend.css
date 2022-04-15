@@ -260,6 +260,23 @@
   font-weight: 400;
 }
 
+@media (max-width: 767px) {
+  .i-comment {
+    flex-direction: column;
+  }
+
+  .i-comment__col,
+  .i-comment__content,
+  .i-comment__new {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .i-comment__content {
+    margin: 8px 0;
+  }
+}
+
 .ads {
   display: flex;
   flex-wrap: wrap;
@@ -451,6 +468,10 @@
   .ad__default {
     width: 50%;
     padding: 24px;
+  }
+
+  .ads.treeColl .ad {
+    width: 90%;
   }
 }
 
@@ -1139,6 +1160,26 @@
   .reg-form__sub {
     font-size: 8px;
   }
+
+  .form-group {
+    flex-direction: column;
+  }
+
+  .form-group__single button,
+  .form-group label.form-group__placeholder,
+  .form-group div.form-group__inputs {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .form-group label.form-group__placeholder {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  div.form-group__single {
+    margin-left: 0;
+  }
 }
 
 /*=============Стили конкретных форм==================*/
@@ -1399,6 +1440,12 @@ h3 {
 
 .ui-menu__accent:hover .ui-menu__text {
   color: #ffe;
+}
+
+@media (max-width: 767px) {
+  .profile-content {
+    flex-direction: column;
+  }
 }
 
 .profile-adverts__lines {
@@ -2113,6 +2160,20 @@ h3 {
 .ui-tabs__head-item.active {
   background: #d3a1df;
   color: #fff;
+}
+
+@media (max-width: 767px) {
+  .ui-tabs {
+    margin-top: 8px;
+  }
+
+  .ui-tabs__head {
+    flex-direction: column;
+  }
+
+  .ui-tabs__head-item {
+    width: 100%;
+  }
 }
 
 .toggle-block {
@@ -2908,6 +2969,18 @@ li.cart-errors__li::marker {
 
 .profile-adverts__switch.group .profile-adverts__link {
   margin-right: 0;
+}
+
+@media (max-width: 767px) {
+  .profile-adverts__switch {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .profile-adverts__link {
+    width: 100%;
+  }
 }
 
 .app__footer.footer {

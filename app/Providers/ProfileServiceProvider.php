@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\ProfileRepository;
@@ -51,13 +52,12 @@ class ProfileServiceProvider extends ServiceProvider
                         $query->where('recipient_read_at', '=', null)
                             ->orWhere('sender_read_at', '=', null);
                     })
-
-
-                    //->groupby(['from_user_id', 'article_id'])
                     ->get()
                     ->count();
-               // dd($notReadComments);
+
+                $mobileMenu = (new CategoryRepository)->forMobileMenu() ?? '';
                 $view
+                    ->with('mobileMenu', $mobileMenu)
                     ->with('notReadQuestions', $commentsRepository->notReadQuestions(Auth::id()))
                     ->with('notReadAnswers', $commentsRepository->notReadAnswers(Auth::id()))
                     ->with('profile', $profile)

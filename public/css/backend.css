@@ -6472,6 +6472,26 @@ readers do not read off random characters that represent icons */
   .reg-form__sub {
     font-size: 8px;
   }
+
+  .form-group {
+    flex-direction: column;
+  }
+
+  .form-group__single button,
+  .form-group label.form-group__placeholder,
+  .form-group div.form-group__inputs {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .form-group label.form-group__placeholder {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  div.form-group__single {
+    margin-left: 0;
+  }
 }
 
 /*=============Стили конкретных форм==================*/

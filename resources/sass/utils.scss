@@ -26,3 +26,14 @@
   margin-right: 0;
 }
 // endregion Theming
+
+@media (max-width: 767px) {
+  .profile-adverts__switch {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .profile-adverts__link{
+    width: 100%;
+  }
+}

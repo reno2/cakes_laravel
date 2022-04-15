@@ -43,3 +43,16 @@
   background: $mainColor;
   color: #fff;
 }
+
+
+@media (max-width: 767px){
+  .ui-tabs{
+    margin-top: 8px;
+  }
+  .ui-tabs__head {
+    flex-direction: column;
+  }
+  .ui-tabs__head-item{
+    width: 100%;
+  }
+}

@@ -1,7 +1,7 @@
 <template>
     <div class="file-input">
-        <div class="form-group__single form-group row justify-content-md-center file-input__top">
-            <div class="offset-md-4 col-md-6 mr-2 file-input__figure">
+        <div class="form-group__single form-group file-input__top">
+            <div class="file-input__figure">
                 <div v-if="url" class="file-preview file-input__preview">
                     <img class="js_profileAva file-preview__img" v-if="url" :src="url"/>
 
@@ -121,5 +121,14 @@
     }
     .file-input__label {
 
+    }
+
+    @media (max-width: 767px) {
+        .file-input__top{
+            margin-left: 0;
+            display: flex;
+            justify-content: center;
+            padding-left: 0;
+        }
     }
 </style>

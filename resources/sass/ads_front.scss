@@ -24,7 +24,6 @@
 
 .ads.treeColl .ad {
   width: calc(32% - 21px);
-
 }
 
 .ad:hover .ad__title {
@@ -212,4 +211,9 @@
     width: 50%;
     padding: 24px;
   }
+
+  .ads.treeColl .ad{
+    width: 90%;
+  }
+
 }

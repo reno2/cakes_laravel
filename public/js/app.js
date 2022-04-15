@@ -11057,7 +11057,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview {\n    border-radius: 8px;\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n}\n.file-preview__img {\n    -o-object-fit: cover;\n       object-fit: cover;\n    -o-object-position: top;\n       object-position: top;\n    height: 100%;\n}\n.file-preview__del {\n    width: 30px;\n    height: 30px;\n    fill: #bf4141;\n    position: absolute;\n    z-index: 9;\n    bottom: 0;\n    right: 0;\n    background: #ffffff;\n    padding: 3px;\n    cursor: pointer;\n    border-radius: 2px;\n}\n.file-input__top {\n}\n.file-preview__del:hover {\n    background: #eeeeee;\n}\n.file-input {\n    margin-bottom: 24px;\n}\n.file-input__actions {\n    display: flex;\n    align-items: center;\n}\n.file-input__label {\n}\n", ""]);
+exports.push([module.i, "\n#ava {\n    display: none\n}\n.file-preview {\n    border-radius: 8px;\n    width: 200px;\n    height: 200px;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n}\n.file-preview__img {\n    -o-object-fit: cover;\n       object-fit: cover;\n    -o-object-position: top;\n       object-position: top;\n    height: 100%;\n}\n.file-preview__del {\n    width: 30px;\n    height: 30px;\n    fill: #bf4141;\n    position: absolute;\n    z-index: 9;\n    bottom: 0;\n    right: 0;\n    background: #ffffff;\n    padding: 3px;\n    cursor: pointer;\n    border-radius: 2px;\n}\n.file-input__top {\n}\n.file-preview__del:hover {\n    background: #eeeeee;\n}\n.file-input {\n    margin-bottom: 24px;\n}\n.file-input__actions {\n    display: flex;\n    align-items: center;\n}\n.file-input__label {\n}\n@media (max-width: 767px) {\n.file-input__top{\n        margin-left: 0;\n        display: flex;\n        justify-content: center;\n        padding-left: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -90259,44 +90259,37 @@ var render = function() {
   return _c("div", { staticClass: "file-input" }, [
     _c(
       "div",
-      {
-        staticClass:
-          "form-group__single form-group row justify-content-md-center file-input__top"
-      },
+      { staticClass: "form-group__single form-group file-input__top" },
       [
-        _c(
-          "div",
-          { staticClass: "offset-md-4 col-md-6 mr-2 file-input__figure" },
-          [
-            _vm.url
-              ? _c("div", { staticClass: "file-preview file-input__preview" }, [
-                  _vm.url
-                    ? _c("img", {
-                        staticClass: "js_profileAva file-preview__img",
-                        attrs: { src: _vm.url }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.hasAvatar == true
-                    ? _c(
-                        "svg",
-                        {
-                          staticClass: "file-preview__del",
-                          on: { click: _vm.removeAva }
-                        },
-                        [
-                          _c("use", {
-                            attrs: {
-                              "xlink:href": "/images/icons.svg#icon-close"
-                            }
-                          })
-                        ]
-                      )
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ]
-        )
+        _c("div", { staticClass: "file-input__figure" }, [
+          _vm.url
+            ? _c("div", { staticClass: "file-preview file-input__preview" }, [
+                _vm.url
+                  ? _c("img", {
+                      staticClass: "js_profileAva file-preview__img",
+                      attrs: { src: _vm.url }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hasAvatar == true
+                  ? _c(
+                      "svg",
+                      {
+                        staticClass: "file-preview__del",
+                        on: { click: _vm.removeAva }
+                      },
+                      [
+                        _c("use", {
+                          attrs: {
+                            "xlink:href": "/images/icons.svg#icon-close"
+                          }
+                        })
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            : _vm._e()
+        ])
       ]
     ),
     _vm._v(" "),

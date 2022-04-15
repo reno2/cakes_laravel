@@ -81,3 +81,23 @@
 
 }
 // endregion Comment page
+
+
+@media (max-width: 767px){
+  .i-comment{
+    flex-direction: column;
+  }
+
+  .i-comment__col,
+  .i-comment__content,
+  .i-comment__new{
+    width: 100%;
+    margin-left: 0;
+  }
+  .i-comment__content{
+    margin: 8px 0;
+  }
+  .i-comment__data{
+
+  }
+}
