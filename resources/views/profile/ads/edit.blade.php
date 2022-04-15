@@ -1,4 +1,4 @@
-<h3> Новое объявление</h3>
+<h3> Редактирование объявления</h3>
 <div class="card_ ui-card">
 
     <div class="js_fullLoader preloader">
@@ -40,7 +40,6 @@
                 user-city="{{$profile->address}}"
                 value="{{ old('deal_address', $ads->deal_address) }}"
                 message="@error('deal_address') {{$message}} @enderror">
-            >
         </addresssearchstreet-component>
 
         <div class="form-group row">

@@ -124,11 +124,16 @@
     }
 
     @media (max-width: 767px) {
-        .file-input__top{
+        .file-input .file-preview {
+            height: 150px;
+            width: 150px;
+        }
+       .file-input .file-input__top{
             margin-left: 0;
             display: flex;
             justify-content: center;
             padding-left: 0;
+            align-items: center;
         }
     }
 </style>

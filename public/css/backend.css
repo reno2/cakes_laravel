@@ -6473,20 +6473,26 @@ readers do not read off random characters that represent icons */
     font-size: 8px;
   }
 
-  .form-group {
+  div.form-group {
     flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 24px;
   }
 
+  .form-group__inputs .btn-block,
   .form-group__single button,
+  .form-group__single .half,
   .form-group label.form-group__placeholder,
   .form-group div.form-group__inputs {
     max-width: 100%;
     width: 100%;
+    padding-left: 0;
   }
 
   .form-group label.form-group__placeholder {
-    text-align: center;
+    text-align: left;
     margin-bottom: 5px;
+    font-size: 12px;
   }
 
   div.form-group__single {
