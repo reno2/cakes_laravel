@@ -3647,6 +3647,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 //import request from '../request';
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -3684,7 +3691,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         'link': '/profile/favorites',
         'title': 'Избранное',
-        'icon': '/images/icons.svg#icon-questions'
+        'icon': '/images/icons.svg#icon-favorites'
       }],
       data1: [],
       isOpen: false,
@@ -11151,7 +11158,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.m-menu__overlay {\n    background: rgba(0, 0, 0, .2);\n    height: 100vh;\n    position: fixed;\n    z-index: 1001;\n    width: 100%;\n    right: 0;\n    top: 0;\n}\n.m-menu.open {\n    background: rgba(0, 0, 0, .2);\n    height: 100vh;\n    position: fixed;\n    z-index: 1002;\n    width: 100%;\n}\n.m-menu__main {\n    background-color: #ffffff;\n    bottom: 0;\n    box-shadow: 0 16px 16px rgb(0 0 0 / 24%), 0 0 16px rgb(0 0 0 / 18%);\n    display: flex;\n    flex-direction: row;\n    flex-grow: 1;\n    left: 0;\n    max-width: 320px;\n    overflow: scroll;\n    position: fixed;\n    top: 0;\n    width: 85%;\n    z-index: 1001;\n}\n.m-menu__inner{\n    width: 100%;\n    margin-top: 24px;\n}\n.m-menu__button{\n    padding: 16px;\n}\n.m-menu__middle {\n    padding-top: 8px;\n}\n.m-menu__link {\n    color: #212121;\n    display: flex;\n    font-size: 14px;\n    line-height: 1.8;\n    padding: 12px 16px 12px 36px;\n    text-decoration: none;\n    align-items: center;\n}\n.m-menu__close{\n    width: 24px;\n    height: 24px;\n}\n.m-menu__title{\n    font-weight: 900;\n    margin-left: 36px;\n    font-size: 12px;\n    border-bottom: 1px solid #eee;\n    padding-bottom: 8px;\n}\n\n/* region If profile  */\n.m-menu__profile{\n    margin-bottom: 24px;\n}\n.m-menu__icon{\n    width: 16px;\n    height: 16px;\n    margin-right: 8px;\n    fill: #a7a7a7;\n}\n\n", ""]);
+exports.push([module.i, "\n.m-menu__overlay {\n    background: rgba(0, 0, 0, .2);\n    height: 100vh;\n    position: fixed;\n    z-index: 1001;\n    width: 100%;\n    right: 0;\n    top: 0;\n}\n.m-menu.open {\n    background: rgba(0, 0, 0, .2);\n    height: 100vh;\n    position: fixed;\n    z-index: 1002;\n    width: 100%;\n}\n.m-menu__main {\n    background-color: #ffffff;\n    bottom: 0;\n    box-shadow: 0 16px 16px rgb(0 0 0 / 24%), 0 0 16px rgb(0 0 0 / 18%);\n    display: flex;\n    flex-direction: row;\n    flex-grow: 1;\n    left: 0;\n    max-width: 320px;\n    overflow: scroll;\n    position: fixed;\n    top: 0;\n    width: 85%;\n    z-index: 1001;\n    border-top: 2px solid #a981b3;\n}\n.m-menu__inner {\n    width: 100%;\n    margin-top: 40px;\n}\n.m-menu__button {\n    padding: 16px;\n    position: absolute;\n    right: 0;\n}\n.m-menu__middle {\n    padding-top: 8px;\n}\n.m-menu__link {\n    color: #212121;\n    display: flex;\n    font-size: 14px;\n    line-height: 1.8;\n    padding: 12px 16px 12px 36px;\n    text-decoration: none;\n    align-items: center;\n    justify-content: space-between;\n    width: 100%;\n}\n.m-menu__close {\n    width: 24px;\n    height: 24px;\n    fill: #a7a7a7;\n}\n.m-menu__title {\n    font-weight: 900;\n    margin-left: 36px;\n    font-size: 12px;\n    border-bottom: 1px solid #eeeeee;\n    padding-bottom: 8px;\n}\n\n/* region If profile  */\n.m-menu__profile {\n    margin-bottom: 24px;\n}\n.m-menu__arrow{\n    width: 24px;\n    height: 24px;\n    transform: rotate(270deg);\n    fill: #a7a7a7;\n}\nspan.m-menu__data {\n    display: flex;\n    align-items: center;\n}\n.m-menu__icon {\n    width: 16px;\n    height: 16px;\n    margin-right: 8px;\n    fill: #a7a7a7;\n}\n\n", ""]);
 
 // exports
 
@@ -90614,16 +90621,26 @@ var render = function() {
                               attrs: { href: profileItem.link }
                             },
                             [
-                              _c("svg", { staticClass: "m-menu__icon" }, [
-                                _c("use", {
-                                  attrs: { "xlink:href": profileItem.icon }
-                                })
+                              _c("span", { staticClass: "m-menu__data" }, [
+                                _c("svg", { staticClass: "m-menu__icon" }, [
+                                  _c("use", {
+                                    attrs: { "xlink:href": profileItem.icon }
+                                  })
+                                ]),
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(profileItem.title) +
+                                    "\n                        "
+                                )
                               ]),
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(profileItem.title) +
-                                  "\n                        "
-                              )
+                              _vm._v(" "),
+                              _c("svg", { staticClass: "m-menu__arrow" }, [
+                                _c("use", {
+                                  attrs: {
+                                    "xlink:href": "/images/icons.svg#icon_more"
+                                  }
+                                })
+                              ])
                             ]
                           )
                         })

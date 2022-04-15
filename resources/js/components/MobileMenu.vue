@@ -9,8 +9,15 @@
                     <div v-if="profileMenu" class="m-menu__top" :class="{'m-menu__profile' : profileMenu}">
                         <div class="m-menu__title">Профиль</div>
                         <a :href="profileItem.link" v-for="(profileItem, key) in profile" class="m-menu__link">
-                            <svg class="m-menu__icon"><use :xlink:href="profileItem.icon"></use></svg>
-                            {{profileItem.title}}
+                            <span class="m-menu__data">
+                                <svg class="m-menu__icon">
+                                    <use :xlink:href="profileItem.icon"></use>
+                                </svg>
+                                {{profileItem.title}}
+                            </span>
+                            <svg class="m-menu__arrow">
+                                <use xlink:href="/images/icons.svg#icon_more"></use>
+                            </svg>
                         </a>
                     </div>
                     <div class="m-menu__middle menu">
@@ -25,7 +32,7 @@
                 </div>
             </div>
         </transition>
-</div>
+    </div>
 </template>
 
 <script>
@@ -40,39 +47,39 @@
             return {
                 profile: [
                     {
-                        'link' : '/',
-                        'title' : 'На главную',
-                        'icon' : '/images/icons.svg#icon-home'
+                        'link': '/',
+                        'title': 'На главную',
+                        'icon': '/images/icons.svg#icon-home'
                     },
                     {
-                        'link' : '/profile/ads/create',
-                        'title' : 'Создать объявление',
-                        'icon'  : '/images/icons.svg#icon-add'
+                        'link': '/profile/ads/create',
+                        'title': 'Создать объявление',
+                        'icon': '/images/icons.svg#icon-add'
                     },
                     {
-                        'link' : '/profile/edit',
-                        'title' :'Изменить профиль',
-                        'icon'  : '/images/icons.svg#icon-profile'
+                        'link': '/profile/edit',
+                        'title': 'Изменить профиль',
+                        'icon': '/images/icons.svg#icon-profile'
                     },
                     {
-                        'link' : '/profile/secure',
-                        'title' :'Изменить пароль',
-                        'icon'  : '/images/icons.svg#icon-pass'
+                        'link': '/profile/secure',
+                        'title': 'Изменить пароль',
+                        'icon': '/images/icons.svg#icon-pass'
                     },
                     {
-                        'link' :'/profile/ads',
-                        'title' :'Объявления',
-                        'icon'  : '/images/icons.svg#icon-ads'
+                        'link': '/profile/ads',
+                        'title': 'Объявления',
+                        'icon': '/images/icons.svg#icon-ads'
                     },
                     {
-                        'link' :'/profile/comments',
-                        'title' :'Сообщения',
-                        'icon' : '/images/icons.svg#icon-questions'
+                        'link': '/profile/comments',
+                        'title': 'Сообщения',
+                        'icon': '/images/icons.svg#icon-questions'
                     },
                     {
-                        'link' :'/profile/favorites',
-                        'title' :'Избранное',
-                        'icon' :  '/images/icons.svg#icon-questions'
+                        'link': '/profile/favorites',
+                        'title': 'Избранное',
+                        'icon': '/images/icons.svg#icon-favorites'
                     }
                 ],
                 data1: [],
@@ -86,7 +93,7 @@
                 (this.isOpen) ? this.body.classList.add('scrollBlock') : this.body.classList.remove('scrollBlock');
             },
             onResize() {
-               window.innerWidth > 767 ? this.isOpen = false : ''
+                window.innerWidth > 767 ? this.isOpen = false : '';
 
             }
         },
@@ -95,7 +102,7 @@
             this.body = document.body;
             this.$nextTick(() => {
                 window.addEventListener('resize', this.onResize);
-            })
+            });
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.onResize);
@@ -133,13 +140,16 @@
         top: 0;
         width: 85%;
         z-index: 1001;
+        border-top: 2px solid #a981b3;
     }
-    .m-menu__inner{
+    .m-menu__inner {
         width: 100%;
-        margin-top: 24px;
+        margin-top: 40px;
     }
-    .m-menu__button{
+    .m-menu__button {
         padding: 16px;
+        position: absolute;
+        right: 0;
     }
     .m-menu__middle {
         padding-top: 8px;
@@ -152,25 +162,38 @@
         padding: 12px 16px 12px 36px;
         text-decoration: none;
         align-items: center;
+        justify-content: space-between;
+        width: 100%;
     }
-    .m-menu__close{
+    .m-menu__close {
         width: 24px;
         height: 24px;
+        fill: #a7a7a7;
     }
 
-    .m-menu__title{
+    .m-menu__title {
         font-weight: 900;
         margin-left: 36px;
         font-size: 12px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #eeeeee;
         padding-bottom: 8px;
     }
 
     /* region If profile  */
-    .m-menu__profile{
+    .m-menu__profile {
         margin-bottom: 24px;
     }
-    .m-menu__icon{
+    .m-menu__arrow{
+        width: 24px;
+        height: 24px;
+        transform: rotate(270deg);
+        fill: #a7a7a7;
+    }
+    span.m-menu__data {
+        display: flex;
+        align-items: center;
+    }
+    .m-menu__icon {
         width: 16px;
         height: 16px;
         margin-right: 8px;
