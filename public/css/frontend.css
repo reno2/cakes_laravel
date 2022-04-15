@@ -1446,6 +1446,10 @@ h3 {
   .profile-content {
     flex-direction: column;
   }
+
+  .profile-content__sidebar {
+    display: none;
+  }
 }
 
 .profile-adverts__lines {

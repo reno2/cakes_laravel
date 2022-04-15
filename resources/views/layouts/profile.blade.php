@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </main>
-            <mobilemenu menu="{{$mobileMenu}}"></mobilemenu>
+            <mobilemenu profile-menu="1" menu="{{$mobileMenu}}"></mobilemenu>
         </div>
         @include('chunks.footer')
         @include('chunks.includesFooter')
