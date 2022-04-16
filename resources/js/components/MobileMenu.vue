@@ -36,7 +36,7 @@
                                 <use xlink:href="/images/icons.svg#icon_more"></use>
                             </svg>
                         </a>
-                        <form ref="logoutForm" id="logout-form" action="http://lara-auth.ru/logout" method="POST" style="display: none;"><input type="hidden" name="_token" :value="token">
+                        <form ref="logoutForm" id="logout-form" action="/logout" method="POST" style="display: none;"><input type="hidden" name="_token" :value="token">
 
                         </form>
                     </div>
