@@ -9,9 +9,7 @@
         </svg>
     </div>
 
-    <div class="ui-card__body">
 
-    </div>
     <form method="post" id="post-image" action="{{ route('profile.ads.update', $ads)}}" class="js_adsCreate create-form"
           enctype="multipart/form-data">
         @csrf
@@ -235,5 +233,5 @@
         </div>
     </form>
 </div>
-</div>
+
 

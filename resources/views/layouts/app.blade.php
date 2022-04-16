@@ -10,7 +10,7 @@
                 @yield('content')
             </main>
             @include('chunks.footer')
-            <mobilemenu menu="{{$mobileMenu}}"></mobilemenu>
+            <mobilemenu auth="{{auth()->check() ? true : false}}" menu="{{$mobileMenu}}"  token="{{ csrf_token() }}"></mobilemenu>
         </div>
 
         @include('chunks.forms')

@@ -61,7 +61,6 @@ class ProfileServiceProvider extends ServiceProvider
                     ->with('notReadQuestions', $commentsRepository->notReadQuestions(Auth::id()))
                     ->with('notReadAnswers', $commentsRepository->notReadAnswers(Auth::id()))
                     ->with('profile', $profile)
-                    //->with('commentsCount', $notReadComments)
                     ->with('notifications_count', $notifications)
                     ->with('commentsCount', $notReadComments)
                     ->with('notifications_count', $moderateNotifications)

@@ -1,12 +1,12 @@
 <template>
-    <div class="m-menu">
+    <div class="m-menu" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
         <transition name="fade">
-            <div v-if="isOpen" class="m-menu__overlay" @click="openMenu"></div>
+            <div v-if="isOpen" class="m-menu__overlay" @click="closeMenu"></div>
         </transition>
         <transition name="slide-left-fade">
             <div v-if="isOpen" class="m-menu__main">
                 <div class="m-menu__inner">
-                    <div v-if="profileMenu" class="m-menu__top" :class="{'m-menu__profile' : profileMenu}">
+                    <div v-if="auth" class="m-menu__top" :class="{'m-menu__profile' : auth}">
                         <div class="m-menu__title">Профиль</div>
                         <a :href="profileItem.link" v-for="(profileItem, key) in profile" class="m-menu__link">
                             <span class="m-menu__data">
@@ -24,8 +24,25 @@
                         <div class="m-menu__title">Разделы</div>
                         <a :href="`/category/${menuItem.slug}`" v-for="menuItem in JSON.parse(menu)" class="m-menu__link">{{menuItem.title}}</a>
                     </div>
+                    <div v-if="auth" class="m-menu__bottom">
+                        <a href="#" class="m-menu__link" @click="logout">
+                            <span class="m-menu__data">
+                                <svg class="m-menu__icon">
+                                    <use xlink:href="/images/back-icons.svg#dashboard-exit"></use>
+                                </svg>
+                                Выйти
+                            </span>
+                            <svg class="m-menu__arrow">
+                                <use xlink:href="/images/icons.svg#icon_more"></use>
+                            </svg>
+                        </a>
+                        <form ref="logoutForm" id="logout-form" action="http://lara-auth.ru/logout" method="POST" style="display: none;"><input type="hidden" name="_token" :value="token">
+
+                        </form>
+                    </div>
+
                 </div>
-                <div class="m-menu__button" @click="openMenu">
+                <div class="m-menu__button" @click="closeMenu">
                     <svg class="m-menu__close">
                         <use xlink:href="/images/icons.svg#icon-close"></use>
                     </svg>
@@ -41,7 +58,9 @@
     export default {
         props: {
             menu: {type: String},
-            profileMenu: false
+            auth: false,
+            token: null,
+
         },
         data() {
             return {
@@ -84,17 +103,37 @@
                 ],
                 data1: [],
                 isOpen: false,
-                body: null
+                body: null,
+                clientX: null
             };
         },
         methods: {
-            openMenu({target}) {
-                this.isOpen = !this.isOpen;
-                (this.isOpen) ? this.body.classList.add('scrollBlock') : this.body.classList.remove('scrollBlock');
+            closeMenu(){
+                this.isOpen = false
+                this.body.classList.remove('scrollBlock');
+            },
+            toggle(){
+                if(this.isOpen) return this.closeMenu();
+                this.openMenu();
+            },
+            openMenu() {
+                this.isOpen = true;
+                this.body.classList.add('scrollBlock')
             },
             onResize() {
-                window.innerWidth > 767 ? this.isOpen = false : '';
-
+                if(window.innerWidth > 767) {
+                    this.closeMenu();
+                }
+            },
+            logout(){
+                this.$refs.logoutForm.submit()
+            },
+            handleTouchStart(evt){
+                this.clientX = evt.touches[0].clientX;
+            },
+            handleTouchEnd(evt){
+                let deltaX = evt.changedTouches[0].clientX -  this.clientX;
+                if(deltaX < 0) this.isOpen = false
             }
         },
         mounted() {

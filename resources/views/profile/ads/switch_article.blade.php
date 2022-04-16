@@ -1,12 +1,11 @@
 @extends('layouts.profile')
 
 @section('content')
-
-@if(isset($ads))
-    @include('profile.ads.edit')
-@else
-    @include('profile.ads.create')
-@endif
+    @if(isset($ads))
+        @include('profile.ads.edit')
+    @else
+        @include('profile.ads.create')
+    @endif
 @stop
 
 @section('page-script')

@@ -3654,13 +3654,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //import request from '../request';
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     menu: {
       type: String
     },
-    profileMenu: false
+    auth: false,
+    token: null
   },
   data: function data() {
     return {
@@ -3695,17 +3713,37 @@ __webpack_require__.r(__webpack_exports__);
       }],
       data1: [],
       isOpen: false,
-      body: null
+      body: null,
+      clientX: null
     };
   },
   methods: {
-    openMenu: function openMenu(_ref) {
-      var target = _ref.target;
-      this.isOpen = !this.isOpen;
-      this.isOpen ? this.body.classList.add('scrollBlock') : this.body.classList.remove('scrollBlock');
+    closeMenu: function closeMenu() {
+      this.isOpen = false;
+      this.body.classList.remove('scrollBlock');
+    },
+    toggle: function toggle() {
+      if (this.isOpen) return this.closeMenu();
+      this.openMenu();
+    },
+    openMenu: function openMenu() {
+      this.isOpen = true;
+      this.body.classList.add('scrollBlock');
     },
     onResize: function onResize() {
-      window.innerWidth > 767 ? this.isOpen = false : '';
+      if (window.innerWidth > 767) {
+        this.closeMenu();
+      }
+    },
+    logout: function logout() {
+      this.$refs.logoutForm.submit();
+    },
+    handleTouchStart: function handleTouchStart(evt) {
+      this.clientX = evt.touches[0].clientX;
+    },
+    handleTouchEnd: function handleTouchEnd(evt) {
+      var deltaX = evt.changedTouches[0].clientX - this.clientX;
+      if (deltaX < 0) this.isOpen = false;
     }
   },
   mounted: function mounted() {
@@ -90586,13 +90624,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "m-menu" },
+    {
+      staticClass: "m-menu",
+      on: { touchstart: _vm.handleTouchStart, touchend: _vm.handleTouchEnd }
+    },
     [
       _c("transition", { attrs: { name: "fade" } }, [
         _vm.isOpen
           ? _c("div", {
               staticClass: "m-menu__overlay",
-              on: { click: _vm.openMenu }
+              on: { click: _vm.closeMenu }
             })
           : _vm._e()
       ]),
@@ -90601,12 +90642,12 @@ var render = function() {
         _vm.isOpen
           ? _c("div", { staticClass: "m-menu__main" }, [
               _c("div", { staticClass: "m-menu__inner" }, [
-                _vm.profileMenu
+                _vm.auth
                   ? _c(
                       "div",
                       {
                         staticClass: "m-menu__top",
-                        class: { "m-menu__profile": _vm.profileMenu }
+                        class: { "m-menu__profile": _vm.auth }
                       },
                       [
                         _c("div", { staticClass: "m-menu__title" }, [
@@ -90669,12 +90710,67 @@ var render = function() {
                     })
                   ],
                   2
-                )
+                ),
+                _vm._v(" "),
+                _vm.auth
+                  ? _c("div", { staticClass: "m-menu__bottom" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "m-menu__link",
+                          attrs: { href: "#" },
+                          on: { click: _vm.logout }
+                        },
+                        [
+                          _c("span", { staticClass: "m-menu__data" }, [
+                            _c("svg", { staticClass: "m-menu__icon" }, [
+                              _c("use", {
+                                attrs: {
+                                  "xlink:href":
+                                    "/images/back-icons.svg#dashboard-exit"
+                                }
+                              })
+                            ]),
+                            _vm._v(
+                              "\n                            Выйти\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("svg", { staticClass: "m-menu__arrow" }, [
+                            _c("use", {
+                              attrs: {
+                                "xlink:href": "/images/icons.svg#icon_more"
+                              }
+                            })
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        {
+                          ref: "logoutForm",
+                          staticStyle: { display: "none" },
+                          attrs: {
+                            id: "logout-form",
+                            action: "http://lara-auth.ru/logout",
+                            method: "POST"
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: _vm.token }
+                          })
+                        ]
+                      )
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "m-menu__button", on: { click: _vm.openMenu } },
+                { staticClass: "m-menu__button", on: { click: _vm.closeMenu } },
                 [
                   _c("svg", { staticClass: "m-menu__close" }, [
                     _c("use", {

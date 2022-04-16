@@ -4,6 +4,7 @@
     <body class="front">
         <div id="app">
             @include('chunks.header')
+
             <main class="app__main profile">
                 <div class="container">
                     <div class="profile-content">
@@ -17,11 +18,12 @@
                     </div>
                 </div>
             </main>
-            <mobilemenu profile-menu="1" menu="{{$mobileMenu}}"></mobilemenu>
+            <mobilemenu auth="{{auth()->check() ? true : false}}" menu="{{$mobileMenu}}"  token="{{ csrf_token() }}"></mobilemenu>
         </div>
         @include('chunks.footer')
         @include('chunks.includesFooter')
         @yield('page-script')
         @include('chunks.messages_alerts')
+
     </body>
 </html>
