@@ -129,11 +129,11 @@
                 this.$refs.logoutForm.submit()
             },
             handleTouchStart(evt){
-                this.clientX = evt.touches[0].clientX;
+               // this.clientX = evt.touches[0].clientX;
             },
             handleTouchEnd(evt){
-                let deltaX = evt.changedTouches[0].clientX -  this.clientX;
-                if(deltaX < 0) this.isOpen = false
+                // let deltaX = evt.changedTouches[0].clientX -  this.clientX;
+                // if(deltaX < 0) this.isOpen = false
             }
         },
         mounted() {

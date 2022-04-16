@@ -3738,12 +3738,10 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       this.$refs.logoutForm.submit();
     },
-    handleTouchStart: function handleTouchStart(evt) {
-      this.clientX = evt.touches[0].clientX;
+    handleTouchStart: function handleTouchStart(evt) {// this.clientX = evt.touches[0].clientX;
     },
-    handleTouchEnd: function handleTouchEnd(evt) {
-      var deltaX = evt.changedTouches[0].clientX - this.clientX;
-      if (deltaX < 0) this.isOpen = false;
+    handleTouchEnd: function handleTouchEnd(evt) {// let deltaX = evt.changedTouches[0].clientX -  this.clientX;
+      // if(deltaX < 0) this.isOpen = false
     }
   },
   mounted: function mounted() {
