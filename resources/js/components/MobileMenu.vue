@@ -60,7 +60,6 @@
             menu: {type: String},
             auth: false,
             token: null,
-
         },
         data() {
             return {

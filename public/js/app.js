@@ -90751,7 +90751,7 @@ var render = function() {
                           staticStyle: { display: "none" },
                           attrs: {
                             id: "logout-form",
-                            action: "http://lara-auth.ru/logout",
+                            action: "/logout",
                             method: "POST"
                           }
                         },
