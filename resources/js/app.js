@@ -84,7 +84,7 @@ import 'swiper/swiper-bundle.css';
 
 
 
-const galleryThumbs = new Swiper('.ad-detail__navigation', {
+const galleryThumbs = new Swiper('.article-detail__navigation', {
     spaceBetween: 10,
     slidesPerView: 'auto',
     freeMode: false,
@@ -98,7 +98,7 @@ const galleryThumbs = new Swiper('.ad-detail__navigation', {
     },
 
 });
-const galleryTop = new Swiper('.ad-detail__figure', {
+const galleryTop = new Swiper('.article-detail__figure', {
     spaceBetween: 10,
     freeMode: false,
     centeredSlides: true,

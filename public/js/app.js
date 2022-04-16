@@ -103242,7 +103242,7 @@ window.iziToast = __webpack_require__(/*! izitoast */ "./node_modules/izitoast/d
 
 
 
-var galleryThumbs = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-detail__navigation', {
+var galleryThumbs = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.article-detail__navigation', {
   spaceBetween: 10,
   slidesPerView: 'auto',
   freeMode: false,
@@ -103255,7 +103255,7 @@ var galleryThumbs = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.
     prevEl: '.js_swiperNavigate .arrow__right'
   }
 });
-var galleryTop = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.ad-detail__figure', {
+var galleryTop = new swiper_bundle__WEBPACK_IMPORTED_MODULE_3__["default"]('.article-detail__figure', {
   spaceBetween: 10,
   freeMode: false,
   centeredSlides: true,
