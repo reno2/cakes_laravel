@@ -26,7 +26,7 @@
                     target="street"
                     user-city="{{$profile->address}}"
                     value="{{ old('deal_address') }}"
-                    message="@error('deal_address') {{$message}} @enderror">
+                    message="@error('deal_address') {{$message}} @enderror"
                 >
             </addresssearchstreet-component>
 
