@@ -21,8 +21,10 @@ use App\Notifications\PostCreatedNotification;
 */
 Auth::routes(['verify' => true]);
 
-//Route::get('/', function () {
-//    return view('welcome');
+//Route::get('/test', function () {
+//    $adsRepo = new App\Repositories\AdsRepository();
+//    $arts = $adsRepo->forFrontPage();
+//    return view('test', compact('arts'));
 //});
 
 Route::get('/search', 'SearchController@fulltextSearch')->name('fulltextSearch');

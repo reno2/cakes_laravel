@@ -64,12 +64,12 @@
                     </div>
                 @else
                     <div class="profile__item js_profile__item">
-                        <a class="profile__mlink profile__cabinet" href="{{route('profile.index')}}">
+                        <div class="profile__mlink profile__cabinet" href="{{route('profile.index')}}">
                             <svg class="profile_svg profile__person-svg">
                                 <use xlink:href="/images/icons.svg#profile-person"></use>
                             </svg>
                             <span class="profile__name">Кабинет</span>
-                        </a>
+                        </div>
                         <div class="js_profile__menu profile-menu">
                             <div class="profile-menu__inner">
                                 <ul class="profile-menu__ul">
@@ -119,12 +119,12 @@
                         </a>
                     </div>
                     <div class="profile__item js_profile__item">
-                        <a class="profile__mlink profile__msg" href="{{route('favorites_list')}}">
+                        <div class="profile__mlink profile__msg" href="{{route('favorites_list')}}">
                             <svg class="profile_svg profile__favorite-svg">
                                 <use xlink:href="/images/icons.svg#profile-msg"></use>
                             </svg>
                             <span class="profile__name">Уведомления</span>
-                        </a>
+                        </div>
                         <div class="js_profile__menu profile-menu">
                             <div class="profile-menu__inner">
                                 <ul class="profile-menu__ul">

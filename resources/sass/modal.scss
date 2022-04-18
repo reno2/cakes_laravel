@@ -163,3 +163,13 @@
   width: 480px;
 }
 
+@media (max-width: 767px) {
+  .modal_small {
+    width: 100%;
+  }
+  .modal__title{
+    font-size: 32px;
+    line-height: 38px;
+  }
+}
+

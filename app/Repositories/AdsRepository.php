@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+
 use App\Models\Article;
 
 use Carbon\Carbon;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\Article as Model;
 use App\Repositories\CoreRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\Models\Media;
 use App\Models\Profile;
 
@@ -17,54 +19,58 @@ class AdsRepository extends CoreRepository
 {
 
 
-    public function forFrontPage(){
-        return $this->startCondition()::where('published', 1)
-                      ->where('moderate', 1)
-                      ->where('on_front', 1)
-                      ->orderBy('sort', 'asc')->orderBy('id', 'asc')->take(20)->get();
+    public function forFrontPage () {
+       // Cache::forget('front_ads');
+        return Cache::remember('front_ads', 60*15, function () {
+            return $this->startCondition()::where('published', 1)
+                        ->where('moderate', 1)
+                        ->where('on_front', 1)
+                        ->with('categories', 'tags')
+                        ->orderBy('sort', 'asc')->orderBy('id', 'asc')->take(20)->get();
+        });
     }
 
 
-    public function allForEditWithPaginateAndSort($sortParam = null, $sortType = null, $deleted = false, $perPage = 10){
+    public function allForEditWithPaginateAndSort ($sortParam = NULL, $sortType = NULL, $deleted = false, $perPage = 10) {
         $order = 'sort';
         $sort = 'asc';
 
-        if($sortParam){
+        if ($sortParam) {
             $order = $sortParam;
         }
 
-        if($sortType){
+        if ($sortType) {
             $sort = $sortType;
         }
 
-        if($deleted){
+        if ($deleted) {
             return $this->startCondition()::onlyTrashed()
-                                          ->orderBy($order, $sort)
-                                          ->with('media', 'tags')
-                                          ->paginate($perPage);
+                        ->orderBy($order, $sort)
+                        ->with('media', 'tags')
+                        ->paginate($perPage);
         }
 
 
 
         return $this->startCondition()::orderBy($order, $sort)
-            ->with('media', 'tags')
-            ->paginate($perPage);
+                    ->with('media', 'tags')
+                    ->paginate($perPage);
 
     }
 
 
-    public function notModerated(){
+    public function notModerated () {
         return $this->startCondition()::where('moderate', 0)->get();
     }
 
-    public function disableUserAds($userId){
+    public function disableUserAds ($userId) {
         $this->startCondition()::where('user_id', $userId)
-            ->update(['published'=>0]);
+             ->update(['published' => 0]);
     }
 
-    public function getTodayAds($count = 10){
+    public function getTodayAds ($count = 10) {
         $records = Article::whereDate('created_at', Carbon::today())->take($count)->get();
-        if($records->isEmpty()) return 0;
+        if ($records->isEmpty()) return 0;
         return $records;
     }
 
@@ -74,7 +80,7 @@ class AdsRepository extends CoreRepository
     * Передаём id пользователя и
     * возвращаем коллекцию со связами
     */
-    public function getByCurrentProfileFavoritesAdsSortedDesc($ids, $per = 9) {
+    public function getByCurrentProfileFavoritesAdsSortedDesc ($ids, $per = 9) {
         return $this->startCondition()->whereIn('id', $ids)->orderBy('created_at', 'desc')->paginate($per);
     }
 
@@ -83,17 +89,18 @@ class AdsRepository extends CoreRepository
     * @return Collection
     * Возвращаем коллекцию объявлений пользователя
     */
-    public function getByCurrentProfileAdsSortedDesc($where, $page = 'page', $user = null, $per = 10) {
-        if(!is_array($where)) $where = [ ['user_id', $user]];
+    public function getByCurrentProfileAdsSortedDesc ($where, $page = 'page', $user = NULL, $per = 10) {
+        if (!is_array($where)) $where = [['user_id', $user]];
         $data = $this->startCondition()->where($where)->orderBy('created_at', 'desc')->paginate($per, ['*'], $page);
         return $data;
 
     }
 
-    public function getAdsImagesSortByMain(){
-        $mediaItem2 =  Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
+    public function getAdsImagesSortByMain () {
+        $mediaItem2 = Media::where('model_id', $ads->id)->orderBy('custom_properties->main', 'desc')->get();
     }
-    public function getMainIfIsset(){
+
+    public function getMainIfIsset () {
 
     }
 
@@ -101,44 +108,40 @@ class AdsRepository extends CoreRepository
      * params $ads Article
      * re
      */
-    public function getUserProfileFirst($ads){
+    public function getUserProfileFirst ($ads) {
         return $ads->user->profiles->first();
     }
 
     /*
      *
      */
-    public function getForEdit($id){
+    public function getForEdit ($id) {
         return $this->startCondition()->find($id);
     }
+
     /*
    * @return string
    */
-    protected function getModelClass()
-    {
+    protected function getModelClass () {
         return Model::class;
     }
 
-    public function getAdsSortedDesc($per = 9)
-    {
+    public function getAdsSortedDesc ($per = 9) {
         return $this->startCondition()->orderBy('created_at', 'desc')->paginate($per);
     }
 
-    public function setRelationAttrs(array $values, $ads)
-    {
-         $ads->filterGroups()->attach(array_keys($values));
-         $ads->filterValues()->attach($values);
+    public function setRelationAttrs (array $values, $ads) {
+        $ads->filterGroups()->attach(array_keys($values));
+        $ads->filterValues()->attach($values);
         return true;
     }
 
-    public function setRelationCategories(array $values, $ads)
-    {
-         $ads->categories()->attach($values);
+    public function setRelationCategories (array $values, $ads) {
+        $ads->categories()->attach($values);
         return true;
     }
 
-    public function setRelationTags(array $values, $ads)
-    {
+    public function setRelationTags (array $values, $ads) {
         $ads->tags()->attach($values);
         return true;
     }
@@ -152,13 +155,13 @@ class AdsRepository extends CoreRepository
      * @return Array
      * Возвращаем массив данных
      */
-    public function getAdsImages($id){
+    public function getAdsImages ($id) {
         $mediaAdsCollection = Media::where('model_id', $id)->orderBy('custom_properties->main', 'desc')->get();
-        if(!$mediaAdsCollection->isEmpty()){
+        if (!$mediaAdsCollection->isEmpty()) {
             $adsFiles = [];
-            foreach($mediaAdsCollection as $key=>$mediaItem){
+            foreach ($mediaAdsCollection as $key => $mediaItem) {
                 $adsFiles[$mediaItem->file_name]['id'] = $mediaItem->id;
-                $adsFiles[$mediaItem->file_name]['main'] = ($mediaItem->getCustomProperty('main')) ?? false ;
+                $adsFiles[$mediaItem->file_name]['main'] = ($mediaItem->getCustomProperty('main')) ?? false;
                 $adsFiles[$mediaItem->file_name]['src'] = $mediaItem->getUrl('thumb');
                 $adsFiles[$mediaItem->file_name]['file_name'] = $mediaItem->file_name;
             }
@@ -167,20 +170,22 @@ class AdsRepository extends CoreRepository
         }
     }
 
-    public function removeArticle($ads){
+    public function removeArticle ($ads) {
         $ads->delete();
         return true;
     }
-    public function removeRelationCategories($ads){
+
+    public function removeRelationCategories ($ads) {
         $ads->categories()->detach();
         return true;
     }
-    public function removeRelationTags($ads){
+
+    public function removeRelationTags ($ads) {
         $ads->tags()->detach();
         return true;
     }
-    public function removeFilterValName($ads)
-    {
+
+    public function removeFilterValName ($ads) {
         $ads->filterGroups()->detach();
         $ads->filterValues()->detach();
         return true;

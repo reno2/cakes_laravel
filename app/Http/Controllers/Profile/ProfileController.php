@@ -132,9 +132,7 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
-
             //->with(['message' => 'Данные пользователя изменены']);
-
     }
 
     /**

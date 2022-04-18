@@ -11,6 +11,7 @@ window.onload = function () {
 }
 
 const menuShow = (e) => {
+    console.log(e);
     const menu = e.target.closest('.js_profile__item').querySelector('.js_profile__menu')
     if(!menu) return
 

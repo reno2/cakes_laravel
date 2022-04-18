@@ -6777,6 +6777,7 @@ readers do not read off random characters that represent icons */
   line-height: 22px;
   font-weight: 600;
   padding: 24px 0;
+  cursor: pointer;
   letter-spacing: 0.8px;
   position: relative;
 }

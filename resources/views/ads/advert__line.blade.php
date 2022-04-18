@@ -34,8 +34,8 @@
     </div>
 
     <div class="profile-markup__actions">
-        <div class="t-tooltip">
-            <svg class="i-svg i-svg__sm svg_menu b-toggle js_bToggle" data-toggle="b-toggle__content">
+        <div class="t-tooltip js_bToggle">
+            <svg class="i-svg i-svg__sm svg_menu b-toggle" data-toggle="b-toggle__content">
                 <use xlink:href="{{asset('images/icons.svg#icon-menu')}}"></use>
             </svg>
             <div class="js_bToolContent b-toggle__content">

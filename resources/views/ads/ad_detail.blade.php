@@ -1,4 +1,4 @@
-<div class="article-detail">
+
     <div class="article-detail__head">
         <div class="article-detail__date">
             {{ Date::parse($article->created_at)->format('j F Y г.') }}
@@ -157,9 +157,9 @@
                         Написать продавцу
                     </a>
                 @endif
-                <a class="wide article-detail__phone js_modal btn-secondary btn-big" href="#"
+                <a class="wide article-detail__phone js_modal__open btn-secondary btn-big" href="#"
                    data-user-name="{{$article->user->profiles->first()->name}}"
-                   data-ads-id="{{$article->id}}" data-user-id="{{$article->user->id}}" data-modal="feedback__question">
+                   data-modal="{{Auth::user() ? 'show__phone' : 'feedback__question' }}">
                     Показать номер
                 </a>
                 <div class="article-detail__author article-author">
@@ -219,4 +219,17 @@
             </div>
         </div>
     </div>
+
+
+<div class="mobile-block">
+    <div class="mobile-block__inner">
+        <button class="js_modal__open btn-main btn-middle half mobile-block__write" data-modal="feedback__question">написать</button>
+        <button class="js_modal__open btn-secondary btn-middle half mobile-block__phone" data-modal="{{Auth::user() ? 'show__phone' : 'feedback__question' }}">позвонить</button>
+    </div>
 </div>
+
+@section('forms')
+@if (Auth::check())
+    @include('modals.show_number')
+@endif
+@endsection

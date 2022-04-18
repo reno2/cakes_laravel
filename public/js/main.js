@@ -6,8 +6,18 @@ window.onload = function () {
 
 
 
-
 };
+
+// Отменяем событие клика по элементам с классом
+function preventDefaultEvent() {
+    const elements = document.querySelectorAll('.js_prevent__click')
+    if(!elements.length) return
+
+    elements.forEach(el => {
+        el.addEventListener('click', (e) => e.preventDefault())
+    })
+
+}
 
 
 function tabSwitcher() {
@@ -38,9 +48,8 @@ function urlTabs() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
+    preventDefaultEvent()
     urlTabs();
-
 
     const formCreate = document.querySelectorAll('.js_favorites');
     formCreate.forEach(formEl => formEl.addEventListener('submit', favorites));
@@ -59,20 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let postUpBtn = document.querySelector('.js_postUp');
     if (postUpBtn) postUpBtn.addEventListener('click', postUp);
 
-});
-
-window.addEventListener('click', function (e) {
-    const targetClasses = e.target.classList;
-    if (!targetClasses.contains('js_bToolContent')) {
-        // console.log(e.target);
-        document.querySelectorAll('.js_bToggle.open').forEach((el, inx) => {
-            if (el !== e.target) {
-
-                el.parentElement.querySelector('.b-toggle__content').classList.remove('open');
-                el.classList.remove('open');
-            }
-        });
-    }
 });
 
 
@@ -98,17 +93,37 @@ function updateUserNotice(userId) {
 }
 
 //===================================================
-
 // Контекстное меню в списке постов
-window.addEventListener('click', function (e) {
-    //console.log(e);
-    if (e.target.classList.contains('js_bToggle')) {
-        return bToggle(e.target);
+const actionContextMenus = document.querySelectorAll('.js_bToggle');
+if (actionContextMenus.length) {
+    actionContextMenus.forEach(e => e.addEventListener('click', contextMenusToggle));
+}
+
+function contextMenusToggle(e) {
+    const element = e.target.closest('.js_bToggle');
+
+    document.querySelectorAll('.js_bToggle.open').forEach((el, inx) => {
+        if (el !== element) {
+            el.parentElement.querySelector('.b-toggle__content').classList.remove('open');
+            el.classList.remove('open');
+        }
+    });
+
+    if (!$(element).hasClass('open')) {
+        const actionBlock = element.querySelector('.js_bToolContent');
+        element.classList.add('open');
+        actionBlock.classList.add('open');
+
+        document.addEventListener('click', ({target}) => {
+            if (target !== actionBlock && !target.closest('.js_bToggle')) {
+                element.classList.remove('open');
+                actionBlock.classList.remove('open');
+            }
+        });
     }
-    if (e.target.closest('.js_bToggle')) {
-        return bToggle(e.target.closest('.js_bToggle'));
-    }
-}, true);
+}
+// Ends context menu
+
 
 function profileAdsList(element, e) {
 
@@ -133,15 +148,6 @@ function profileAdsList(element, e) {
 }
 
 
-
-function bToggle(element) {
-
-    if (!$(element).hasClass('open')) {
-        const actionBlock = element.parentElement.querySelector('.js_bToolContent');
-        element.classList.add('open');
-        actionBlock.classList.add('open');
-    }
-}
 
 
 function favorites(e) {
@@ -168,7 +174,7 @@ function favorites(e) {
                 favoritesIcon.classList.remove('filled');
                 //favoritesIcon.classList.add('far');
             } else {
-               // favoritesIcon.classList.remove('far');
+                // favoritesIcon.classList.remove('far');
                 favoritesIcon.classList.add('filled');
             }
         }
@@ -268,7 +274,7 @@ function toggleTab() {
     });
     tabs[tabChange].classList.add('active');
     this.classList.add('active');
-    setUrlParam('tab', tabName)
+    setUrlParam('tab', tabName);
 }
 
 

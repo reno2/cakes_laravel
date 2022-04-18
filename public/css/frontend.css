@@ -772,11 +772,61 @@
   .article-detail__cover .article-detail__img {
     height: 260px;
   }
+
+  .article-detail__form .article-detail__ask,
+  .article-detail__form .article-detail__phone {
+    display: none;
+  }
+}
+
+.article__favorite {
+  fill: none;
+  cursor: pointer;
+  stroke-width: 3px;
+  stroke: #f279b1;
+  height: 18px;
+  width: 20px;
+}
+
+.article__favorite.filled {
+  fill: #f279b1;
+  stroke-width: 0;
+  stroke: unset;
 }
 
 .ad_text {
   font-size: 14px;
   line-height: 18px;
+}
+
+.mobile-block {
+  position: fixed;
+  bottom: -100%;
+  width: 100%;
+  left: 0;
+  z-index: 1000;
+  transition: bottom 200ms ease 0s;
+  box-shadow: 0 -40px 60px 0 rgba(37, 59, 112, 0.1);
+}
+
+.mobile-block__inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+@media (max-width: 767px) {
+  .article-detail {
+    padding-bottom: 77px;
+  }
+
+  .mobile-block {
+    bottom: 71px;
+  }
 }
 
 .article-author {
@@ -980,6 +1030,17 @@
 
 .modal_small {
   width: 480px;
+}
+
+@media (max-width: 767px) {
+  .modal_small {
+    width: 100%;
+  }
+
+  .modal__title {
+    font-size: 32px;
+    line-height: 38px;
+  }
 }
 
 .select2 {
@@ -1482,6 +1543,7 @@ h3 {
 .profile-markup__created,
 .profile-markup__updated {
   width: 100px;
+  font-size: 12px;
 }
 
 .profile-markup__favorites,
@@ -2549,6 +2611,7 @@ span.invalid-feedback {
   line-height: 22px;
   font-weight: 600;
   padding: 24px 0;
+  cursor: pointer;
   letter-spacing: 0.8px;
   position: relative;
 }

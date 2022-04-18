@@ -55,7 +55,6 @@
 .main-menu .menu__li,
 .category-menu .menu__li{
   display: flex;
-
   align-items: inherit;
   position: relative;
 }
@@ -71,7 +70,7 @@
   line-height: 22px;
   font-weight: 600;
   padding: 24px 0;
-
+  cursor: pointer;
   letter-spacing: .8px;
   position: relative;
 }
