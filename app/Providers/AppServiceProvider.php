@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Comment;
 use App\Observers\ArticleObserver;
+use App\Observers\CategoryObserver;
 use App\Observers\CommentObserver;
 use App\Observers\ProfileObserver;
 use App\Observers\UserObserver;
@@ -52,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
         Article::observe(ArticleObserver::class);
         User::observe(UserObserver::class);
         Comment::observe(CommentObserver::class);
+        Category::observe(CategoryObserver::class);
 
         view()->composer('ads.ad_detail', function($view)
         {

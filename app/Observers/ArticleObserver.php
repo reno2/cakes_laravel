@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Notifications\PostCreatedNotification;
 use App\Repositories\ProfileRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 
 class ArticleObserver
@@ -41,6 +42,7 @@ class ArticleObserver
      */
     public function saving(Article $article)
     {
+        Cache::forget('front_categories');
         $article->title =  strip_tags($article->title);
     }
 

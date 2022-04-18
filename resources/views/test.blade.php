@@ -8,8 +8,8 @@
     </head>
     <body>
         @foreach($arts as $ad)
-            <a class="ad__category"
-               href="{{route('category', $ad->categories->pluck('slug')->first())}}">{{$ad->categories->pluck('title')->first()}}</a>
+            {{dump($ad)}}
+
         @endforeach
     </body>
 </html>

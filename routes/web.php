@@ -22,7 +22,7 @@ use App\Notifications\PostCreatedNotification;
 Auth::routes(['verify' => true]);
 
 //Route::get('/test', function () {
-//    $adsRepo = new App\Repositories\AdsRepository();
+//    $adsRepo = new App\Repositories\CategoryRepository();
 //    $arts = $adsRepo->forFrontPage();
 //    return view('test', compact('arts'));
 //});
