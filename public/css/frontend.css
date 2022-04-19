@@ -825,7 +825,7 @@
   }
 
   .mobile-block {
-    bottom: 71px;
+    bottom: 70px;
   }
 }
 
@@ -1362,7 +1362,8 @@ h3 {
   justify-content: center;
   align-items: center;
   border-radius: 7px;
-  filter: drop-shadow(0px 4px 15px rgba(120, 160, 190, 0.3));
+  -webkit-filter: drop-shadow(0px 4px 15px rgba(120, 160, 190, 0.3));
+          filter: drop-shadow(0px 4px 15px rgba(120, 160, 190, 0.3));
   transition: all 0.2s ease;
 }
 
@@ -1392,6 +1393,13 @@ h3 {
   fill: #82c831;
   width: 24px;
   height: 24px;
+}
+
+@media (max-width: 767px) {
+  .arrow-big.arrow__right,
+  .arrow-big.arrow__left {
+    display: none;
+  }
 }
 
 .profile-content {

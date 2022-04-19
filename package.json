@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "highlight.js": "^10.1.2",
+        "imask": "^6.4.2",
         "izitoast": "^1.4.0",
         "js-share": "^2.3.2",
         "laravel-echo": "^1.11.0",

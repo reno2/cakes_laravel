@@ -26,7 +26,7 @@ class ProfileValidate extends FormRequest
 
         return [
             'name' => 'regex:/^[a-zA-Zа-яА-Я0-9\s_]+$/u',
-            'contact1' =>  'regex:/^[-0-9\s]+$/u',
+            'contact1' =>  'regex:/^[+()\-0-9\s]+$/u',
             'address' => 'required|regex:/^[a-zA-Zа-яА-Я0-9\s-]+$/u'
         ];
     }

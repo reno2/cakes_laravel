@@ -15,6 +15,9 @@ Vue.use(VeeValidate);
 
 import VueSocialSharing from 'vue-social-sharing';
 
+import IMask from 'imask';
+
+window.IMask  = IMask;
 
 Vue.use(VueSocialSharing);
 
@@ -108,8 +111,7 @@ const galleryTop = new Swiper('.article-detail__figure', {
     },
     thumbs: {
         swiper: galleryThumbs
-    },
-
+    }
 });
 
 

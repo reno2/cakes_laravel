@@ -68,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let postUpBtn = document.querySelector('.js_postUp');
     if (postUpBtn) postUpBtn.addEventListener('click', postUp);
 
+
+
+
+
 });
 
 

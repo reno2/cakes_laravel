@@ -35,3 +35,10 @@
     width: 24px;
     height: 24px;
 }
+
+@media (max-width: 767px){
+  .arrow-big.arrow__right,
+  .arrow-big.arrow__left{
+    display: none;
+  }
+}

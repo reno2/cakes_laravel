@@ -26,7 +26,7 @@
         <label class="form-group__placeholder" for="">Контактный телефон</label>
         <div class="form-group__inputs">
             <input id="contact1" type="text"
-                   class="form-group__input @error('contact1') is-invalid @enderror" name="contact1"
+                   class="js_phone_mask form-group__input @error('contact1') is-invalid @enderror" name="contact1"
                    value="{{old('contact1', $profile->contact1)}}">
 
             @error('address')
