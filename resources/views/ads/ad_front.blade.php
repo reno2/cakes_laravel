@@ -3,13 +3,12 @@
         @if($ad->getMedia('cover'))
             <div class="ad__mobile">
                 @if(!empty($ad->getMedia('cover')->first()))
-
                     <img class="ad__img" src="{{$ad->getMedia('cover')->first()->getUrl('thumb')}}">
                 @else
                     <img class="ad__img ad__default" src="{{helper_returnFakeImg('ads_front')}}">
                 @endif
             </div>
-            <div class="ad__desktop">
+            <div class="ad__desktop js_ad__desktop">
                 @forelse($ad->getMedia('cover') as $item)
 
                     <img class="ad__img" src="{{$item->getUrl('thumb')}}" alt="">

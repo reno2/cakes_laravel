@@ -1,9 +1,9 @@
 
 $(document).ready(function () {
     // Карусель на превьюшках
-    const $adsWithCarousel = $('.ad__desktop');
+    const $adsWithCarousel = $('.js_ad__desktop');
     if($adsWithCarousel.length)
-        $adsWithCarousel.brazzersCarousel();
+       $adsWithCarousel.brazzersCarousel();
 
 
     $('.js_ads__delete').on('click', async function(e){
