@@ -84,6 +84,10 @@
 
 
 @media (max-width: 767px){
+  .p-comment__date{
+    position: static;
+    margin-bottom: 16px;
+  }
   .i-comment{
     flex-direction: column;
   }
