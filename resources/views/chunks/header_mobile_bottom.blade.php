@@ -23,6 +23,9 @@
             <svg class="header-bottom__svg">
                 <use xlink:href="/images/icons.svg#profile-msg"></use>
             </svg>
+            <span class="header-count">
+                {{$noticesDto->getAllCnt()}}
+            </span>
             <span class="header-bottom__name">Уведомления</span>
         </a>
 
@@ -30,7 +33,9 @@
             <svg class="header-bottom__svg">
                 <use xlink:href="/images/icons.svg#profile-favorite"></use>
             </svg>
-            <span class="profile__info"></span>
+            <span class="header-count js_favoritesMain">
+                {{$favoritesCount}}
+            </span>
             <span class="header-bottom__name">Избранное</span>
         </a>
 

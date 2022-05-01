@@ -325,7 +325,20 @@
   }
 }
 
-
+.header-count{
+  background: #0ec645;
+  color: #fff;
+  position: absolute;
+  padding: 1px 5px;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -3px;
+  right: 60%;
+}
 
 // region Mobile menu
 .m-header__bottom {
@@ -360,6 +373,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 .header-bottom__name{
   text-transform: uppercase;

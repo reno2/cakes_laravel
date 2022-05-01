@@ -123,7 +123,7 @@
                             <svg class="profile_svg profile__favorite-svg">
                                 <use xlink:href="/images/icons.svg#profile-msg"></use>
                             </svg>
-                            <span class="profile__info js_favoritesMain">
+                            <span class="profile__info">
                                 {{$noticesDto->getAllCnt()}}
                             </span>
                             <span class="profile__name">Уведомления</span>
