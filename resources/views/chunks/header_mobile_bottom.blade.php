@@ -19,7 +19,7 @@
 
         @else
 
-        <a href="/favorites" class="header-bottom__messages header-bottom__item">
+        <a href="/profile" class="header-bottom__messages header-bottom__item">
             <svg class="header-bottom__svg">
                 <use xlink:href="/images/icons.svg#profile-msg"></use>
             </svg>

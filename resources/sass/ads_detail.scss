@@ -226,6 +226,9 @@
   display: none;
 }
 
+.article-mobile__price{
+  display: none;
+}
 @media (max-width: 1279px) {
   .article-detail__left{
     width: 100%;
@@ -276,6 +279,7 @@
   }
   .article-mobile__price{
     margin-top: 16px;
+    display: block;
   }
   .article-mobile__amount{
     font-size: 24px;
@@ -284,6 +288,7 @@
     display: none;
   }
 }
+
 .article__favorite{
   fill: none;
   cursor: pointer;
