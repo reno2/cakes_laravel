@@ -148,6 +148,9 @@
     };
 </script>
 <style>
+    .m-menu {
+        min-height: 100%;
+    }
     .m-menu__overlay {
         background: rgba(0, 0, 0, .2);
         height: 100vh;
@@ -236,6 +239,16 @@
         height: 16px;
         margin-right: 8px;
         fill: #a7a7a7;
+    }
+    .m-menu__bottom{
+        background: #D3A1DF;
+    }
+    .m-menu__bottom .m-menu__data{
+        color: #fff;
+    }
+    .m-menu__bottom  .m-menu__arrow,
+    .m-menu__bottom  .m-menu__icon{
+        fill: #fff;
     }
 
 </style>

@@ -21,10 +21,16 @@ if (!function_exists('helper_comment_owner_asked')) {
 function helper_getAllNotice () : array {
     $userRepo = new UserRepository();
     $commentsRepo = new CommentsRepository();
+
+    // Сообщения о модерации
     $moderateNoticeCount = $userRepo->getNotReadModerateNoticeCount();
-    //$commentsCount = $commentsRepo->notReadAnswers(Auth::id());
+
+    // Сообщения о вопросах
     $commentsCount = $commentsRepo->notReadAnswers(Auth::id()) + $commentsRepo->notReadQuestions(Auth::id());
-    return ['moderateCount' => $moderateNoticeCount ?? 0, 'commentsCount' => $commentsCount ?? 0];
+
+    //$noticeArray
+
+    return ['moderateCount' => $moderateNoticeCount, 'commentsCount' => $commentsCount];
 }
 
 /**

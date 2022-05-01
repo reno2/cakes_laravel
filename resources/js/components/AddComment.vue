@@ -138,7 +138,11 @@
             max-width: 56px;
         }
     }
-
+    @media (max-width: 768px) {
+        div.comment-btn__inner{
+            width: 100%;
+        }
+    }
 
     .comment__svg {
         width: 20px;

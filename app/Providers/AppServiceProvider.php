@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Dto\NoticesDto;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Profile;
@@ -71,14 +72,15 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.app', function($view)
         {
 
-            $massagesCounts = 0;
-            if(Auth::user()) $massagesCounts = helper_getAllNotice() ;
 
+
+            $noticesDto = new NoticesDto();
             $mobileMenu = (new CategoryRepository)->forMobileMenu() ?? '';
             $view
                 ->with('mobileMenu', $mobileMenu)
                 ->with('favoritesCount', $this->getIds()['count'] ?? 0)
-                ->with('massagesCounts', $massagesCounts);
+
+                ->with('noticesDto', $noticesDto);
         });
     }
 }

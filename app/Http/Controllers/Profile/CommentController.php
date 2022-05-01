@@ -138,10 +138,7 @@ class CommentController extends Controller
 
     /**
      * Выводим ветку переписка владельца объявления
-     *
      * @param int $room_id ид комнаты
-
-     *
      * @return Factory|View
      */
 
@@ -150,7 +147,7 @@ class CommentController extends Controller
         $userId = Auth::id();
         $data = $this->commentsRepository->getRoomWithRelations($room_id);
         $comments = Room::find($room_id)->comments->toArray();
-
+        $lastUpdateDate = Comment::select('updated_at')->orderBy('updated_at','DESC')->first();
 
         $this->commentsRepository->murkAsRead($room_id,
             ($data['owner_id'] === Auth::id()) ? 'recipient_read_at' : 'sender_read_at');
@@ -181,6 +178,7 @@ class CommentController extends Controller
             'ads' =>  $data['ads'],
             'sub' => json_encode($comments),
             'room' => $room_id,
+            'last_updated_date' => $lastUpdateDate
         ]);
 
     }

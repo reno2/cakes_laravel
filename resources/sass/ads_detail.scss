@@ -253,6 +253,7 @@
   }
   .article-detail__bottom{
     width: 100%;
+    margin-top: 16px;
   }
   .article-detail__right{
     margin-top: 24px;
@@ -263,13 +264,23 @@
   .article-detail__nav{
     display: none;
   }
-}
-@media (max-width: 767px) {
   .article-detail__cover .article-detail__img {
     height: 260px;
   }
   .article-detail__form .article-detail__ask,
   .article-detail__form .article-detail__phone{
+    display: none;
+  }
+  .article-detail__tags .tags{
+    margin-top: 16px;
+  }
+  .article-mobile__price{
+    margin-top: 16px;
+  }
+  .article-mobile__amount{
+    font-size: 24px;
+  }
+  .article-detail__price{
     display: none;
   }
 }

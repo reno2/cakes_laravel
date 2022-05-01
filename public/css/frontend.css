@@ -753,6 +753,7 @@
 
   .article-detail__bottom {
     width: 100%;
+    margin-top: 16px;
   }
 
   .article-detail__right {
@@ -766,15 +767,29 @@
   .article-detail__nav {
     display: none;
   }
-}
 
-@media (max-width: 767px) {
   .article-detail__cover .article-detail__img {
     height: 260px;
   }
 
   .article-detail__form .article-detail__ask,
   .article-detail__form .article-detail__phone {
+    display: none;
+  }
+
+  .article-detail__tags .tags {
+    margin-top: 16px;
+  }
+
+  .article-mobile__price {
+    margin-top: 16px;
+  }
+
+  .article-mobile__amount {
+    font-size: 24px;
+  }
+
+  .article-detail__price {
     display: none;
   }
 }
@@ -1525,6 +1540,10 @@ h3 {
   .profile-content__sidebar {
     display: none;
   }
+
+  .profile-content__body {
+    flex: 0 0 100%;
+  }
 }
 
 .profile-adverts__lines {
@@ -2118,6 +2137,18 @@ h3 {
   100% {
     transform: translate(19px, 0);
   }
+}
+
+.preloader_central .lds-ellipsis__wrap {
+  align-items: center;
+}
+
+.preloader_central .lds-ellipsis {
+  top: unset;
+}
+
+.preloader_no_shadow .lds-ellipsis__wrap {
+  box-shadow: unset;
 }
 
 .blink .comment-item__link {

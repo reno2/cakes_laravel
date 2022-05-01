@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Dto\NoticesDto;
 use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -23,10 +24,7 @@ class ProfileServiceProvider extends ServiceProvider
                 $user =  Auth::user();
                 $userId  = $user->id;
                 $profile = (new ProfileRepository)->getFirstProfileByUser($user);
-                $moderateNotifications =  (new App\Repositories\UserRepository())->getNotReadModerateNotice();
-                $notifications =  Auth::user()->unreadNotifications;
 
-                $commentsRepository = new App\Repositories\CommentsRepository();
 
                 $comments =  \DB::table('comments')
 
@@ -55,19 +53,15 @@ class ProfileServiceProvider extends ServiceProvider
                     ->get()
                     ->count();
 
+                $noticesDto = new NoticesDto();
+
                 $mobileMenu = (new CategoryRepository)->forMobileMenu() ?? '';
                 $view
                     ->with('mobileMenu', $mobileMenu)
-                    ->with('notReadQuestions', $commentsRepository->notReadQuestions(Auth::id()))
-                    ->with('notReadAnswers', $commentsRepository->notReadAnswers(Auth::id()))
                     ->with('profile', $profile)
-                    ->with('notifications_count', $notifications)
-                    ->with('commentsCount', $notReadComments)
-                    ->with('notifications_count', $moderateNotifications)
                     ->with('favoritesCount', $favorites)
                     ->with('favorites', $favorites)
-                    ->with('notifications', $moderateNotifications)
-                    ->with('massagesCounts', $massagesCounts);
+                    ->with('noticesDto', $noticesDto);
             }
         );
     }

@@ -121,6 +121,9 @@
             font-size: 14px;
             display: flex;
         }
+        .comment-item .comment-item__link {
+            width: 100%;
+        }
     }
     @media (max-width: 560px) {
         .comment-item__ava {

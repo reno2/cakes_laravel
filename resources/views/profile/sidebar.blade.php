@@ -56,7 +56,8 @@
                 </svg>
                 <span class="ui-menu__text">Вопросы</span>
             </a>
-            <span class="info-badge blue">{{$notReadQuestions + $notReadAnswers ?? '' }}</span>
+            <span class="info-badge blue">{{$noticesDto->getAllCommentsCnt()}}</span>
+
         </li>
 
         <li class="ui-menu__li">

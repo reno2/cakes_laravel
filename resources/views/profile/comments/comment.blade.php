@@ -24,13 +24,11 @@
         <div class="ui-card ">
             <div class="card-body comment-page">
 
-
                     <div class="comment-page__top">
-
                         @if($comment)
                             <div class="p-comment">
                                 <div class="p-comment__date">
-                                    {{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment['created_at']))->diffForHumans()}}
+                                    последнее: {{ \Carbon\Carbon::createFromTimeStamp(strtotime($last_updated_date->updated_at))->diffForHumans()}}
                                 </div>
                                 <div class="">
                                     <h5 class="p-comment__title mb-1">

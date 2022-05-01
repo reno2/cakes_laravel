@@ -8,6 +8,7 @@
 <script src="{{ asset('js/header.js')}}"></script>
 <script src="{{ asset('js/js_forms.js')}}"></script>
 <script src="{{ asset('js/jqHandlers.js')}}"></script>
+<script src="{{ asset('js/submit.js')}}"></script>
 <script src="{{ asset('js/libs/jQuery.Brazzers-Carousel.min.js')}}"></script>
 
 <!-- Yandex.Metrika counter -->

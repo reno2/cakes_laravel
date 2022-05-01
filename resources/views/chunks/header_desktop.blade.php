@@ -123,21 +123,25 @@
                             <svg class="profile_svg profile__favorite-svg">
                                 <use xlink:href="/images/icons.svg#profile-msg"></use>
                             </svg>
+                            <span class="profile__info js_favoritesMain">
+                                {{$noticesDto->getAllCnt()}}
+                            </span>
                             <span class="profile__name">Уведомления</span>
                         </div>
+
                         <div class="js_profile__menu profile-menu">
                             <div class="profile-menu__inner">
                                 <ul class="profile-menu__ul">
                                     <li class="profile-menu__li">
                                         <a href="{{route('profile.moderate.index')}}" class="profile-menu__link">
                                             Уведомления
-                                            ({{$massagesCounts['moderateCount']}})
+                                            ({{$noticesDto->getAllNoticesCnt()}})
                                         </a>
                                     </li>
                                     <li class="profile-menu__li">
                                         <a href="{{route('comments.index')}}" class="profile-menu__link">
                                             Вопросы
-                                            ({{$massagesCounts['commentsCount']}})
+                                            ({{$noticesDto->getAllCommentsCnt()}})
                                         </a>
                                     </li>
                                 </ul>
