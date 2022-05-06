@@ -11,6 +11,10 @@ class ModerateNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     private $data;
+
+    const SUCCESS_TEXT= "Ваше объявление  было одобрено модераторами, теперь его могут видеть все пользователи, не забывайте обновлять его для более эффективной выдачи на страницах нашего проекта.";
+    const FAILED_TEXT = "К сожалению Ваше объявление не прошло модерацию, со списком требований к размещаемому объявлению можете ознакомиться перейдя по ссылке.";
+
     /**
      * Create a new notification instance.
      *
@@ -19,8 +23,17 @@ class ModerateNotification extends Notification implements ShouldQueue
     public function __construct($data)
     {
         $this->data = $data;
-       // $this->data = $data['rules'];
-        $rr = '';
+
+        if($data["moderate"]){
+            $this->data['text'] = self::SUCCESS_TEXT;
+            $this->data['subject'] = "Модерация объявления [успех]";
+        }
+        else{
+            $this->data['text'] = self::FAILED_TEXT;
+            $this->data['subject'] = "Модерация объявления[отказ]";
+        }
+
+
     }
 
 
@@ -52,12 +65,11 @@ class ModerateNotification extends Notification implements ShouldQueue
 
 
     public function prepare(){
-        $title = ($this->data["moderate"]) ? '[успех]' : '[отказ]';
         return [
-            'title' => "Модерация объявления{$title}",
+            'title' => $this->data['subject'],
             'ads_title' => $this->data['title'],
             'link'  => $this->data["link"],
-            'text' => "Ваше объявление {$this->data['title']} было одобрено модераторами портала, теперь его могут видеть все пользователи портала, не забывайте обновлять его для более эффективной выдачи на страницах портала."
+            'text' => $this->data['text']
         ];
 
     }

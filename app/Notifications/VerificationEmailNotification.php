@@ -51,9 +51,6 @@ class VerificationEmailNotification extends Notification
             ->line('Здравствуйте, благодарим Вас за регистрацию на нашем проекте, для активации вашего аккаунта подтвердите почту.')
             ->action('Активировать', $verificationUrl);
 
-//            ->view(
-//                'emails.confirm', ['token' => $verificationUrl]
-//            );
     }
 
     /**
