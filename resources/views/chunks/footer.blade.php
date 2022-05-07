@@ -9,9 +9,12 @@
         </div>
         <div class="footer__item">
             <div class="footer__col">
-                <div class="footer__hint">Email</div>
-                <div class="footer__value">buy@2cake.ru</div>
+                <a class="footer__link" href="{{route('privacy')}}">Обработа персональных данных</a>
+                <a class="footer__link" href="{{route('terms')}}">Требования к размещению</a>
             </div>
         </div>
+    </div>
+    <div class="footer__row">
+
     </div>
 </footer>

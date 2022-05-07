@@ -154,7 +154,7 @@ Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
 // Static pages
 Route::get('privacy-policy',  function () {
     return view('static/privacy-policy');
-});
+})->name('privacy');
 Route::get('terms-conditions',  function () {
     return view('static/terms-conditions');
-});
+})->name('terms');;
