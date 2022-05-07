@@ -3,6 +3,7 @@
 use App\Mail\UserRegisteredMail;
 use App\Models\User;
 use App\Notifications\NewUserNotification;
+use App\Seo\SeometaFacade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -153,6 +154,8 @@ Route::get('login/{driver}/callback', 'Auth\SocialController@callback')
 
 // Static pages
 Route::get('privacy-policy',  function () {
+    SeometaFacade::setStaticTag('title', 'Политика в отношении обработки персональных данных');
+    SeometaFacade::setStaticTag('h1', 'Политика в отношении обработки персональных данных');
     return view('static/privacy-policy');
 })->name('privacy');
 Route::get('terms-conditions',  function () {
