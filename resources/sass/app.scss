@@ -72,6 +72,7 @@ h5, .h5 {
 *{
     box-sizing: border-box;
 }
+
 .container{
     max-width: 1200px;
     margin: auto;
@@ -84,7 +85,9 @@ h5, .h5 {
         margin: auto ;
     }
 }
-
+p {
+  line-height: 125%;
+}
 //===============================ICONS AND BTM===========================//
 .i-svg{
     &.i-svg__sm{

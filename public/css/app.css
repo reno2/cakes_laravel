@@ -547,6 +547,10 @@ h5,
   }
 }
 
+p {
+  line-height: 125%;
+}
+
 .i-svg.i-svg__sm {
   width: 16px;
   height: 16px;

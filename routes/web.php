@@ -158,6 +158,9 @@ Route::get('privacy-policy',  function () {
     SeometaFacade::setStaticTag('h1', 'Политика в отношении обработки персональных данных');
     return view('static/privacy-policy');
 })->name('privacy');
+
 Route::get('terms-conditions',  function () {
+    SeometaFacade::setStaticTag('title', 'Требования к размещению и содержанию объявлений');
+    SeometaFacade::setStaticTag('h1', 'Требования к размещению и содержанию объявлений');
     return view('static/terms-conditions');
 })->name('terms');;
