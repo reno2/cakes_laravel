@@ -31,7 +31,7 @@ class AdsRepository extends CoreRepository
     }
 
 
-    public function allForEditWithPaginateAndSort ($sortParam = NULL, $sortType = NULL, $deleted = false, $perPage = 10) {
+    public function allForEditWithPaginateAndSort ($sortParam = NULL, $sortType = NULL, $filter = false, $perPage = 10) {
         $order = 'sort';
         $sort = 'asc';
 
@@ -43,13 +43,19 @@ class AdsRepository extends CoreRepository
             $sort = $sortType;
         }
 
-        if ($deleted) {
+        if ($filter === 'with_deleted') {
             return $this->startCondition()::onlyTrashed()
                         ->orderBy($order, $sort)
                         ->with('media', 'tags')
                         ->paginate($perPage);
         }
 
+        if ($filter === 'moderate') {
+            return $this->startCondition()::orderBy($order, $sort)
+                        ->where('moderate', 0)
+                        ->with('media', 'tags')
+                        ->paginate($perPage);
+        }
 
 
         return $this->startCondition()::orderBy($order, $sort)

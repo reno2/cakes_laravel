@@ -2,13 +2,14 @@
 @section('content')
     <div class="container">
         <div class="contentCenter">
-            <div class="login-form">
+
+            <div class="login-form preloader_central preloader_no_shadow js_ajaxPreloader">
                 <div class="reg-form__content">
                     <div class="reg-form__top">
                         <div class="reg-form__title">Авторизация</div>
                         <div class="reg-form__login">Ещё нет аккаунта? <a class="reg-form__register_link" href="/register">Регистрация</a></div>
                     </div>
-                    <form class="reg-form_form" method="POST" action="{{ route('login') }}">
+                    <form class="reg-form_form js_loading" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="reg-form__group">
                             <label class="form__label" for="email">E-Mail</label>

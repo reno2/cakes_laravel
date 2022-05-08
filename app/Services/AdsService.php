@@ -29,10 +29,10 @@ class AdsService
 
     public function getAllForEdit ($request) {
 
-        $sorts = ['moderate', 'published', 'on_front', 'updated_at'];
+        $sorts = ['published', 'on_front', 'updated_at'];
         $sortParam = NULL;
         $sortType = NULL;
-        $deleted = false;
+
         foreach ($sorts as $sort) {
             if ($request->get($sort)) {
                 $sortParam = $sort;
@@ -40,11 +40,17 @@ class AdsService
                 break;
             }
         }
-
-        if ($request->get('with_deleted')) {
-            $deleted = true;
+        $filters = ['with_deleted', 'moderate'];
+        $filter = null;
+        foreach ($filters as $fill) {
+            if ($request->get($fill)) {
+                $filter = $fill;
+                break;
+            }
         }
-        $articles = $this->adsRepository->allForEditWithPaginateAndSort($sortParam, $sortType, $deleted);
+
+
+        $articles = $this->adsRepository->allForEditWithPaginateAndSort($sortParam, $sortType, $filter);
 
 
         foreach ($articles as $article) {

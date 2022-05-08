@@ -1,13 +1,11 @@
 
 
-document.querySelectorAll('.js_submit').forEach(el => {
+document.querySelectorAll('.js_loading').forEach(el => {
     el.addEventListener('submit', submitForm)
 })
 
 const requestHandler = window.requsetJs;
 
 function submitForm(e) {
-    e.preventDefault()
-    //togglePreloader(true)
-
+    togglePreloader(true)
 }

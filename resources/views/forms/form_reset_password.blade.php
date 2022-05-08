@@ -9,13 +9,13 @@
 
     <div class="contentCenter">
 
-        <div class="login-form">
+        <div class="login-form preloader_central preloader_no_shadow js_ajaxPreloader">
             <div class="reg-form__content">
                 <div class="reg-form__top">
                     <div class="reg-form__title">Сброс пароля</div>
                     <div class="reg-form__login">Ещё нет аккаунта? <a class="reg-form__register_link" href="/register">Регистрация</a></div>
                 </div>
-                <form class="reg-form_form" method="POST" action="{{ route('password.update') }}">
+                <form class="reg-form_form js_loading" method="POST" action="{{ route('password.update') }}">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="reg-form__group">

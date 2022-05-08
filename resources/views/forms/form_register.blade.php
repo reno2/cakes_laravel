@@ -17,7 +17,7 @@
                                 <a class="reg-form__login_link" href="/login">Войти</a>
                             </div>
                         </div>
-                        <form class="reg-form_form _js_submit" method="POST" action="{{ route('register') }}">
+                        <form class="reg-form_form js_loading" method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="reg-form__group">
                                 <label class="form__label" for="email">E-Mail</label>

@@ -27,10 +27,14 @@ class ModerateNotification extends Notification implements ShouldQueue
         if($data["moderate"]){
             $this->data['text'] = self::SUCCESS_TEXT;
             $this->data['subject'] = "Модерация объявления [успех]";
+            $this->data['link'] =  route('profile.ads.index');
+            $this->data['link_text'] =  'Мои объявления';
         }
         else{
             $this->data['text'] = self::FAILED_TEXT;
             $this->data['subject'] = "Модерация объявления[отказ]";
+            $this->data['link'] = route('profile.moderate.index');
+            $this->data['link_text'] = 'Прочить уведомление';
         }
 
 
@@ -60,7 +64,7 @@ class ModerateNotification extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->subject($data['title'] )
                     ->line($data['text'])
-                    ->action($data['ads_title'], $data['link']);
+                    ->action($data['link_text'], $data['link']);
     }
 
 
@@ -69,7 +73,8 @@ class ModerateNotification extends Notification implements ShouldQueue
             'title' => $this->data['subject'],
             'ads_title' => $this->data['title'],
             'link'  => $this->data["link"],
-            'text' => $this->data['text']
+            'text' => $this->data['text'],
+            'link_text' => $this->data['link_text']
         ];
 
     }

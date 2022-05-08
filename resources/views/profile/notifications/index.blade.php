@@ -1,7 +1,6 @@
 @extends('layouts.profile')
 
 @section('content')
-
     @forelse($notifications as $notification)
         <div class="notification alert alert-success" role="alert">
             <div class="notification__name">{{($notification["data"]["event_name"]) ?? 'Общее уведомление'}}</div>
