@@ -219,6 +219,7 @@
   font-weight: 900;
   color: $mainColor;
   font-size: 14px;
+  word-break: break-all;
 }
 
 .profile__search.isOpen .profile__name{

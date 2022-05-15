@@ -67,8 +67,8 @@
             </div>
         @endif
         <div class="article-mobile__price">
-            <div class="article-mobile__amount">
-                {{$article->price}} руб.
+            <div class="article-mobile__amount @if($article->deal) deal_price @endif">
+                {{$article->price}}
             </div>
         </div>
         <div class="article-detail__tags">
@@ -149,8 +149,8 @@
     <div class="article-detail__right">
         <div class="article-detail__form">
             <div class="article-detail__price">
-                <div class="article-detail__amount">
-                    {{$article->price}} руб.
+                <div class="article-detail__amount @if($article->deal) deal_price @endif">
+                    {{$article->price}}
                 </div>
             </div>
             @if(!@auth()->check() || (@auth()->check() && (@auth()->user()->id != $article->user_id)))

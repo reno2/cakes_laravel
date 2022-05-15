@@ -30,6 +30,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const PROFILE = '/profile';
 
+    /**
+     * Редирект после авторизации
+     *
+     * @var string
+     */
+    public const FRONT = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.

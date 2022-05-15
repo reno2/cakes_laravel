@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('.js_form-cell > input, .js_form-cell > textarea');
     inputs.forEach((el, inx) => {
@@ -9,8 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInputs(el);
         });
     }
+
+
+    // Цена по договорённости
+    document.querySelector('.js_deal__price')?.addEventListener('change', priceByDeal)
+    document.querySelector('.js_pay__price')?.addEventListener('input', priceByPay)
+
     phoneMask();
 });
+
+// Обработка цены по договорённости
+const priceByPay = ({target}) => {
+    const priceInput = target.closest('form').querySelector('.js_deal__price')
+    if(priceInput.checked){
+        target.closest('.js_form-group').classList.remove('disabled')
+        priceInput.checked = false
+    }
+}
+
+const priceByDeal = ({target}) => {
+    const priceInput = target.closest('form').querySelector('.js_pay__price')
+    if(target.checked){
+        priceInput.value = 0
+        priceInput.closest('.js_form-group').classList.add('disabled')
+    }else{
+        priceInput.value = ''
+    }
+}
+// Обработка цены по договорённости
 
 const setEvents = (el) => {
     el.addEventListener('focus', (e) => {

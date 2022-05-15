@@ -49,6 +49,10 @@
     color: #000;
     line-height: 100%;
 }
+.article-detail__amount.deal_price{
+  font-size: 18px;
+  font-weight: 900;
+}
 .article-detail__symbol{
     font-size: 20px;
     margin-left: 8px;
@@ -283,6 +287,10 @@
   }
   .article-mobile__amount{
     font-size: 24px;
+  }
+
+  .article-mobile__amount.deal_price{
+    font-size: 16px;
   }
   .article-detail__price{
     display: none;

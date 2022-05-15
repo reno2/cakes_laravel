@@ -62,7 +62,8 @@ class Article extends Model implements HasMedia, Viewable
         'weight',
         'deal_address',
         'delivery_self',
-        'user_id'
+        'user_id',
+        'deal'
     ];
 
     //plymorphe

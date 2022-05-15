@@ -141,12 +141,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="dial_price" class="form-group__placeholder"></label>
+                            <div class="form-group__inputs">
+                                <div class="form-check">
+                                    <input class="form-check-input form-group__checkbox js_deal__price"  type="checkbox" id="dial_price">
+                                    <label id="hint" for="dial_price" class="form-group__small text-muted">
+                                        Цена по договорённости
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="form-group row  @error('price') onError @enderror">
+                        <div class="form-group  js_form-group row  @error('price') onError @enderror">
                             <label for="price" class="col-md-4 col-form-label text-md-right form-group__placeholder">Стоимость Руб.</label>
                             <div class="col-md-2 form-group__inputs">
                                 <input id="price" type="text"
-                                       class="form-group__input js_numbersPoint js_validate form-control @error('price') is-invalid @enderror" name="price"
+                                       class="js_pay__price form-group__input js_numbersPoint js_validate form-control @error('price') is-invalid @enderror" name="price"
                                        autocomplete="off"
                                        value="{{old('price')}}">
                                 @error('price')

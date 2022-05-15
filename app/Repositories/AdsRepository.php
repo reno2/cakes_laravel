@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Models\Article;
 
 use Carbon\Carbon;
+use Hamcrest\Type\IsBoolean;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Article as Model;
 use App\Repositories\CoreRepository;
@@ -18,6 +19,20 @@ use App\Models\Profile;
 class AdsRepository extends CoreRepository
 {
 
+    public function forFrontDetail($id){
+        $cachceKey = "front_ad_detail_{$id}";
+        return Cache::remember($cachceKey, 60*15, function () use($id) {
+            $detailAds = $this->startCondition()::where('id', $id)
+                        ->where('published', 1)
+                        ->where('moderate', 1)
+                        ->first();
+
+            if (!$detailAds) return false;
+
+            $detailAds['price'] = (!$detailAds['price']) ? config('common.deal_price') : $detailAds['price'] . ' руб.';
+            return $detailAds;
+        });
+    }
 
     public function forFrontPage () {
        // Cache::forget('front_ads');
@@ -59,6 +74,7 @@ class AdsRepository extends CoreRepository
 
 
         return $this->startCondition()::orderBy($order, $sort)
+                    ->orderBy('sort', 'asc')
                     ->with('media', 'tags')
                     ->paginate($perPage);
 

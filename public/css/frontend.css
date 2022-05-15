@@ -534,6 +534,11 @@
   line-height: 100%;
 }
 
+.article-detail__amount.deal_price {
+  font-size: 18px;
+  font-weight: 900;
+}
+
 .article-detail__symbol {
   font-size: 20px;
   margin-left: 8px;
@@ -797,6 +802,10 @@
 
   .article-mobile__amount {
     font-size: 24px;
+  }
+
+  .article-mobile__amount.deal_price {
+    font-size: 16px;
   }
 
   .article-detail__price {
@@ -2565,6 +2574,10 @@ span.invalid-feedback {
   margin-top: 4px;
 }
 
+.form-group.disabled input {
+  background: #eee;
+}
+
 .form-group.onError .form-group__select,
 .form-group.onError .form-group__input {
   border: 1px solid #e75a5a;
@@ -2575,6 +2588,10 @@ span.invalid-feedback {
   margin-top: 8px;
   display: block;
   font-size: 10px;
+}
+
+.form-group__small {
+  font-size: 13px;
 }
 
 .was-validated :invalid ~ .invalid-feedback,

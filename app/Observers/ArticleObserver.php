@@ -43,6 +43,8 @@ class ArticleObserver
     public function saving(Article $article)
     {
         Cache::forget('front_categories');
+        Cache::forget('front_ads');
+        Cache::forget("front_ad_detail_{$article->id}");
         $article->title =  strip_tags($article->title);
     }
 

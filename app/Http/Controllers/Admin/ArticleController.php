@@ -85,18 +85,9 @@ class ArticleController extends Controller
         $validated = $request->validated();
         $inputs = $request->all();
 
-        $extraData = [
-            'user_id' => Auth::id(),
-            'moderate' => isset($request['moderate']) ? 1 : 0,
-            'sort' => $request['sort'] ?? 100
-        ];
-        $article = Article::create(
-            array_merge(
-                $request->except('image'),
-                $extraData)
-        );
+
         try{
-            $this->adsService->chain($inputs, $article);
+            $this->adsService->chain($inputs);
             session()->flash('notice', "Объявление создано");
         }catch (\Exception $e){
             return back()->withErrors( $e->getMessage())->withInput();

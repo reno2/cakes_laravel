@@ -7192,6 +7192,10 @@ span.invalid-feedback {
   margin-top: 4px;
 }
 
+.form-group.disabled input {
+  background: #eee;
+}
+
 .form-group.onError .form-group__select,
 .form-group.onError .form-group__input {
   border: 1px solid #e75a5a;
@@ -7202,6 +7206,10 @@ span.invalid-feedback {
   margin-top: 8px;
   display: block;
   font-size: 10px;
+}
+
+.form-group__small {
+  font-size: 13px;
 }
 
 .was-validated :invalid ~ .invalid-feedback,

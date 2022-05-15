@@ -10,6 +10,7 @@ use App\Models\PostImage;
 use App\Repositories\AdsRepository;
 use App\Repositories\UserRepository;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\UploadTrait;
@@ -96,7 +97,21 @@ class AdsService
 
     }
 
-    public function chain ($request, $article) {
+    public function chain ($request) {
+
+        $extraData = [
+            'user_id' => Auth::id(),
+            'moderate' => isset($request['moderate']) ? 1 : 0,
+            'sort' => $request['sort'] ?? 100,
+        ];
+        $newAds = array_merge($request, $extraData);
+
+        $this->setDeal($newAds);
+        unset($newAds['image']);
+
+        $article = Article::create($newAds);
+
+
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $request;
@@ -131,16 +146,23 @@ class AdsService
     }
 
 
+    public function setDeal(&$inputsArray){
+        $inputsArray['deal'] = $inputsArray['price'] ? 0 : 1;
+    }
+
     function uploadChain ($requestArray, $article, $isAdminPage) {
 
         $this->article = $article;
         $this->adsRepository = new AdsRepository();
         $this->request = $requestArray;
 
-        $sendToModerate = $this->sentToModerate();
+        $sendToModerate = $this->sentToModerate($isAdminPage);
         if($sendToModerate){
             $requestArray['moderate'] = 0;
         }
+
+       $this->setDeal($requestArray);
+
 
         $moderateBefore = $article->moderate;
         $updatedAds = tap($article)->update($requestArray);
@@ -208,13 +230,20 @@ class AdsService
 
     }
 
-    public function sentToModerate(){
+    public function sentToModerate($isAdminPage){
+
+        // Получаем старые значения
+        $oldValues = $this->article->getAttributes();
 
         // Модерация не требуется
         if ($this->article->moderate == 0) {
             return false;
         }
 
+        // Модерация не требуется, так админ ничего не изменил
+        if ($isAdminPage && $this->article->moderate === $oldValues['moderate']) {
+            return false;
+        }
 
         // Проверяем изменени ли картинка
         $isImgChange = $this->prepareImages();
@@ -231,7 +260,6 @@ class AdsService
         }
 
 
-        $oldValues = $this->article->getAttributes();
         foreach ($this->article->toModerate as $field) {
 
             $checkVal = $this->request[$field];
