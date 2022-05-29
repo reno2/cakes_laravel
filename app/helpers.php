@@ -72,3 +72,8 @@ function helper_returnFakeImg($type = null)  {
 
     return $path;
 }
+
+
+function setLineBreaks($str){
+    return str_replace(["\r\n", "\r", "\n"], '<br>', $str);
+}

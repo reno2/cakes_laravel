@@ -127,7 +127,7 @@
             <label for="description" class="form-group__placeholder">Описание</label>
             <div class="form-group__inputs">
                 <textarea name="description" class="form-group__textarea form-control @error('description') is-invalid @enderror"
-                          id="description">{{old('description', $ads->description)}}</textarea>
+                          id="description">{{ old('description', $ads->description)}}</textarea>
                 @error('description')
                 <span class="invalid-feedback" role="alert">
                     {{ $message }}

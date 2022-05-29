@@ -122,7 +122,7 @@
 
             <div class="article-detail__subtitle">Описание</div>
             <div class="article-detail__block card-block">
-                <div class="article_text article-detail__text">{{$article->description}}</div>
+                <div class="article_text article-detail__text">{!!$article->description!!}</div>
                 <div class="card-block__bottom">
                     <div class="card-block__social">
                         <div class="card-block__social-title">Поделиться:</div>

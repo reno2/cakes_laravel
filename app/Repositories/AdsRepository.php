@@ -29,6 +29,7 @@ class AdsRepository extends CoreRepository
 
             if (!$detailAds) return false;
 
+            $detailAds['description'] = setLineBreaks($detailAds['description']);
             $detailAds['price'] = (!$detailAds['price']) ? config('common.deal_price') : $detailAds['price'] . ' руб.';
             return $detailAds;
         });
