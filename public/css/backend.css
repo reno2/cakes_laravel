@@ -7450,6 +7450,7 @@ span.invalid-feedback {
 .list-table__ads .list-table__tab:nth-child(7),
 .list-table__ads .list-table__val:nth-child(7) {
   flex-basis: 200px;
+  word-break: break-all;
 }
 
 .list-table__ads .list-table__tab:nth-child(8),

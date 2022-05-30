@@ -235,6 +235,9 @@ class AdsService
         // Получаем старые значения
         $oldValues = $this->article->getAttributes();
 
+        // Проверяем изменени ли картинка
+        $isImgChange = $this->prepareImages();
+
         // Модерация не требуется
         if ($this->article->moderate == 0) {
             return false;
@@ -245,8 +248,7 @@ class AdsService
             return false;
         }
 
-        // Проверяем изменени ли картинка
-        $isImgChange = $this->prepareImages();
+
 
 
         // Проверяем изменения ли категория или картинка
