@@ -19,6 +19,16 @@ use App\Models\Profile;
 class AdsRepository extends CoreRepository
 {
 
+    /**
+     * @param $userId
+     * @return mixed
+     * Возвращаем количество статей пользователя
+     * Не удалённых
+     */
+    public function countByUser($userId){
+        return $this->startCondition()::where('user_id', $userId)->count();
+    }
+
     public function forFrontDetail($id){
         $cachceKey = "front_ad_detail_{$id}";
         return Cache::remember($cachceKey, 60*15, function () use($id) {

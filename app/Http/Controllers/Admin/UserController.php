@@ -67,4 +67,12 @@ class UserController extends Controller{
         }
 
     }
+
+    public function destroy (User $user, Request $request){
+        // Удалить отлоденные
+        // Мягко удалить объявления
+        // Деактивировать профиль
+        // Изменить статус
+        // dd($user);
+    }
 }

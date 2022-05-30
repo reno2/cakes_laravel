@@ -47,7 +47,7 @@
                 </svg>
                 <span class="ui-menu__text"> Объявления</span>
             </a>
-            <span class="info-badge blue">23</span>
+            <span class="info-badge blue">{{$noticesDto->getAdsCount()}}</span>
         </li>
         <li class="ui-menu__li">
             <a class="personal_a" href="{{route('comments.index')}}">

@@ -2,6 +2,7 @@
 namespace App\Dto;
 
 
+use App\Repositories\AdsRepository;
 use App\Repositories\CommentsRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,9 @@ class NoticesDto{
 
     // Репо комментов
     private CommentsRepository $commentsRepo;
+
+    // Репо статей
+    private AdsRepository $adsRepo;
 
     // Проверка на авторизацию
     private bool $isAuth = false;
@@ -36,6 +40,9 @@ class NoticesDto{
     protected int $commentNotReadQuestions = 0;
 
 
+    // Количество объявлений пользователя не удалённых
+    protected int $adsCount = 0;
+
 
     public function __construct () {
         if(!Auth::check()) return;
@@ -43,10 +50,12 @@ class NoticesDto{
         $this->userId = Auth::id();
         $this->userRepo = new UserRepository();
         $this->commentsRepo =  new CommentsRepository();
+        $this->adsRepo =  new AdsRepository();
 
         $this->setCommentCnt();
         $this->setNoticeCnt();
         $this->setAllCnt();
+        $this->setAdsCount();
     }
 
     public function setCommentCnt(){
@@ -68,6 +77,13 @@ class NoticesDto{
 
     public function getCommentsNotReadAnswers(){
         return $this->commentNotReadAnswers;
+    }
+
+    /**
+     * Получаем количество объявлений
+     */
+    private function setAdsCount () {
+        $this->adsCount = $this->adsRepo->countByUser($this->userId);
     }
 
     public function getCommentsNotReadQuestion(){
@@ -99,4 +115,14 @@ class NoticesDto{
     public function getAllCommentsCnt(){
         return $this->allCommentsCnt;
     }
+
+    /**
+     * Получаем количество объявлений, не удалённых
+     * @return int
+     */
+    public function getAdsCount(){
+        return $this->adsCount;
+    }
+
+
 }
